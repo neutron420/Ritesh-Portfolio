@@ -14,7 +14,7 @@ const ContactSection = () => {
           </h2>
 
           <a
-            href="mailto:hello@example.com"
+            href="mailto:fnaticritesh2004@gmail.com"
             className="inline-flex items-center gap-3 px-6 py-3 bg-accent text-accent-foreground rounded-xl font-medium hover:bg-accent/90 transition-colors group"
           >
             <Mail className="w-4 h-4" />
