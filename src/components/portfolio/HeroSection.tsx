@@ -6,7 +6,7 @@ const HeroSection = () => {
     { icon: Github, href: "https://github.com/neutron420", label: "GitHub" },
     { icon: Twitter, href: "https://x.com/RiteshS18572143", label: "X" },
     { icon: Linkedin, href: "https://www.linkedin.com/in/ritesh-singh1/", label: "LinkedIn" },
-    { icon: Music, href: "https://open.spotify.com", label: "Spotify" },
+    { icon: Music, href: "https://open.spotify.com/user/31z5zydy6avat6sca542yiotjcmi", label: "Spotify" },
     { icon: Mail, href: "mailto:fnaticritesh2004@gmail.com", label: "Email" },
   ];
 
