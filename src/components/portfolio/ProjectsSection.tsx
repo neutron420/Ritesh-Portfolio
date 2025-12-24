@@ -15,6 +15,9 @@ import {
   SiWeb3Dotjs
 } from "react-icons/si";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
+import projectRaby from "@/assets/project-raby.jpg";
+import projectBloom from "@/assets/project-bloom.png";
+import projectGrievance from "@/assets/project-grievance.jpg";
 
 // Tech stack icon mapping
 const techIcons: Record<string, React.ReactNode> = {
@@ -44,7 +47,7 @@ const projects = [
     techStack: ["Next.js", "Node.js", "PostgreSQL", "Prisma", "Redis", "WebSockets", "Docker", "Kubernetes", "Tailwind CSS"],
     github: "https://github.com/neutron420/Swaraj-Desk",
     live: null,
-    image: "https://images.unsplash.com/photo-1557597774-9d273605dfa9?w=600&auto=format&fit=crop&q=80",
+    image: projectGrievance,
   },
   {
     name: "Bloom",
@@ -52,7 +55,7 @@ const projects = [
     techStack: ["React", "WebRTC", "Mediasoup", "Socket.io", "Node.js", "Redis", "Docker", "AWS"],
     github: "https://github.com/neutron420/Bloom",
     live: null,
-    image: "https://images.unsplash.com/photo-1588196749597-9ff075ee6b5b?w=600&auto=format&fit=crop&q=80",
+    image: projectBloom,
   },
   {
     name: "Raby",
@@ -60,7 +63,7 @@ const projects = [
     techStack: ["React Native", "Node.js", "Web3.js", "Docker", "AWS"],
     github: "https://github.com/neutron420/Raby",
     live: null,
-    image: "https://ledger-wp-website-s3-prd.ledger.com/uploads/2025/04/hero-1.webp",
+    image: projectRaby,
   },
 ];
 
