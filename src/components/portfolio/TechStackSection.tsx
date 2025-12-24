@@ -51,16 +51,12 @@ const TechStackSection = () => {
   const TechCard = ({ tech }: { tech: typeof technologies[0] }) => {
     const Icon = tech.icon;
     return (
-      <div className="flex-shrink-0 px-2">
-        <div className="flex flex-col items-center gap-2 px-5 py-4 bg-card rounded-xl border border-border hover:border-accent/50 transition-all min-w-[100px] group cursor-default">
-          <Icon 
-            className="w-8 h-8 group-hover:scale-110 transition-transform text-foreground"
-            style={{ color: tech.color }}
-          />
-          <span className="text-xs text-muted-foreground group-hover:text-foreground transition-colors whitespace-nowrap">
-            {tech.name}
-          </span>
-        </div>
+      <div className="flex flex-col items-center gap-2 px-5 py-4 bg-card rounded-xl border border-border">
+        <Icon
+          className="w-8 h-8 text-foreground"
+          style={{ color: tech.color }}
+        />
+        <span className="text-xs text-muted-foreground whitespace-nowrap">{tech.name}</span>
       </div>
     );
   };
@@ -79,20 +75,10 @@ const TechStackSection = () => {
         </p>
       </div>
 
-      {/* Scrolling Row 1 - Left */}
-      <div className="relative overflow-hidden mb-4 group/scroll">
-        <div className="flex w-max animate-marquee-left group-hover/scroll:[animation-play-state:paused]">
-          {[...technologies, ...technologies].map((tech, index) => (
-            <TechCard key={`row1-${index}`} tech={tech} />
-          ))}
-        </div>
-      </div>
-
-      {/* Scrolling Row 2 - Right */}
-      <div className="relative overflow-hidden group/scroll">
-        <div className="flex w-max animate-marquee-right group-hover/scroll:[animation-play-state:paused]">
-          {[...technologies.slice().reverse(), ...technologies.slice().reverse()].map((tech, index) => (
-            <TechCard key={`row2-${index}`} tech={tech} />
+      <div className="section-container">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+          {technologies.map((tech) => (
+            <TechCard key={tech.name} tech={tech} />
           ))}
         </div>
       </div>

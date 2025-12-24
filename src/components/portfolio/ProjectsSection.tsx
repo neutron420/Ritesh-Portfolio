@@ -92,7 +92,7 @@ const ProjectsSection = () => {
           {projects.map((project, index) => (
             <div
               key={project.name}
-              className={`group bg-card rounded-2xl border border-border/50 overflow-hidden hover:border-accent/50 hover:shadow-lg hover:shadow-accent/5 transition-all duration-300 scroll-reveal ${isVisible ? 'visible' : ''}`}
+              className={`group bg-card rounded-2xl border border-border overflow-hidden transition-colors duration-300 scroll-reveal ${isVisible ? 'visible' : ''}`}
               style={{ transitionDelay: `${index * 100}ms` }}
             >
               <div className="grid md:grid-cols-5 gap-0">
