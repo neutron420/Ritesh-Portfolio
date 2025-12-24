@@ -1,4 +1,4 @@
-import { Github, Twitter, Linkedin, Mail } from "lucide-react";
+import { Github, Twitter, Linkedin, Mail, Download } from "lucide-react";
 import bannerImage from "@/assets/banner.jpg";
 
 const HeroSection = () => {
@@ -49,8 +49,8 @@ const HeroSection = () => {
               Full-Stack Engineer · Blockchain Developer · Competitive Programmer
             </p>
 
-            {/* Social Links */}
-            <div className="flex items-center gap-3 mt-4">
+            {/* Social Links + Resume Button */}
+            <div className="flex items-center gap-3 mt-4 flex-wrap">
               {socialLinks.map((social) => {
                 const Icon = social.icon;
                 return (
@@ -66,6 +66,16 @@ const HeroSection = () => {
                   </a>
                 );
               })}
+              
+              {/* Resume Download Button */}
+              <a
+                href="/resume.pdf"
+                download="Ritesh_Singh_Resume.pdf"
+                className="ml-2 px-4 py-2 flex items-center gap-2 text-sm font-medium rounded-lg bg-accent text-accent-foreground hover:bg-accent/90 transition-all"
+              >
+                <Download className="w-4 h-4" />
+                Resume
+              </a>
             </div>
           </div>
 

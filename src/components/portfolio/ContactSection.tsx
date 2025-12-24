@@ -1,6 +1,31 @@
-import { ArrowUpRight, Mail } from "lucide-react";
+import { ArrowUpRight, Mail, Eye } from "lucide-react";
+import { useEffect, useState } from "react";
 
 const ContactSection = () => {
+  const [visitorCount, setVisitorCount] = useState<number | null>(null);
+
+  useEffect(() => {
+    // Using a simple counter - in production you'd use your own backend
+    const fetchVisitorCount = async () => {
+      try {
+        // Using countapi.xyz for simple visitor counting
+        const response = await fetch('https://api.countapi.xyz/hit/ritesh-portfolio/visits');
+        if (response.ok) {
+          const data = await response.json();
+          setVisitorCount(data.value);
+        }
+      } catch (error) {
+        // Fallback to localStorage-based counting for demo
+        const stored = localStorage.getItem('portfolio-visits');
+        const count = stored ? parseInt(stored) + 1 : 1;
+        localStorage.setItem('portfolio-visits', count.toString());
+        setVisitorCount(count);
+      }
+    };
+
+    fetchVisitorCount();
+  }, []);
+
   return (
     <section id="contact" className="py-16 md:py-24">
       <div className="section-container">
@@ -32,6 +57,19 @@ const ContactSection = () => {
           <p className="text-sm text-muted-foreground">
             © {new Date().getFullYear()} Ritesh Kumar Singh
           </p>
+          
+          {/* Visitor Count */}
+          <div className="flex items-center gap-2 text-xs text-muted-foreground">
+            <Eye className="w-3.5 h-3.5" />
+            <span>
+              {visitorCount !== null ? (
+                <>{visitorCount.toLocaleString()} visitors</>
+              ) : (
+                <span className="animate-pulse">Loading...</span>
+              )}
+            </span>
+          </div>
+
           <p className="text-xs text-muted-foreground">
             Built with passion ✨
           </p>
