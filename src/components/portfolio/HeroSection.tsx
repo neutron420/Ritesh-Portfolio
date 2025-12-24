@@ -6,8 +6,15 @@ const HeroSection = () => {
     { icon: Github, href: "https://github.com/neutron420", label: "GitHub" },
     { icon: Twitter, href: "https://x.com/RiteshS18572143", label: "X" },
     { icon: Linkedin, href: "https://www.linkedin.com/in/ritesh-singh1/", label: "LinkedIn" },
-    { icon: Mail, href: "mailto:ritesh@example.com", label: "Email" },
+    { icon: Mail, href: "mailto:fnaticritesh2004@gmail.com", label: "Email" },
   ];
+
+  // Real GitHub stats
+  const stats = {
+    publicRepos: 34,
+    followers: 14,
+    following: 60,
+  };
 
   return (
     <section className="pt-20">
@@ -43,7 +50,7 @@ const HeroSection = () => {
           {/* Info */}
           <div className="mt-4">
             <h1 className="text-2xl md:text-3xl font-semibold tracking-tight">
-              Ritesh Kumar Singh
+              Ritesh Singh
             </h1>
             <p className="text-muted-foreground mt-1">
               Full-Stack Engineer · Blockchain Developer · Builder
@@ -68,10 +75,11 @@ const HeroSection = () => {
               })}
             </div>
 
-            {/* Stats */}
+            {/* Real GitHub Stats */}
             <div className="flex items-center gap-4 mt-4 text-sm text-muted-foreground">
-              <span><strong className="text-foreground">14</strong> followers</span>
-              <span><strong className="text-foreground">60</strong> following</span>
+              <span><strong className="text-foreground">{stats.publicRepos}</strong> repos</span>
+              <span><strong className="text-foreground">{stats.followers}</strong> followers</span>
+              <span><strong className="text-foreground">{stats.following}</strong> following</span>
             </div>
           </div>
 
