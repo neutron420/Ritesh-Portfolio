@@ -18,7 +18,6 @@ import {
   SiAmazonwebservices,
   SiLinux,
   SiPrisma,
-  SiFirebase,
   SiVercel,
   SiVite
 } from "react-icons/si";
@@ -44,14 +43,26 @@ const TechStackSection = () => {
     { name: "AWS", icon: SiAmazonwebservices, color: "#FF9900" },
     { name: "Linux", icon: SiLinux, color: "#FCC624" },
     { name: "Prisma", icon: SiPrisma, color: "#2D3748" },
-    { name: "Firebase", icon: SiFirebase, color: "#FFCA28" },
     { name: "Vercel", icon: SiVercel, color: "#ffffff" },
     { name: "Vite", icon: SiVite, color: "#646CFF" },
   ];
 
-  // Duplicate for seamless loop
-  const row1 = [...technologies, ...technologies];
-  const row2 = [...technologies.slice().reverse(), ...technologies.slice().reverse()];
+  const TechCard = ({ tech }: { tech: typeof technologies[0] }) => {
+    const Icon = tech.icon;
+    return (
+      <div className="flex-shrink-0 px-2">
+        <div className="flex flex-col items-center gap-2 px-5 py-4 bg-card rounded-xl border border-border/50 hover:border-border hover:bg-card/80 transition-all min-w-[100px] group cursor-default">
+          <Icon 
+            className="w-8 h-8 group-hover:scale-110 transition-transform"
+            style={{ color: tech.color }}
+          />
+          <span className="text-xs text-muted-foreground group-hover:text-foreground transition-colors whitespace-nowrap">
+            {tech.name}
+          </span>
+        </div>
+      </div>
+    );
+  };
 
   return (
     <section id="tech" className="py-16 md:py-24">
@@ -62,53 +73,21 @@ const TechStackSection = () => {
         </p>
       </div>
 
-      {/* Scrolling Row 1 */}
-      <div className="relative overflow-hidden mb-4">
-        <div className="flex animate-scroll-left">
-          {row1.map((tech, index) => {
-            const Icon = tech.icon;
-            return (
-              <div
-                key={`row1-${tech.name}-${index}`}
-                className="flex-shrink-0 mx-2"
-              >
-                <div className="flex flex-col items-center gap-2 px-5 py-4 bg-card rounded-xl border border-border/50 hover:border-border hover:bg-card/80 transition-all min-w-[100px] group cursor-default">
-                  <Icon 
-                    className="w-8 h-8 group-hover:scale-110 transition-transform"
-                    style={{ color: tech.color }}
-                  />
-                  <span className="text-xs text-muted-foreground group-hover:text-foreground transition-colors">
-                    {tech.name}
-                  </span>
-                </div>
-              </div>
-            );
-          })}
+      {/* Scrolling Row 1 - Left */}
+      <div className="relative overflow-hidden mb-4 group/scroll">
+        <div className="flex w-max animate-marquee-left group-hover/scroll:[animation-play-state:paused]">
+          {[...technologies, ...technologies].map((tech, index) => (
+            <TechCard key={`row1-${index}`} tech={tech} />
+          ))}
         </div>
       </div>
 
-      {/* Scrolling Row 2 - Reverse direction */}
-      <div className="relative overflow-hidden">
-        <div className="flex animate-scroll-right">
-          {row2.map((tech, index) => {
-            const Icon = tech.icon;
-            return (
-              <div
-                key={`row2-${tech.name}-${index}`}
-                className="flex-shrink-0 mx-2"
-              >
-                <div className="flex flex-col items-center gap-2 px-5 py-4 bg-card rounded-xl border border-border/50 hover:border-border hover:bg-card/80 transition-all min-w-[100px] group cursor-default">
-                  <Icon 
-                    className="w-8 h-8 group-hover:scale-110 transition-transform"
-                    style={{ color: tech.color }}
-                  />
-                  <span className="text-xs text-muted-foreground group-hover:text-foreground transition-colors">
-                    {tech.name}
-                  </span>
-                </div>
-              </div>
-            );
-          })}
+      {/* Scrolling Row 2 - Right */}
+      <div className="relative overflow-hidden group/scroll">
+        <div className="flex w-max animate-marquee-right group-hover/scroll:[animation-play-state:paused]">
+          {[...technologies.slice().reverse(), ...technologies.slice().reverse()].map((tech, index) => (
+            <TechCard key={`row2-${index}`} tech={tech} />
+          ))}
         </div>
       </div>
     </section>
