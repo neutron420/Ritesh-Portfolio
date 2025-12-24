@@ -113,12 +113,12 @@ const GitHubContributions = () => {
 
   const getLevelColor = (level: number) => {
     switch (level) {
-      case 0: return 'bg-[#161b22]';
-      case 1: return 'bg-[#0e4429]';
-      case 2: return 'bg-[#006d32]';
-      case 3: return 'bg-[#26a641]';
-      case 4: return 'bg-[#39d353]';
-      default: return 'bg-[#161b22]';
+      case 0: return 'bg-muted/50 dark:bg-[#161b22]';
+      case 1: return 'bg-emerald-200 dark:bg-[#0e4429]';
+      case 2: return 'bg-emerald-400 dark:bg-[#006d32]';
+      case 3: return 'bg-emerald-500 dark:bg-[#26a641]';
+      case 4: return 'bg-emerald-600 dark:bg-[#39d353]';
+      default: return 'bg-muted/50 dark:bg-[#161b22]';
     }
   };
 

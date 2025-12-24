@@ -101,10 +101,10 @@ const LeetCodeStats = () => {
   const getLevelColor = (level: number) => {
     switch (level) {
       case 0: return "bg-muted/40";
-      case 1: return "bg-emerald-900/70";
-      case 2: return "bg-emerald-600/80";
+      case 1: return "bg-emerald-200 dark:bg-emerald-900/70";
+      case 2: return "bg-emerald-400 dark:bg-emerald-600/80";
       case 3: return "bg-emerald-500";
-      case 4: return "bg-emerald-400";
+      case 4: return "bg-emerald-600 dark:bg-emerald-400";
       default: return "bg-muted/40";
     }
   };
