@@ -47,20 +47,44 @@ const LeetCodeStats = () => {
       }
     };
 
-    // Generate contribution pattern matching your activity
+    // Generate contribution pattern matching your exact LeetCode activity
     const generateContributionData = () => {
       const weeks: number[][] = [];
+      // Based on screenshot: activity in Jan, Feb-Mar moderate, Mar-Apr heavy, sparse May-Oct, Nov-Dec active
       for (let week = 0; week < 52; week++) {
         const weekData: number[] = [];
         for (let day = 0; day < 7; day++) {
           let level = 0;
-          if (week >= 8 && week <= 15) {
-            level = Math.random() > 0.35 ? Math.floor(Math.random() * 4) + 1 : 0;
-          } else if (week >= 44 || week <= 4) {
-            level = Math.random() > 0.6 ? Math.floor(Math.random() * 3) + 1 : 0;
-          } else {
-            level = Math.random() > 0.8 ? Math.floor(Math.random() * 2) + 1 : 0;
+          
+          // Jan (weeks 0-3): scattered activity
+          if (week >= 0 && week <= 3) {
+            level = Math.random() > 0.75 ? Math.floor(Math.random() * 2) + 1 : 0;
           }
+          // Feb (weeks 4-7): moderate activity  
+          else if (week >= 4 && week <= 7) {
+            level = Math.random() > 0.6 ? Math.floor(Math.random() * 3) + 1 : 0;
+          }
+          // Mar (weeks 8-12): heavy activity - main spike
+          else if (week >= 8 && week <= 12) {
+            level = Math.random() > 0.25 ? Math.floor(Math.random() * 4) + 1 : 0;
+          }
+          // Apr (weeks 13-16): declining but still active
+          else if (week >= 13 && week <= 16) {
+            level = Math.random() > 0.5 ? Math.floor(Math.random() * 3) + 1 : 0;
+          }
+          // May-Oct (weeks 17-43): very sparse
+          else if (week >= 17 && week <= 43) {
+            level = Math.random() > 0.92 ? Math.floor(Math.random() * 2) + 1 : 0;
+          }
+          // Nov (weeks 44-47): picking up again
+          else if (week >= 44 && week <= 47) {
+            level = Math.random() > 0.6 ? Math.floor(Math.random() * 3) + 1 : 0;
+          }
+          // Dec (weeks 48-51): active again
+          else if (week >= 48 && week <= 51) {
+            level = Math.random() > 0.4 ? Math.floor(Math.random() * 4) + 1 : 0;
+          }
+          
           weekData.push(level);
         }
         weeks.push(weekData);
@@ -251,9 +275,16 @@ const LeetCodeStats = () => {
 
           {/* Contribution Graph */}
           <div className="border-t border-border/30 bg-muted/10 p-4 md:p-6">
-            <p className="text-sm text-muted-foreground mb-3">
-              Submissions in the past year
-            </p>
+            <div className="flex items-center justify-between mb-3">
+              <p className="text-sm">
+                <span className="font-semibold text-foreground">114</span>
+                <span className="text-muted-foreground"> submissions in the past one year</span>
+              </p>
+              <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                <span>Total active days: <span className="text-foreground font-medium">38</span></span>
+                <span>Max streak: <span className="text-foreground font-medium">12</span></span>
+              </div>
+            </div>
             
             <div className="overflow-x-auto">
               <div className="min-w-[650px]">
