@@ -1,156 +1,64 @@
-import { Mail, MapPin, Send, Github, Linkedin, Twitter } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { useState } from "react";
-import { toast } from "sonner";
+import { ArrowUpRight } from "lucide-react";
 
 const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    toast.success("Message sent successfully! I'll get back to you soon.");
-    setFormData({ name: "", email: "", message: "" });
-  };
+  const links = [
+    { label: "Email", value: "hello@example.com", href: "mailto:hello@example.com" },
+    { label: "GitHub", value: "github.com/username", href: "https://github.com" },
+    { label: "LinkedIn", value: "linkedin.com/in/username", href: "https://linkedin.com" },
+    { label: "Twitter", value: "@username", href: "https://twitter.com" },
+  ];
 
   return (
-    <section id="contact" className="py-32 relative overflow-hidden">
-      {/* Background decorations */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-[120px]" />
-      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-accent/10 rounded-full blur-[100px]" />
+    <section id="contact" className="py-32 px-6 md:px-12 lg:px-24">
+      <div className="max-w-6xl mx-auto">
+        {/* Section header */}
+        <div className="flex items-center gap-8 mb-16">
+          <span className="section-label">Contact</span>
+          <div className="flex-1 h-px bg-border" />
+          <span className="text-xs text-muted-foreground">05</span>
+        </div>
 
-      <div className="container relative z-10 px-6">
-        <div className="max-w-6xl mx-auto">
-          {/* Section header */}
-          <div className="text-center mb-20">
-            <p className="text-accent font-medium tracking-wider mb-4">お問い合わせ</p>
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Get In <span className="gradient-text">Touch</span>
+        <div className="grid lg:grid-cols-12 gap-16">
+          {/* Main CTA */}
+          <div className="lg:col-span-7">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif italic leading-[1.1]">
+              Let's build something
+              <span className="text-accent"> meaningful</span> together.
             </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Have a project in mind or just want to chat? I'd love to hear from you.
+            <p className="text-muted-foreground mt-8 max-w-md leading-relaxed">
+              Open to new opportunities, collaborations, and interesting conversations. 
+              Whether you have a project in mind or just want to connect—I'd love to hear from you.
             </p>
-            <div className="w-24 h-1 bg-gradient-to-r from-primary via-secondary to-accent mx-auto rounded-full mt-6" />
+            
+            {/* Primary CTA */}
+            <a 
+              href="mailto:hello@example.com"
+              className="inline-flex items-center gap-3 mt-12 px-8 py-4 bg-foreground text-background hover:bg-foreground/90 transition-colors group"
+            >
+              <span className="font-medium">Get in touch</span>
+              <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            </a>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-16">
-            {/* Contact info */}
-            <div className="space-y-8">
-              <div>
-                <h3 className="text-2xl font-semibold mb-6">Let's work together</h3>
-                <p className="text-muted-foreground leading-relaxed mb-8">
-                  I'm always open to discussing new projects, creative ideas, or opportunities 
-                  to be part of your vision. Whether you have a question or just want to say hi, 
-                  my inbox is always open.
-                </p>
-              </div>
-
-              {/* Contact details */}
-              <div className="space-y-6">
-                <div className="flex items-center gap-4">
-                  <div className="p-3 rounded-xl bg-primary/20">
-                    <Mail className="w-5 h-5 text-primary" />
-                  </div>
+          {/* Links */}
+          <div className="lg:col-span-5">
+            <div className="space-y-0">
+              {links.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target={link.href.startsWith('http') ? '_blank' : undefined}
+                  rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                  className="flex items-center justify-between py-6 border-t border-border group hover:bg-card/30 transition-colors px-4 -mx-4"
+                >
                   <div>
-                    <p className="text-sm text-muted-foreground">Email</p>
-                    <a href="mailto:hello@example.com" className="font-medium hover:text-primary transition-colors">
-                      hello@example.com
-                    </a>
+                    <p className="text-xs text-muted-foreground mb-1">{link.label}</p>
+                    <p className="group-hover:text-accent transition-colors">{link.value}</p>
                   </div>
-                </div>
-
-                <div className="flex items-center gap-4">
-                  <div className="p-3 rounded-xl bg-secondary/20">
-                    <MapPin className="w-5 h-5 text-secondary" />
-                  </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground">Location</p>
-                    <p className="font-medium">Tokyo, Japan</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Social links */}
-              <div className="pt-8">
-                <p className="text-sm text-muted-foreground mb-4">Find me on</p>
-                <div className="flex gap-4">
-                  {[
-                    { icon: Github, href: "#", label: "GitHub" },
-                    { icon: Linkedin, href: "#", label: "LinkedIn" },
-                    { icon: Twitter, href: "#", label: "Twitter" },
-                  ].map(({ icon: Icon, href, label }) => (
-                    <a
-                      key={label}
-                      href={href}
-                      className="p-3 glass-card hover:bg-glass/60 transition-all duration-300 hover:scale-110 hover:glow-border"
-                      aria-label={label}
-                    >
-                      <Icon className="w-5 h-5" />
-                    </a>
-                  ))}
-                </div>
-              </div>
+                  <ArrowUpRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+                </a>
+              ))}
             </div>
-
-            {/* Contact form */}
-            <form onSubmit={handleSubmit} className="glass-card p-8 space-y-6">
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium mb-2">
-                  Name
-                </label>
-                <Input
-                  id="name"
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  placeholder="Your name"
-                  className="bg-muted/50 border-glass-border focus:border-primary"
-                  required
-                />
-              </div>
-
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium mb-2">
-                  Email
-                </label>
-                <Input
-                  id="email"
-                  type="email"
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  placeholder="your@email.com"
-                  className="bg-muted/50 border-glass-border focus:border-primary"
-                  required
-                />
-              </div>
-
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium mb-2">
-                  Message
-                </label>
-                <Textarea
-                  id="message"
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  placeholder="Tell me about your project..."
-                  className="bg-muted/50 border-glass-border focus:border-primary min-h-[150px]"
-                  required
-                />
-              </div>
-
-              <Button
-                type="submit"
-                size="lg"
-                className="w-full bg-primary/90 hover:bg-primary text-primary-foreground rounded-full glow-border transition-all duration-300 hover:scale-[1.02]"
-              >
-                Send Message
-                <Send className="w-4 h-4 ml-2" />
-              </Button>
-            </form>
           </div>
         </div>
       </div>

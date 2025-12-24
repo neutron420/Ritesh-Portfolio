@@ -1,143 +1,104 @@
-import { ExternalLink, Github, ArrowUpRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { ArrowUpRight } from "lucide-react";
 
 const Projects = () => {
   const projects = [
     {
+      number: "01",
       title: "E-Commerce Platform",
-      description: "A full-featured online store with real-time inventory, payment processing, and admin dashboard. Built for scale and performance.",
-      image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&auto=format&fit=crop&q=80",
-      tech: ["Next.js", "TypeScript", "PostgreSQL", "Stripe"],
-      liveUrl: "#",
-      githubUrl: "#",
-      featured: true,
+      category: "Full Stack",
+      year: "2024",
+      description: "A high-performance online store with real-time inventory, seamless checkout, and an intuitive admin experience.",
+      tech: ["Next.js", "PostgreSQL", "Stripe"],
+      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&auto=format&fit=crop&q=80",
     },
     {
+      number: "02",
       title: "AI Content Studio",
-      description: "An intelligent content creation platform powered by machine learning for generating, editing, and optimizing written content.",
-      image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&auto=format&fit=crop&q=80",
-      tech: ["React", "Python", "OpenAI", "Redis"],
-      liveUrl: "#",
-      githubUrl: "#",
-      featured: true,
+      category: "Product Design",
+      year: "2024",
+      description: "An intelligent writing assistant that helps teams create, edit, and optimize content at scale.",
+      tech: ["React", "Python", "OpenAI"],
+      image: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=800&auto=format&fit=crop&q=80",
     },
     {
-      title: "Real-Time Dashboard",
-      description: "A dynamic analytics dashboard with live data visualization, custom widgets, and collaborative features for teams.",
+      number: "03",
+      title: "Analytics Dashboard",
+      category: "Data Visualization",
+      year: "2023",
+      description: "Real-time metrics and insights for teams who need clarity, not complexity.",
+      tech: ["React", "D3.js", "WebSocket"],
       image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&auto=format&fit=crop&q=80",
-      tech: ["React", "D3.js", "WebSocket", "MongoDB"],
-      liveUrl: "#",
-      githubUrl: "#",
-      featured: false,
-    },
-    {
-      title: "Social Media App",
-      description: "A modern social platform with real-time messaging, content sharing, and personalized feeds using AI recommendations.",
-      image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&auto=format&fit=crop&q=80",
-      tech: ["React Native", "Node.js", "GraphQL", "AWS"],
-      liveUrl: "#",
-      githubUrl: "#",
-      featured: false,
     },
   ];
 
   return (
-    <section id="projects" className="py-32 relative overflow-hidden">
-      {/* Background decorations */}
-      <div className="absolute top-1/4 right-0 w-96 h-96 bg-primary/10 rounded-full blur-[120px]" />
-      <div className="absolute bottom-1/4 left-0 w-80 h-80 bg-secondary/10 rounded-full blur-[100px]" />
+    <section id="work" className="py-32 px-6 md:px-12 lg:px-24">
+      <div className="max-w-6xl mx-auto">
+        {/* Section header */}
+        <div className="flex items-center gap-8 mb-16">
+          <span className="section-label">Selected Work</span>
+          <div className="flex-1 h-px bg-border" />
+          <span className="text-xs text-muted-foreground">03</span>
+        </div>
 
-      <div className="container relative z-10 px-6">
-        <div className="max-w-6xl mx-auto">
-          {/* Section header */}
-          <div className="text-center mb-20">
-            <p className="text-primary font-medium tracking-wider mb-4">プロジェクト</p>
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Featured <span className="gradient-text">Projects</span>
-            </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              A selection of projects that showcase my skills and passion for building great products
-            </p>
-            <div className="w-24 h-1 bg-gradient-to-r from-primary via-secondary to-accent mx-auto rounded-full mt-6" />
-          </div>
-
-          {/* Projects grid */}
-          <div className="grid lg:grid-cols-2 gap-8">
-            {projects.map((project, index) => (
-              <div
-                key={project.title}
-                className={`group glass-card overflow-hidden transition-all duration-500 hover:scale-[1.02] hover:glow-border ${
-                  project.featured ? 'lg:col-span-1' : ''
-                }`}
-              >
-                {/* Image */}
-                <div className="relative h-56 overflow-hidden">
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-card via-card/50 to-transparent" />
-                  
-                  {/* Overlay actions */}
-                  <div className="absolute inset-0 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <a
-                      href={project.liveUrl}
-                      className="p-3 bg-primary/90 rounded-full text-primary-foreground hover:bg-primary transition-colors"
-                      aria-label="View live site"
-                    >
-                      <ExternalLink className="w-5 h-5" />
-                    </a>
-                    <a
-                      href={project.githubUrl}
-                      className="p-3 bg-card/90 rounded-full hover:bg-card transition-colors"
-                      aria-label="View source code"
-                    >
-                      <Github className="w-5 h-5" />
-                    </a>
-                  </div>
+        {/* Projects list */}
+        <div className="space-y-1">
+          {projects.map((project, index) => (
+            <article 
+              key={project.title}
+              className="group border-t border-border last:border-b py-12 hover:bg-card/30 transition-colors px-4 -mx-4"
+            >
+              <div className="grid lg:grid-cols-12 gap-8 items-start">
+                {/* Number & Category */}
+                <div className="lg:col-span-2 flex lg:flex-col justify-between lg:justify-start gap-4">
+                  <span className="text-xs text-muted-foreground">{project.number}</span>
+                  <span className="text-xs text-muted-foreground">{project.category}</span>
                 </div>
 
-                {/* Content */}
-                <div className="p-6">
-                  <div className="flex items-start justify-between mb-4">
-                    <h3 className="text-xl font-semibold group-hover:text-primary transition-colors">
-                      {project.title}
-                    </h3>
-                    <ArrowUpRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 group-hover:-translate-y-1 transition-all" />
-                  </div>
-                  
-                  <p className="text-muted-foreground mb-6 leading-relaxed">
+                {/* Title & Description */}
+                <div className="lg:col-span-6">
+                  <h3 className="text-2xl md:text-3xl font-serif italic mb-4 group-hover:text-accent transition-colors flex items-center gap-3">
+                    {project.title}
+                    <ArrowUpRight className="w-5 h-5 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                  </h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed max-w-md">
                     {project.description}
                   </p>
-
-                  {/* Tech tags */}
-                  <div className="flex flex-wrap gap-2">
-                    {project.tech.map((tech) => (
-                      <span
-                        key={tech}
-                        className="px-3 py-1 text-xs font-medium bg-muted rounded-full text-muted-foreground"
-                      >
-                        {tech}
+                  
+                  {/* Tech stack */}
+                  <div className="flex gap-2 mt-6">
+                    {project.tech.map((t) => (
+                      <span key={t} className="text-xs text-muted-foreground">
+                        {t}{project.tech.indexOf(t) < project.tech.length - 1 && " ·"}
                       </span>
                     ))}
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
 
-          {/* View all button */}
-          <div className="text-center mt-12">
-            <Button
-              variant="outline"
-              size="lg"
-              className="border-glass-border bg-glass/30 hover:bg-glass/50 rounded-full px-8"
-            >
-              View All Projects
-              <ArrowUpRight className="w-4 h-4 ml-2" />
-            </Button>
-          </div>
+                {/* Image */}
+                <div className="lg:col-span-4">
+                  <div className="aspect-[4/3] overflow-hidden bg-muted">
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
+                    />
+                  </div>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        {/* View all link */}
+        <div className="mt-16 pt-8 border-t border-border">
+          <a 
+            href="#" 
+            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors group"
+          >
+            View all projects
+            <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+          </a>
         </div>
       </div>
     </section>
