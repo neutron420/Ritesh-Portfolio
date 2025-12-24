@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
 import { Github } from "lucide-react";
-import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
 const GitHubContributions = () => {
   const [contributions, setContributions] = useState<number[][]>([]);
   const [totalContributions, setTotalContributions] = useState(512);
   const [loading, setLoading] = useState(true);
-  const { ref, isVisible } = useScrollReveal();
 
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   const days = ['Mon', 'Wed', 'Fri'];
@@ -14,11 +12,9 @@ const GitHubContributions = () => {
   useEffect(() => {
     const fetchGitHubActivity = async () => {
       try {
-        // Fetch recent events from GitHub API
         const response = await fetch('https://api.github.com/users/neutron420/events/public?per_page=100');
         const events = await response.json();
 
-        // Count contributions by date
         const contributionMap = new Map<string, number>();
         let total = 0;
 
@@ -33,14 +29,11 @@ const GitHubContributions = () => {
           });
         }
 
-        // Generate 52 weeks of contribution data
         const weeks: number[][] = [];
         const today = new Date();
         
-        // Base contribution count (real total minus recent activity)
         const baseContributions = 512 - total;
         let distributed = 0;
-        const targetPerWeek = Math.floor(baseContributions / 52);
 
         for (let week = 0; week < 52; week++) {
           const weekData: number[] = [];
@@ -49,11 +42,9 @@ const GitHubContributions = () => {
             date.setDate(date.getDate() - ((51 - week) * 7 + (6 - day)));
             const dateStr = date.toISOString().split('T')[0];
             
-            // Get real activity count or distribute base contributions
             let count = contributionMap.get(dateStr) || 0;
             
             if (count === 0 && distributed < baseContributions) {
-              // Simulate realistic distribution for older dates
               const isWeekday = day >= 1 && day <= 5;
               if (Math.random() < (isWeekday ? 0.4 : 0.2)) {
                 count = Math.floor(Math.random() * 5) + 1;
@@ -73,7 +64,7 @@ const GitHubContributions = () => {
         }
 
         setContributions(weeks);
-        setTotalContributions(512); // Your real contribution count
+        setTotalContributions(512);
         setLoading(false);
       } catch (error) {
         console.error('Error fetching GitHub activity:', error);
@@ -114,12 +105,12 @@ const GitHubContributions = () => {
 
   const getLevelColor = (level: number) => {
     switch (level) {
-      case 0: return 'bg-[#161b22]';
-      case 1: return 'bg-[#0e4429]';
-      case 2: return 'bg-[#006d32]';
-      case 3: return 'bg-[#26a641]';
-      case 4: return 'bg-[#39d353]';
-      default: return 'bg-[#161b22]';
+      case 0: return 'bg-muted/40';
+      case 1: return 'bg-accent/20';
+      case 2: return 'bg-accent/40';
+      case 3: return 'bg-accent/70';
+      case 4: return 'bg-accent';
+      default: return 'bg-muted/40';
     }
   };
 
@@ -133,13 +124,9 @@ const GitHubContributions = () => {
     );
   }
 
-
   return (
     <section className="py-12 md:py-16">
-      <div 
-        ref={ref}
-        className={`section-container scroll-reveal ${isVisible ? 'visible' : ''}`}
-      >
+      <div className="section-container">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
           <div className="flex items-center gap-3">
             <Github className="w-6 h-6 text-foreground" />
@@ -152,7 +139,7 @@ const GitHubContributions = () => {
                 className="text-muted-foreground text-sm hover:text-accent transition-colors flex items-center gap-1"
               >
                 @neutron420
-                <span className="text-[10px] px-1.5 py-0.5 bg-emerald-500/20 text-emerald-400 rounded">LIVE</span>
+                <span className="text-[10px] px-1.5 py-0.5 bg-accent/20 text-accent rounded">LIVE</span>
               </a>
             </div>
           </div>
@@ -162,54 +149,58 @@ const GitHubContributions = () => {
         </div>
 
         {/* Contribution Graph */}
-        <div className="bg-card rounded-xl border border-border/50 p-4 md:p-6 overflow-x-auto">
+        <div className="bg-card rounded-xl border border-border/50 p-3 sm:p-4 md:p-6">
           {/* Months row */}
-          <div className="flex mb-2 ml-8">
-            {months.map((month) => (
-              <span 
-                key={month} 
-                className="text-[10px] text-muted-foreground"
-                style={{ width: `${100 / 12}%`, minWidth: '30px' }}
-              >
-                {month}
-              </span>
-            ))}
-          </div>
+          <div className="overflow-x-auto -mx-3 px-3 sm:mx-0 sm:px-0">
+            <div className="min-w-[580px]">
+              <div className="flex mb-2 ml-8">
+                {months.map((month) => (
+                  <span 
+                    key={month} 
+                    className="text-[10px] text-muted-foreground"
+                    style={{ width: `${100 / 12}%`, minWidth: '30px' }}
+                  >
+                    {month}
+                  </span>
+                ))}
+              </div>
 
-          {/* Graph */}
-          <div className="flex gap-2">
-            {/* Day labels */}
-            <div className="flex flex-col justify-around text-[10px] text-muted-foreground pr-2">
-              {days.map((day) => (
-                <span key={day}>{day}</span>
-              ))}
-            </div>
-
-            {/* Contribution grid */}
-            <div className="flex gap-[3px] flex-1">
-              {contributions.map((week, weekIndex) => (
-                <div key={weekIndex} className="flex flex-col gap-[3px]">
-                  {week.map((level, dayIndex) => (
-                    <div
-                      key={dayIndex}
-                      className={`w-[10px] h-[10px] md:w-[12px] md:h-[12px] rounded-sm ${getLevelColor(level)} transition-colors hover:ring-1 hover:ring-foreground/30`}
-                    />
+              {/* Graph */}
+              <div className="flex gap-2">
+                {/* Day labels */}
+                <div className="flex flex-col justify-around text-[10px] text-muted-foreground pr-2">
+                  {days.map((day) => (
+                    <span key={day}>{day}</span>
                   ))}
                 </div>
-              ))}
-            </div>
-          </div>
 
-          {/* Legend */}
-          <div className="flex items-center justify-end gap-2 mt-4">
-            <span className="text-[10px] text-muted-foreground">Less</span>
-            {[0, 1, 2, 3, 4].map((level) => (
-              <div
-                key={level}
-                className={`w-[10px] h-[10px] rounded-sm ${getLevelColor(level)}`}
-              />
-            ))}
-            <span className="text-[10px] text-muted-foreground">More</span>
+                {/* Contribution grid */}
+                <div className="flex gap-[2px] sm:gap-[3px] flex-1">
+                  {contributions.map((week, weekIndex) => (
+                    <div key={weekIndex} className="flex flex-col gap-[2px] sm:gap-[3px]">
+                      {week.map((level, dayIndex) => (
+                        <div
+                          key={dayIndex}
+                          className={`w-[9px] h-[9px] sm:w-[10px] sm:h-[10px] md:w-[12px] md:h-[12px] rounded-sm ${getLevelColor(level)}`}
+                        />
+                      ))}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Legend */}
+              <div className="flex items-center justify-end gap-2 mt-4">
+                <span className="text-[10px] text-muted-foreground">Less</span>
+                {[0, 1, 2, 3, 4].map((level) => (
+                  <div
+                    key={level}
+                    className={`w-[9px] h-[9px] sm:w-[10px] sm:h-[10px] rounded-sm ${getLevelColor(level)}`}
+                  />
+                ))}
+                <span className="text-[10px] text-muted-foreground">More</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
