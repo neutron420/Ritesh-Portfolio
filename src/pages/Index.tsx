@@ -1,13 +1,9 @@
-import Navigation from "@/components/portfolio/Navigation";
-import Hero from "@/components/portfolio/Hero";
-import About from "@/components/portfolio/About";
-import TechStack from "@/components/portfolio/TechStack";
-import Projects from "@/components/portfolio/Projects";
-import Experience from "@/components/portfolio/Experience";
-import Contact from "@/components/portfolio/Contact";
-import AnimeSection from "@/components/portfolio/AnimeSection";
-import Footer from "@/components/portfolio/Footer";
 import { Helmet } from "react-helmet";
+import Navbar from "@/components/portfolio/Navbar";
+import HeroSection from "@/components/portfolio/HeroSection";
+import TechStackSection from "@/components/portfolio/TechStackSection";
+import ProjectsSection from "@/components/portfolio/ProjectsSection";
+import ContactSection from "@/components/portfolio/ContactSection";
 
 const Index = () => {
   return (
@@ -16,23 +12,19 @@ const Index = () => {
         <title>Ritesh Kumar Singh — Full Stack Developer & Blockchain Engineer</title>
         <meta 
           name="description" 
-          content="Building robust systems from frontend to smart contracts. Full stack developer and blockchain engineer crafting digital experiences with precision." 
+          content="Full Stack Developer and Blockchain Engineer building end-to-end applications from frontend to smart contracts." 
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Helmet>
       
-      <div className="min-h-screen bg-background noise">
-        <Navigation />
+      <div className="min-h-screen bg-background">
+        <Navbar />
         <main>
-          <Hero />
-          <About />
-          <TechStack />
-          <Projects />
-          <Experience />
-          <Contact />
-          <AnimeSection />
+          <HeroSection />
+          <TechStackSection />
+          <ProjectsSection />
+          <ContactSection />
         </main>
-        <Footer />
       </div>
     </>
   );
