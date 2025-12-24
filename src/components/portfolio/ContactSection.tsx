@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowUpRight, Mail, Eye, Send, Loader2 } from "lucide-react";
+import { ArrowUpRight, Mail, Eye, Send, Loader2, Twitter } from "lucide-react";
 import { useEffect } from "react";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import { supabase } from "@/integrations/supabase/client";
@@ -205,7 +205,10 @@ const ContactSection = () => {
               <div className="flex flex-col gap-2">
                 <a href="https://github.com/neutron420" target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground hover:text-accent transition-colors">GitHub</a>
                 <a href="https://www.linkedin.com/in/ritesh-singh1/" target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground hover:text-accent transition-colors">LinkedIn</a>
-                <a href="https://x.com/RiteshS18572143" target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground hover:text-accent transition-colors">X (Twitter)</a>
+                <a href="https://x.com/RiteshS18572143" target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground hover:text-accent transition-colors flex items-center gap-1.5">
+                  <Twitter className="w-4 h-4" />
+                  X (Twitter)
+                </a>
               </div>
             </div>
           </div>
