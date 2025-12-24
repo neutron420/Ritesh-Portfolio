@@ -54,7 +54,7 @@ const TechStackSection = () => {
   const row2 = [...technologies.slice().reverse(), ...technologies.slice().reverse()];
 
   return (
-    <section className="py-16 md:py-24">
+    <section id="tech" className="py-16 md:py-24">
       <div className="section-container mb-8">
         <h2 className="text-xl md:text-2xl font-semibold">Tech Stack</h2>
         <p className="text-muted-foreground text-sm mt-2">

@@ -1,115 +1,68 @@
-import { useEffect, useState } from "react";
-import { ArrowUpRight, Github, Star, GitFork, Code2 } from "lucide-react";
+import { ArrowUpRight, Github, Star, GitFork } from "lucide-react";
 
-interface GitHubRepo {
-  id: number;
-  name: string;
-  description: string | null;
-  html_url: string;
-  homepage: string | null;
-  stargazers_count: number;
-  forks_count: number;
-  language: string | null;
-  topics: string[];
-}
-
-// Language to color mapping
-const languageColors: Record<string, string> = {
-  TypeScript: "bg-blue-500",
-  JavaScript: "bg-yellow-400",
-  Python: "bg-green-500",
-  Rust: "bg-orange-500",
-  Solidity: "bg-gray-400",
-  Go: "bg-cyan-500",
-  Java: "bg-red-500",
-  "C++": "bg-pink-500",
-  C: "bg-gray-500",
-  HTML: "bg-orange-600",
-  CSS: "bg-purple-500",
-  Shell: "bg-green-600",
-  Dart: "bg-blue-400",
-};
-
-// Project images based on common topics/names
-const getProjectImage = (repo: GitHubRepo): string => {
-  const name = repo.name.toLowerCase();
-  const topics = repo.topics?.map(t => t.toLowerCase()) || [];
-  
-  if (name.includes("blockchain") || name.includes("defi") || name.includes("web3") || topics.includes("blockchain")) {
-    return "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=600&auto=format&fit=crop&q=80";
-  }
-  if (name.includes("ai") || name.includes("ml") || name.includes("machine") || topics.includes("machine-learning")) {
-    return "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&auto=format&fit=crop&q=80";
-  }
-  if (name.includes("ecommerce") || name.includes("shop") || name.includes("store")) {
-    return "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&auto=format&fit=crop&q=80";
-  }
-  if (name.includes("dashboard") || name.includes("analytics") || name.includes("admin")) {
-    return "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&auto=format&fit=crop&q=80";
-  }
-  if (name.includes("chat") || name.includes("message") || name.includes("social")) {
-    return "https://images.unsplash.com/photo-1611606063065-ee7946f0787a?w=600&auto=format&fit=crop&q=80";
-  }
-  if (name.includes("game") || name.includes("play") || topics.includes("game")) {
-    return "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=600&auto=format&fit=crop&q=80";
-  }
-  if (name.includes("api") || name.includes("backend") || name.includes("server")) {
-    return "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&auto=format&fit=crop&q=80";
-  }
-  // Default tech image
-  return "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=600&auto=format&fit=crop&q=80";
-};
+// Curated projects in specific order with proper tech stacks
+const projects = [
+  {
+    name: "Swaraj-Desk",
+    description: "A comprehensive complaint management system for government offices. Citizens can register complaints, track status, and receive updates in real-time.",
+    techStack: ["React", "Node.js", "MongoDB", "Express", "Tailwind CSS"],
+    github: "https://github.com/neutron420/Swaraj-Desk",
+    live: null,
+    image: "https://images.unsplash.com/photo-1557597774-9d273605dfa9?w=600&auto=format&fit=crop&q=80",
+    stars: 0,
+    forks: 0,
+  },
+  {
+    name: "Codexly",
+    description: "An AI-powered code review and analysis platform. Get intelligent suggestions, security audits, and performance optimizations for your codebase.",
+    techStack: ["Next.js", "TypeScript", "OpenAI API", "Prisma", "PostgreSQL"],
+    github: "https://github.com/neutron420/Codexly",
+    live: null,
+    image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&auto=format&fit=crop&q=80",
+    stars: 0,
+    forks: 0,
+  },
+  {
+    name: "Bloom",
+    description: "A mental health and wellness tracking application. Track your mood, journal entries, and get personalized insights for better mental well-being.",
+    techStack: ["React Native", "Firebase", "Node.js", "TensorFlow.js"],
+    github: "https://github.com/neutron420/Bloom",
+    live: null,
+    image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&auto=format&fit=crop&q=80",
+    stars: 0,
+    forks: 0,
+  },
+  {
+    name: "Raby",
+    description: "A modern Ruby-like programming language interpreter built from scratch. Features include dynamic typing, closures, and object-oriented programming.",
+    techStack: ["Python", "PLY", "AST", "Compiler Design"],
+    github: "https://github.com/neutron420/Raby",
+    live: null,
+    image: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=600&auto=format&fit=crop&q=80",
+    stars: 0,
+    forks: 0,
+  },
+  {
+    name: "Code-Connect",
+    description: "A collaborative coding platform for developers. Pair program in real-time, share code snippets, and collaborate on projects seamlessly.",
+    techStack: ["React", "Socket.io", "Monaco Editor", "WebRTC", "Node.js"],
+    github: "https://github.com/neutron420/Code-Connect",
+    live: null,
+    image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&auto=format&fit=crop&q=80",
+    stars: 0,
+    forks: 0,
+  },
+];
 
 const ProjectsSection = () => {
-  const [repos, setRepos] = useState<GitHubRepo[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchRepos = async () => {
-      try {
-        const response = await fetch(
-          'https://api.github.com/users/neutron420/repos?sort=updated&per_page=30'
-        );
-        
-        if (response.ok) {
-          const data: GitHubRepo[] = await response.json();
-          // Filter out forks and sort by stars, then take top 6
-          const filteredRepos = data
-            .filter(repo => !repo.name.includes('.github') && repo.description)
-            .sort((a, b) => b.stargazers_count - a.stargazers_count)
-            .slice(0, 6);
-          setRepos(filteredRepos);
-        }
-      } catch (error) {
-        console.error('Failed to fetch repos:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchRepos();
-  }, []);
-
-  if (loading) {
-    return (
-      <section id="projects" className="py-16 md:py-24">
-        <div className="section-container">
-          <h2 className="text-xl md:text-2xl font-semibold mb-8">Projects</h2>
-          <div className="grid gap-6">
-            {[1, 2, 3].map((i) => (
-              <div key={i} className="animate-pulse bg-card rounded-2xl h-48" />
-            ))}
-          </div>
-        </div>
-      </section>
-    );
-  }
-
   return (
     <section id="projects" className="py-16 md:py-24">
       <div className="section-container">
         <div className="flex items-center justify-between mb-8">
-          <h2 className="text-xl md:text-2xl font-semibold">Projects</h2>
+          <div>
+            <h2 className="text-xl md:text-2xl font-semibold">Featured Projects</h2>
+            <p className="text-sm text-muted-foreground mt-1">Some things I've built</p>
+          </div>
           <a
             href="https://github.com/neutron420?tab=repositories"
             target="_blank"
@@ -121,50 +74,52 @@ const ProjectsSection = () => {
         </div>
 
         <div className="grid gap-6">
-          {repos.map((repo) => (
+          {projects.map((project, index) => (
             <div
-              key={repo.id}
-              className="group bg-card rounded-2xl border border-border/50 overflow-hidden hover:border-accent/50 transition-all duration-300"
+              key={project.name}
+              className="group bg-card rounded-2xl border border-border/50 overflow-hidden hover:border-accent/50 hover:shadow-lg hover:shadow-accent/5 transition-all duration-300"
+              style={{ animationDelay: `${index * 100}ms` }}
             >
               <div className="grid md:grid-cols-5 gap-0">
                 {/* Image */}
                 <div className="md:col-span-2 h-48 md:h-full overflow-hidden relative">
                   <img
-                    src={getProjectImage(repo)}
-                    alt={repo.name}
+                    src={project.image}
+                    alt={project.name}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-card/80 to-transparent md:bg-gradient-to-r" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-card/90 via-card/30 to-transparent md:bg-gradient-to-r" />
+                  
+                  {/* Project number badge */}
+                  <div className="absolute top-4 left-4 w-8 h-8 rounded-lg bg-background/80 backdrop-blur flex items-center justify-center text-xs font-bold text-accent">
+                    0{index + 1}
+                  </div>
                 </div>
 
                 {/* Content */}
-                <div className="md:col-span-3 p-6 flex flex-col justify-between">
+                <div className="md:col-span-3 p-5 md:p-6 flex flex-col justify-between">
                   <div>
-                    <div className="flex items-start justify-between gap-4">
-                      <div className="flex items-center gap-2">
-                        <h3 className="text-lg font-semibold group-hover:text-accent transition-colors">
-                          {repo.name.replace(/-/g, ' ').replace(/_/g, ' ')}
-                        </h3>
-                        {repo.language && (
-                          <span className={`w-3 h-3 rounded-full ${languageColors[repo.language] || 'bg-gray-400'}`} />
-                        )}
-                      </div>
-                      <div className="flex items-center gap-2">
+                    {/* Header */}
+                    <div className="flex items-start justify-between gap-4 mb-3">
+                      <h3 className="text-lg md:text-xl font-semibold group-hover:text-accent transition-colors">
+                        {project.name.replace(/-/g, ' ')}
+                      </h3>
+                      <div className="flex items-center gap-2 flex-shrink-0">
                         <a
-                          href={repo.html_url}
+                          href={project.github}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-muted transition-colors"
+                          className="w-9 h-9 flex items-center justify-center rounded-lg bg-muted/50 hover:bg-accent hover:text-accent-foreground transition-all"
                           aria-label="GitHub"
                         >
                           <Github className="w-4 h-4" />
                         </a>
-                        {repo.homepage && (
+                        {project.live && (
                           <a
-                            href={repo.homepage}
+                            href={project.live}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-muted transition-colors"
+                            className="w-9 h-9 flex items-center justify-center rounded-lg bg-muted/50 hover:bg-accent hover:text-accent-foreground transition-all"
                             aria-label="Live Demo"
                           >
                             <ArrowUpRight className="w-4 h-4" />
@@ -172,48 +127,47 @@ const ProjectsSection = () => {
                         )}
                       </div>
                     </div>
-                    <p className="text-sm text-muted-foreground mt-2 leading-relaxed line-clamp-2">
-                      {repo.description || 'No description available'}
+
+                    {/* Description */}
+                    <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2 md:line-clamp-3">
+                      {project.description}
                     </p>
 
                     {/* Stats */}
-                    <div className="flex items-center gap-4 mt-3 text-xs text-muted-foreground">
-                      {repo.stargazers_count > 0 && (
-                        <span className="flex items-center gap-1">
-                          <Star className="w-3.5 h-3.5" />
-                          {repo.stargazers_count}
-                        </span>
-                      )}
-                      {repo.forks_count > 0 && (
-                        <span className="flex items-center gap-1">
-                          <GitFork className="w-3.5 h-3.5" />
-                          {repo.forks_count}
-                        </span>
-                      )}
-                      {repo.language && (
-                        <span className="flex items-center gap-1">
-                          <Code2 className="w-3.5 h-3.5" />
-                          {repo.language}
-                        </span>
-                      )}
-                    </div>
+                    {(project.stars > 0 || project.forks > 0) && (
+                      <div className="flex items-center gap-4 mt-3 text-xs text-muted-foreground">
+                        {project.stars > 0 && (
+                          <span className="flex items-center gap-1">
+                            <Star className="w-3.5 h-3.5" />
+                            {project.stars}
+                          </span>
+                        )}
+                        {project.forks > 0 && (
+                          <span className="flex items-center gap-1">
+                            <GitFork className="w-3.5 h-3.5" />
+                            {project.forks}
+                          </span>
+                        )}
+                      </div>
+                    )}
                   </div>
 
-                  {/* Tech Stack / Topics */}
-                  <div className="mt-4">
-                    <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-2">Tech Stack</p>
+                  {/* Tech Stack */}
+                  <div className="mt-4 pt-4 border-t border-border/30">
+                    <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-2 font-medium">
+                      Tech Stack
+                    </p>
                     <div className="flex flex-wrap gap-2">
-                      {repo.language && (
-                        <span className="px-2.5 py-1 text-xs bg-accent/10 text-accent rounded-md border border-accent/20">
-                          {repo.language}
-                        </span>
-                      )}
-                      {repo.topics?.slice(0, 4).map((topic) => (
+                      {project.techStack.map((tech, i) => (
                         <span
-                          key={topic}
-                          className="px-2.5 py-1 text-xs bg-muted rounded-md text-muted-foreground"
+                          key={tech}
+                          className={`px-2.5 py-1 text-xs rounded-md transition-colors ${
+                            i === 0 
+                              ? 'bg-accent/15 text-accent border border-accent/20' 
+                              : 'bg-muted/70 text-muted-foreground hover:bg-muted'
+                          }`}
                         >
-                          {topic}
+                          {tech}
                         </span>
                       ))}
                     </div>
@@ -223,12 +177,6 @@ const ProjectsSection = () => {
             </div>
           ))}
         </div>
-
-        {repos.length === 0 && !loading && (
-          <p className="text-center text-muted-foreground py-12">
-            No projects found. Check back later!
-          </p>
-        )}
       </div>
     </section>
   );
