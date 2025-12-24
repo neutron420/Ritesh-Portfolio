@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Github } from "lucide-react";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
 const GitHubContributions = () => {
@@ -139,17 +140,21 @@ const GitHubContributions = () => {
         ref={ref}
         className={`section-container scroll-reveal ${isVisible ? 'visible' : ''}`}
       >
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
-          <div>
-            <h2 className="text-xl md:text-2xl font-semibold">GitHub Contributions</h2>
-            <a 
-              href="https://github.com/neutron420" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-muted-foreground text-sm mt-1 hover:text-accent transition-colors"
-            >
-              @neutron420
-            </a>
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
+          <div className="flex items-center gap-3">
+            <Github className="w-6 h-6 text-foreground" />
+            <div>
+              <h2 className="text-xl md:text-2xl font-semibold">GitHub</h2>
+              <a 
+                href="https://github.com/neutron420" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-muted-foreground text-sm hover:text-accent transition-colors flex items-center gap-1"
+              >
+                @neutron420
+                <span className="text-[10px] px-1.5 py-0.5 bg-emerald-500/20 text-emerald-400 rounded">LIVE</span>
+              </a>
+            </div>
           </div>
           <p className="text-sm text-muted-foreground">
             <span className="text-foreground font-medium">{totalContributions}</span> contributions in the last year

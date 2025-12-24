@@ -174,26 +174,30 @@ const ContactSection = () => {
         </div>
 
         {/* Footer */}
-        <div className="mt-12 pt-8 border-t border-border/50 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Ritesh Kumar Singh
-          </p>
-          
-          {/* Visitor Count */}
-          <div className="flex items-center gap-2 text-xs text-muted-foreground">
-            <Eye className="w-3.5 h-3.5" />
-            <span>
-              {visitorCount !== null ? (
-                <>{visitorCount.toLocaleString()} visitors</>
-              ) : (
-                <span className="animate-pulse">Loading...</span>
-              )}
-            </span>
-          </div>
+        <div className="mt-12 pt-8 border-t border-border/50">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p className="text-sm text-muted-foreground order-2 sm:order-1">
+              © {new Date().getFullYear()} Ritesh Kumar Singh
+            </p>
+            
+            {/* Visitor Count */}
+            <div className="flex items-center gap-2 px-4 py-2 bg-card rounded-full border border-border/50 order-1 sm:order-2">
+              <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
+              <Eye className="w-4 h-4 text-muted-foreground" />
+              <span className="text-sm font-medium">
+                {visitorCount !== null ? (
+                  <>{visitorCount.toLocaleString()}</>
+                ) : (
+                  <span className="text-muted-foreground">—</span>
+                )}
+              </span>
+              <span className="text-xs text-muted-foreground">visitors</span>
+            </div>
 
-          <p className="text-xs text-muted-foreground">
-            Built with passion ✨
-          </p>
+            <p className="text-xs text-muted-foreground order-3">
+              Built with passion ✨
+            </p>
+          </div>
         </div>
       </div>
     </section>
