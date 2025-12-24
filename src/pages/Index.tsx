@@ -2,7 +2,9 @@ import { Helmet } from "react-helmet";
 import Navbar from "@/components/portfolio/Navbar";
 import HeroSection from "@/components/portfolio/HeroSection";
 import TechStackSection from "@/components/portfolio/TechStackSection";
+import GitHubContributions from "@/components/portfolio/GitHubContributions";
 import ProjectsSection from "@/components/portfolio/ProjectsSection";
+import AnimeVideoSection from "@/components/portfolio/AnimeVideoSection";
 import ContactSection from "@/components/portfolio/ContactSection";
 
 const Index = () => {
@@ -22,7 +24,9 @@ const Index = () => {
         <main>
           <HeroSection />
           <TechStackSection />
+          <GitHubContributions />
           <ProjectsSection />
+          <AnimeVideoSection />
           <ContactSection />
         </main>
       </div>
