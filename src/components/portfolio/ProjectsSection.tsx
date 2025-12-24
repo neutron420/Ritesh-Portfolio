@@ -52,7 +52,7 @@ const projects = [
   {
     name: "Bloom",
     description: "A real-time video conferencing application similar to Google Meet. Features include HD video calls, screen sharing, chat messaging, virtual backgrounds, meeting scheduling, and participant management.",
-    techStack: ["React", "WebRTC", "Mediasoup", "Socket.io", "Node.js", "Redis", "Docker", "AWS"],
+    techStack: ["Next.js", "React", "WebRTC", "Mediasoup", "Socket.io", "Node.js", "Redis", "Docker", "AWS"],
     github: "https://github.com/neutron420/Bloom",
     live: null,
     image: projectBloom,
