@@ -174,28 +174,60 @@ const ContactSection = () => {
         </div>
 
         {/* Footer */}
-        <div className="mt-12 pt-8 border-t border-border/50">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-sm text-muted-foreground order-2 sm:order-1">
-              © {new Date().getFullYear()} Ritesh Kumar Singh
+        <div className="mt-16 pt-8 border-t border-border/50">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+            {/* Brand */}
+            <div>
+              <div className="flex items-center gap-2 mb-3">
+                <div className="w-8 h-8 rounded-full border-2 border-accent flex items-center justify-center">
+                  <span className="text-sm font-bold text-accent">理</span>
+                </div>
+                <span className="font-semibold">Ritesh Singh</span>
+              </div>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Full-Stack Engineer & Blockchain Developer building meaningful products from scratch.
+              </p>
+            </div>
+
+            {/* Quick Links */}
+            <div>
+              <h4 className="font-medium mb-3">Quick Links</h4>
+              <div className="flex flex-col gap-2">
+                <a href="#tech" className="text-sm text-muted-foreground hover:text-accent transition-colors">Tech Stack</a>
+                <a href="#projects" className="text-sm text-muted-foreground hover:text-accent transition-colors">Projects</a>
+                <a href="#contact" className="text-sm text-muted-foreground hover:text-accent transition-colors">Contact</a>
+              </div>
+            </div>
+
+            {/* Connect */}
+            <div>
+              <h4 className="font-medium mb-3">Connect</h4>
+              <div className="flex flex-col gap-2">
+                <a href="https://github.com/neutron420" target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground hover:text-accent transition-colors">GitHub</a>
+                <a href="https://www.linkedin.com/in/ritesh-singh1/" target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground hover:text-accent transition-colors">LinkedIn</a>
+                <a href="https://x.com/RiteshS18572143" target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground hover:text-accent transition-colors">X (Twitter)</a>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom Bar */}
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-border/30">
+            <p className="text-sm text-muted-foreground">
+              © {new Date().getFullYear()} Ritesh Kumar Singh. All rights reserved.
             </p>
             
             {/* Visitor Count */}
-            <div className="flex items-center gap-2 px-4 py-2 bg-card rounded-full border border-border/50 order-1 sm:order-2">
-              <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
-              <Eye className="w-4 h-4 text-muted-foreground" />
-              <span className="text-sm font-medium">
-                {visitorCount !== null ? (
-                  <>{visitorCount.toLocaleString()}</>
-                ) : (
-                  <span className="text-muted-foreground">—</span>
-                )}
+            <div className="flex items-center gap-2 px-3 py-1.5 bg-muted/30 rounded-full">
+              <div className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse" />
+              <Eye className="w-3.5 h-3.5 text-muted-foreground" />
+              <span className="text-xs font-medium">
+                {visitorCount !== null ? visitorCount.toLocaleString() : "—"}
               </span>
               <span className="text-xs text-muted-foreground">visitors</span>
             </div>
 
-            <p className="text-xs text-muted-foreground order-3">
-              Built with passion ✨
+            <p className="text-xs text-muted-foreground">
+              Built with passion & React ⚡
             </p>
           </div>
         </div>
