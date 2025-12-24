@@ -12,7 +12,8 @@ import {
   SiSocketdotio,
   SiAmazonwebservices,
   SiNextdotjs,
-  SiWeb3Dotjs
+  SiWeb3Dotjs,
+  SiArgo
 } from "react-icons/si";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import projectRaby from "@/assets/project-raby.jpg";
@@ -37,6 +38,7 @@ const techIcons: Record<string, React.ReactNode> = {
   "AWS": <SiAmazonwebservices className="w-3 h-3" />,
   "Web3.js": <SiWeb3Dotjs className="w-3 h-3" />,
   "WebSockets": <Wifi className="w-3 h-3" />,
+  "ArgoCD": <SiArgo className="w-3 h-3" />,
 };
 
 // Curated projects in specific order with proper tech stacks
@@ -44,7 +46,7 @@ const projects = [
   {
     name: "Swaraj-Desk",
     description: "A comprehensive grievance management portal for government offices. Citizens can register complaints, track status, and receive updates in real-time. Built for Smart India Hackathon.",
-    techStack: ["Next.js", "Node.js", "PostgreSQL", "Prisma", "Redis", "WebSockets", "Docker", "Kubernetes", "Tailwind CSS"],
+    techStack: ["Next.js", "Node.js", "PostgreSQL", "Prisma", "Redis", "WebSockets", "Docker", "Kubernetes", "ArgoCD", "Tailwind CSS"],
     github: "https://github.com/neutron420/Swaraj-Desk",
     live: null,
     image: projectGrievance,

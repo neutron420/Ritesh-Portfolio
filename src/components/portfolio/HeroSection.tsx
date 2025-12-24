@@ -1,4 +1,4 @@
-import { Github, Twitter, Linkedin, Mail, Download } from "lucide-react";
+import { Github, Twitter, Linkedin, Mail, Download, GraduationCap } from "lucide-react";
 import bannerImage from "@/assets/banner.jpg";
 
 const HeroSection = () => {
@@ -49,8 +49,8 @@ const HeroSection = () => {
               Full-Stack Engineer · Blockchain Developer · Competitive Programmer
             </p>
             <p className="text-sm text-muted-foreground/80 mt-1 flex items-center gap-1.5">
-              <span>🎓</span>
-              <span>BTech in CSE & Data Science · CV Raman Global University</span>
+              <GraduationCap className="w-4 h-4" />
+              <span>BTech in CSE & Data Science · CV Raman Global University · 2027</span>
             </p>
 
             {/* Social Links + Resume Button */}
