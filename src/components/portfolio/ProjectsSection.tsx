@@ -11,14 +11,6 @@ const projects = [
     image: "https://images.unsplash.com/photo-1557597774-9d273605dfa9?w=600&auto=format&fit=crop&q=80",
   },
   {
-    name: "Codexly",
-    description: "An AI-powered code review and analysis platform. Get intelligent suggestions, security audits, and performance optimizations for your codebase.",
-    techStack: ["Next.js", "TypeScript", "OpenAI API", "Prisma", "PostgreSQL"],
-    github: "https://github.com/neutron420/Codexly",
-    live: null,
-    image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&auto=format&fit=crop&q=80",
-  },
-  {
     name: "Bloom",
     description: "A mental health and wellness tracking application. Track your mood, journal entries, and get personalized insights for better mental well-being.",
     techStack: ["React Native", "Firebase", "Node.js", "TensorFlow.js"],
@@ -33,14 +25,6 @@ const projects = [
     github: "https://github.com/neutron420/Raby",
     live: null,
     image: "https://ledger-wp-website-s3-prd.ledger.com/uploads/2025/04/hero-1.webp",
-  },
-  {
-    name: "Code-Connect",
-    description: "A high-performance compiler built from scratch. Features lexical analysis, parsing, semantic analysis, and code generation. Deployed on AWS with Docker containerization.",
-    techStack: ["Rust", "Next.js", "Prisma", "Docker", "AWS"],
-    github: "https://github.com/neutron420/Code-Connect",
-    live: null,
-    image: "https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?w=600&auto=format&fit=crop&q=80",
   },
 ];
 
