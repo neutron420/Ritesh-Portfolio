@@ -63,10 +63,6 @@ const TechStackSection = () => {
 
   const { ref, isVisible } = useScrollReveal();
 
-  // Duplicate items for seamless loop
-  const row1Items = [...technologies, ...technologies, ...technologies];
-  const row2Items = [...technologies2, ...technologies2, ...technologies2];
-
   return (
     <section id="tech" className="py-16 md:py-24 overflow-hidden">
       <div 
@@ -88,17 +84,31 @@ const TechStackSection = () => {
         <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
 
         {/* Row 1 - slides left */}
-        <div className="flex gap-3 mb-3 animate-marquee-left">
-          {row1Items.map((tech, index) => (
-            <TechCard key={`${tech.name}-${index}`} tech={tech} />
-          ))}
+        <div className="flex mb-3 overflow-hidden">
+          <div className="flex gap-3 animate-marquee-left">
+            {technologies.map((tech, index) => (
+              <TechCard key={`r1a-${tech.name}-${index}`} tech={tech} />
+            ))}
+          </div>
+          <div className="flex gap-3 animate-marquee-left ml-3">
+            {technologies.map((tech, index) => (
+              <TechCard key={`r1b-${tech.name}-${index}`} tech={tech} />
+            ))}
+          </div>
         </div>
 
         {/* Row 2 - slides right */}
-        <div className="flex gap-3 animate-marquee-right">
-          {row2Items.map((tech, index) => (
-            <TechCard key={`${tech.name}-${index}`} tech={tech} />
-          ))}
+        <div className="flex overflow-hidden">
+          <div className="flex gap-3 animate-marquee-right">
+            {technologies2.map((tech, index) => (
+              <TechCard key={`r2a-${tech.name}-${index}`} tech={tech} />
+            ))}
+          </div>
+          <div className="flex gap-3 animate-marquee-right ml-3">
+            {technologies2.map((tech, index) => (
+              <TechCard key={`r2b-${tech.name}-${index}`} tech={tech} />
+            ))}
+          </div>
         </div>
       </div>
     </section>
