@@ -5,7 +5,7 @@ const projects = [
   {
     name: "Swaraj-Desk",
     description: "A comprehensive grievance management portal for government offices. Citizens can register complaints, track status, and receive updates in real-time. Built for Smart India Hackathon.",
-    techStack: ["React", "Node.js", "MongoDB", "Express", "Tailwind CSS"],
+    techStack: ["Next.js", "Node.js", "PostgreSQL", "Prisma", "Redis", "Docker", "Kubernetes", "Tailwind CSS"],
     github: "https://github.com/neutron420/Swaraj-Desk",
     live: null,
     image: "https://images.unsplash.com/photo-1557597774-9d273605dfa9?w=600&auto=format&fit=crop&q=80",
