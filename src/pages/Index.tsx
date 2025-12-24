@@ -6,6 +6,7 @@ import TechStackSection from "@/components/portfolio/TechStackSection";
 import LeetCodeStats from "@/components/portfolio/LeetCodeStats";
 import GitHubContributions from "@/components/portfolio/GitHubContributions";
 import ProjectsSection from "@/components/portfolio/ProjectsSection";
+import SpotifySection from "@/components/portfolio/SpotifySection";
 import AnimeVideoSection from "@/components/portfolio/AnimeVideoSection";
 import ContactSection from "@/components/portfolio/ContactSection";
 
@@ -30,6 +31,7 @@ const Index = () => {
           <LeetCodeStats />
           <GitHubContributions />
           <ProjectsSection />
+          <SpotifySection />
           <AnimeVideoSection />
           <ContactSection />
         </main>
