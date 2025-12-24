@@ -1,11 +1,12 @@
 import { Github, Twitter, Linkedin, Mail } from "lucide-react";
+import bannerImage from "@/assets/banner.png";
 
 const HeroSection = () => {
   const socialLinks = [
-    { icon: Github, href: "https://github.com", label: "GitHub" },
-    { icon: Twitter, href: "https://twitter.com", label: "X" },
-    { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-    { icon: Mail, href: "mailto:hello@example.com", label: "Email" },
+    { icon: Github, href: "https://github.com/neutron420", label: "GitHub" },
+    { icon: Twitter, href: "https://x.com/RiteshS18572143", label: "X" },
+    { icon: Linkedin, href: "https://www.linkedin.com/in/ritesh-singh1/", label: "LinkedIn" },
+    { icon: Mail, href: "mailto:ritesh@example.com", label: "Email" },
   ];
 
   return (
@@ -14,15 +15,15 @@ const HeroSection = () => {
       <div className="section-container">
         <div className="relative h-48 md:h-64 rounded-2xl overflow-hidden mt-6">
           <img
-            src="https://images.unsplash.com/photo-1536859355448-76f92ebdc33d?w=1200&auto=format&fit=crop&q=80"
-            alt="Banner"
+            src={bannerImage}
+            alt="Ritesh's Setup"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
           
           {/* Floating text on banner */}
           <div className="absolute bottom-4 right-6 text-right">
-            <p className="text-sm italic text-foreground/60 serif">
+            <p className="text-sm italic text-foreground/70 serif">
               Build · Ship · Learn · Repeat
             </p>
           </div>
@@ -30,10 +31,10 @@ const HeroSection = () => {
 
         {/* Profile Section */}
         <div className="relative -mt-16 md:-mt-20 px-4">
-          {/* Avatar */}
+          {/* Avatar - using GitHub avatar */}
           <div className="w-28 h-28 md:w-36 md:h-36 rounded-full border-4 border-background overflow-hidden bg-card">
             <img
-              src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=300&auto=format&fit=crop&q=80"
+              src="https://avatars.githubusercontent.com/u/179364761?v=4"
               alt="Ritesh Kumar Singh"
               className="w-full h-full object-cover"
             />
@@ -45,7 +46,7 @@ const HeroSection = () => {
               Ritesh Kumar Singh
             </h1>
             <p className="text-muted-foreground mt-1">
-              22 · Full-Stack Engineer · Blockchain Developer · Builder
+              Full-Stack Engineer · Blockchain Developer · Builder
             </p>
 
             {/* Social Links */}
@@ -66,6 +67,12 @@ const HeroSection = () => {
                 );
               })}
             </div>
+
+            {/* Stats */}
+            <div className="flex items-center gap-4 mt-4 text-sm text-muted-foreground">
+              <span><strong className="text-foreground">14</strong> followers</span>
+              <span><strong className="text-foreground">60</strong> following</span>
+            </div>
           </div>
 
           {/* Bio */}
@@ -73,8 +80,7 @@ const HeroSection = () => {
             <p className="text-foreground leading-relaxed">
               <span className="text-accent font-medium">I build from scratch.</span>{" "}
               Frontend, backend, full-stack, and blockchain applications end-to-end 
-              from UI/UX and deployment to smart contracts. I prioritize outcomes 
-              over buzzwords, focusing on products that deliver real value.
+              from UI/UX and deployment to smart contracts. Living a life worth more than anything.
             </p>
           </div>
         </div>
