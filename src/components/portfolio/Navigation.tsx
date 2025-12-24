@@ -7,7 +7,7 @@ const Navigation = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 100);
+      setIsScrolled(window.scrollY > 50);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -32,10 +32,10 @@ const Navigation = () => {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "py-4 bg-background/90 backdrop-blur-md border-b border-border/50"
-          : "py-6 bg-transparent"
+          ? "py-3 bg-background/95 backdrop-blur-sm border-b border-border/30"
+          : "py-5 bg-transparent"
       }`}
     >
       <div className="px-6 md:px-12 lg:px-24">
@@ -43,7 +43,7 @@ const Navigation = () => {
           {/* Logo */}
           <a
             href="#"
-            className="font-serif italic text-xl hover:text-accent transition-colors"
+            className="serif text-xl tracking-tight hover:text-accent transition-colors duration-300"
             onClick={(e) => {
               e.preventDefault();
               window.scrollTo({ top: 0, behavior: "smooth" });
@@ -53,12 +53,12 @@ const Navigation = () => {
           </a>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-12">
+          <nav className="hidden md:flex items-center gap-10">
             {navItems.map((item) => (
               <a
                 key={item.label}
                 href={item.href}
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors relative group"
+                className="text-[11px] uppercase tracking-[0.15em] text-muted-foreground hover:text-accent transition-colors duration-300"
                 onClick={(e) => {
                   e.preventDefault();
                   scrollToSection(item.href);
@@ -70,14 +70,14 @@ const Navigation = () => {
           </nav>
 
           {/* Availability indicator */}
-          <div className="hidden md:flex items-center gap-3">
-            <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-            <span className="text-xs text-muted-foreground">Available for work</span>
+          <div className="hidden md:flex items-center gap-2">
+            <span className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse" />
+            <span className="text-[10px] text-muted-foreground tracking-wider uppercase">Available</span>
           </div>
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden p-2 -mr-2"
+            className="md:hidden p-2 -mr-2 text-foreground"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle menu"
           >
@@ -91,13 +91,13 @@ const Navigation = () => {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden absolute top-full left-0 right-0 bg-background border-b border-border">
-            <nav className="flex flex-col py-4">
+          <div className="md:hidden absolute top-full left-0 right-0 bg-background/98 backdrop-blur-sm border-b border-border/30">
+            <nav className="flex flex-col py-6">
               {navItems.map((item) => (
                 <a
                   key={item.label}
                   href={item.href}
-                  className="px-6 py-4 text-foreground hover:bg-card transition-colors"
+                  className="px-6 py-4 text-foreground hover:text-accent hover:bg-card/50 transition-colors"
                   onClick={(e) => {
                     e.preventDefault();
                     scrollToSection(item.href);
