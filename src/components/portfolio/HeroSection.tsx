@@ -48,6 +48,10 @@ const HeroSection = () => {
             <p className="text-muted-foreground mt-1">
               Full-Stack Engineer · Blockchain Developer · Competitive Programmer
             </p>
+            <p className="text-sm text-muted-foreground/80 mt-1 flex items-center gap-1.5">
+              <span>🎓</span>
+              <span>BTech in CSE & Data Science · CV Raman Global University</span>
+            </p>
 
             {/* Social Links + Resume Button */}
             <div className="flex items-center gap-3 mt-4 flex-wrap">
