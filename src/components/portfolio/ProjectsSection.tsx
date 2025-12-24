@@ -1,4 +1,40 @@
-import { ArrowUpRight, Github, Star, GitFork } from "lucide-react";
+import { ArrowUpRight, Github } from "lucide-react";
+import { 
+  SiReact, 
+  SiNodedotjs, 
+  SiPostgresql, 
+  SiPrisma, 
+  SiRedis, 
+  SiDocker, 
+  SiKubernetes, 
+  SiTailwindcss,
+  SiWebrtc,
+  SiSocketdotio,
+  SiAmazonwebservices,
+  SiNextdotjs,
+  SiWeb3Dotjs
+} from "react-icons/si";
+import { Wifi } from "lucide-react";
+
+// Tech stack icon mapping
+const techIcons: Record<string, React.ReactNode> = {
+  "React": <SiReact className="w-3 h-3" />,
+  "React Native": <SiReact className="w-3 h-3" />,
+  "Next.js": <SiNextdotjs className="w-3 h-3" />,
+  "Node.js": <SiNodedotjs className="w-3 h-3" />,
+  "PostgreSQL": <SiPostgresql className="w-3 h-3" />,
+  "Prisma": <SiPrisma className="w-3 h-3" />,
+  "Redis": <SiRedis className="w-3 h-3" />,
+  "Docker": <SiDocker className="w-3 h-3" />,
+  "Kubernetes": <SiKubernetes className="w-3 h-3" />,
+  "Tailwind CSS": <SiTailwindcss className="w-3 h-3" />,
+  "WebRTC": <SiWebrtc className="w-3 h-3" />,
+  "Mediasoup": <Wifi className="w-3 h-3" />,
+  "Socket.io": <SiSocketdotio className="w-3 h-3" />,
+  "AWS": <SiAmazonwebservices className="w-3 h-3" />,
+  "Web3.js": <SiWeb3Dotjs className="w-3 h-3" />,
+  "WebSockets": <Wifi className="w-3 h-3" />,
+};
 
 // Curated projects in specific order with proper tech stacks
 const projects = [
@@ -117,12 +153,13 @@ const ProjectsSection = () => {
                       {project.techStack.map((tech, i) => (
                         <span
                           key={tech}
-                          className={`px-2.5 py-1 text-xs rounded-md transition-colors ${
+                          className={`px-2.5 py-1 text-xs rounded-md transition-colors flex items-center gap-1.5 ${
                             i === 0 
                               ? 'bg-accent/15 text-accent border border-accent/20' 
                               : 'bg-muted/70 text-muted-foreground hover:bg-muted'
                           }`}
                         >
+                          {techIcons[tech]}
                           {tech}
                         </span>
                       ))}
