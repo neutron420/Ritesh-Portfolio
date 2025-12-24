@@ -5,6 +5,7 @@ const GitHubContributions = () => {
   const [contributions, setContributions] = useState<number[][]>([]);
   const [totalContributions, setTotalContributions] = useState(512);
   const [loading, setLoading] = useState(true);
+  const { ref, isVisible } = useScrollReveal();
 
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   const days = ['Mon', 'Wed', 'Fri'];
@@ -131,7 +132,6 @@ const GitHubContributions = () => {
     );
   }
 
-  const { ref, isVisible } = useScrollReveal();
 
   return (
     <section className="py-12 md:py-16">

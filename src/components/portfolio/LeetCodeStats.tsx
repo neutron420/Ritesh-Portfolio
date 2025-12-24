@@ -19,6 +19,7 @@ const LeetCodeStats = () => {
   const [stats, setStats] = useState<LeetCodeData | null>(null);
   const [loading, setLoading] = useState(true);
   const [contributionData, setContributionData] = useState<number[][]>([]);
+  const { ref, isVisible } = useScrollReveal();
 
   useEffect(() => {
     const fetchLeetCodeStats = async () => {
@@ -126,7 +127,6 @@ const LeetCodeStats = () => {
   const mediumPercent = (stats.mediumSolved / stats.mediumTotal) * 100;
   const hardPercent = (stats.hardSolved / stats.hardTotal) * 100;
 
-  const { ref, isVisible } = useScrollReveal();
 
   return (
     <section className="py-12 md:py-16">
