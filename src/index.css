@@ -119,20 +119,20 @@
 /* Infinite marquee animations - seamless loop */
 @keyframes marquee-left {
   0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  100% { transform: translateX(-33.333%); }
 }
 
 @keyframes marquee-right {
-  0% { transform: translateX(-50%); }
+  0% { transform: translateX(-33.333%); }
   100% { transform: translateX(0); }
 }
 
 .animate-marquee-left {
-  animation: marquee-left 15s linear infinite;
+  animation: marquee-left 20s linear infinite;
 }
 
 .animate-marquee-right {
-  animation: marquee-right 15s linear infinite;
+  animation: marquee-right 20s linear infinite;
 }
 
 /* Custom scrollbar */
