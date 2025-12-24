@@ -88,14 +88,14 @@ const TechStackSection = () => {
         <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
 
         {/* Row 1 - slides left */}
-        <div className="flex gap-3 mb-3 animate-marquee-left hover:[animation-play-state:paused]">
+        <div className="flex gap-3 mb-3 animate-marquee-left">
           {row1Items.map((tech, index) => (
             <TechCard key={`${tech.name}-${index}`} tech={tech} />
           ))}
         </div>
 
         {/* Row 2 - slides right */}
-        <div className="flex gap-3 animate-marquee-right hover:[animation-play-state:paused]">
+        <div className="flex gap-3 animate-marquee-right">
           {row2Items.map((tech, index) => (
             <TechCard key={`${tech.name}-${index}`} tech={tech} />
           ))}
