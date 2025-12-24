@@ -32,7 +32,7 @@ const projects = [
     techStack: ["React Native", "Node.js", "Prisma", "PostgreSQL", "Web3.js"],
     github: "https://github.com/neutron420/Raby",
     live: null,
-    image: "https://images.unsplash.com/photo-1621761191319-c6fb62004040?w=600&auto=format&fit=crop&q=80",
+    image: "https://ledger-wp-website-s3-prd.ledger.com/uploads/2025/04/hero-1.webp",
   },
   {
     name: "Code-Connect",
