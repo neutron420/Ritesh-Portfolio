@@ -24,25 +24,40 @@ const Navbar = () => {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "py-3 bg-background/95 backdrop-blur-md border-b border-border/50"
-          : "py-4 bg-transparent"
+          ? "py-2 bg-background/95 backdrop-blur-md border-b border-border/50"
+          : "py-3 bg-transparent"
       }`}
     >
       <div className="section-container">
         <div className="flex items-center justify-between">
-          {/* Logo */}
+          {/* Logo with Japanese styling */}
           <a
             href="#"
-            className="text-lg font-bold tracking-tight hover:text-accent transition-colors flex items-center gap-2"
+            className="flex items-center gap-3 group"
             onClick={(e) => {
               e.preventDefault();
               window.scrollTo({ top: 0, behavior: "smooth" });
             }}
           >
-            <span className="w-8 h-8 rounded-lg bg-accent flex items-center justify-center text-accent-foreground font-bold text-sm">
-              R
-            </span>
-            <span className="hidden sm:inline">Ritesh</span>
+            {/* Japanese-inspired logo mark */}
+            <div className="relative w-10 h-10 flex items-center justify-center">
+              {/* Outer ring - like a Japanese mon/crest */}
+              <div className="absolute inset-0 rounded-full border-2 border-accent/80 group-hover:border-accent transition-colors" />
+              {/* Inner character */}
+              <span className="text-lg font-bold text-accent group-hover:scale-110 transition-transform">
+                理
+              </span>
+            </div>
+            
+            {/* Name with Japanese translation */}
+            <div className="flex flex-col">
+              <span className="text-base font-semibold tracking-tight group-hover:text-accent transition-colors leading-tight">
+                Ritesh
+              </span>
+              <span className="text-[10px] text-muted-foreground tracking-widest leading-tight">
+                リテシュ
+              </span>
+            </div>
           </a>
 
           {/* Desktop Navigation */}
@@ -51,15 +66,16 @@ const Navbar = () => {
               <a
                 key={item.name}
                 href={item.href}
-                className="px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+                className="relative px-4 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors group"
               >
                 {item.name}
+                <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-px bg-accent transition-all duration-300 group-hover:w-1/2" />
               </a>
             ))}
             <a
               href="/resume.pdf"
               download="Ritesh_Singh_Resume.pdf"
-              className="ml-2 px-4 py-2 flex items-center gap-2 text-sm font-medium rounded-lg bg-accent text-accent-foreground hover:bg-accent/90 transition-all"
+              className="ml-3 px-4 py-2 flex items-center gap-2 text-sm font-medium rounded-full bg-accent text-accent-foreground hover:bg-accent/90 transition-all hover:scale-105"
             >
               <Download className="w-4 h-4" />
               Resume
@@ -69,7 +85,7 @@ const Navbar = () => {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-2 rounded-lg hover:bg-muted transition-colors"
+            className="md:hidden p-2 rounded-full hover:bg-muted transition-colors"
             aria-label="Toggle menu"
           >
             {isMobileMenuOpen ? (
@@ -83,7 +99,7 @@ const Navbar = () => {
         {/* Mobile Navigation */}
         {isMobileMenuOpen && (
           <nav className="md:hidden mt-4 pb-4 border-t border-border/50 pt-4 animate-fade-in">
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-1">
               {navItems.map((item) => (
                 <a
                   key={item.name}
@@ -97,7 +113,7 @@ const Navbar = () => {
               <a
                 href="/resume.pdf"
                 download="Ritesh_Singh_Resume.pdf"
-                className="mt-2 px-4 py-3 flex items-center justify-center gap-2 text-sm font-medium rounded-lg bg-accent text-accent-foreground hover:bg-accent/90 transition-all"
+                className="mt-2 mx-4 px-4 py-3 flex items-center justify-center gap-2 text-sm font-medium rounded-full bg-accent text-accent-foreground hover:bg-accent/90 transition-all"
               >
                 <Download className="w-4 h-4" />
                 Download Resume
