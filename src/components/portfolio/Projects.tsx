@@ -17,7 +17,7 @@ const Projects = () => {
       category: "Blockchain",
       year: "2024",
       description: "A decentralized finance protocol for lending and borrowing with automated market makers and yield optimization.",
-      tech: ["Solidity", "React", "Web3.js", "Hardhat"],
+      tech: ["Solidity", "Rust", "React", "Hardhat"],
       image: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=800&auto=format&fit=crop&q=80",
     },
     {
@@ -32,44 +32,44 @@ const Projects = () => {
   ];
 
   return (
-    <section id="work" className="py-32 px-6 md:px-12 lg:px-24 bg-card/30">
+    <section id="work" className="py-32 px-6 md:px-12 lg:px-24 bg-card/20">
       <div className="max-w-6xl mx-auto">
         {/* Section header */}
-        <div className="flex items-center gap-8 mb-16">
+        <div className="flex items-center gap-8 mb-20">
           <span className="section-label">Selected Work</span>
-          <div className="flex-1 h-px bg-border" />
-          <span className="text-xs text-muted-foreground">03</span>
+          <div className="flex-1 h-px bg-gradient-to-r from-border via-accent/20 to-transparent" />
+          <span className="text-[10px] text-muted-foreground tracking-wider">03</span>
         </div>
 
         {/* Projects list */}
-        <div className="space-y-1">
-          {projects.map((project, index) => (
+        <div className="space-y-0">
+          {projects.map((project) => (
             <article 
               key={project.title}
-              className="group border-t border-border last:border-b py-12 hover:bg-background/50 transition-colors px-4 -mx-4"
+              className="group border-t border-border/50 last:border-b py-10 hover:bg-background/50 transition-colors duration-300 px-4 -mx-4"
             >
               <div className="grid lg:grid-cols-12 gap-8 items-start">
                 {/* Number & Category */}
                 <div className="lg:col-span-2 flex lg:flex-col justify-between lg:justify-start gap-4">
-                  <span className="text-xs text-muted-foreground">{project.number}</span>
-                  <span className="text-xs text-muted-foreground">{project.category}</span>
+                  <span className="text-[10px] text-accent/60">{project.number}</span>
+                  <span className="text-[10px] text-muted-foreground tracking-wider uppercase">{project.category}</span>
                 </div>
 
                 {/* Title & Description */}
                 <div className="lg:col-span-6">
-                  <h3 className="text-2xl md:text-3xl font-serif italic mb-4 group-hover:text-accent transition-colors flex items-center gap-3">
+                  <h3 className="text-xl md:text-2xl serif mb-4 group-hover:text-accent transition-colors duration-300 flex items-center gap-3">
                     {project.title}
-                    <ArrowUpRight className="w-5 h-5 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                    <ArrowUpRight className="w-4 h-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
                   </h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed max-w-md">
+                  <p className="text-sm text-muted-foreground leading-relaxed max-w-md">
                     {project.description}
                   </p>
                   
                   {/* Tech stack */}
-                  <div className="flex gap-2 mt-6">
-                    {project.tech.map((t) => (
-                      <span key={t} className="text-xs text-muted-foreground">
-                        {t}{project.tech.indexOf(t) < project.tech.length - 1 && " ·"}
+                  <div className="flex gap-4 mt-6">
+                    {project.tech.map((t, i) => (
+                      <span key={t} className="text-[10px] text-muted-foreground/60 tracking-wider">
+                        {t}{i < project.tech.length - 1 && <span className="ml-4 text-accent/30">·</span>}
                       </span>
                     ))}
                   </div>
@@ -77,11 +77,11 @@ const Projects = () => {
 
                 {/* Image */}
                 <div className="lg:col-span-4">
-                  <div className="aspect-[4/3] overflow-hidden bg-muted">
+                  <div className="aspect-[4/3] overflow-hidden bg-muted border border-border/30">
                     <img
                       src={project.image}
                       alt={project.title}
-                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
+                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105"
                     />
                   </div>
                 </div>
@@ -91,13 +91,13 @@ const Projects = () => {
         </div>
 
         {/* View all link */}
-        <div className="mt-16 pt-8 border-t border-border">
+        <div className="mt-16 pt-8 border-t border-border/50">
           <a 
             href="#" 
-            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors group"
+            className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.15em] text-muted-foreground hover:text-accent transition-colors group"
           >
             View all projects
-            <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            <ArrowUpRight className="w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
           </a>
         </div>
       </div>

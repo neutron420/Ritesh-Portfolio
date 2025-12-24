@@ -29,35 +29,35 @@ const Experience = () => {
   ];
 
   return (
-    <section id="experience" className="py-32 px-6 md:px-12 lg:px-24 bg-card/30">
+    <section id="experience" className="py-32 px-6 md:px-12 lg:px-24">
       <div className="max-w-6xl mx-auto">
         {/* Section header */}
-        <div className="flex items-center gap-8 mb-16">
+        <div className="flex items-center gap-8 mb-20">
           <span className="section-label">Experience</span>
-          <div className="flex-1 h-px bg-border" />
-          <span className="text-xs text-muted-foreground">04</span>
+          <div className="flex-1 h-px bg-gradient-to-r from-border via-accent/20 to-transparent" />
+          <span className="text-[10px] text-muted-foreground tracking-wider">04</span>
         </div>
 
         <div className="grid lg:grid-cols-12 gap-16">
           {/* Work experience */}
           <div className="lg:col-span-8">
             <div className="space-y-0">
-              {experience.map((item, index) => (
+              {experience.map((item) => (
                 <div 
                   key={item.company}
-                  className="py-8 border-t border-border group hover:bg-background/50 transition-colors px-4 -mx-4"
+                  className="py-8 border-t border-border/50 group hover:bg-card/30 transition-colors duration-300 px-4 -mx-4"
                 >
                   <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
                     <div className="flex-1">
-                      <h3 className="text-xl font-serif italic group-hover:text-accent transition-colors">
+                      <h3 className="text-lg serif group-hover:text-accent transition-colors duration-300">
                         {item.role}
                       </h3>
-                      <p className="text-muted-foreground mt-1">{item.company}</p>
-                      <p className="text-sm text-muted-foreground mt-4 max-w-md">
+                      <p className="text-sm text-muted-foreground mt-1">{item.company}</p>
+                      <p className="text-sm text-muted-foreground/70 mt-4 max-w-md leading-relaxed">
                         {item.description}
                       </p>
                     </div>
-                    <span className="text-xs text-muted-foreground whitespace-nowrap">
+                    <span className="text-[10px] text-accent/50 whitespace-nowrap tracking-wider">
                       {item.period}
                     </span>
                   </div>
@@ -69,18 +69,18 @@ const Experience = () => {
           {/* Education & extras */}
           <div className="lg:col-span-4">
             <div className="sticky top-32">
-              <p className="text-xs uppercase tracking-[0.15em] text-muted-foreground mb-6">Education</p>
+              <p className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground mb-6">Education</p>
               {education.map((item) => (
                 <div key={item.school} className="mb-8">
-                  <h4 className="font-serif italic text-lg">{item.degree}</h4>
-                  <p className="text-muted-foreground text-sm mt-1">{item.school}</p>
-                  <p className="text-xs text-muted-foreground mt-2">{item.year}</p>
+                  <h4 className="serif text-lg">{item.degree}</h4>
+                  <p className="text-sm text-muted-foreground mt-1">{item.school}</p>
+                  <p className="text-[10px] text-accent/50 mt-2 tracking-wider">{item.year}</p>
                 </div>
               ))}
 
-              <div className="pt-8 border-t border-border mt-8">
-                <p className="text-xs uppercase tracking-[0.15em] text-muted-foreground mb-4">Languages</p>
-                <p className="text-sm text-muted-foreground">English, Japanese</p>
+              <div className="pt-8 border-t border-border/50 mt-8">
+                <p className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground mb-4">Languages</p>
+                <p className="text-sm text-muted-foreground">English, Hindi</p>
               </div>
             </div>
           </div>

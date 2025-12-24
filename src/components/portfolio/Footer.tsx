@@ -2,15 +2,15 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="py-12 px-6 md:px-12 lg:px-24 border-t border-border">
+    <footer className="py-12 px-6 md:px-12 lg:px-24 border-t border-border/30">
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
           {/* Left side */}
           <div>
-            <p className="font-serif italic text-2xl mb-2">
+            <p className="serif text-xl mb-1">
               Ritesh Kumar Singh<span className="text-accent">.</span>
             </p>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-[10px] text-muted-foreground tracking-wider uppercase">
               Full Stack Developer & Blockchain Engineer
             </p>
           </div>
@@ -21,7 +21,7 @@ const Footer = () => {
               <a
                 key={item}
                 href={`#${item.toLowerCase()}`}
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                className="text-[10px] uppercase tracking-[0.15em] text-muted-foreground hover:text-accent transition-colors"
                 onClick={(e) => {
                   e.preventDefault();
                   document.getElementById(item.toLowerCase())?.scrollIntoView({ behavior: 'smooth' });
@@ -33,16 +33,18 @@ const Footer = () => {
           </nav>
 
           {/* Right side */}
-          <p className="text-xs text-muted-foreground">
+          <p className="text-[10px] text-muted-foreground/50">
             © {currentYear}
           </p>
         </div>
 
-        {/* Minimal decoration */}
-        <div className="mt-16 pt-8 border-t border-border flex items-center justify-center">
-          <p className="text-xs text-muted-foreground/50 tracking-[0.3em] uppercase">
-            Built with intention
+        {/* Minimal Japanese decoration */}
+        <div className="mt-16 pt-8 border-t border-border/30 flex items-center justify-center gap-6">
+          <div className="w-8 h-px bg-gradient-to-r from-transparent to-accent/30" />
+          <p className="text-[10px] text-muted-foreground/30 tracking-[0.4em]">
+            魂
           </p>
+          <div className="w-8 h-px bg-gradient-to-l from-transparent to-accent/30" />
         </div>
       </div>
     </footer>
