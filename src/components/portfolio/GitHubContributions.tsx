@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
 const GitHubContributions = () => {
   const [contributions, setContributions] = useState<number[][]>([]);
@@ -130,9 +131,14 @@ const GitHubContributions = () => {
     );
   }
 
+  const { ref, isVisible } = useScrollReveal();
+
   return (
     <section className="py-12 md:py-16">
-      <div className="section-container">
+      <div 
+        ref={ref}
+        className={`section-container scroll-reveal ${isVisible ? 'visible' : ''}`}
+      >
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
           <div>
             <h2 className="text-xl md:text-2xl font-semibold">GitHub Contributions</h2>

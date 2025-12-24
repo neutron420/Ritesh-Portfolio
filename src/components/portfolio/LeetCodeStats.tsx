@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { SiLeetcode } from "react-icons/si";
+import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
 interface LeetCodeData {
   totalSolved: number;
@@ -125,9 +126,14 @@ const LeetCodeStats = () => {
   const mediumPercent = (stats.mediumSolved / stats.mediumTotal) * 100;
   const hardPercent = (stats.hardSolved / stats.hardTotal) * 100;
 
+  const { ref, isVisible } = useScrollReveal();
+
   return (
     <section className="py-12 md:py-16">
-      <div className="section-container">
+      <div 
+        ref={ref}
+        className={`section-container scroll-reveal ${isVisible ? 'visible' : ''}`}
+      >
         <div className="flex items-center gap-3 mb-6">
           <SiLeetcode className="w-6 h-6 text-[#FFA116]" />
           <h2 className="text-xl md:text-2xl font-semibold">LeetCode</h2>

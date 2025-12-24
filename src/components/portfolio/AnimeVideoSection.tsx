@@ -1,7 +1,14 @@
+import { useScrollReveal } from "@/hooks/use-scroll-reveal";
+
 const AnimeVideoSection = () => {
+  const { ref, isVisible } = useScrollReveal();
+
   return (
     <section className="py-16 md:py-20">
-      <div className="section-container">
+      <div 
+        ref={ref}
+        className={`section-container scroll-reveal ${isVisible ? 'visible' : ''}`}
+      >
         {/* Video Container */}
         <div className="relative rounded-2xl overflow-hidden aspect-video bg-card border border-border/50">
           {/* 

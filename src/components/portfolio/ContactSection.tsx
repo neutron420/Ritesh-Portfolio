@@ -1,7 +1,9 @@
 import { ArrowUpRight, Mail, Eye } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
 const ContactSection = () => {
+  const { ref, isVisible } = useScrollReveal();
   const [visitorCount, setVisitorCount] = useState<number | null>(null);
 
   useEffect(() => {
@@ -28,7 +30,10 @@ const ContactSection = () => {
 
   return (
     <section id="contact" className="py-16 md:py-24">
-      <div className="section-container">
+      <div 
+        ref={ref}
+        className={`section-container scroll-reveal ${isVisible ? 'visible' : ''}`}
+      >
         <div className="bg-card rounded-2xl border border-border/50 p-8 md:p-12 text-center">
           <p className="text-muted-foreground text-sm mb-4">
             If you've read this far, you might be interested in what I do.

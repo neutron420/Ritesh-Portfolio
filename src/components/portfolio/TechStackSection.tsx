@@ -21,6 +21,7 @@ import {
   SiVercel,
   SiVite
 } from "react-icons/si";
+import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
 const TechStackSection = () => {
   const technologies = [
@@ -64,9 +65,14 @@ const TechStackSection = () => {
     );
   };
 
+  const { ref, isVisible } = useScrollReveal();
+
   return (
     <section id="tech" className="py-16 md:py-24">
-      <div className="section-container mb-8">
+      <div 
+        ref={ref}
+        className={`section-container mb-8 scroll-reveal ${isVisible ? 'visible' : ''}`}
+      >
         <h2 className="text-xl md:text-2xl font-semibold">Tech Stack</h2>
         <p className="text-muted-foreground text-sm mt-2">
           Tools and technologies I work with to ship meaningful products.
