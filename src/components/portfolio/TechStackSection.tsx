@@ -54,9 +54,9 @@ const TechStackSection = () => {
   const TechCard = ({ tech }: { tech: typeof technologies[0] }) => {
     const Icon = tech.icon;
     return (
-      <div className="flex items-center gap-3 px-4 py-3 bg-card/50 border border-border/50 rounded-lg whitespace-nowrap shrink-0">
-        <Icon className="w-5 h-5 shrink-0" style={{ color: tech.color }} />
-        <span className="text-sm text-foreground">{tech.name}</span>
+      <div className="flex items-center gap-4 px-5 py-4 bg-card/50 border border-border/50 rounded-xl whitespace-nowrap shrink-0">
+        <Icon className="w-7 h-7 md:w-8 md:h-8 shrink-0" style={{ color: tech.color }} />
+        <span className="text-base font-medium text-foreground">{tech.name}</span>
       </div>
     );
   };
