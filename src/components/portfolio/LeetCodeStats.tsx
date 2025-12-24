@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { SiLeetcode } from "react-icons/si";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
+import { getCachedData, setCachedData } from "@/lib/stats-cache";
 
 interface LeetCodeData {
   totalSolved: number;
@@ -18,32 +19,51 @@ interface LeetCodeData {
 const LeetCodeStats = () => {
   const [stats, setStats] = useState<LeetCodeData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState(false);
   const [contributionData, setContributionData] = useState<number[][]>([]);
   const { ref, isVisible } = useScrollReveal();
 
   useEffect(() => {
+    const cached = getCachedData<LeetCodeData>("leetcode_stats");
+    const cachedStats = cached.data;
+
+    if (cachedStats) {
+      setStats(cachedStats);
+      setLoading(false);
+    }
+
     const fetchLeetCodeStats = async () => {
       try {
-        // This API fetches real-time data from LeetCode
-        const response = await fetch('https://leetcode-stats-api.herokuapp.com/neutron420');
-        
-        if (response.ok) {
-          const data = await response.json();
-          setStats({
-            totalSolved: data.totalSolved,
-            totalQuestions: data.totalQuestions,
-            easySolved: data.easySolved,
-            easyTotal: data.totalEasy,
-            mediumSolved: data.mediumSolved,
-            mediumTotal: data.totalMedium,
-            hardSolved: data.hardSolved,
-            hardTotal: data.totalHard,
-            acceptanceRate: data.acceptanceRate,
-            ranking: data.ranking,
-          });
+        const response = await fetch(
+          "https://leetcode-stats-api.herokuapp.com/neutron420",
+          { cache: "no-store" }
+        );
+
+        if (!response.ok) {
+          throw new Error(`LeetCode API error: ${response.status}`);
         }
+
+        const data = await response.json();
+
+        const nextStats: LeetCodeData = {
+          totalSolved: data.totalSolved,
+          totalQuestions: data.totalQuestions,
+          easySolved: data.easySolved,
+          easyTotal: data.totalEasy,
+          mediumSolved: data.mediumSolved,
+          mediumTotal: data.totalMedium,
+          hardSolved: data.hardSolved,
+          hardTotal: data.totalHard,
+          acceptanceRate: data.acceptanceRate,
+          ranking: data.ranking,
+        };
+
+        setStats(nextStats);
+        setCachedData("leetcode_stats", nextStats);
+        setLoadError(false);
       } catch (error) {
-        console.error('Failed to fetch LeetCode stats:', error);
+        console.error("Failed to fetch LeetCode stats:", error);
+        if (!cachedStats) setLoadError(true);
       } finally {
         setLoading(false);
       }
@@ -57,12 +77,12 @@ const LeetCodeStats = () => {
         const weekData: number[] = [];
         for (let day = 0; day < 7; day++) {
           let level = 0;
-          
+
           // Jan (weeks 0-3): scattered activity
           if (week >= 0 && week <= 3) {
             level = Math.random() > 0.75 ? Math.floor(Math.random() * 2) + 1 : 0;
           }
-          // Feb (weeks 4-7): moderate activity  
+          // Feb (weeks 4-7): moderate activity
           else if (week >= 4 && week <= 7) {
             level = Math.random() > 0.6 ? Math.floor(Math.random() * 3) + 1 : 0;
           }
@@ -86,7 +106,7 @@ const LeetCodeStats = () => {
           else if (week >= 48 && week <= 51) {
             level = Math.random() > 0.4 ? Math.floor(Math.random() * 4) + 1 : 0;
           }
-          
+
           weekData.push(level);
         }
         weeks.push(weekData);
@@ -121,7 +141,32 @@ const LeetCodeStats = () => {
     );
   }
 
-  if (!stats) return null;
+  if (!stats) {
+    return (
+      <section className="py-12 md:py-16">
+        <div ref={ref} className={`section-container scroll-reveal ${isVisible ? 'visible' : ''}`}>
+          <div className="flex items-center gap-3 mb-6">
+            <SiLeetcode className="w-6 h-6 text-[#FFA116]" />
+            <h2 className="text-xl md:text-2xl font-semibold">LeetCode</h2>
+            <a
+              href="https://leetcode.com/u/neutron420/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-muted-foreground hover:text-[#FFA116] transition-colors ml-auto flex items-center gap-1"
+            >
+              @neutron420
+            </a>
+          </div>
+
+          <div className="bg-card rounded-2xl border border-border/50 p-6">
+            <p className="text-sm text-muted-foreground">
+              LeetCode stats are currently unavailable. Please refresh or open my profile.
+            </p>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   const easyPercent = (stats.easySolved / stats.easyTotal) * 100;
   const mediumPercent = (stats.mediumSolved / stats.mediumTotal) * 100;
