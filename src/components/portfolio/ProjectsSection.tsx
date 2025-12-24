@@ -4,7 +4,7 @@ import { ArrowUpRight, Github, Star, GitFork } from "lucide-react";
 const projects = [
   {
     name: "Swaraj-Desk",
-    description: "A comprehensive complaint management system for government offices. Citizens can register complaints, track status, and receive updates in real-time. Built for Smart India Hackathon.",
+    description: "A comprehensive grievance management portal for government offices. Citizens can register complaints, track status, and receive updates in real-time. Built for Smart India Hackathon.",
     techStack: ["React", "Node.js", "MongoDB", "Express", "Tailwind CSS"],
     github: "https://github.com/neutron420/Swaraj-Desk",
     live: null,
@@ -12,16 +12,16 @@ const projects = [
   },
   {
     name: "Bloom",
-    description: "A mental health and wellness tracking application. Track your mood, journal entries, and get personalized insights for better mental well-being.",
-    techStack: ["React Native", "Firebase", "Node.js", "TensorFlow.js"],
+    description: "A real-time video conferencing application similar to Google Meet. Features include HD video calls, screen sharing, chat messaging, virtual backgrounds, meeting scheduling, and participant management.",
+    techStack: ["React", "WebRTC", "Socket.io", "Node.js", "Firebase"],
     github: "https://github.com/neutron420/Bloom",
     live: null,
-    image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&auto=format&fit=crop&q=80",
+    image: "https://images.unsplash.com/photo-1588196749597-9ff075ee6b5b?w=600&auto=format&fit=crop&q=80",
   },
   {
     name: "Raby",
-    description: "A secure cryptocurrency wallet application for managing digital assets. Features include multi-chain support, transaction history, portfolio tracking, and secure key management.",
-    techStack: ["React Native", "Node.js", "Prisma", "PostgreSQL", "Web3.js"],
+    description: "A secure cryptocurrency wallet application for managing digital assets. Features include multi-chain support, transaction history, portfolio tracking, secure key management, containerized with Docker, and deployed on AWS infrastructure.",
+    techStack: ["React Native", "Node.js", "Prisma", "PostgreSQL", "Web3.js", "Docker", "AWS"],
     github: "https://github.com/neutron420/Raby",
     live: null,
     image: "https://ledger-wp-website-s3-prd.ledger.com/uploads/2025/04/hero-1.webp",
