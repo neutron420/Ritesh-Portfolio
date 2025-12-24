@@ -1,11 +1,9 @@
 import { useState, useEffect } from "react";
-import { Menu, X, Download, Sun, Moon } from "lucide-react";
-import { useTheme } from "@/components/ThemeProvider";
+import { Menu, X, Download } from "lucide-react";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { theme, setTheme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,12 +13,17 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const toggleTheme = () => {
-    const isDark =
-      theme === "dark" ||
-      (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches);
-    setTheme(isDark ? "light" : "dark");
-  };
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMobileMenuOpen]);
 
   const navItems = [
     { name: "About", href: "#" },
@@ -32,9 +35,9 @@ const Navbar = () => {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
+        isScrolled || isMobileMenuOpen
           ? "py-2 bg-background/95 backdrop-blur-md border-b border-border/50"
-          : "py-3 bg-transparent"
+          : "py-3 bg-background/80 backdrop-blur-sm"
       }`}
     >
       <div className="section-container">
@@ -46,13 +49,12 @@ const Navbar = () => {
             onClick={(e) => {
               e.preventDefault();
               window.scrollTo({ top: 0, behavior: "smooth" });
+              setIsMobileMenuOpen(false);
             }}
           >
             {/* Japanese-inspired logo mark */}
             <div className="relative w-10 h-10 flex items-center justify-center">
-              {/* Outer ring - like a Japanese mon/crest */}
               <div className="absolute inset-0 rounded-full border-2 border-accent/80 group-hover:border-accent transition-colors" />
-              {/* Inner character */}
               <span className="text-lg font-bold text-accent group-hover:scale-110 transition-transform">
                 理
               </span>
@@ -81,17 +83,6 @@ const Navbar = () => {
                 <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-px bg-accent transition-all duration-300 group-hover:w-1/2" />
               </a>
             ))}
-            <button
-              onClick={toggleTheme}
-              className="ml-2 p-2 rounded-full bg-muted/50 hover:bg-muted transition-colors"
-              aria-label="Toggle theme"
-            >
-              {theme === "dark" ? (
-                <Sun className="w-4 h-4" />
-              ) : (
-                <Moon className="w-4 h-4" />
-              )}
-            </button>
             <a
               href="/resume.pdf"
               download="Ritesh_Singh_Resume.pdf"
@@ -103,30 +94,17 @@ const Navbar = () => {
           </nav>
 
           {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center gap-2">
-            <button
-              onClick={toggleTheme}
-              className="p-2 rounded-full hover:bg-muted transition-colors"
-              aria-label="Toggle theme"
-            >
-              {theme === "dark" ? (
-                <Sun className="w-5 h-5" />
-              ) : (
-                <Moon className="w-5 h-5" />
-              )}
-            </button>
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2 rounded-full hover:bg-muted transition-colors"
-              aria-label="Toggle menu"
-            >
-              {isMobileMenuOpen ? (
-                <X className="w-5 h-5" />
-              ) : (
-                <Menu className="w-5 h-5" />
-              )}
-            </button>
-          </div>
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="md:hidden p-2 rounded-full hover:bg-muted transition-colors"
+            aria-label="Toggle menu"
+          >
+            {isMobileMenuOpen ? (
+              <X className="w-5 h-5" />
+            ) : (
+              <Menu className="w-5 h-5" />
+            )}
+          </button>
         </div>
 
         {/* Mobile Navigation */}
