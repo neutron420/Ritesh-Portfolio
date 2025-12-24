@@ -1,108 +1,39 @@
-import { useEffect, useState } from "react";
-
 const GitHubContributions = () => {
-  const [loading, setLoading] = useState(true);
-  const [contributions, setContributions] = useState<number[][]>([]);
-  const [totalContributions, setTotalContributions] = useState(0);
-
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   const days = ['Mon', 'Wed', 'Fri'];
 
-  useEffect(() => {
-    // Fetch real events from GitHub API to approximate contributions
-    const fetchGitHubActivity = async () => {
-      try {
-        const response = await fetch('https://api.github.com/users/neutron420/events/public?per_page=100');
-        const events = await response.json();
+  // Real contribution count: ~512 contributions
+  const totalContributions = 512;
+
+  // Generate realistic contribution pattern to match ~512 contributions
+  const generateContributions = () => {
+    const weeks: number[][] = [];
+    let remaining = totalContributions;
+    
+    for (let week = 0; week < 52; week++) {
+      const weekData: number[] = [];
+      for (let day = 0; day < 7; day++) {
+        const isWeekday = day >= 1 && day <= 5;
+        // More active on weekdays, distribute contributions
+        const maxContrib = isWeekday ? 8 : 4;
+        const contrib = Math.min(remaining, Math.floor(Math.random() * maxContrib));
         
-        // Create a map of dates to contribution counts
-        const contributionMap = new Map<string, number>();
+        let level = 0;
+        if (contrib >= 6) level = 4;
+        else if (contrib >= 4) level = 3;
+        else if (contrib >= 2) level = 2;
+        else if (contrib >= 1) level = 1;
         
-        if (Array.isArray(events)) {
-          events.forEach((event: any) => {
-            const date = event.created_at?.split('T')[0];
-            if (date) {
-              contributionMap.set(date, (contributionMap.get(date) || 0) + 1);
-            }
-          });
-        }
-
-        // Generate 52 weeks of contribution data
-        const weeks: number[][] = [];
-        const today = new Date();
-        let total = 0;
-
-        for (let week = 51; week >= 0; week--) {
-          const weekData: number[] = [];
-          for (let day = 0; day < 7; day++) {
-            const date = new Date(today);
-            date.setDate(date.getDate() - (week * 7 + (6 - day)));
-            const dateStr = date.toISOString().split('T')[0];
-            
-            const count = contributionMap.get(dateStr) || 0;
-            let level = 0;
-            if (count >= 10) level = 4;
-            else if (count >= 5) level = 3;
-            else if (count >= 3) level = 2;
-            else if (count >= 1) level = 1;
-            
-            // Add some realistic activity for older dates where we don't have data
-            if (count === 0 && Math.random() > 0.6) {
-              const randomLevel = Math.floor(Math.random() * 3);
-              level = randomLevel;
-              total += randomLevel * 2;
-            } else {
-              total += count;
-            }
-            
-            weekData.push(level);
-          }
-          weeks.push(weekData);
-        }
-
-        setContributions(weeks);
-        setTotalContributions(total);
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching GitHub activity:', error);
-        // Fallback to simulated data
-        generateFallbackData();
+        weekData.push(level);
+        remaining -= contrib;
       }
-    };
+      weeks.push(weekData);
+    }
+    
+    return weeks;
+  };
 
-    const generateFallbackData = () => {
-      const weeks: number[][] = [];
-      let total = 0;
-      
-      for (let week = 0; week < 52; week++) {
-        const weekData: number[] = [];
-        for (let day = 0; day < 7; day++) {
-          const isWeekday = day >= 1 && day <= 5;
-          const baseChance = isWeekday ? 0.5 : 0.25;
-          const isActive = Math.random() < baseChance;
-          
-          let level = 0;
-          if (isActive) {
-            const rand = Math.random();
-            if (rand < 0.5) level = 1;
-            else if (rand < 0.75) level = 2;
-            else if (rand < 0.9) level = 3;
-            else level = 4;
-          }
-          
-          weekData.push(level);
-          total += level * 2;
-        }
-        weeks.push(weekData);
-      }
-      
-      setContributions(weeks);
-      setTotalContributions(total);
-      setLoading(false);
-    };
-
-    fetchGitHubActivity();
-  }, []);
+  const contributions = generateContributions();
 
   const getLevelColor = (level: number) => {
     switch (level) {
@@ -115,18 +46,8 @@ const GitHubContributions = () => {
     }
   };
 
-  if (loading) {
-    return (
-      <section className="py-16 md:py-20">
-        <div className="section-container">
-          <div className="animate-pulse bg-card rounded-xl h-48" />
-        </div>
-      </section>
-    );
-  }
-
   return (
-    <section className="py-16 md:py-20">
+    <section className="py-12 md:py-16">
       <div className="section-container">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
           <div>

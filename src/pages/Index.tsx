@@ -1,7 +1,9 @@
 import { Helmet } from "react-helmet";
 import Navbar from "@/components/portfolio/Navbar";
 import HeroSection from "@/components/portfolio/HeroSection";
+import AchievementsSection from "@/components/portfolio/AchievementsSection";
 import TechStackSection from "@/components/portfolio/TechStackSection";
+import LeetCodeStats from "@/components/portfolio/LeetCodeStats";
 import GitHubContributions from "@/components/portfolio/GitHubContributions";
 import ProjectsSection from "@/components/portfolio/ProjectsSection";
 import AnimeVideoSection from "@/components/portfolio/AnimeVideoSection";
@@ -11,10 +13,10 @@ const Index = () => {
   return (
     <>
       <Helmet>
-        <title>Ritesh Kumar Singh — Full Stack Developer & Blockchain Engineer</title>
+        <title>Ritesh Singh — Full Stack Developer & Blockchain Engineer</title>
         <meta 
           name="description" 
-          content="Full Stack Developer and Blockchain Engineer building end-to-end applications from frontend to smart contracts." 
+          content="Full Stack Developer and Blockchain Engineer. SIH Finalist 2025, Cardano Hackathon Finalist. Building end-to-end applications from frontend to smart contracts." 
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Helmet>
@@ -23,7 +25,9 @@ const Index = () => {
         <Navbar />
         <main>
           <HeroSection />
+          <AchievementsSection />
           <TechStackSection />
+          <LeetCodeStats />
           <GitHubContributions />
           <ProjectsSection />
           <AnimeVideoSection />
