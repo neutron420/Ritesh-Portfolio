@@ -12,23 +12,23 @@ const Hero = () => {
       <div className="max-w-5xl">
         {/* Intro line */}
         <p className="section-label mb-8 opacity-0 animate-fade-up" style={{ animationDelay: '0.1s', animationFillMode: 'forwards' }}>
-          Developer & Designer
+          Full Stack Developer & Blockchain Engineer
         </p>
 
         {/* Name - editorial style */}
         <h1 className="mb-6 opacity-0 animate-fade-up" style={{ animationDelay: '0.2s', animationFillMode: 'forwards' }}>
-          <span className="block text-5xl md:text-7xl lg:text-8xl font-serif italic text-foreground leading-[0.9]">
-            Your
+          <span className="block text-4xl md:text-6xl lg:text-7xl font-serif italic text-foreground leading-[0.95]">
+            Ritesh Kumar
           </span>
-          <span className="block text-5xl md:text-7xl lg:text-8xl font-serif italic text-foreground leading-[0.9] mt-2">
-            Name<span className="text-accent">.</span>
+          <span className="block text-4xl md:text-6xl lg:text-7xl font-serif italic text-foreground leading-[0.95] mt-2">
+            Singh<span className="text-accent">.</span>
           </span>
         </h1>
 
         {/* Tagline */}
         <p className="text-lg md:text-xl text-muted-foreground max-w-xl leading-relaxed mt-12 opacity-0 animate-fade-up" style={{ animationDelay: '0.4s', animationFillMode: 'forwards' }}>
-          Building thoughtful digital experiences with precision and purpose. 
-          Specializing in interfaces that feel inevitable.
+          Building robust systems from frontend to smart contracts. 
+          Crafting digital experiences with precision and purpose.
         </p>
 
         {/* Minimal stats */}

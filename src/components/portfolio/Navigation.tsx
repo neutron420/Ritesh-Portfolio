@@ -16,6 +16,7 @@ const Navigation = () => {
 
   const navItems = [
     { label: "About", href: "#about" },
+    { label: "Stack", href: "#stack" },
     { label: "Work", href: "#work" },
     { label: "Experience", href: "#experience" },
     { label: "Contact", href: "#contact" },
@@ -48,7 +49,7 @@ const Navigation = () => {
               window.scrollTo({ top: 0, behavior: "smooth" });
             }}
           >
-            YN<span className="text-accent">.</span>
+            RKS<span className="text-accent">.</span>
           </a>
 
           {/* Desktop Navigation */}

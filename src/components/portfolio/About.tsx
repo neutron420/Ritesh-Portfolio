@@ -13,30 +13,30 @@ const About = () => {
           {/* Main text */}
           <div className="lg:col-span-7">
             <p className="text-2xl md:text-3xl lg:text-4xl font-serif italic leading-relaxed text-foreground/90">
-              I craft digital products that balance 
-              <span className="text-accent"> form and function</span>—
-              where every pixel serves a purpose and every interaction feels considered.
+              I build end-to-end solutions—from 
+              <span className="text-accent"> sleek frontends</span> to 
+              <span className="text-accent"> decentralized systems</span>—
+              where every layer serves a purpose.
             </p>
           </div>
 
           {/* Details */}
           <div className="lg:col-span-5 space-y-8">
             <p className="text-muted-foreground leading-relaxed">
-              With a background spanning frontend architecture, design systems, and 
-              creative development, I bring a holistic approach to building software. 
-              I believe the best digital experiences emerge from deep collaboration 
-              and obsessive attention to craft.
+              With expertise spanning full-stack development and blockchain engineering, 
+              I bring a comprehensive approach to building modern software. From React 
+              interfaces to Solidity smart contracts, I deliver solutions that scale.
             </p>
             <p className="text-muted-foreground leading-relaxed">
-              Currently focused on building products that respect user attention 
-              and stand the test of time. Previously worked with startups and 
-              agencies across Tokyo, Berlin, and San Francisco.
+              Passionate about Web3 technologies and decentralized systems. I believe 
+              the future of the internet is permissionless, transparent, and owned by 
+              its users. Let's build it together.
             </p>
 
             {/* Location */}
             <div className="pt-8 border-t border-border">
               <p className="text-xs uppercase tracking-[0.15em] text-muted-foreground mb-2">Based in</p>
-              <p className="font-serif italic text-xl">Tokyo, Japan</p>
+              <p className="font-serif italic text-xl">India</p>
             </div>
           </div>
         </div>

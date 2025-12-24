@@ -13,12 +13,12 @@ const Projects = () => {
     },
     {
       number: "02",
-      title: "AI Content Studio",
-      category: "Product Design",
+      title: "DeFi Protocol",
+      category: "Blockchain",
       year: "2024",
-      description: "An intelligent writing assistant that helps teams create, edit, and optimize content at scale.",
-      tech: ["React", "Python", "OpenAI"],
-      image: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=800&auto=format&fit=crop&q=80",
+      description: "A decentralized finance protocol for lending and borrowing with automated market makers and yield optimization.",
+      tech: ["Solidity", "React", "Web3.js", "Hardhat"],
+      image: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=800&auto=format&fit=crop&q=80",
     },
     {
       number: "03",
@@ -32,7 +32,7 @@ const Projects = () => {
   ];
 
   return (
-    <section id="work" className="py-32 px-6 md:px-12 lg:px-24">
+    <section id="work" className="py-32 px-6 md:px-12 lg:px-24 bg-card/30">
       <div className="max-w-6xl mx-auto">
         {/* Section header */}
         <div className="flex items-center gap-8 mb-16">
@@ -46,7 +46,7 @@ const Projects = () => {
           {projects.map((project, index) => (
             <article 
               key={project.title}
-              className="group border-t border-border last:border-b py-12 hover:bg-card/30 transition-colors px-4 -mx-4"
+              className="group border-t border-border last:border-b py-12 hover:bg-background/50 transition-colors px-4 -mx-4"
             >
               <div className="grid lg:grid-cols-12 gap-8 items-start">
                 {/* Number & Category */}

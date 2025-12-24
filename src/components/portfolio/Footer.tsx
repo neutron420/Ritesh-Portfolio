@@ -8,24 +8,23 @@ const Footer = () => {
           {/* Left side */}
           <div>
             <p className="font-serif italic text-2xl mb-2">
-              Your Name<span className="text-accent">.</span>
+              Ritesh Kumar Singh<span className="text-accent">.</span>
             </p>
             <p className="text-sm text-muted-foreground">
-              Developer & Designer
+              Full Stack Developer & Blockchain Engineer
             </p>
           </div>
 
           {/* Navigation */}
           <nav className="flex flex-wrap gap-x-8 gap-y-2">
-            {['About', 'Skills', 'Work', 'Experience', 'Contact'].map((item) => (
+            {['About', 'Stack', 'Work', 'Experience', 'Contact'].map((item) => (
               <a
                 key={item}
                 href={`#${item.toLowerCase()}`}
                 className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                 onClick={(e) => {
                   e.preventDefault();
-                  const id = item.toLowerCase() === 'work' ? 'work' : item.toLowerCase();
-                  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+                  document.getElementById(item.toLowerCase())?.scrollIntoView({ behavior: 'smooth' });
                 }}
               >
                 {item}
