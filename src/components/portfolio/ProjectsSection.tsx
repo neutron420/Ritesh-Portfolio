@@ -1,4 +1,4 @@
-import { ArrowUpRight, Github } from "lucide-react";
+import { ArrowUpRight, Github, Wifi } from "lucide-react";
 import { 
   SiReact, 
   SiNodedotjs, 
@@ -14,7 +14,7 @@ import {
   SiNextdotjs,
   SiWeb3Dotjs
 } from "react-icons/si";
-import { Wifi } from "lucide-react";
+import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
 // Tech stack icon mapping
 const techIcons: Record<string, React.ReactNode> = {
@@ -65,9 +65,14 @@ const projects = [
 ];
 
 const ProjectsSection = () => {
+  const { ref, isVisible } = useScrollReveal();
+
   return (
     <section id="projects" className="py-16 md:py-24">
-      <div className="section-container">
+      <div 
+        ref={ref}
+        className={`section-container scroll-reveal ${isVisible ? 'visible' : ''}`}
+      >
         <div className="flex items-center justify-between mb-8">
           <div>
             <h2 className="text-xl md:text-2xl font-semibold">Featured Projects</h2>
@@ -87,8 +92,8 @@ const ProjectsSection = () => {
           {projects.map((project, index) => (
             <div
               key={project.name}
-              className="group bg-card rounded-2xl border border-border/50 overflow-hidden hover:border-accent/50 hover:shadow-lg hover:shadow-accent/5 transition-all duration-300"
-              style={{ animationDelay: `${index * 100}ms` }}
+              className={`group bg-card rounded-2xl border border-border/50 overflow-hidden hover:border-accent/50 hover:shadow-lg hover:shadow-accent/5 transition-all duration-300 scroll-reveal ${isVisible ? 'visible' : ''}`}
+              style={{ transitionDelay: `${index * 100}ms` }}
             >
               <div className="grid md:grid-cols-5 gap-0">
                 {/* Image */}
@@ -107,9 +112,8 @@ const ProjectsSection = () => {
                 </div>
 
                 {/* Content */}
-                <div className="md:col-span-3 p-5 md:p-6 flex flex-col justify-between">
-                  <div>
-                    {/* Header */}
+                <div className="md:col-span-3 p-5 md:p-6 flex flex-col">
+                  {/* Header */}
                     <div className="flex items-start justify-between gap-4 mb-3">
                       <h3 className="text-lg md:text-xl font-semibold group-hover:text-accent transition-colors">
                         {project.name.replace(/-/g, ' ')}
@@ -138,11 +142,10 @@ const ProjectsSection = () => {
                       </div>
                     </div>
 
-                    {/* Description */}
-                    <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2 md:line-clamp-3">
-                      {project.description}
-                    </p>
-                  </div>
+                  {/* Description */}
+                  <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">
+                    {project.description}
+                  </p>
 
                   {/* Tech Stack */}
                   <div className="mt-4 pt-4 border-t border-border/30">

@@ -1,6 +1,9 @@
-import { Trophy, Award, Code } from "lucide-react";
+import { Trophy, Award } from "lucide-react";
+import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
 const AchievementsSection = () => {
+  const { ref, isVisible } = useScrollReveal();
+
   const achievements = [
     {
       icon: Trophy,
@@ -18,7 +21,10 @@ const AchievementsSection = () => {
 
   return (
     <section className="py-12 md:py-16">
-      <div className="section-container">
+      <div 
+        ref={ref}
+        className={`section-container scroll-reveal ${isVisible ? 'visible' : ''}`}
+      >
         <h2 className="text-xl md:text-2xl font-semibold mb-6">Achievements</h2>
         
         <div className="grid sm:grid-cols-2 gap-4">
