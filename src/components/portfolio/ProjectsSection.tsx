@@ -20,7 +20,7 @@ const projects = [
   },
   {
     name: "Raby",
-    description: "A secure cryptocurrency wallet application for managing digital assets. Features include multi-chain support, transaction history, portfolio tracking, secure key management, containerized with Docker, and deployed on AWS infrastructure.",
+    description: "A secure cryptocurrency wallet application for managing digital assets. Features include multi-chain support, real-time transaction history, portfolio analytics, QR code scanning, secure key management with biometric authentication, and push notifications.",
     techStack: ["React Native", "Node.js", "Web3.js", "Docker", "AWS"],
     github: "https://github.com/neutron420/Raby",
     live: null,
