@@ -4,13 +4,11 @@ import { ArrowUpRight, Github, Star, GitFork } from "lucide-react";
 const projects = [
   {
     name: "Swaraj-Desk",
-    description: "A comprehensive complaint management system for government offices. Citizens can register complaints, track status, and receive updates in real-time.",
+    description: "A comprehensive complaint management system for government offices. Citizens can register complaints, track status, and receive updates in real-time. Built for Smart India Hackathon.",
     techStack: ["React", "Node.js", "MongoDB", "Express", "Tailwind CSS"],
     github: "https://github.com/neutron420/Swaraj-Desk",
     live: null,
     image: "https://images.unsplash.com/photo-1557597774-9d273605dfa9?w=600&auto=format&fit=crop&q=80",
-    stars: 0,
-    forks: 0,
   },
   {
     name: "Codexly",
@@ -19,8 +17,6 @@ const projects = [
     github: "https://github.com/neutron420/Codexly",
     live: null,
     image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&auto=format&fit=crop&q=80",
-    stars: 0,
-    forks: 0,
   },
   {
     name: "Bloom",
@@ -29,28 +25,22 @@ const projects = [
     github: "https://github.com/neutron420/Bloom",
     live: null,
     image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&auto=format&fit=crop&q=80",
-    stars: 0,
-    forks: 0,
   },
   {
     name: "Raby",
-    description: "A modern Ruby-like programming language interpreter built from scratch. Features include dynamic typing, closures, and object-oriented programming.",
-    techStack: ["Python", "PLY", "AST", "Compiler Design"],
+    description: "A secure cryptocurrency wallet application for managing digital assets. Features include multi-chain support, transaction history, portfolio tracking, and secure key management.",
+    techStack: ["React Native", "Node.js", "Prisma", "PostgreSQL", "Web3.js"],
     github: "https://github.com/neutron420/Raby",
     live: null,
-    image: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=600&auto=format&fit=crop&q=80",
-    stars: 0,
-    forks: 0,
+    image: "https://images.unsplash.com/photo-1621761191319-c6fb62004040?w=600&auto=format&fit=crop&q=80",
   },
   {
     name: "Code-Connect",
-    description: "A collaborative coding platform for developers. Pair program in real-time, share code snippets, and collaborate on projects seamlessly.",
-    techStack: ["React", "Socket.io", "Monaco Editor", "WebRTC", "Node.js"],
+    description: "A high-performance compiler built from scratch. Features lexical analysis, parsing, semantic analysis, and code generation. Deployed on AWS with Docker containerization.",
+    techStack: ["Rust", "Next.js", "Prisma", "Docker", "AWS"],
     github: "https://github.com/neutron420/Code-Connect",
     live: null,
-    image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&auto=format&fit=crop&q=80",
-    stars: 0,
-    forks: 0,
+    image: "https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?w=600&auto=format&fit=crop&q=80",
   },
 ];
 
@@ -132,24 +122,6 @@ const ProjectsSection = () => {
                     <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2 md:line-clamp-3">
                       {project.description}
                     </p>
-
-                    {/* Stats */}
-                    {(project.stars > 0 || project.forks > 0) && (
-                      <div className="flex items-center gap-4 mt-3 text-xs text-muted-foreground">
-                        {project.stars > 0 && (
-                          <span className="flex items-center gap-1">
-                            <Star className="w-3.5 h-3.5" />
-                            {project.stars}
-                          </span>
-                        )}
-                        {project.forks > 0 && (
-                          <span className="flex items-center gap-1">
-                            <GitFork className="w-3.5 h-3.5" />
-                            {project.forks}
-                          </span>
-                        )}
-                      </div>
-                    )}
                   </div>
 
                   {/* Tech Stack */}
