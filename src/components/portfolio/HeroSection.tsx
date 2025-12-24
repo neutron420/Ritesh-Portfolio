@@ -1,4 +1,4 @@
-import { Github, Twitter, Linkedin, Mail, Download, GraduationCap } from "lucide-react";
+import { Github, Twitter, Linkedin, Mail, Download, GraduationCap, Music } from "lucide-react";
 import bannerImage from "@/assets/banner.jpg";
 
 const HeroSection = () => {
@@ -6,6 +6,7 @@ const HeroSection = () => {
     { icon: Github, href: "https://github.com/neutron420", label: "GitHub" },
     { icon: Twitter, href: "https://x.com/RiteshS18572143", label: "X" },
     { icon: Linkedin, href: "https://www.linkedin.com/in/ritesh-singh1/", label: "LinkedIn" },
+    { icon: Music, href: "https://open.spotify.com", label: "Spotify" },
     { icon: Mail, href: "mailto:fnaticritesh2004@gmail.com", label: "Email" },
   ];
 
