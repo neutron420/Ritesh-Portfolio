@@ -1,5 +1,5 @@
 import { Github, Twitter, Linkedin, Mail } from "lucide-react";
-import bannerImage from "@/assets/banner.png";
+import bannerImage from "@/assets/banner.jpg";
 
 const HeroSection = () => {
   const socialLinks = [
@@ -9,13 +9,6 @@ const HeroSection = () => {
     { icon: Mail, href: "mailto:fnaticritesh2004@gmail.com", label: "Email" },
   ];
 
-  // Real GitHub stats
-  const stats = {
-    publicRepos: 34,
-    followers: 14,
-    following: 60,
-  };
-
   return (
     <section className="pt-20">
       {/* Banner Image */}
@@ -23,14 +16,14 @@ const HeroSection = () => {
         <div className="relative h-48 md:h-64 rounded-2xl overflow-hidden mt-6">
           <img
             src={bannerImage}
-            alt="Ritesh's Setup"
+            alt="Mt. Fuji"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
           
           {/* Floating text on banner */}
           <div className="absolute bottom-4 right-6 text-right">
-            <p className="text-sm italic text-foreground/70 serif">
+            <p className="text-sm italic text-foreground/80 serif">
               Build · Ship · Learn · Repeat
             </p>
           </div>
@@ -38,11 +31,11 @@ const HeroSection = () => {
 
         {/* Profile Section */}
         <div className="relative -mt-16 md:-mt-20 px-4">
-          {/* Avatar - using GitHub avatar */}
+          {/* Avatar */}
           <div className="w-28 h-28 md:w-36 md:h-36 rounded-full border-4 border-background overflow-hidden bg-card">
             <img
               src="https://avatars.githubusercontent.com/u/179364761?v=4"
-              alt="Ritesh Kumar Singh"
+              alt="Ritesh Singh"
               className="w-full h-full object-cover"
             />
           </div>
@@ -53,7 +46,7 @@ const HeroSection = () => {
               Ritesh Singh
             </h1>
             <p className="text-muted-foreground mt-1">
-              Full-Stack Engineer · Blockchain Developer · Builder
+              Full-Stack Engineer · Blockchain Developer · Competitive Programmer
             </p>
 
             {/* Social Links */}
@@ -74,21 +67,25 @@ const HeroSection = () => {
                 );
               })}
             </div>
-
-            {/* Real GitHub Stats */}
-            <div className="flex items-center gap-4 mt-4 text-sm text-muted-foreground">
-              <span><strong className="text-foreground">{stats.publicRepos}</strong> repos</span>
-              <span><strong className="text-foreground">{stats.followers}</strong> followers</span>
-              <span><strong className="text-foreground">{stats.following}</strong> following</span>
-            </div>
           </div>
 
-          {/* Bio */}
+          {/* Bio - Extended */}
           <div className="mt-8 max-w-2xl">
-            <p className="text-foreground leading-relaxed">
+            <p className="text-foreground leading-relaxed mb-4">
               <span className="text-accent font-medium">I build from scratch.</span>{" "}
               Frontend, backend, full-stack, and blockchain applications end-to-end 
-              from UI/UX and deployment to smart contracts. Living a life worth more than anything.
+              from deployment to smart contracts. I'm passionate about creating 
+              technology that solves real-world problems.
+            </p>
+            <p className="text-muted-foreground leading-relaxed mb-4">
+              Currently exploring the intersection of Web3 and traditional software development, 
+              with a focus on decentralized applications and smart contract security. 
+              I believe in writing clean, maintainable code that stands the test of time.
+            </p>
+            <p className="text-muted-foreground leading-relaxed">
+              When I'm not coding, you'll find me solving problems on LeetCode, 
+              participating in hackathons, or learning about new blockchain protocols. 
+              I thrive in competitive environments and enjoy pushing my limits.
             </p>
           </div>
         </div>
