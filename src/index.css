@@ -118,23 +118,35 @@
 
 /* Infinite marquee animations - seamless loop */
 @keyframes marquee-left {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-100%); }
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(calc(-100% / 5), 0, 0);
+  }
 }
 
 @keyframes marquee-right {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(0); }
+  0% {
+    transform: translate3d(calc(-100% / 5), 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
 }
 
 .animate-marquee-left {
   animation: marquee-left 20s linear infinite;
   will-change: transform;
+  display: flex;
+  width: fit-content;
 }
 
 .animate-marquee-right {
   animation: marquee-right 20s linear infinite;
   will-change: transform;
+  display: flex;
+  width: fit-content;
 }
 
 /* Custom scrollbar */
