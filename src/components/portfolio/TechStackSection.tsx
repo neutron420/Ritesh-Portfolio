@@ -19,7 +19,10 @@ import {
   SiLinux,
   SiPrisma,
   SiVercel,
-  SiVite
+  SiVite,
+  SiKubernetes,
+  SiGooglecloud,
+  SiCloudflare
 } from "react-icons/si";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
@@ -49,38 +52,41 @@ const TechStackSection = () => {
     { name: "Prisma", icon: SiPrisma, color: "#ffffff" },
     { name: "Vercel", icon: SiVercel, color: "#ffffff" },
     { name: "Vite", icon: SiVite, color: "#646CFF" },
+    { name: "Kubernetes", icon: SiKubernetes, color: "#326CE5" },
+    { name: "GCP", icon: SiGooglecloud, color: "#4285F4" },
+    { name: "Cloudflare", icon: SiCloudflare, color: "#F38020" },
   ];
 
   const TechCard = ({ tech }: { tech: typeof technologies[0] }) => {
     const Icon = tech.icon;
     return (
-      <div className="flex items-center gap-4 px-5 py-4 bg-card/50 border border-border/50 rounded-xl whitespace-nowrap shrink-0">
-        <Icon className="w-7 h-7 md:w-8 md:h-8 shrink-0" style={{ color: tech.color }} />
-        <span className="text-base font-medium text-foreground">{tech.name}</span>
+      <div className="flex items-center gap-2.5 px-4 py-2.5 bg-card/50 border border-border/50 rounded-lg whitespace-nowrap shrink-0">
+        <Icon className="w-5 h-5 md:w-6 md:h-6 shrink-0" style={{ color: tech.color }} />
+        <span className="text-sm font-medium text-foreground">{tech.name}</span>
       </div>
     );
   };
 
   const { ref, isVisible } = useScrollReveal();
 
-  // Duplicate items for seamless loop
-  const row1Items = [...technologies, ...technologies, ...technologies];
-  const row2Items = [...technologies2, ...technologies2, ...technologies2];
+  // Duplicate items for seamless infinite loop - need exact multiples for perfect loop
+  const row1Items = [...technologies, ...technologies, ...technologies, ...technologies, ...technologies];
+  const row2Items = [...technologies2, ...technologies2, ...technologies2, ...technologies2, ...technologies2];
 
   return (
-    <section id="tech" className="py-16 md:py-24 overflow-hidden">
+    <section id="tech" className="py-12 md:py-16 overflow-hidden">
       <div 
         ref={ref}
-        className={`section-container mb-8 scroll-reveal ${isVisible ? 'visible' : ''}`}
+        className={`section-container mb-6 scroll-reveal ${isVisible ? 'visible' : ''}`}
       >
         <h2 className="text-xl md:text-2xl font-semibold">Tech Stack</h2>
-        <p className="text-muted-foreground text-sm mt-2">
+        <p className="text-muted-foreground text-sm mt-1.5">
           Tools and technologies I work with to ship meaningful products.
         </p>
       </div>
 
       {/* Marquee container */}
-      <div className="relative">
+      <div className="relative overflow-hidden">
         {/* Left fade gradient */}
         <div className="absolute left-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
         
@@ -88,14 +94,14 @@ const TechStackSection = () => {
         <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
 
         {/* Row 1 - slides left */}
-        <div className="flex gap-3 mb-3 animate-marquee-left">
+        <div className="flex gap-2 mb-2 animate-marquee-left" style={{ width: 'fit-content' }}>
           {row1Items.map((tech, index) => (
             <TechCard key={`${tech.name}-${index}`} tech={tech} />
           ))}
         </div>
 
         {/* Row 2 - slides right */}
-        <div className="flex gap-3 animate-marquee-right">
+        <div className="flex gap-2 animate-marquee-right" style={{ width: 'fit-content' }}>
           {row2Items.map((tech, index) => (
             <TechCard key={`${tech.name}-${index}`} tech={tech} />
           ))}

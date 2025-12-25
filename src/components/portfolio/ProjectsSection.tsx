@@ -1,4 +1,4 @@
-import { ArrowUpRight, Github, Wifi } from "lucide-react";
+import { ArrowUpRight, Github, Wifi, Users, ChevronDown } from "lucide-react";
 import { 
   SiReact, 
   SiNodedotjs, 
@@ -13,12 +13,20 @@ import {
   SiAmazonwebservices,
   SiNextdotjs,
   SiWeb3Dotjs,
-  SiArgo
+  SiArgo,
+  SiPython,
+  SiEthereum
 } from "react-icons/si";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import projectRaby from "@/assets/project-raby.jpg";
 import projectBloom from "@/assets/project-bloom.png";
 import projectGrievance from "@/assets/project-grievance.jpg";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 // Tech stack icon mapping
 const techIcons: Record<string, React.ReactNode> = {
@@ -39,6 +47,9 @@ const techIcons: Record<string, React.ReactNode> = {
   "Web3.js": <SiWeb3Dotjs className="w-3 h-3" />,
   "WebSockets": <Wifi className="w-3 h-3" />,
   "ArgoCD": <SiArgo className="w-3 h-3" />,
+  "Python": <SiPython className="w-3 h-3" />,
+  "Hyperledger Fabric": <SiEthereum className="w-3 h-3" />,
+  "Blockchain": <SiEthereum className="w-3 h-3" />,
 };
 
 // Curated projects in specific order with proper tech stacks
@@ -46,10 +57,16 @@ const projects = [
   {
     name: "Swaraj-Desk",
     description: "A comprehensive grievance management portal for government offices. Citizens can register complaints, track status, and receive updates in real-time. Built for Smart India Hackathon.",
-    techStack: ["Next.js", "Node.js", "PostgreSQL", "Prisma", "Redis", "WebSockets", "Docker", "Kubernetes", "ArgoCD", "Tailwind CSS"],
-    github: "https://github.com/neutron420/Swaraj-Desk",
+    techStack: ["Next.js", "Node.js", "PostgreSQL", "Prisma", "Redis", "WebSockets", "Docker", "Kubernetes", "ArgoCD", "Tailwind CSS", "Python", "Hyperledger Fabric"],
+    github: "https://github.com/neutron420/sih-swarajdesk-2025",
     live: null,
     image: projectGrievance,
+    contributors: [
+      { name: "Ritesh Singh", username: "neutron420", url: "https://github.com/neutron420" },
+      { name: "Aditya Hota", username: "theogaditya", url: "https://github.com/theogaditya" },
+      { name: "Abhash Behera", username: "MistaHolmes", url: "https://github.com/MistaHolmes" },
+      { name: "Aniroodh Padhee", username: "Aniroodh1234", url: "https://github.com/Aniroodh1234" },
+    ],
   },
   {
     name: "Bloom",
@@ -102,7 +119,7 @@ const ProjectsSection = () => {
             >
               <div className="grid md:grid-cols-5 gap-0">
                 {/* Image */}
-                <div className="md:col-span-2 h-48 md:h-64 overflow-hidden relative">
+                <div className={`md:col-span-2 overflow-hidden relative ${project.name === 'Swaraj-Desk' ? 'h-64 md:h-80' : 'h-48 md:h-64'}`}>
                   <img
                     src={project.image}
                     alt={project.name}
@@ -117,9 +134,9 @@ const ProjectsSection = () => {
                 </div>
 
                 {/* Content */}
-                <div className="md:col-span-3 p-5 md:p-6 flex flex-col">
+                <div className={`md:col-span-3 flex flex-col ${project.name === 'Swaraj-Desk' ? 'p-4 md:p-5 h-64 md:h-80 overflow-y-auto' : 'p-4 md:p-4'}`}>
                   {/* Header */}
-                    <div className="flex items-start justify-between gap-4 mb-3">
+                    <div className={`flex items-start justify-between gap-4 ${project.name === 'Swaraj-Desk' ? 'mb-3' : 'mb-2'}`}>
                       <h3 className="text-lg md:text-xl font-semibold group-hover:text-accent transition-colors">
                         {project.name.replace(/-/g, ' ')}
                       </h3>
@@ -148,12 +165,42 @@ const ProjectsSection = () => {
                     </div>
 
                   {/* Description */}
-                  <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">
+                  <p className={`text-sm text-muted-foreground leading-relaxed ${project.name === 'Swaraj-Desk' ? 'mb-4' : 'mb-3'}`}>
                     {project.description}
                   </p>
 
+                  {/* Contributors - Only for Swaraj-Desk */}
+                  {project.contributors && (
+                    <div className="mb-4">
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <button className="px-3 py-2 text-xs rounded-md bg-muted/50 text-muted-foreground hover:bg-accent/15 hover:text-accent hover:border-accent/20 border border-transparent transition-all flex items-center gap-2">
+                            <Users className="w-3.5 h-3.5" />
+                            <span>Contributors ({project.contributors.length})</span>
+                            <ChevronDown className="w-3 h-3" />
+                          </button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="start" className="w-56">
+                          {project.contributors.map((contributor) => (
+                            <DropdownMenuItem key={contributor.username} asChild>
+                              <a
+                                href={contributor.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center gap-2 cursor-pointer"
+                              >
+                                <Github className="w-4 h-4" />
+                                <span>{contributor.name}</span>
+                              </a>
+                            </DropdownMenuItem>
+                          ))}
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </div>
+                  )}
+
                   {/* Tech Stack */}
-                  <div className="mt-4 pt-4 border-t border-border/30">
+                  <div className={`${project.name === 'Swaraj-Desk' ? 'mt-4' : 'mt-3'} pt-4 border-t border-border/30 flex-shrink-0`}>
                     <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-2 font-medium">
                       Tech Stack
                     </p>
@@ -161,10 +208,10 @@ const ProjectsSection = () => {
                       {project.techStack.map((tech, i) => (
                         <span
                           key={tech}
-                          className={`px-2.5 py-1 text-xs rounded-md transition-colors flex items-center gap-1.5 ${
+                          className={`px-2.5 py-1 text-xs rounded-md transition-all flex items-center gap-1.5 ${
                             i === 0 
-                              ? 'bg-accent/15 text-accent border border-accent/20' 
-                              : 'bg-muted/70 text-muted-foreground hover:bg-muted'
+                              ? 'bg-accent/15 text-accent border border-accent/20 hover:bg-accent/20' 
+                              : 'bg-muted/50 text-muted-foreground hover:bg-accent/15 hover:text-accent hover:border-accent/20 border border-transparent'
                           }`}
                         >
                           {techIcons[tech]}
