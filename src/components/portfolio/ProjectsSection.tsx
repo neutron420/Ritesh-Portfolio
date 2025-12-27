@@ -84,6 +84,20 @@ const projects = [
     ],
   },
   {
+    name: "SwarajDesk-Admin",
+    description: "Administrative dashboard for the SwarajDesk Grievance Redressal System. Features include grievance management, analytics, user administration, department coordination, and real-time monitoring of complaint resolution workflows.",
+    techStack: ["Next.js", "Node.js", "PostgreSQL", "Prisma", "Redis", "WebSockets", "Docker", "Kubernetes", "ArgoCD", "Tailwind CSS", "Python", "Hyperledger Fabric"],
+    github: "https://github.com/neutron420/sih-swarajdesk-2025",
+    live: "https://sih-admin-fe-sd.adityahota.online/",
+    image: projectGrievance,
+    contributors: [
+      { name: "Ritesh Singh", username: "neutron420", url: "https://github.com/neutron420" },
+      { name: "Aditya Hota", username: "theogaditya", url: "https://github.com/theogaditya" },
+      { name: "Abhash Behera", username: "MistaHolmes", url: "https://github.com/MistaHolmes" },
+      { name: "Aniroodh Padhee", username: "Aniroodh1234", url: "https://github.com/Aniroodh1234" },
+    ],
+  },
+  {
     name: "Bloom",
     description: "A real-time video conferencing application similar to Google Meet. Features include HD video calls, screen sharing, chat messaging, virtual backgrounds, meeting scheduling, and participant management.",
     techStack: ["Next.js", "React", "WebRTC", "Mediasoup", "Socket.io", "Node.js", "Redis", "Docker", "AWS"],

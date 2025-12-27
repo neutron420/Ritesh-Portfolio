@@ -5,7 +5,6 @@ import {
   SiTailwindcss, 
   SiNodedotjs, 
   SiExpress, 
-  SiPython, 
   SiPostgresql, 
   SiMongodb, 
   SiDocker,
@@ -18,12 +17,14 @@ import {
   SiAmazonwebservices,
   SiLinux,
   SiPrisma,
-  SiVercel,
-  SiVite,
   SiKubernetes,
   SiGooglecloud,
-  SiCloudflare
+  SiCloudflare,
+  SiJest,
+  SiTestinglibrary
 } from "react-icons/si";
+import { FaJava } from "react-icons/fa";
+import { TbApi } from "react-icons/tb";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
 const TechStackSection = () => {
@@ -36,7 +37,7 @@ const TechStackSection = () => {
     { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
     { name: "PostgreSQL", icon: SiPostgresql, color: "#4169E1" },
     { name: "MongoDB", icon: SiMongodb, color: "#47A248" },
-    { name: "Python", icon: SiPython, color: "#3776AB" },
+    { name: "Java", icon: FaJava, color: "#007396" },
     { name: "Docker", icon: SiDocker, color: "#2496ED" },
     { name: "Git", icon: SiGit, color: "#F05032" },
   ];
@@ -50,11 +51,13 @@ const TechStackSection = () => {
     { name: "AWS", icon: SiAmazonwebservices, color: "#FF9900" },
     { name: "Linux", icon: SiLinux, color: "#FCC624" },
     { name: "Prisma", icon: SiPrisma, color: "#ffffff" },
-    { name: "Vercel", icon: SiVercel, color: "#ffffff" },
-    { name: "Vite", icon: SiVite, color: "#646CFF" },
+    { name: "gRPC", icon: TbApi, color: "#244c5a" },
     { name: "Kubernetes", icon: SiKubernetes, color: "#326CE5" },
     { name: "GCP", icon: SiGooglecloud, color: "#4285F4" },
     { name: "Cloudflare", icon: SiCloudflare, color: "#F38020" },
+    { name: "React Native", icon: SiReact, color: "#61DAFB" },
+    { name: "Unit Testing", icon: SiJest, color: "#C21325" },
+    { name: "Integration Testing", icon: SiTestinglibrary, color: "#E33332" },
   ];
 
   const TechCard = ({ tech }: { tech: typeof technologies[0] }) => {
