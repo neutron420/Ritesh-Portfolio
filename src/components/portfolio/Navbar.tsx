@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Menu, X, Download, Terminal } from "lucide-react";
 import { Link } from "react-router-dom";
+import { TerminalTransition } from "@/components/TerminalTransition";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -84,13 +85,19 @@ const Navbar = () => {
                 <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-px bg-accent transition-all duration-300 group-hover:w-1/2" />
               </a>
             ))}
-            <Link
-              to="/terminal"
-              className="ml-2 px-4 py-2.5 flex items-center gap-2 text-sm font-semibold rounded-lg bg-gradient-to-r from-[#ff6b35] to-[#f7931e] text-white hover:from-[#ff8555] hover:to-[#ffa64d] transition-all hover:scale-105 shadow-lg hover:shadow-xl border border-[#ff6b35]/30 backdrop-blur-sm"
-            >
-              <Terminal className="w-4 h-4" />
-              Terminal
-            </Link>
+            <TerminalTransition to="/terminal">
+              <div className="ml-2 px-3 sm:px-4 py-2 sm:py-2.5 flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-mono font-medium rounded-lg bg-[#0d1117] text-[#39d353] hover:bg-[#161b22] transition-all hover:scale-105 shadow-lg hover:shadow-xl border border-[#39d353]/30 hover:border-[#39d353]/50 backdrop-blur-sm group relative overflow-hidden">
+                <span className="absolute inset-0 bg-[#39d353]/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <Terminal className="w-3.5 h-3.5 sm:w-4 sm:h-4 relative z-10 flex-shrink-0" />
+                <span className="relative z-10 flex items-center gap-1 sm:gap-1.5">
+                  <span className="text-[#39d353] hidden lg:inline">ritesh@portfolio</span>
+                  <span className="text-[#39d353] lg:hidden">ritesh</span>
+                  <span className="text-[#8b949e]">:</span>
+                  <span className="text-[#58a6ff]">~</span>
+                  <span className="text-[#8b949e]">$</span>
+                </span>
+              </div>
+            </TerminalTransition>
             <a
               href="/resume.pdf"
               download="Ritesh_Singh_Resume.pdf"
@@ -129,14 +136,21 @@ const Navbar = () => {
                   {item.name}
                 </a>
               ))}
-              <Link
-                to="/terminal"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="mt-2 mx-4 px-4 py-3 flex items-center justify-center gap-2 text-sm font-semibold rounded-lg bg-gradient-to-r from-[#ff6b35] to-[#f7931e] text-white hover:from-[#ff8555] hover:to-[#ffa64d] transition-all shadow-lg border border-[#ff6b35]/30"
-              >
-                <Terminal className="w-4 h-4" />
-                Terminal
-              </Link>
+              <TerminalTransition to="/terminal">
+                <div
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="mt-2 mx-4 px-3 sm:px-4 py-2.5 sm:py-3 flex items-center justify-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-mono font-medium rounded-lg bg-[#0d1117] text-[#39d353] hover:bg-[#161b22] transition-all shadow-lg border border-[#39d353]/30 hover:border-[#39d353]/50 group relative overflow-hidden"
+                >
+                  <span className="absolute inset-0 bg-[#39d353]/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <Terminal className="w-3.5 h-3.5 sm:w-4 sm:h-4 relative z-10 flex-shrink-0" />
+                  <span className="relative z-10 flex items-center gap-1 sm:gap-1.5">
+                    <span className="text-[#39d353]">ritesh</span>
+                    <span className="text-[#8b949e]">:</span>
+                    <span className="text-[#58a6ff]">~</span>
+                    <span className="text-[#8b949e]">$</span>
+                  </span>
+                </div>
+              </TerminalTransition>
               <a
                 href="/resume.pdf"
                 download="Ritesh_Singh_Resume.pdf"

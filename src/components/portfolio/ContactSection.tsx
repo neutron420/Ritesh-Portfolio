@@ -16,12 +16,36 @@ const ContactSection = () => {
   useEffect(() => {
     const fetchVisitorCount = async () => {
       try {
-        const response = await fetch('https://api.countapi.xyz/hit/ritesh-portfolio/visits');
-        if (response.ok) {
-          const data = await response.json();
-          setVisitorCount(data.value);
+        // Try to get current count first
+        const getResponse = await fetch('https://api.countapi.xyz/get/ritesh-portfolio/visits');
+        let currentCount = 0;
+        
+        if (getResponse.ok) {
+          const getData = await getResponse.json();
+          currentCount = getData.value || 0;
+        }
+
+        // Increment the count
+        const hitResponse = await fetch('https://api.countapi.xyz/hit/ritesh-portfolio/visits', {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json',
+          },
+        });
+
+        if (hitResponse.ok) {
+          const hitData = await hitResponse.json();
+          setVisitorCount(hitData.value || currentCount + 1);
+        } else {
+          // Fallback to localStorage if API fails
+          const stored = localStorage.getItem('portfolio-visits');
+          const count = stored ? parseInt(stored) + 1 : 1;
+          localStorage.setItem('portfolio-visits', count.toString());
+          setVisitorCount(count);
         }
       } catch (error) {
+        console.error('Visitor count error:', error);
+        // Fallback to localStorage
         const stored = localStorage.getItem('portfolio-visits');
         const count = stored ? parseInt(stored) + 1 : 1;
         localStorage.setItem('portfolio-visits', count.toString());
@@ -110,11 +134,11 @@ const ContactSection = () => {
                     <Sparkles className="w-3.5 h-3.5" />
                     Available for work
                   </div>
-                  <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">
                     Let's work<br />
                     <span className="text-accent">together</span>
                   </h2>
-                  <p className="text-muted-foreground leading-relaxed">
+                  <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
                     Have a project in mind or want to collaborate? I'm always excited to work on interesting challenges and build something amazing.
                   </p>
                 </div>
@@ -178,8 +202,8 @@ const ContactSection = () => {
               </div>
 
               {/* Right Side - Form */}
-              <div className="bg-background/50 backdrop-blur rounded-2xl p-6 md:p-8 border border-border/30">
-                <h3 className="text-lg font-semibold mb-6">Send me a message</h3>
+              <div className="bg-background/50 backdrop-blur rounded-2xl p-4 sm:p-6 md:p-8 border border-border/30">
+                <h3 className="text-base sm:text-lg font-semibold mb-4 sm:mb-6">Send me a message</h3>
                 
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div className="grid sm:grid-cols-2 gap-4">

@@ -3,7 +3,6 @@ import Navbar from "@/components/portfolio/Navbar";
 import HeroSection from "@/components/portfolio/HeroSection";
 import AchievementsSection from "@/components/portfolio/AchievementsSection";
 import TechStackSection from "@/components/portfolio/TechStackSection";
-import TerminalSection from "@/components/portfolio/TerminalSection";
 import LeetCodeStats from "@/components/portfolio/LeetCodeStats";
 import GitHubContributions from "@/components/portfolio/GitHubContributions";
 import ProjectsSection from "@/components/portfolio/ProjectsSection";
@@ -29,7 +28,6 @@ const Index = () => {
           <HeroSection />
           <AchievementsSection />
           <TechStackSection />
-          <TerminalSection />
           <LeetCodeStats />
           <GitHubContributions />
           <ProjectsSection />
