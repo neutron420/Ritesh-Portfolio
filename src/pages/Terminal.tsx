@@ -9,12 +9,12 @@ interface CommandOutput {
 }
 
 const ASCII_ART = `
-██████╗ ██╗████████╗███████╗███████╗██╗  ██╗    ███████╗██╗███╗   ██╗ ██████╗ ██╗  ██╗
-██╔══██╗██║╚══██╔══╝██╔════╝██╔════╝██║  ██║    ██╔════╝██║████╗  ██║██╔════╝ ██║  ██║
-██████╔╝██║   ██║   █████╗  ███████╗███████║    ███████╗██║██╔██╗ ██║██║  ███╗███████║
-██╔══██╗██║   ██║   ██╔══╝  ╚════██║██╔══██║    ╚════██║██║██║╚██╗██║██║   ██║██╔══██║
-██║  ██║██║   ██║   ███████╗███████║██║  ██║    ███████║██║██║ ╚████║╚██████╔╝██║  ██║
-╚═╝  ╚═╝╚═╝   ╚═╝   ╚══════╝╚══════╝╚═╝  ╚═╝    ╚══════╝╚═╝╚═╝  ╚═══╝ ╚═════╝ ╚═╝  ╚═╝
+██████╗ ██╗████████╗███████╗███████╗██╗  ██╗
+██╔══██╗██║╚══██╔══╝██╔════╝██╔════╝██║  ██║
+██████╔╝██║   ██║   █████╗  ███████╗███████║
+██╔══██╗██║   ██║   ██╔══╝  ╚════██║██╔══██║
+██║  ██║██║   ██║   ███████╗███████║██║  ██║
+╚═╝  ╚═╝╚═╝   ╚═╝   ╚══════╝╚══════╝╚═╝  ╚═╝
 `;
 
 const HELP_TEXT = `
@@ -46,7 +46,6 @@ const HELP_TEXT = `
 ╰─────────────────────────────────────────────────────────────────╯
 `;
 
-// Removed hardcoded data - now using imports from @/lib/data
 
 const FORTUNES = [
   "The best code is no code at all.",
@@ -97,9 +96,19 @@ export default function Terminal() {
   const [historyIndex, setHistoryIndex] = useState(-1);
   const [showMatrix, setShowMatrix] = useState(false);
   const [currentDir, setCurrentDir] = useState("~");
+  const [glitchActive, setGlitchActive] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const terminalRef = useRef<HTMLDivElement>(null);
   const [bootTime] = useState(new Date());
+
+  // Glitch effect
+  useEffect(() => {
+    const glitchInterval = setInterval(() => {
+      setGlitchActive(true);
+      setTimeout(() => setGlitchActive(false), 100);
+    }, 3000);
+    return () => clearInterval(glitchInterval);
+  }, []);
 
   // Prevent body scroll when terminal is visible
   useEffect(() => {
@@ -128,7 +137,7 @@ export default function Terminal() {
         {
           command: "",
           output: (
-            <pre className="text-[#39d353] text-xs sm:text-sm whitespace-pre-wrap">
+            <pre className="text-[#00ff41] text-[8px] xs:text-[9px] sm:text-[10px] md:text-xs leading-tight sm:leading-normal overflow-x-auto font-mono whitespace-pre drop-shadow-[0_0_8px_rgba(0,255,65,0.8)]">
               {ASCII_ART}
             </pre>
           ),
@@ -137,10 +146,10 @@ export default function Terminal() {
         {
           command: "",
           output: (
-            <div className="text-[#8b949e]">
+            <div className="text-[#00ff41] opacity-80">
               <p>Welcome to Ritesh&apos;s Portfolio Terminal v1.0.0</p>
-              <p>Type <span className="text-[#58a6ff]">help</span> to see available commands.</p>
-              <p>Type <span className="text-[#f85149]">exit</span> to return to normal mode.</p>
+              <p>Type <span className="text-[#00ff41]">help</span> to see available commands.</p>
+              <p>Type <span className="text-[#ff0040]">exit</span> to return to normal mode.</p>
               <br />
             </div>
           ),
@@ -160,60 +169,60 @@ export default function Terminal() {
       case "help":
       case "man":
       case "?":
-        return <pre className="text-[#c9d1d9] text-[11px] sm:text-xs whitespace-pre-wrap font-mono">{HELP_TEXT}</pre>;
+        return <pre className="text-[#00ff41] text-[11px] sm:text-xs whitespace-pre-wrap font-mono opacity-90">{HELP_TEXT}</pre>;
 
       case "whoami":
   return (
           <div className="text-[11px] sm:text-xs font-mono">
-            <p className="text-[#39d353] mb-3">┌─ About Me ─────────────────────────────────────────────────┐</p>
-            <p className="ml-2"><span className="text-[#a371f7]">  User:</span>       <span className="text-[#c9d1d9]">{personalInfo.name}</span></p>
-            <p className="ml-2"><span className="text-[#a371f7]">  Role:</span>       <span className="text-[#c9d1d9]">{personalInfo.role}</span></p>
-            <p className="ml-2"><span className="text-[#a371f7]">  Location:</span>   <span className="text-[#c9d1d9]">{personalInfo.location}</span></p>
-            <p className="ml-2"><span className="text-[#a371f7]">  University:</span> <span className="text-[#c9d1d9]">{personalInfo.university}</span></p>
-            <p className="ml-2"><span className="text-[#a371f7]">  Status:</span>     <span className="text-[#39d353]">{personalInfo.status}</span></p>
-            <p className="text-[#8b949e] mt-3 ml-2 max-w-xl">  {personalInfo.bio}</p>
-            <p className="text-[#39d353] mt-3">└────────────────────────────────────────────────────────────┘</p>
+            <p className="text-[#00ff41] mb-3 drop-shadow-[0_0_8px_rgba(0,255,65,0.8)]">┌─ About Me ─────────────────────────────────────────────────┐</p>
+            <p className="ml-2"><span className="text-[#00ff41] opacity-70">  User:</span>       <span className="text-[#00ff41] opacity-90">{personalInfo.name}</span></p>
+            <p className="ml-2"><span className="text-[#00ff41] opacity-70">  Role:</span>       <span className="text-[#00ff41] opacity-90">{personalInfo.role}</span></p>
+            <p className="ml-2"><span className="text-[#00ff41] opacity-70">  Location:</span>   <span className="text-[#00ff41] opacity-90">{personalInfo.location}</span></p>
+            <p className="ml-2"><span className="text-[#00ff41] opacity-70">  University:</span> <span className="text-[#00ff41] opacity-90">{personalInfo.university}</span></p>
+            <p className="ml-2"><span className="text-[#00ff41] opacity-70">  Status:</span>     <span className="text-[#00ff41]">{personalInfo.status}</span></p>
+            <p className="text-[#00ff41] mt-3 ml-2 max-w-xl opacity-80">  {personalInfo.bio}</p>
+            <p className="text-[#00ff41] mt-3 drop-shadow-[0_0_8px_rgba(0,255,65,0.8)]">└────────────────────────────────────────────────────────────┘</p>
           </div>
         );
 
       case "skills":
         return (
           <div className="text-[11px] sm:text-xs font-mono">
-            <p className="text-[#39d353] mb-3">┌─ Technical Skills ────────────────────────────────────────┐</p>
+            <p className="text-[#00ff41] mb-3 drop-shadow-[0_0_8px_rgba(0,255,65,0.8)]">┌─ Technical Skills ────────────────────────────────────────┐</p>
             {technologies.map((tech, i) => (
               <div key={i} className="mb-2">
-                <p className="text-[#58a6ff]">  {tech.category}:</p>
-                <p className="text-[#c9d1d9] ml-4">  └─ {tech.skills.join(" │ ")}</p>
+                <p className="text-[#00ff41] opacity-90">  {tech.category}:</p>
+                <p className="text-[#00ff41] ml-4 opacity-80">  └─ {tech.skills.join(" │ ")}</p>
               </div>
             ))}
-            <p className="text-[#39d353]">└───────────────────────────────────────────────────────────┘</p>
+            <p className="text-[#00ff41] drop-shadow-[0_0_8px_rgba(0,255,65,0.8)]">└───────────────────────────────────────────────────────────┘</p>
           </div>
         );
 
       case "projects":
         return (
           <div className="text-[11px] sm:text-xs font-mono">
-            <p className="text-[#39d353] mb-3">┌─ Projects ─────────────────────────────────────────────────┐</p>
+            <p className="text-[#00ff41] mb-3 drop-shadow-[0_0_8px_rgba(0,255,65,0.8)]">┌─ Projects ─────────────────────────────────────────────────┐</p>
             {projects.map((project, i) => (
               <div key={i} className="mb-4 ml-2">
-                <p className="text-[#58a6ff] font-bold">  [{project.year}] {project.title}</p>
-                <p className="text-[#8b949e] ml-4">{project.description}</p>
-                <p className="text-[#d29922] ml-4 text-[10px]">Tech: {project.tags.join(", ")}</p>
+                <p className="text-[#00ff41] font-bold opacity-90">  [{project.year}] {project.title}</p>
+                <p className="text-[#00ff41] ml-4 opacity-80">{project.description}</p>
+                <p className="text-[#00ff41] ml-4 text-[10px] opacity-70">Tech: {project.tags.join(", ")}</p>
                 {project.liveUrl && (
                   <p className="ml-4">
-                    <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="text-[#56d4dd] hover:underline cursor-pointer">
+                    <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="text-[#00ff41] hover:underline cursor-pointer opacity-90 hover:opacity-100 drop-shadow-[0_0_6px_rgba(0,255,65,0.6)]">
                       Live: {project.liveUrl}
                     </a>
                   </p>
                 )}
                 <p className="ml-4">
-                  <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="text-[#a371f7] hover:underline cursor-pointer">
+                  <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="text-[#00ff41] hover:underline cursor-pointer opacity-90 hover:opacity-100 drop-shadow-[0_0_6px_rgba(0,255,65,0.6)]">
                     Code: {project.githubUrl}
                   </a>
                 </p>
               </div>
             ))}
-            <p className="text-[#39d353]">└────────────────────────────────────────────────────────────┘</p>
+            <p className="text-[#00ff41] drop-shadow-[0_0_8px_rgba(0,255,65,0.8)]">└────────────────────────────────────────────────────────────┘</p>
           </div>
         );
 
@@ -227,7 +236,7 @@ export default function Terminal() {
               <p className="text-[#8b949e] ml-4">{education.duration}</p>
               <p className="text-[#39d353] ml-4 font-bold">CGPA: {education.cgpa}</p>
             </div>
-            <p className="text-[#39d353]">└────────────────────────────────────────────────────────────┘</p>
+            <p className="text-[#00ff41] drop-shadow-[0_0_8px_rgba(0,255,65,0.8)]">└────────────────────────────────────────────────────────────┘</p>
           </div>
         );
 
@@ -256,7 +265,7 @@ export default function Terminal() {
 
       case "neofetch": {
         const uptimeMins = Math.floor((Date.now() - bootTime.getTime()) / 1000 / 60);
-        return <pre className="text-[#56d4dd] text-[9px] sm:text-[11px] whitespace-pre leading-tight font-mono">{generateNeofetch(uptimeMins)}</pre>;
+        return <pre className="text-[#00ff41] text-[9px] sm:text-[11px] whitespace-pre leading-tight font-mono opacity-90 drop-shadow-[0_0_6px_rgba(0,255,65,0.6)]">{generateNeofetch(uptimeMins)}</pre>;
       }
 
       case "clear":
@@ -268,7 +277,7 @@ export default function Terminal() {
       case "quit":
       case "q":
         setTimeout(() => navigate("/"), 500);
-        return <p className="text-[#f85149] text-xs font-mono">Logging out... Goodbye! 👋</p>;
+        return <p className="text-[#ff0040] text-xs font-mono drop-shadow-[0_0_8px_rgba(255,0,64,0.8)]">Logging out... Goodbye! 👋</p>;
 
       case "ls":
         if (args === "-la" || args === "-al" || args === "-l") {
@@ -315,7 +324,7 @@ export default function Terminal() {
           setCurrentDir(args);
           return null;
         }
-        return <p className="text-[#f85149] text-xs font-mono">bash: cd: {args}: No such file or directory</p>;
+        return <p className="text-[#ff0040] text-xs font-mono drop-shadow-[0_0_8px_rgba(255,0,64,0.8)]">bash: cd: {args}: No such file or directory</p>;
 
       case "date":
         return <p className="text-[#c9d1d9] text-xs font-mono">{new Date().toString()}</p>;
@@ -376,19 +385,19 @@ export default function Terminal() {
           return processCommand("whoami");
         }
         if (args === "resume" || args === "resume.pdf") {
-          return <p className="text-[#d29922] text-xs font-mono">📄 Opening resume... (This would download the resume in a real terminal)</p>;
+          return <p className="text-[#ffaa00] text-xs font-mono drop-shadow-[0_0_8px_rgba(255,170,0,0.8)]">📄 Opening resume... (This would download the resume in a real terminal)</p>;
         }
         if (!args) {
-          return <p className="text-[#f85149] text-xs font-mono">cat: missing file operand</p>;
+          return <p className="text-[#ff0040] text-xs font-mono drop-shadow-[0_0_8px_rgba(255,0,64,0.8)]">cat: missing file operand</p>;
         }
-        return <p className="text-[#f85149] text-xs font-mono">cat: {args}: No such file or directory</p>;
+        return <p className="text-[#ff0040] text-xs font-mono drop-shadow-[0_0_8px_rgba(255,0,64,0.8)]">cat: {args}: No such file or directory</p>;
 
       case "cowsay":
         const cowText = args || "Moo! Type 'help' for commands!";
         const borderLen = Math.min(cowText.length + 2, 40);
         const displayText = cowText.length > 38 ? cowText.substring(0, 35) + "..." : cowText;
         return (
-          <pre className="text-[#d29922] text-[10px] sm:text-xs whitespace-pre font-mono">
+          <pre className="text-[#ffaa00] text-[10px] sm:text-xs whitespace-pre font-mono drop-shadow-[0_0_8px_rgba(255,170,0,0.8)]">
 {` ${"_".repeat(borderLen)}
 < ${displayText.padEnd(borderLen - 2)} >
  ${"-".repeat(borderLen)}
@@ -414,18 +423,18 @@ export default function Terminal() {
 
       case "sudo":
         if (args.startsWith("rm")) {
-          return <p className="text-[#f85149] text-xs font-mono">Nice try! This portfolio is protected 🛡️</p>;
+          return <p className="text-[#ff0040] text-xs font-mono drop-shadow-[0_0_8px_rgba(255,0,64,0.8)]">Nice try! This portfolio is protected 🛡️</p>;
         }
-        return <p className="text-[#f85149] text-xs font-mono">[sudo] password for ritesh: ▓▓▓▓▓▓▓▓ Access Denied! 🔒</p>;
+        return <p className="text-[#ff0040] text-xs font-mono drop-shadow-[0_0_8px_rgba(255,0,64,0.8)]">[sudo] password for ritesh: ▓▓▓▓▓▓▓▓ Access Denied! 🔒</p>;
 
       case "rm":
-        return <p className="text-[#f85149] text-xs font-mono">rm: cannot remove &apos;{args || "*"}&apos;: Permission denied</p>;
+        return <p className="text-[#ff0040] text-xs font-mono drop-shadow-[0_0_8px_rgba(255,0,64,0.8)]">rm: cannot remove &apos;{args || "*"}&apos;: Permission denied</p>;
 
       case "touch":
       case "mkdir":
       case "mv":
       case "cp":
-        return <p className="text-[#d29922] text-xs font-mono">{command}: Read-only file system</p>;
+        return <p className="text-[#ffaa00] text-xs font-mono drop-shadow-[0_0_8px_rgba(255,170,0,0.8)]">{command}: Read-only file system</p>;
 
       case "vim":
       case "nano":
@@ -471,7 +480,7 @@ export default function Terminal() {
 
       default:
         return (
-          <p className="text-[#f85149] text-xs font-mono">
+          <p className="text-[#ff0040] text-xs font-mono drop-shadow-[0_0_8px_rgba(255,0,64,0.8)]">
             bash: {command}: command not found. Type &apos;help&apos; for available commands.
           </p>
         );
@@ -545,7 +554,7 @@ export default function Terminal() {
 
   return (
     <div
-      className="fixed inset-0 z-[10000] bg-[#0d1117] overflow-hidden touch-none"
+      className="fixed inset-0 z-[10000] bg-black overflow-hidden touch-none animate-fade-in"
       onClick={handleTerminalClick}
     >
       {/* Matrix rain effect */}
@@ -554,7 +563,7 @@ export default function Terminal() {
           {Array.from({ length: 50 }).map((_, i) => (
             <div
               key={i}
-              className="absolute text-[#39d353] text-xs font-mono animate-matrix-rain"
+              className="absolute text-[#00ff41] text-xs font-mono animate-matrix-rain"
               style={{ 
                 left: `${i * 2}%`,
                 animationDelay: `${Math.random() * 2}s`,
@@ -573,26 +582,34 @@ export default function Terminal() {
       <div 
         className="absolute inset-0 pointer-events-none z-10"
         style={{
-          background: "repeating-linear-gradient(0deg, rgba(0,0,0,0.1) 0px, rgba(0,0,0,0.1) 1px, transparent 1px, transparent 2px)",
+          background: "repeating-linear-gradient(0deg, rgba(0,255,65,0.1) 0px, rgba(0,255,65,0.1) 1px, transparent 1px, transparent 2px)",
         }}
       />
 
+      {/* Glitch overlay */}
+      {glitchActive && (
+        <div className="absolute inset-0 pointer-events-none z-15 opacity-20">
+          <div className="absolute inset-0 bg-[#00ff41] mix-blend-screen animate-pulse" style={{ clipPath: 'inset(40% 0 60% 0)' }} />
+          <div className="absolute inset-0 bg-[#ff00ff] mix-blend-screen animate-pulse" style={{ clipPath: 'inset(60% 0 40% 0)', animationDelay: '0.1s' }} />
+        </div>
+      )}
+
       {/* Terminal window */}
-      <div className="h-full flex flex-col overflow-hidden safe-area-inset">
+      <div className={`h-full flex flex-col overflow-hidden safe-area-inset ${glitchActive ? 'animate-[glitch_0.3s_ease-out]' : ''}`}>
         {/* Terminal title bar */}
-        <div className="flex-shrink-0 flex items-center gap-1.5 sm:gap-2 px-2 sm:px-4 py-2 bg-[#161b22] border-b border-[#30363d]">
+        <div className="flex-shrink-0 flex items-center gap-1.5 sm:gap-2 px-2 sm:px-4 py-2 bg-black border-b-2 border-[#00ff41] shadow-[0_0_20px_rgba(0,255,65,0.3)]">
           <div className="flex gap-1 sm:gap-1.5">
-            <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#f85149]" />
-            <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#d29922]" />
-            <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#39d353]" />
+            <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#ff0040] shadow-[0_0_8px_rgba(255,0,64,0.8)]" />
+            <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#ffaa00] shadow-[0_0_8px_rgba(255,170,0,0.8)]" />
+            <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#00ff41] shadow-[0_0_8px_rgba(0,255,65,0.8)]" />
           </div>
-          <span className="text-[#8b949e] text-[10px] sm:text-sm ml-1.5 sm:ml-2 font-mono truncate">ritesh@portfolio:~</span>
+          <span className="text-[#00ff41] text-[10px] sm:text-sm ml-1.5 sm:ml-2 font-mono truncate drop-shadow-[0_0_8px_rgba(0,255,65,0.8)]">ritesh@portfolio:~</span>
         </div>
 
         {/* Terminal content - this is the only scrollable area */}
         <div
           ref={terminalRef}
-          className="flex-1 overflow-y-auto overflow-x-hidden p-2 sm:p-4 font-mono text-xs sm:text-sm scrollbar-thin scrollbar-track-[#0d1117] scrollbar-thumb-[#30363d]"
+          className="flex-1 overflow-y-auto overflow-x-hidden p-2 sm:p-4 font-mono text-xs sm:text-sm scrollbar-thin scrollbar-track-black scrollbar-thumb-[#00ff41] bg-black"
           style={{
             scrollBehavior: 'smooth',
             overscrollBehavior: 'contain',
@@ -603,49 +620,49 @@ export default function Terminal() {
             <div key={index} className="mb-1.5 sm:mb-2 break-words">
               {entry.command && (
                 <div className="flex items-start sm:items-center gap-1 sm:gap-2 flex-wrap">
-                  <span className="text-[#39d353] text-[10px] sm:text-xs">ritesh@portfolio</span>
-                  <span className="text-[#8b949e] text-[10px] sm:text-xs">:</span>
-                  <span className="text-[#58a6ff] text-[10px] sm:text-xs">~</span>
-                  <span className="text-[#8b949e] text-[10px] sm:text-xs">$</span>
-                  <span className="text-[#c9d1d9] text-[10px] sm:text-xs break-all">{entry.command}</span>
+                  <span className="text-[#00ff41] text-[10px] sm:text-xs drop-shadow-[0_0_6px_rgba(0,255,65,0.6)]">ritesh@portfolio</span>
+                  <span className="text-[#00ff41] text-[10px] sm:text-xs opacity-50">:</span>
+                  <span className="text-[#00ff41] text-[10px] sm:text-xs">~</span>
+                  <span className="text-[#00ff41] text-[10px] sm:text-xs opacity-50">$</span>
+                  <span className="text-[#00ff41] text-[10px] sm:text-xs break-all opacity-90">{entry.command}</span>
                 </div>
               )}
               {entry.output && <div className="mt-1 ml-0 break-words">{entry.output}</div>}
-                    </div>
+            </div>
           ))}
 
           {/* Current input line - Fixed at bottom of scrollable area */}
           <form 
             onSubmit={handleSubmit} 
-            className="sticky bottom-0 bg-[#0d1117]/98 backdrop-blur-sm pt-2 pb-2 sm:pt-3 sm:pb-2 flex items-center gap-1 sm:gap-2 flex-wrap border-t border-[#30363d]/50 mt-2 z-20"
+            className="sticky bottom-0 bg-black/98 backdrop-blur-sm pt-2 pb-2 sm:pt-3 sm:pb-2 flex items-center gap-1 sm:gap-2 flex-wrap border-t border-[#00ff41]/50 mt-2 z-20"
           >
-            <span className="text-[#39d353] text-[10px] sm:text-xs flex-shrink-0 hidden sm:inline">ritesh@portfolio</span>
-            <span className="text-[#39d353] text-[10px] sm:text-xs flex-shrink-0 sm:hidden">ritesh</span>
-            <span className="text-[#8b949e] text-[10px] sm:text-xs flex-shrink-0">:</span>
-            <span className="text-[#58a6ff] text-[10px] sm:text-xs flex-shrink-0">~</span>
-            <span className="text-[#8b949e] text-[10px] sm:text-xs flex-shrink-0">$</span>
+            <span className="text-[#00ff41] text-[10px] sm:text-xs flex-shrink-0 hidden sm:inline drop-shadow-[0_0_6px_rgba(0,255,65,0.6)]">ritesh@portfolio</span>
+            <span className="text-[#00ff41] text-[10px] sm:text-xs flex-shrink-0 sm:hidden drop-shadow-[0_0_6px_rgba(0,255,65,0.6)]">ritesh</span>
+            <span className="text-[#00ff41] text-[10px] sm:text-xs flex-shrink-0 opacity-50">:</span>
+            <span className="text-[#00ff41] text-[10px] sm:text-xs flex-shrink-0">~</span>
+            <span className="text-[#00ff41] text-[10px] sm:text-xs flex-shrink-0 opacity-50">$</span>
             <div className="flex-1 min-w-0 relative">
-                    <input
-                      ref={inputRef}
-                      type="text"
+              <input
+                ref={inputRef}
+                type="text"
                 value={currentInput}
                 onChange={(e) => setCurrentInput(e.target.value)}
                 onKeyDown={handleKeyDown}
-                className="w-full bg-transparent text-[#c9d1d9] font-mono text-base sm:text-sm caret-[#39d353] border-none outline-none ring-0 focus:border-none focus:outline-none focus:ring-0 focus:shadow-none placeholder:text-[#8b949e]/50"
-                style={{ boxShadow: 'none', fontSize: '16px' }}
-                      placeholder="Type a command..."
-                      autoFocus
+                className="w-full bg-transparent text-[#00ff41] font-mono text-base sm:text-sm caret-[#00ff41] border-none outline-none ring-0 focus:border-none focus:outline-none focus:ring-0 focus:shadow-none placeholder:text-[#00ff41]/50"
+                style={{ boxShadow: 'none', fontSize: '16px', textShadow: '0 0 8px rgba(0,255,65,0.8)' }}
+                placeholder="Type a command..."
+                autoFocus
                 autoComplete="off"
-                      spellCheck={false}
+                spellCheck={false}
                 autoCapitalize="off"
                 autoCorrect="off"
-                    />
-                  </div>
-                </form>
+              />
+            </div>
+          </form>
             </div>
 
         {/* Status bar */}
-        <div className="flex-shrink-0 px-2 sm:px-4 py-1.5 sm:py-1 bg-[#161b22] border-t border-[#30363d] flex flex-col sm:flex-row justify-between items-start sm:items-center gap-1 sm:gap-0 text-[9px] sm:text-xs text-[#8b949e] font-mono">
+        <div className="flex-shrink-0 px-2 sm:px-4 py-1.5 sm:py-1 bg-black border-t-2 border-[#00ff41] flex flex-col sm:flex-row justify-between items-start sm:items-center gap-1 sm:gap-0 text-[9px] sm:text-xs text-[#00ff41] font-mono opacity-70">
           <span className="truncate">Type &apos;help&apos; for commands • &apos;exit&apos; to leave</span>
           <span className="flex-shrink-0">{new Date().toLocaleTimeString()}</span>
         </div>

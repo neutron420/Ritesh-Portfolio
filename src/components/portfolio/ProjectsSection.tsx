@@ -11,6 +11,7 @@ import {
   SiWebrtc,
   SiSocketdotio,
   SiAmazonwebservices,
+  SiAmazon,
   SiNextdotjs,
   SiWeb3Dotjs,
   SiArgo,
@@ -44,6 +45,7 @@ const techIcons: Record<string, React.ReactNode> = {
   "Mediasoup": <Wifi className="w-3 h-3" />,
   "Socket.io": <SiSocketdotio className="w-3 h-3" />,
   "AWS": <SiAmazonwebservices className="w-3 h-3" />,
+  "S3": <SiAmazon className="w-3 h-3" />,
   "Web3.js": <SiWeb3Dotjs className="w-3 h-3" />,
   "WebSockets": <Wifi className="w-3 h-3" />,
   "ArgoCD": <SiArgo className="w-3 h-3" />,
@@ -75,20 +77,6 @@ const projects = [
     techStack: ["Next.js", "Node.js", "PostgreSQL", "Prisma", "Redis", "S3", "Docker", "Kubernetes", "ArgoCD", "Tailwind CSS"],
     github: "https://github.com/neutron420/sih-swarajdesk-2025",
     live: "https://admin.swarajdesk.com", // Update this with the actual admin URL
-    image: projectGrievance,
-    contributors: [
-      { name: "Ritesh Singh", username: "neutron420", url: "https://github.com/neutron420" },
-      { name: "Aditya Hota", username: "theogaditya", url: "https://github.com/theogaditya" },
-      { name: "Abhash Behera", username: "MistaHolmes", url: "https://github.com/MistaHolmes" },
-      { name: "Aniroodh Padhee", username: "Aniroodh1234", url: "https://github.com/Aniroodh1234" },
-    ],
-  },
-  {
-    name: "SwarajDesk-Admin",
-    description: "Administrative dashboard for the SwarajDesk Grievance Redressal System. Features include grievance management, analytics, user administration, department coordination, and real-time monitoring of complaint resolution workflows.",
-    techStack: ["Next.js", "Node.js", "PostgreSQL", "Prisma", "Redis", "WebSockets", "Docker", "Kubernetes", "ArgoCD", "Tailwind CSS", "Python", "Hyperledger Fabric"],
-    github: "https://github.com/neutron420/sih-swarajdesk-2025",
-    live: "https://sih-admin-fe-sd.adityahota.online/",
     image: projectGrievance,
     contributors: [
       { name: "Ritesh Singh", username: "neutron420", url: "https://github.com/neutron420" },
@@ -165,8 +153,8 @@ const ProjectsSection = () => {
                 {/* Content */}
                 <div className={`md:col-span-3 flex flex-col ${project.name === 'Swaraj-Desk' || project.name === 'Swaraj-Desk-Admin' ? 'p-4 md:p-5 h-64 md:h-80 overflow-y-auto' : 'p-4 md:p-4'}`}>
                   {/* Header */}
-                    <div className={`flex items-start justify-between gap-4 ${project.name === 'Swaraj-Desk' || project.name === 'Swaraj-Desk-Admin' ? 'mb-3' : 'mb-2'}`}>
-                      <h3 className="text-lg md:text-xl font-semibold group-hover:text-accent transition-colors">
+                    <div className={`flex items-start justify-between gap-3 sm:gap-4 ${project.name === 'Swaraj-Desk' || project.name === 'Swaraj-Desk-Admin' ? 'mb-3' : 'mb-2'}`}>
+                      <h3 className="text-base sm:text-lg md:text-xl font-semibold group-hover:text-accent transition-colors break-words flex-1 min-w-0">
                         {project.name === 'Swaraj-Desk-Admin' ? 'Swaraj Desk Admin' : project.name.replace(/-/g, ' ')}
                       </h3>
                       <div className="flex items-center gap-2 flex-shrink-0">
@@ -206,7 +194,7 @@ const ProjectsSection = () => {
                     </div>
 
                   {/* Description */}
-                  <p className={`text-sm text-muted-foreground leading-relaxed ${project.name === 'Swaraj-Desk' || project.name === 'Swaraj-Desk-Admin' ? 'mb-4' : 'mb-3'}`}>
+                  <p className={`text-xs sm:text-sm text-muted-foreground leading-relaxed ${project.name === 'Swaraj-Desk' || project.name === 'Swaraj-Desk-Admin' ? 'mb-4' : 'mb-3'}`}>
                     {project.description}
                   </p>
 
