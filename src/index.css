@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Ubuntu+Mono:wght@400;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -147,6 +147,40 @@
   will-change: transform;
   display: flex;
   width: fit-content;
+}
+
+/* Matrix rain animation */
+@keyframes matrix-rain {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
+}
+
+.animate-matrix-rain {
+  animation: matrix-rain linear infinite;
+}
+
+/* Mobile optimizations for terminal */
+@media (max-width: 640px) {
+  .safe-area-inset {
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  
+  /* Prevent text selection on mobile for better UX */
+  .terminal-mobile {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  
+  /* Ensure input is always visible on mobile */
+  input[type="text"] {
+    font-size: 16px !important; /* Prevents zoom on iOS */
+  }
 }
 
 /* Custom scrollbar */

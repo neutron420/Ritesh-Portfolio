@@ -1,4 +1,5 @@
-import { Github, Twitter, Linkedin, Mail, Download, GraduationCap } from "lucide-react";
+import { Github, Twitter, Linkedin, Mail, Download, GraduationCap, Terminal } from "lucide-react";
+import { Link } from "react-router-dom";
 import bannerImage from "@/assets/banner.jpg";
 
 const HeroSection = () => {
@@ -70,6 +71,15 @@ const HeroSection = () => {
                   </a>
                 );
               })}
+              
+              {/* Terminal Button */}
+              <Link
+                to="/terminal"
+                className="ml-2 px-4 py-2.5 flex items-center gap-2 text-sm font-semibold rounded-lg bg-gradient-to-r from-[#ff6b35] to-[#f7931e] text-white hover:from-[#ff8555] hover:to-[#ffa64d] transition-all hover:scale-105 shadow-lg hover:shadow-xl border border-[#ff6b35]/30 backdrop-blur-sm"
+              >
+                <Terminal className="w-4 h-4" />
+                Terminal
+              </Link>
               
               {/* Resume Download Button */}
               <a

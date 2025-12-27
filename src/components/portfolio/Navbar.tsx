@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { Menu, X, Download } from "lucide-react";
+import { Menu, X, Download, Terminal } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -83,6 +84,13 @@ const Navbar = () => {
                 <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-px bg-accent transition-all duration-300 group-hover:w-1/2" />
               </a>
             ))}
+            <Link
+              to="/terminal"
+              className="ml-2 px-4 py-2.5 flex items-center gap-2 text-sm font-semibold rounded-lg bg-gradient-to-r from-[#ff6b35] to-[#f7931e] text-white hover:from-[#ff8555] hover:to-[#ffa64d] transition-all hover:scale-105 shadow-lg hover:shadow-xl border border-[#ff6b35]/30 backdrop-blur-sm"
+            >
+              <Terminal className="w-4 h-4" />
+              Terminal
+            </Link>
             <a
               href="/resume.pdf"
               download="Ritesh_Singh_Resume.pdf"
@@ -121,6 +129,14 @@ const Navbar = () => {
                   {item.name}
                 </a>
               ))}
+              <Link
+                to="/terminal"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="mt-2 mx-4 px-4 py-3 flex items-center justify-center gap-2 text-sm font-semibold rounded-lg bg-gradient-to-r from-[#ff6b35] to-[#f7931e] text-white hover:from-[#ff8555] hover:to-[#ffa64d] transition-all shadow-lg border border-[#ff6b35]/30"
+              >
+                <Terminal className="w-4 h-4" />
+                Terminal
+              </Link>
               <a
                 href="/resume.pdf"
                 download="Ritesh_Singh_Resume.pdf"

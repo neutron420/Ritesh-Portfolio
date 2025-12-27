@@ -1,4 +1,4 @@
-import { ArrowUpRight, Github, Wifi, Users, ChevronDown } from "lucide-react";
+import { ArrowUpRight, Github, Wifi, Users, ChevronDown, Shield } from "lucide-react";
 import { 
   SiReact, 
   SiNodedotjs, 
@@ -59,7 +59,22 @@ const projects = [
     description: "A comprehensive grievance management portal for government offices. Citizens can register complaints, track status, and receive updates in real-time. Built for Smart India Hackathon.",
     techStack: ["Next.js", "Node.js", "PostgreSQL", "Prisma", "Redis", "WebSockets", "Docker", "Kubernetes", "ArgoCD", "Tailwind CSS", "Python", "Hyperledger Fabric"],
     github: "https://github.com/neutron420/sih-swarajdesk-2025",
-    live: null,
+    live: "https://sih-user-fe-sd.adityahota.online/",
+    admin: "https://admin.swarajdesk.com", // Update this with the actual admin URL
+    image: projectGrievance,
+    contributors: [
+      { name: "Ritesh Singh", username: "neutron420", url: "https://github.com/neutron420" },
+      { name: "Aditya Hota", username: "theogaditya", url: "https://github.com/theogaditya" },
+      { name: "Abhash Behera", username: "MistaHolmes", url: "https://github.com/MistaHolmes" },
+      { name: "Aniroodh Padhee", username: "Aniroodh1234", url: "https://github.com/Aniroodh1234" },
+    ],
+  },
+  {
+    name: "Swaraj-Desk-Admin",
+    description: "Admin portal for SwarajDesk grievance management system. Features include complaint management, user administration, analytics dashboard, real-time notifications, report generation, and system configuration. Built with the same tech stack as the main application for seamless integration.",
+    techStack: ["Next.js", "Node.js", "PostgreSQL", "Prisma", "Redis", "S3", "Docker", "Kubernetes", "ArgoCD", "Tailwind CSS"],
+    github: "https://github.com/neutron420/sih-swarajdesk-2025",
+    live: "https://admin.swarajdesk.com", // Update this with the actual admin URL
     image: projectGrievance,
     contributors: [
       { name: "Ritesh Singh", username: "neutron420", url: "https://github.com/neutron420" },
@@ -119,7 +134,7 @@ const ProjectsSection = () => {
             >
               <div className="grid md:grid-cols-5 gap-0">
                 {/* Image */}
-                <div className={`md:col-span-2 overflow-hidden relative ${project.name === 'Swaraj-Desk' ? 'h-64 md:h-80' : 'h-48 md:h-64'}`}>
+                <div className={`md:col-span-2 overflow-hidden relative ${project.name === 'Swaraj-Desk' || project.name === 'Swaraj-Desk-Admin' ? 'h-64 md:h-80' : 'h-48 md:h-64'}`}>
                   <img
                     src={project.image}
                     alt={project.name}
@@ -134,11 +149,11 @@ const ProjectsSection = () => {
                 </div>
 
                 {/* Content */}
-                <div className={`md:col-span-3 flex flex-col ${project.name === 'Swaraj-Desk' ? 'p-4 md:p-5 h-64 md:h-80 overflow-y-auto' : 'p-4 md:p-4'}`}>
+                <div className={`md:col-span-3 flex flex-col ${project.name === 'Swaraj-Desk' || project.name === 'Swaraj-Desk-Admin' ? 'p-4 md:p-5 h-64 md:h-80 overflow-y-auto' : 'p-4 md:p-4'}`}>
                   {/* Header */}
-                    <div className={`flex items-start justify-between gap-4 ${project.name === 'Swaraj-Desk' ? 'mb-3' : 'mb-2'}`}>
+                    <div className={`flex items-start justify-between gap-4 ${project.name === 'Swaraj-Desk' || project.name === 'Swaraj-Desk-Admin' ? 'mb-3' : 'mb-2'}`}>
                       <h3 className="text-lg md:text-xl font-semibold group-hover:text-accent transition-colors">
-                        {project.name.replace(/-/g, ' ')}
+                        {project.name === 'Swaraj-Desk-Admin' ? 'Swaraj Desk Admin' : project.name.replace(/-/g, ' ')}
                       </h3>
                       <div className="flex items-center gap-2 flex-shrink-0">
                         <a
@@ -161,15 +176,27 @@ const ProjectsSection = () => {
                             <ArrowUpRight className="w-4 h-4" />
                           </a>
                         )}
+                        {project.admin && (
+                          <a
+                            href={project.admin}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-9 h-9 flex items-center justify-center rounded-lg bg-muted/50 hover:bg-accent hover:text-accent-foreground transition-all"
+                            aria-label="Admin"
+                            title="Admin Portal"
+                          >
+                            <Shield className="w-4 h-4" />
+                          </a>
+                        )}
                       </div>
                     </div>
 
                   {/* Description */}
-                  <p className={`text-sm text-muted-foreground leading-relaxed ${project.name === 'Swaraj-Desk' ? 'mb-4' : 'mb-3'}`}>
+                  <p className={`text-sm text-muted-foreground leading-relaxed ${project.name === 'Swaraj-Desk' || project.name === 'Swaraj-Desk-Admin' ? 'mb-4' : 'mb-3'}`}>
                     {project.description}
                   </p>
 
-                  {/* Contributors - Only for Swaraj-Desk */}
+                  {/* Contributors - Only for Swaraj-Desk projects */}
                   {project.contributors && (
                     <div className="mb-4">
                       <DropdownMenu>
@@ -200,7 +227,7 @@ const ProjectsSection = () => {
                   )}
 
                   {/* Tech Stack */}
-                  <div className={`${project.name === 'Swaraj-Desk' ? 'mt-4' : 'mt-3'} pt-4 border-t border-border/30 flex-shrink-0`}>
+                  <div className={`${project.name === 'Swaraj-Desk' || project.name === 'Swaraj-Desk-Admin' ? 'mt-4' : 'mt-3'} pt-4 border-t border-border/30 flex-shrink-0`}>
                     <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-2 font-medium">
                       Tech Stack
                     </p>
