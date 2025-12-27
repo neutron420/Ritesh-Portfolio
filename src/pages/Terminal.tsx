@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo, memo } from "react";
 import { useNavigate } from "react-router-dom";
 import { projects, technologies, personalInfo, education, contact, socials } from "@/lib/data";
 
@@ -40,12 +40,57 @@ const HELP_TEXT = `
 │  history           Show command history                         │
 │  cowsay <text>     Make a cow say something                     │
 │  fortune           Display a random fortune                     │
-│  matrix            Toggle matrix rain effect                    │
+│  matrix            Start/stop matrix rain effect                │
+│  matrix stop       Stop matrix rain effect                      │
+│  binary            Start/stop binary rain (0s and 1s)            │
+│  binary stop       Stop binary rain effect                      │
+│  hex               Start/stop hexadecimal code rain             │
+│  hex stop          Stop hex code rain effect                     │
+│  effects           Show all available visual effects             │
 │  clear / cls       Clear the terminal                           │
 │  exit / quit       Exit terminal mode                           │
 ╰─────────────────────────────────────────────────────────────────╯
 `;
 
+
+// Memoized History Entry Component for better performance
+const HistoryEntry = memo(({ entry }: { entry: CommandOutput }) => {
+  return (
+    <div className="mb-1.5 sm:mb-2 break-words">
+      {entry.command && (
+        <div className="flex items-start sm:items-center gap-1 sm:gap-2 flex-wrap">
+          <span className="text-[#00ff41] text-[10px] sm:text-xs drop-shadow-[0_0_6px_rgba(0,255,65,0.6)]">ritesh@portfolio</span>
+          <span className="text-[#00ff41] text-[10px] sm:text-xs opacity-50">:</span>
+          <span className="text-[#00ff41] text-[10px] sm:text-xs">~</span>
+          <span className="text-[#00ff41] text-[10px] sm:text-xs opacity-50">$</span>
+          <span className="text-[#00ff41] text-[10px] sm:text-xs break-all opacity-90">{entry.command}</span>
+        </div>
+      )}
+      {entry.output && <div className="mt-1 ml-0 break-words">{entry.output}</div>}
+    </div>
+  );
+});
+HistoryEntry.displayName = 'HistoryEntry';
+
+// Memoized Status Bar Component
+const StatusBar = memo(() => {
+  const [time, setTime] = useState(new Date().toLocaleTimeString());
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTime(new Date().toLocaleTimeString());
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+  
+  return (
+    <div className="flex-shrink-0 px-2 sm:px-4 py-1.5 sm:py-1 bg-black border-t-2 border-[#00ff41] flex flex-col sm:flex-row justify-between items-start sm:items-center gap-1 sm:gap-0 text-[9px] sm:text-xs text-[#00ff41] font-mono opacity-70">
+      <span className="truncate">Type &apos;help&apos; for commands • &apos;exit&apos; to leave</span>
+      <span className="flex-shrink-0">{time}</span>
+    </div>
+  );
+});
+StatusBar.displayName = 'StatusBar';
 
 const FORTUNES = [
   "The best code is no code at all.",
@@ -95,20 +140,12 @@ export default function Terminal() {
   const [commandHistory, setCommandHistory] = useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
   const [showMatrix, setShowMatrix] = useState(false);
+  const [showBinary, setShowBinary] = useState(false);
+  const [showHex, setShowHex] = useState(false);
   const [currentDir, setCurrentDir] = useState("~");
-  const [glitchActive, setGlitchActive] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const terminalRef = useRef<HTMLDivElement>(null);
   const [bootTime] = useState(new Date());
-
-  // Glitch effect
-  useEffect(() => {
-    const glitchInterval = setInterval(() => {
-      setGlitchActive(true);
-      setTimeout(() => setGlitchActive(false), 100);
-    }, 3000);
-    return () => clearInterval(glitchInterval);
-  }, []);
 
   // Prevent body scroll when terminal is visible
   useEffect(() => {
@@ -118,17 +155,21 @@ export default function Terminal() {
     };
   }, []);
 
-  // Auto-scroll to bottom
+  // Auto-scroll to bottom - optimized with requestAnimationFrame
   useEffect(() => {
     if (terminalRef.current) {
-      terminalRef.current.scrollTop = terminalRef.current.scrollHeight;
+      requestAnimationFrame(() => {
+        if (terminalRef.current) {
+          terminalRef.current.scrollTop = terminalRef.current.scrollHeight;
+        }
+      });
     }
   }, [history]);
 
   // Focus input on click anywhere
-  const handleTerminalClick = () => {
+  const handleTerminalClick = useCallback(() => {
     inputRef.current?.focus();
-  };
+  }, []);
 
   // Initial boot message
   useEffect(() => {
@@ -418,8 +459,42 @@ export default function Terminal() {
         );
 
       case "matrix":
+        if (args.toLowerCase() === "stop") {
+          setShowMatrix(false);
+          return <p className="text-[#ff0040] text-xs font-mono drop-shadow-[0_0_8px_rgba(255,0,64,0.8)]">Matrix effect stopped. 🔴</p>;
+        }
         setShowMatrix(!showMatrix);
         return <p className="text-[#39d353] text-xs font-mono">Matrix effect {showMatrix ? "disabled" : "enabled"}. {!showMatrix && "🔴🟢"}</p>;
+      
+      case "binary":
+        if (args.toLowerCase() === "stop") {
+          setShowBinary(false);
+          return <p className="text-[#ff0040] text-xs font-mono drop-shadow-[0_0_8px_rgba(255,0,64,0.8)]">Binary rain stopped. 🔴</p>;
+        }
+        setShowBinary(!showBinary);
+        return <p className="text-[#39d353] text-xs font-mono">Binary rain {showBinary ? "disabled" : "enabled"}. {!showBinary && "0101"}</p>;
+      
+      case "hex":
+        if (args.toLowerCase() === "stop") {
+          setShowHex(false);
+          return <p className="text-[#ff0040] text-xs font-mono drop-shadow-[0_0_8px_rgba(255,0,64,0.8)]">Hex rain stopped. 🔴</p>;
+        }
+        setShowHex(!showHex);
+        return <p className="text-[#39d353] text-xs font-mono">Hex rain {showHex ? "disabled" : "enabled"}. {!showHex && "0xFF"}</p>;
+      
+      case "effects":
+        return (
+          <div className="text-[11px] sm:text-xs font-mono">
+            <p className="text-[#00ff41] mb-2 drop-shadow-[0_0_8px_rgba(0,255,65,0.8)]">┌─ Visual Effects ────────────────────────────────────────┐</p>
+            <p className="ml-2 text-[#00ff41] opacity-90">  matrix       - Start/stop matrix rain effect</p>
+            <p className="ml-2 text-[#00ff41] opacity-70">  matrix stop  - Stop matrix rain effect</p>
+            <p className="ml-2 text-[#00ff41] opacity-90">  binary       - Start/stop binary rain (0s and 1s)</p>
+            <p className="ml-2 text-[#00ff41] opacity-70">  binary stop  - Stop binary rain effect</p>
+            <p className="ml-2 text-[#00ff41] opacity-90">  hex          - Start/stop hexadecimal code rain</p>
+            <p className="ml-2 text-[#00ff41] opacity-70">  hex stop     - Stop hex code rain effect</p>
+            <p className="text-[#00ff41] mt-2 drop-shadow-[0_0_8px_rgba(0,255,65,0.8)]">└───────────────────────────────────────────────────────────┘</p>
+          </div>
+        );
 
       case "sudo":
         if (args.startsWith("rm")) {
@@ -485,34 +560,47 @@ export default function Terminal() {
           </p>
         );
     }
-  }, [commandHistory, showMatrix, navigate, currentDir, bootTime]);
+  }, [commandHistory, showMatrix, showBinary, showHex, navigate, currentDir, bootTime, personalInfo, technologies, projects, education, contact, socials]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = useCallback((e: React.FormEvent) => {
     e.preventDefault();
     
     if (!currentInput.trim()) {
-      setHistory(prev => [...prev, {
-        command: "",
-        output: null,
-        timestamp: new Date(),
-      }]);
+      setHistory(prev => {
+        const newHistory = [...prev, {
+          command: "",
+          output: null,
+          timestamp: new Date(),
+        }];
+        // Limit history to 200 entries for performance
+        return newHistory.length > 200 ? newHistory.slice(-200) : newHistory;
+      });
       return;
     }
 
     const output = processCommand(currentInput);
+    const timestamp = new Date();
     
-    setHistory(prev => [...prev, {
-      command: currentInput,
-      output,
-      timestamp: new Date(),
-    }]);
+    setHistory(prev => {
+      const newHistory = [...prev, {
+        command: currentInput,
+        output,
+        timestamp,
+      }];
+      // Limit history to 200 entries for performance
+      return newHistory.length > 200 ? newHistory.slice(-200) : newHistory;
+    });
 
-    setCommandHistory(prev => [...prev, currentInput]);
+    setCommandHistory(prev => {
+      const newHistory = [...prev, currentInput];
+      // Limit command history to 100 entries
+      return newHistory.length > 100 ? newHistory.slice(-100) : newHistory;
+    });
     setHistoryIndex(-1);
     setCurrentInput("");
-  };
+  }, [currentInput, processCommand]);
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
+  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
     if (e.key === "ArrowUp") {
       e.preventDefault();
       if (historyIndex < commandHistory.length - 1) {
@@ -533,7 +621,7 @@ export default function Terminal() {
     } else if (e.key === "Tab") {
       e.preventDefault();
       // Simple autocomplete
-      const commands = ["help", "whoami", "skills", "projects", "experience", "education", "contact", "socials", "clear", "exit", "neofetch", "ls", "cat", "pwd", "date", "echo", "history", "cowsay", "matrix"];
+      const commands = ["help", "whoami", "skills", "projects", "experience", "education", "contact", "socials", "clear", "exit", "neofetch", "ls", "cat", "pwd", "date", "echo", "history", "cowsay", "matrix", "binary", "hex", "effects"];
       const matches = commands.filter(cmd => cmd.startsWith(currentInput.toLowerCase()));
       if (matches.length === 1) {
         setCurrentInput(matches[0]);
@@ -550,52 +638,115 @@ export default function Terminal() {
         timestamp: new Date(),
       }]);
     }
-  };
+  }, [commandHistory, historyIndex, currentInput]);
 
   return (
     <div
       className="fixed inset-0 z-[10000] bg-black overflow-hidden touch-none animate-fade-in"
       onClick={handleTerminalClick}
     >
-      {/* Matrix rain effect */}
+      {/* Matrix rain effect - enabled by default, continuous loop */}
       {showMatrix && (
-        <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-20">
-          {Array.from({ length: 50 }).map((_, i) => (
-            <div
-              key={i}
-              className="absolute text-[#00ff41] text-xs font-mono animate-matrix-rain"
-              style={{ 
-                left: `${i * 2}%`,
-                animationDelay: `${Math.random() * 2}s`,
-                animationDuration: `${Math.random() * 3 + 2}s`,
-              }}
-            >
-              {Array.from({ length: 20 }).map((_, j) => (
-                <div key={j}>{String.fromCharCode(0x30A0 + Math.random() * 96)}</div>
-              ))}
-                      </div>
-                    ))}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-12" style={{ willChange: 'transform', zIndex: 1 }}>
+          {Array.from({ length: 30 }).map((_, i) => {
+            const delay = (i * 0.2) % 3; // Staggered delays for continuous effect
+            const duration = 3 + (i % 3); // Varying speeds
+            return (
+              <div
+                key={`matrix-${i}`}
+                className="absolute text-[#00ff41] text-xs font-mono animate-matrix-rain"
+                style={{ 
+                  left: `${(i * 3.33)}%`,
+                  animationDelay: `${delay}s`,
+                  animationDuration: `${duration}s`,
+                  willChange: 'transform',
+                  animationIterationCount: 'infinite',
+                }}
+              >
+                {Array.from({ length: 15 }).map((_, j) => (
+                  <div key={j} style={{ willChange: 'transform', opacity: 0.5 + Math.random() * 0.5 }}>
+                    {String.fromCharCode(0x30A0 + Math.floor(Math.random() * 96))}
                   </div>
-                )}
-
-      {/* Scanlines */}
-      <div 
-        className="absolute inset-0 pointer-events-none z-10"
-        style={{
-          background: "repeating-linear-gradient(0deg, rgba(0,255,65,0.1) 0px, rgba(0,255,65,0.1) 1px, transparent 1px, transparent 2px)",
-        }}
-      />
-
-      {/* Glitch overlay */}
-      {glitchActive && (
-        <div className="absolute inset-0 pointer-events-none z-15 opacity-20">
-          <div className="absolute inset-0 bg-[#00ff41] mix-blend-screen animate-pulse" style={{ clipPath: 'inset(40% 0 60% 0)' }} />
-          <div className="absolute inset-0 bg-[#ff00ff] mix-blend-screen animate-pulse" style={{ clipPath: 'inset(60% 0 40% 0)', animationDelay: '0.1s' }} />
+                ))}
+              </div>
+            );
+          })}
         </div>
       )}
 
-      {/* Terminal window */}
-      <div className={`h-full flex flex-col overflow-hidden safe-area-inset ${glitchActive ? 'animate-[glitch_0.3s_ease-out]' : ''}`}>
+      {/* Binary rain effect - 0s and 1s, continuous loop */}
+      {showBinary && (
+        <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-10" style={{ willChange: 'transform', zIndex: 2 }}>
+          {Array.from({ length: 25 }).map((_, i) => {
+            const delay = (i * 0.25) % 4; // Staggered delays
+            const duration = 4 + (i % 2); // Varying speeds
+            return (
+              <div
+                key={`binary-${i}`}
+                className="absolute text-[#00ff41] text-[10px] font-mono animate-matrix-rain"
+                style={{ 
+                  left: `${(i * 4) + 1}%`,
+                  animationDelay: `${delay}s`,
+                  animationDuration: `${duration}s`,
+                  willChange: 'transform',
+                  animationIterationCount: 'infinite',
+                }}
+              >
+                {Array.from({ length: 12 }).map((_, j) => (
+                  <div key={j} style={{ willChange: 'transform', opacity: 0.3 + Math.random() * 0.4 }}>
+                    {Math.random() > 0.5 ? '0' : '1'}
+                  </div>
+                ))}
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      {/* Hex code rain effect - continuous loop */}
+      {showHex && (
+        <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-8" style={{ willChange: 'transform', zIndex: 3 }}>
+          {Array.from({ length: 20 }).map((_, i) => {
+            const delay = (i * 0.3) % 5; // Staggered delays
+            const duration = 5 + (i % 3); // Varying speeds
+            const hexValue = Math.floor(Math.random() * 256);
+            return (
+              <div
+                key={`hex-${i}`}
+                className="absolute text-[#39d353] text-[9px] font-mono animate-matrix-rain"
+                style={{ 
+                  left: `${(i * 5) + 0.5}%`,
+                  animationDelay: `${delay}s`,
+                  animationDuration: `${duration}s`,
+                  willChange: 'transform',
+                  animationIterationCount: 'infinite',
+                }}
+              >
+                {Array.from({ length: 10 }).map((_, j) => (
+                  <div key={j} style={{ willChange: 'transform', opacity: 0.2 + Math.random() * 0.5 }}>
+                    {'0x' + Math.floor(Math.random() * 256).toString(16).toUpperCase().padStart(2, '0')}
+                  </div>
+                ))}
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      {/* Scanlines - optimized with GPU acceleration */}
+      <div 
+        className="absolute inset-0 pointer-events-none z-10"
+        style={{
+          background: "repeating-linear-gradient(0deg, rgba(0,255,65,0.05) 0px, rgba(0,255,65,0.05) 1px, transparent 1px, transparent 2px)",
+          transform: 'translateZ(0)', // GPU acceleration
+          backfaceVisibility: 'hidden', // Prevent flickering
+        }}
+      />
+
+      {/* Glitch overlay - disabled to prevent wobbling */}
+
+      {/* Terminal window - stable container without animations */}
+      <div className="h-full flex flex-col overflow-hidden safe-area-inset" style={{ transform: 'translateZ(0)', backfaceVisibility: 'hidden' }}>
         {/* Terminal title bar */}
         <div className="flex-shrink-0 flex items-center gap-1.5 sm:gap-2 px-2 sm:px-4 py-2 bg-black border-b-2 border-[#00ff41] shadow-[0_0_20px_rgba(0,255,65,0.3)]">
           <div className="flex gap-1 sm:gap-1.5">
@@ -613,22 +764,12 @@ export default function Terminal() {
           style={{
             scrollBehavior: 'smooth',
             overscrollBehavior: 'contain',
-            WebkitOverflowScrolling: 'touch'
+            WebkitOverflowScrolling: 'touch',
+            willChange: 'scroll-position',
           }}
         >
           {history.map((entry, index) => (
-            <div key={index} className="mb-1.5 sm:mb-2 break-words">
-              {entry.command && (
-                <div className="flex items-start sm:items-center gap-1 sm:gap-2 flex-wrap">
-                  <span className="text-[#00ff41] text-[10px] sm:text-xs drop-shadow-[0_0_6px_rgba(0,255,65,0.6)]">ritesh@portfolio</span>
-                  <span className="text-[#00ff41] text-[10px] sm:text-xs opacity-50">:</span>
-                  <span className="text-[#00ff41] text-[10px] sm:text-xs">~</span>
-                  <span className="text-[#00ff41] text-[10px] sm:text-xs opacity-50">$</span>
-                  <span className="text-[#00ff41] text-[10px] sm:text-xs break-all opacity-90">{entry.command}</span>
-                </div>
-              )}
-              {entry.output && <div className="mt-1 ml-0 break-words">{entry.output}</div>}
-            </div>
+            <HistoryEntry key={`${entry.timestamp.getTime()}-${index}`} entry={entry} />
           ))}
 
           {/* Current input line - Fixed at bottom of scrollable area */}
@@ -642,30 +783,27 @@ export default function Terminal() {
             <span className="text-[#00ff41] text-[10px] sm:text-xs flex-shrink-0">~</span>
             <span className="text-[#00ff41] text-[10px] sm:text-xs flex-shrink-0 opacity-50">$</span>
             <div className="flex-1 min-w-0 relative">
-              <input
-                ref={inputRef}
-                type="text"
+                    <input
+                      ref={inputRef}
+                      type="text"
                 value={currentInput}
                 onChange={(e) => setCurrentInput(e.target.value)}
                 onKeyDown={handleKeyDown}
                 className="w-full bg-transparent text-[#00ff41] font-mono text-base sm:text-sm caret-[#00ff41] border-none outline-none ring-0 focus:border-none focus:outline-none focus:ring-0 focus:shadow-none placeholder:text-[#00ff41]/50"
                 style={{ boxShadow: 'none', fontSize: '16px', textShadow: '0 0 8px rgba(0,255,65,0.8)' }}
-                placeholder="Type a command..."
-                autoFocus
+                      placeholder="Type a command..."
+                      autoFocus
                 autoComplete="off"
-                spellCheck={false}
+                      spellCheck={false}
                 autoCapitalize="off"
                 autoCorrect="off"
-              />
-            </div>
-          </form>
+                    />
+                  </div>
+                </form>
             </div>
 
         {/* Status bar */}
-        <div className="flex-shrink-0 px-2 sm:px-4 py-1.5 sm:py-1 bg-black border-t-2 border-[#00ff41] flex flex-col sm:flex-row justify-between items-start sm:items-center gap-1 sm:gap-0 text-[9px] sm:text-xs text-[#00ff41] font-mono opacity-70">
-          <span className="truncate">Type &apos;help&apos; for commands • &apos;exit&apos; to leave</span>
-          <span className="flex-shrink-0">{new Date().toLocaleTimeString()}</span>
-        </div>
+        <StatusBar />
       </div>
     </div>
   );
