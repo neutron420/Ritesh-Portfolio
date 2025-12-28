@@ -10,36 +10,31 @@ import ProjectsSection from "@/components/portfolio/ProjectsSection";
 import SpotifySection from "@/components/portfolio/SpotifySection";
 import AnimeVideoSection from "@/components/portfolio/AnimeVideoSection";
 import ContactSection from "@/components/portfolio/ContactSection";
-import BackgroundEffects from "@/components/portfolio/BackgroundEffects";
 import LoadingScreen from "@/components/portfolio/LoadingScreen";
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [showContent, setShowContent] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   useEffect(() => {
-    // Show loading screen only on page refresh/reload
-    // Use a combination of checks to detect refresh
-    const wasRefreshed = 
-      // Check Performance Navigation API
-      (performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming)?.type === 'reload' ||
-      // Check if page was reloaded (legacy API)
-      (performance.navigation && performance.navigation.type === 1) ||
-      // Check if it's a direct visit (no referrer or external referrer)
-      (!document.referrer || !document.referrer.includes(window.location.host));
-    
-    if (!wasRefreshed) {
-      // Not a refresh, skip loading screen
-      setIsLoading(false);
-      setShowContent(true);
-    }
-    // If it's a refresh, keep isLoading = true to show loading screen
+    // Always show loading screen on initial mount to prevent white flash
+    // Ensure background is set immediately
+    document.documentElement.style.backgroundColor = '#0a0a0a';
+    document.body.style.backgroundColor = '#0a0a0a';
+    setIsLoading(true);
   }, []);
 
   const handleLoadingComplete = () => {
-    // Immediately hide loading and show content
-    setIsLoading(false);
-    setShowContent(true);
+    // Start transition: fade out loading, fade in content simultaneously
+    setIsTransitioning(true);
+    setShowContent(true); // Start showing content immediately
+    
+    // After transition completes, remove loading screen from DOM
+    setTimeout(() => {
+      setIsLoading(false);
+      setIsTransitioning(false);
+    }, 500); // Match transition duration
   };
 
   return (
@@ -53,15 +48,29 @@ const Index = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Helmet>
       
-      {isLoading && <LoadingScreen onComplete={handleLoadingComplete} />}
-      
-      {!isLoading && (
+      {/* Loading Screen - fades out smoothly */}
+      {isLoading && (
         <div 
-          className={`min-h-screen bg-background relative transition-opacity duration-500 ${
-            showContent ? "opacity-100" : "opacity-0"
+          className={`fixed inset-0 z-[99999] transition-opacity duration-500 ${
+            isTransitioning ? "opacity-0 pointer-events-none" : "opacity-100"
           }`}
         >
-        <BackgroundEffects />
+          <LoadingScreen onComplete={handleLoadingComplete} />
+        </div>
+      )}
+      
+      {/* Portfolio Content - always rendered but hidden until ready */}
+      <div 
+        className={`min-h-screen bg-background relative transition-opacity duration-700 ease-in-out ${
+          showContent ? "opacity-100" : "opacity-0"
+        }`}
+        style={{ 
+          willChange: 'opacity',
+          backgroundColor: 'hsl(var(--background))',
+          pointerEvents: showContent ? 'auto' : 'none',
+          visibility: showContent ? 'visible' : 'hidden'
+        }}
+      >
         <Navbar />
         <main>
           <HeroSection />
@@ -74,8 +83,7 @@ const Index = () => {
           <AnimeVideoSection />
           <ContactSection />
         </main>
-        </div>
-      )}
+      </div>
     </>
   );
 };
