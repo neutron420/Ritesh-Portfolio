@@ -655,7 +655,7 @@ export default function Terminal() {
               <div
                 key={`matrix-${i}`}
                 className="absolute text-[#00ff41] text-xs font-mono animate-matrix-rain"
-                style={{ 
+              style={{ 
                   left: `${(i * 3.33)}%`,
                   animationDelay: `${delay}s`,
                   animationDuration: `${duration}s`,
@@ -684,7 +684,7 @@ export default function Terminal() {
               <div
                 key={`binary-${i}`}
                 className="absolute text-[#00ff41] text-[10px] font-mono animate-matrix-rain"
-                style={{ 
+                        style={{
                   left: `${(i * 4) + 1}%`,
                   animationDelay: `${delay}s`,
                   animationDuration: `${duration}s`,
@@ -695,13 +695,13 @@ export default function Terminal() {
                 {Array.from({ length: 12 }).map((_, j) => (
                   <div key={j} style={{ willChange: 'transform', opacity: 0.3 + Math.random() * 0.4 }}>
                     {Math.random() > 0.5 ? '0' : '1'}
-                  </div>
-                ))}
+                      </div>
+                    ))}
               </div>
             );
           })}
-        </div>
-      )}
+                  </div>
+                )}
 
       {/* Hex code rain effect - continuous loop */}
       {showHex && (
@@ -710,8 +710,8 @@ export default function Terminal() {
             const delay = (i * 0.3) % 5; // Staggered delays
             const duration = 5 + (i % 3); // Varying speeds
             const hexValue = Math.floor(Math.random() * 256);
-            return (
-              <div
+                  return (
+                    <div 
                 key={`hex-${i}`}
                 className="absolute text-[#39d353] text-[9px] font-mono animate-matrix-rain"
                 style={{ 
@@ -727,9 +727,9 @@ export default function Terminal() {
                     {'0x' + Math.floor(Math.random() * 256).toString(16).toUpperCase().padStart(2, '0')}
                   </div>
                 ))}
-              </div>
-            );
-          })}
+                    </div>
+                  );
+                })}
         </div>
       )}
 

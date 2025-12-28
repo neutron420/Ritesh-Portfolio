@@ -26,45 +26,79 @@ import {
 import { FaJava } from "react-icons/fa";
 import { TbApi } from "react-icons/tb";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
+import { useTheme } from "@/components/ThemeProvider";
+import { useEffect, useState } from "react";
 
 const TechStackSection = () => {
+  const { theme } = useTheme();
+  const [isDark, setIsDark] = useState(true);
+
+  useEffect(() => {
+    const root = document.documentElement;
+    const isDarkMode = root.classList.contains("dark");
+    setIsDark(isDarkMode);
+
+    const observer = new MutationObserver(() => {
+      setIsDark(root.classList.contains("dark"));
+    });
+
+    observer.observe(root, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
+    return () => observer.disconnect();
+  }, [theme]);
+
+  // Helper function to get theme-aware color
+  const getThemeColor = (lightColor: string, darkColor: string, defaultColor: string) => {
+    if (defaultColor === "#ffffff" || defaultColor === "#000000") {
+      return isDark ? lightColor : darkColor;
+    }
+    return defaultColor;
+  };
+
   const technologies = [
-    { name: "React", icon: SiReact, color: "#61DAFB" },
-    { name: "Next.js", icon: SiNextdotjs, color: "#ffffff" },
-    { name: "TypeScript", icon: SiTypescript, color: "#3178C6" },
-    { name: "Node.js", icon: SiNodedotjs, color: "#339933" },
-    { name: "Express", icon: SiExpress, color: "#ffffff" },
-    { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
-    { name: "PostgreSQL", icon: SiPostgresql, color: "#4169E1" },
-    { name: "MongoDB", icon: SiMongodb, color: "#47A248" },
-    { name: "Java", icon: FaJava, color: "#007396" },
-    { name: "Docker", icon: SiDocker, color: "#2496ED" },
-    { name: "Git", icon: SiGit, color: "#F05032" },
+    { name: "React", icon: SiReact, color: "#61DAFB", lightColor: "#61DAFB", darkColor: "#61DAFB" },
+    { name: "Next.js", icon: SiNextdotjs, color: "#ffffff", lightColor: "#000000", darkColor: "#ffffff" },
+    { name: "TypeScript", icon: SiTypescript, color: "#3178C6", lightColor: "#3178C6", darkColor: "#3178C6" },
+    { name: "Node.js", icon: SiNodedotjs, color: "#339933", lightColor: "#339933", darkColor: "#339933" },
+    { name: "Express", icon: SiExpress, color: "#ffffff", lightColor: "#000000", darkColor: "#ffffff" },
+    { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4", lightColor: "#06B6D4", darkColor: "#06B6D4" },
+    { name: "PostgreSQL", icon: SiPostgresql, color: "#4169E1", lightColor: "#4169E1", darkColor: "#4169E1" },
+    { name: "MongoDB", icon: SiMongodb, color: "#47A248", lightColor: "#47A248", darkColor: "#47A248" },
+    { name: "Java", icon: FaJava, color: "#007396", lightColor: "#007396", darkColor: "#007396" },
+    { name: "Docker", icon: SiDocker, color: "#2496ED", lightColor: "#2496ED", darkColor: "#2496ED" },
+    { name: "Git", icon: SiGit, color: "#F05032", lightColor: "#F05032", darkColor: "#F05032" },
   ];
 
   const technologies2 = [
-    { name: "Solidity", icon: SiSolidity, color: "#ffffff" },
-    { name: "Rust", icon: SiRust, color: "#ffffff" },
-    { name: "Ethereum", icon: SiEthereum, color: "#627EEA" },
-    { name: "Redis", icon: SiRedis, color: "#DC382D" },
-    { name: "GraphQL", icon: SiGraphql, color: "#E10098" },
-    { name: "AWS", icon: SiAmazonwebservices, color: "#FF9900" },
-    { name: "Linux", icon: SiLinux, color: "#FCC624" },
-    { name: "Prisma", icon: SiPrisma, color: "#ffffff" },
-    { name: "gRPC", icon: TbApi, color: "#244c5a" },
-    { name: "Kubernetes", icon: SiKubernetes, color: "#326CE5" },
-    { name: "GCP", icon: SiGooglecloud, color: "#4285F4" },
-    { name: "Cloudflare", icon: SiCloudflare, color: "#F38020" },
-    { name: "React Native", icon: SiReact, color: "#61DAFB" },
-    { name: "Unit Testing", icon: SiJest, color: "#C21325" },
-    { name: "Integration Testing", icon: SiTestinglibrary, color: "#E33332" },
+    { name: "Solidity", icon: SiSolidity, color: "#ffffff", lightColor: "#363636", darkColor: "#ffffff" },
+    { name: "Rust", icon: SiRust, color: "#ffffff", lightColor: "#000000", darkColor: "#ffffff" },
+    { name: "Ethereum", icon: SiEthereum, color: "#627EEA", lightColor: "#627EEA", darkColor: "#627EEA" },
+    { name: "Redis", icon: SiRedis, color: "#DC382D", lightColor: "#DC382D", darkColor: "#DC382D" },
+    { name: "GraphQL", icon: SiGraphql, color: "#E10098", lightColor: "#E10098", darkColor: "#E10098" },
+    { name: "AWS", icon: SiAmazonwebservices, color: "#FF9900", lightColor: "#FF9900", darkColor: "#FF9900" },
+    { name: "Linux", icon: SiLinux, color: "#FCC624", lightColor: "#FCC624", darkColor: "#FCC624" },
+    { name: "Prisma", icon: SiPrisma, color: "#ffffff", lightColor: "#2D3748", darkColor: "#ffffff" },
+    { name: "gRPC", icon: TbApi, color: "#244c5a", lightColor: "#244c5a", darkColor: "#244c5a" },
+    { name: "Kubernetes", icon: SiKubernetes, color: "#326CE5", lightColor: "#326CE5", darkColor: "#326CE5" },
+    { name: "GCP", icon: SiGooglecloud, color: "#4285F4", lightColor: "#4285F4", darkColor: "#4285F4" },
+    { name: "Cloudflare", icon: SiCloudflare, color: "#F38020", lightColor: "#F38020", darkColor: "#F38020" },
+    { name: "React Native", icon: SiReact, color: "#61DAFB", lightColor: "#61DAFB", darkColor: "#61DAFB" },
+    { name: "Unit Testing", icon: SiJest, color: "#C21325", lightColor: "#C21325", darkColor: "#C21325" },
+    { name: "Integration Testing", icon: SiTestinglibrary, color: "#E33332", lightColor: "#E33332", darkColor: "#E33332" },
   ];
 
-  const TechCard = ({ tech }: { tech: typeof technologies[0] }) => {
+  const TechCard = ({ tech }: { tech: typeof technologies[0] & { lightColor?: string; darkColor?: string } }) => {
     const Icon = tech.icon;
+    const iconColor = tech.lightColor && tech.darkColor 
+      ? (isDark ? tech.darkColor : tech.lightColor)
+      : tech.color;
+    
     return (
       <div className="flex items-center gap-2.5 px-4 py-2.5 bg-card/50 border border-border/50 rounded-lg whitespace-nowrap shrink-0">
-        <Icon className="w-5 h-5 md:w-6 md:h-6 shrink-0" style={{ color: tech.color }} />
+        <Icon className="w-5 h-5 md:w-6 md:h-6 shrink-0" style={{ color: iconColor }} />
         <span className="text-sm font-medium text-foreground">{tech.name}</span>
       </div>
     );
@@ -82,7 +116,7 @@ const TechStackSection = () => {
         ref={ref}
         className={`section-container mb-6 scroll-reveal ${isVisible ? 'visible' : ''}`}
       >
-        <h2 className="text-xl md:text-2xl font-semibold">Tech Stack</h2>
+        <h2 className="text-xl md:text-2xl font-semibold">Stack</h2>
         <p className="text-muted-foreground text-sm mt-1.5">
           Tools and technologies I work with to ship meaningful products.
         </p>
