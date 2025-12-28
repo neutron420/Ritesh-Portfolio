@@ -11,6 +11,7 @@ import SpotifySection from "@/components/portfolio/SpotifySection";
 import AnimeVideoSection from "@/components/portfolio/AnimeVideoSection";
 import ContactSection from "@/components/portfolio/ContactSection";
 import LoadingScreen from "@/components/portfolio/LoadingScreen";
+import AIChatBox from "@/components/portfolio/AIChatBox";
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -83,6 +84,8 @@ const Index = () => {
           <AnimeVideoSection />
           <ContactSection />
         </main>
+        {/* AI Chat Box */}
+        <AIChatBox />
       </div>
     </>
   );
