@@ -1,11 +1,15 @@
 import { useState, useEffect } from "react";
-import { Menu, X, Download, Terminal } from "lucide-react";
+import { Menu, X, Download, Terminal, Search } from "lucide-react";
 import { Link } from "react-router-dom";
 import { TerminalTransition } from "@/components/TerminalTransition";
+import ThemeToggle from "./ThemeToggle";
+import SearchModal from "./SearchModal";
+import { useKeyboardShortcuts } from "@/hooks/use-keyboard-shortcuts";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,9 +31,40 @@ const Navbar = () => {
     };
   }, [isMobileMenuOpen]);
 
+  // Keyboard shortcuts
+  useKeyboardShortcuts([
+    {
+      key: "k",
+      ctrl: true,
+      action: () => setIsSearchOpen(true),
+      description: "Open search",
+    },
+    {
+      key: "/",
+      action: () => {
+        if (!isMobileMenuOpen) {
+          setIsSearchOpen(true);
+        }
+      },
+      description: "Open search",
+    },
+    {
+      key: "t",
+      ctrl: true,
+      action: () => {
+        // Toggle theme (cycle through)
+        const root = document.documentElement;
+        const isDark = root.classList.contains("dark");
+        root.classList.toggle("dark");
+        localStorage.setItem("portfolio-theme", isDark ? "light" : "dark");
+      },
+      description: "Toggle theme",
+    },
+  ]);
+
   const navItems = [
     { name: "About", href: "#" },
-    { name: "Tech Stack", href: "#tech" },
+    { name: "Stack", href: "#tech" },
     { name: "Projects", href: "#projects" },
     { name: "Contact", href: "#contact" },
   ];
@@ -85,6 +120,16 @@ const Navbar = () => {
                 <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-px bg-accent transition-all duration-300 group-hover:w-1/2" />
               </a>
             ))}
+            <button
+              onClick={() => setIsSearchOpen(true)}
+              className="ml-2 px-3 py-2 flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded-lg transition-all"
+              title="Search (Ctrl+K or /)"
+            >
+              <Search className="w-4 h-4" />
+              <span className="hidden lg:inline">Search</span>
+              <kbd className="hidden lg:inline kbd-shortcut">Ctrl+K</kbd>
+            </button>
+            <ThemeToggle />
             <TerminalTransition to="/terminal">
               <div className="ml-2 px-3 sm:px-4 py-2 sm:py-2.5 flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-mono font-medium rounded-lg bg-[#0d1117] text-[#39d353] hover:bg-[#161b22] transition-all hover:scale-105 shadow-lg hover:shadow-xl border border-[#39d353]/30 hover:border-[#39d353]/50 backdrop-blur-sm group relative overflow-hidden">
                 <span className="absolute inset-0 bg-[#39d353]/5 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -163,6 +208,7 @@ const Navbar = () => {
           </nav>
         )}
       </div>
+      <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
     </header>
   );
 };

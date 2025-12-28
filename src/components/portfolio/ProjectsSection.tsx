@@ -231,7 +231,7 @@ const ProjectsSection = () => {
                   {/* Tech Stack */}
                   <div className={`${project.name === 'Swaraj-Desk' || project.name === 'Swaraj-Desk-Admin' ? 'mt-4' : 'mt-3'} pt-4 border-t border-border/30 flex-shrink-0`}>
                     <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-2 font-medium">
-                      Tech Stack
+                     Stack
                     </p>
                     <div className="flex flex-wrap gap-2">
                       {project.techStack.map((tech, i) => (

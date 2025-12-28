@@ -289,7 +289,7 @@ const ContactSection = () => {
             <div>
               <h4 className="font-medium mb-3">Quick Links</h4>
               <div className="flex flex-col gap-2">
-                <a href="#tech" className="text-sm text-muted-foreground hover:text-accent transition-colors">Tech Stack</a>
+                <a href="#tech" className="text-sm text-muted-foreground hover:text-accent transition-colors">Stack</a>
                 <a href="#projects" className="text-sm text-muted-foreground hover:text-accent transition-colors">Projects</a>
                 <a href="#contact" className="text-sm text-muted-foreground hover:text-accent transition-colors">Contact</a>
               </div>

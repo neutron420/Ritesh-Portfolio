@@ -6,7 +6,39 @@
 
 @layer base {
   :root {
-    /* Dark theme only - no light mode */
+    /* Light theme */
+    --background: 0 0% 98%;
+    --foreground: 0 0% 9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 9%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
+    --accent: 25 95% 53%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 90%;
+    --input: 0 0% 96%;
+    --ring: 25 95% 53%;
+    --radius: 0.75rem;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 0 0% 9%;
+    --sidebar-primary: 0 0% 9%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 0 0% 96%;
+    --sidebar-accent-foreground: 0 0% 9%;
+    --sidebar-border: 0 0% 90%;
+    --sidebar-ring: 25 95% 53%;
+  }
+
+  .dark {
+    /* Dark theme */
     --background: 0 0% 4%;
     --foreground: 0 0% 95%;
     --card: 0 0% 7%;
@@ -26,7 +58,6 @@
     --border: 0 0% 14%;
     --input: 0 0% 12%;
     --ring: 25 95% 53%;
-    --radius: 0.75rem;
     --sidebar-background: 0 0% 5%;
     --sidebar-foreground: 0 0% 95%;
     --sidebar-primary: 0 0% 95%;
@@ -224,7 +255,7 @@
   animation-fill-mode: both; /* Ensure seamless looping */
 }
 
-/* Mobile optimizations for terminal */
+/* Mobile optimizations */
 @media (max-width: 640px) {
   .safe-area-inset {
     padding-top: env(safe-area-inset-top);
@@ -239,8 +270,33 @@
   }
   
   /* Ensure input is always visible on mobile */
-  input[type="text"] {
+  input[type="text"],
+  input[type="email"],
+  textarea {
     font-size: 16px !important; /* Prevents zoom on iOS */
+  }
+  
+  /* Improve touch targets */
+  button,
+  a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Optimize animations for mobile */
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  /* Reduce motion for users who prefer it */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
 
@@ -260,4 +316,135 @@
 
 ::-webkit-scrollbar-thumb:hover {
   background: hsl(var(--muted-foreground));
+}
+
+/* Background effects animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px);
+  }
+  33% {
+    transform: translateY(-30px) translateX(20px);
+  }
+  66% {
+    transform: translateY(20px) translateX(-20px);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes grid-pulse {
+  0%, 100% {
+    opacity: 0.05;
+  }
+  50% {
+    opacity: 0.12;
+  }
+}
+
+@keyframes float-slow {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px) scale(1);
+  }
+  25% {
+    transform: translateY(-40px) translateX(30px) scale(1.05);
+  }
+  50% {
+    transform: translateY(30px) translateX(-30px) scale(0.95);
+  }
+  75% {
+    transform: translateY(-20px) translateX(20px) scale(1.02);
+  }
+}
+
+/* Background effects classes */
+.bg-effect-float {
+  animation: float 20s ease-in-out infinite;
+}
+
+.bg-effect-float-slow {
+  animation: float-slow 25s ease-in-out infinite;
+}
+
+.bg-effect-pulse {
+  animation: pulse-glow 4s ease-in-out infinite;
+}
+
+.bg-gradient-animated {
+  background-size: 200% 200%;
+  animation: gradient-shift 15s ease infinite;
+}
+
+.bg-grid-pulse {
+  animation: grid-pulse 3s ease-in-out infinite;
+}
+
+/* Keyboard shortcut hint styles */
+.kbd-shortcut {
+  @apply px-1.5 py-0.5 text-[10px] font-mono bg-muted border border-border rounded text-muted-foreground;
+}
+
+/* Loading screen animations */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.6s ease-out forwards;
+}
+
+.delay-100 {
+  animation-delay: 0.1s;
+}
+
+/* Blink animation for terminal cursor */
+@keyframes blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
+
+/* Shimmer effect for progress bar */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite;
 }
