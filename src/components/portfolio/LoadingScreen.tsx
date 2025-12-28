@@ -89,7 +89,7 @@ const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
   }, [onComplete]);
 
   return (
-    <div className="fixed inset-0 z-[99999] bg-gradient-to-br from-[#0a0a0a] via-[#1a0f0a] to-[#0a0a0a] flex items-center justify-center overflow-hidden safe-area-inset font-mono touch-none">
+    <div className="fixed inset-0 z-[99999] bg-gradient-to-br from-[#0a0a0a] via-[#1a0f0a] to-[#0a0a0a] flex items-center justify-center overflow-hidden safe-area-inset font-mono touch-none" style={{ willChange: 'opacity' }}>
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background/80" />
 

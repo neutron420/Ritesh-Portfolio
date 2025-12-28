@@ -76,11 +76,33 @@
 
   html {
     scroll-behavior: smooth;
+    background-color: hsl(var(--background));
+    /* Prevent white flash during navigation */
+    transition: background-color 0.3s ease;
   }
 
   body {
     @apply bg-background text-foreground antialiased;
     font-family: 'Inter', sans-serif;
+    background-color: hsl(var(--background));
+    /* Prevent white flash during navigation */
+    transition: background-color 0.3s ease;
+  }
+  
+  #root {
+    min-height: 100vh;
+    background-color: hsl(var(--background));
+    /* Ensure smooth transitions */
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Prevent flash of unstyled content */
+  body:not(.loaded) {
+    background-color: #0a0a0a;
+  }
+  
+  body.loaded {
+    background-color: hsl(var(--background));
   }
 
   ::selection {
