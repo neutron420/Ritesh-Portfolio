@@ -181,6 +181,31 @@ const Navbar = () => {
                   {item.name}
                 </a>
               ))}
+              
+              {/* Search Button - Mobile */}
+              <button
+                onClick={() => {
+                  setIsSearchOpen(true);
+                  setIsMobileMenuOpen(false);
+                }}
+                className="mx-4 mt-2 px-4 py-3 flex items-center gap-2 text-sm font-medium text-foreground bg-muted/50 hover:bg-muted active:bg-muted/70 rounded-lg transition-all border border-border/50 touch-manipulation"
+                aria-label="Open search"
+              >
+                <Search className="w-4 h-4 flex-shrink-0" />
+                <span>Search</span>
+                <kbd className="ml-auto text-xs px-2 py-0.5 bg-background border border-border rounded kbd-shortcut">/</kbd>
+              </button>
+              
+              {/* Theme Toggle - Mobile */}
+              <div className="mx-4 mt-2 px-4 py-3 flex items-center justify-between text-sm bg-muted/30 rounded-lg border border-border/50">
+                <span className="text-foreground font-medium flex items-center gap-2">
+                  <span>Theme</span>
+                </span>
+                <div className="flex-shrink-0">
+                  <ThemeToggle />
+                </div>
+              </div>
+              
               <TerminalTransition to="/terminal">
                 <div
                   onClick={() => setIsMobileMenuOpen(false)}
