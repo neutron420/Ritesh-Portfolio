@@ -19,22 +19,119 @@ const GitHubContributions = () => {
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   const days = ['Mon', 'Wed', 'Fri'];
 
+  // Fetch all events by paginating through pages
+  const fetchAllGitHubEvents = useCallback(async (username: string): Promise<GitHubEvent[]> => {
+    const allEvents: GitHubEvent[] = [];
+    let page = 1;
+    const perPage = 100;
+    let hasMore = true;
+
+    while (hasMore && page <= 10) { // Limit to 10 pages (1000 events) to avoid rate limits
+      try {
+        const response = await fetch(
+          `https://api.github.com/users/${username}/events/public?per_page=${perPage}&page=${page}`,
+          {
+            headers: {
+              'Accept': 'application/vnd.github.v3+json'
+            }
+          }
+        );
+
+        if (!response.ok) {
+          if (response.status === 404 || response.status === 403) {
+            break;
+          }
+          throw new Error(`GitHub API error: ${response.status}`);
+        }
+
+        const events: GitHubEvent[] = await response.json();
+        
+        if (events.length === 0) {
+          hasMore = false;
+        } else {
+          allEvents.push(...events);
+          // If we got less than perPage, we've reached the end
+          if (events.length < perPage) {
+            hasMore = false;
+          }
+          page++;
+        }
+      } catch (error) {
+        console.error(`Error fetching page ${page}:`, error);
+        hasMore = false;
+      }
+    }
+
+    return allEvents;
+  }, []);
+
   const fetchGitHubActivity = useCallback(async () => {
     try {
-      const response = await fetch('https://api.github.com/users/neutron420/events/public?per_page=100', {
-        headers: {
-          'Accept': 'application/vnd.github.v3+json'
-        }
-      });
+      const username = 'neutron420';
       
-      if (!response.ok) throw new Error('GitHub API error');
-      
-      const events: GitHubEvent[] = await response.json();
-
-      const contributionMap = new Map<string, number>();
+      // Try to fetch contribution graph data from a service that parses GitHub's contribution graph
+      // First, try using github-contributions-api or similar service
+      let contributionMap = new Map<string, number>();
       let total = 0;
+      
+      // Try multiple services for GitHub contribution data
+      const contributionServices = [
+        `https://github-contributions-api.jogruber.de/v4/${username}?y=2024&y=2025`,
+        `https://github-contributions.vercel.app/api/v1/${username}`,
+      ];
+      
+      let apiSuccess = false;
+      
+      for (const serviceUrl of contributionServices) {
+        try {
+          const contributionResponse = await fetch(serviceUrl, { 
+            cache: "no-store",
+            headers: { 'Accept': 'application/json' },
+            signal: AbortSignal.timeout(10000)
+          });
+          
+          if (contributionResponse.ok) {
+            const contributionData = await contributionResponse.json();
+            
+            // Parse the contribution data (different services have different formats)
+            if (contributionData.contributions && Array.isArray(contributionData.contributions)) {
+              contributionData.contributions.forEach((day: any) => {
+                if (day.date && day.count !== undefined) {
+                  const dateStr = day.date.split('T')[0];
+                  contributionMap.set(dateStr, day.count);
+                  total += day.count;
+                }
+              });
+              apiSuccess = true;
+              console.log('GitHub contributions fetched from API service:', serviceUrl);
+              break;
+            } else if (contributionData.data && Array.isArray(contributionData.data)) {
+              // Alternative format
+              contributionData.data.forEach((day: any) => {
+                if (day.date && day.count !== undefined) {
+                  const dateStr = day.date.split('T')[0];
+                  contributionMap.set(dateStr, day.count);
+                  total += day.count;
+                }
+              });
+              apiSuccess = true;
+              console.log('GitHub contributions fetched from API service:', serviceUrl);
+              break;
+            }
+          }
+        } catch (apiError) {
+          console.warn(`GitHub contribution API service ${serviceUrl} failed:`, apiError);
+          continue;
+        }
+      }
+      
+      if (!apiSuccess) {
+        console.warn('All GitHub contribution API services failed, falling back to events');
+        
+        // Fallback to fetching events
+        const events = await fetchAllGitHubEvents(username);
 
-      if (Array.isArray(events)) {
+        // Process all events
         events.forEach((event) => {
           const date = event.created_at?.split('T')[0];
           if (date) {
@@ -50,36 +147,32 @@ const GitHubContributions = () => {
         });
       }
 
+      // Build contribution graph for the last 52 weeks
       const weeks: number[][] = [];
       const today = new Date();
+      today.setHours(0, 0, 0, 0);
       
-      // Generate realistic contribution pattern
-      const baseContributions = 512 - total;
-      let distributed = 0;
+      // Calculate the start date (52 weeks ago, aligned to Sunday)
+      const startDate = new Date(today);
+      const dayOfWeek = startDate.getDay(); // 0 = Sunday, 6 = Saturday
+      const startDateTimestamp = startDate.getTime() - ((52 * 7 + dayOfWeek) * 24 * 60 * 60 * 1000);
+      const baseStartDate = new Date(startDateTimestamp);
 
       for (let week = 0; week < 52; week++) {
         const weekData: number[] = [];
         for (let day = 0; day < 7; day++) {
-          const date = new Date(today);
-          date.setDate(date.getDate() - ((51 - week) * 7 + (6 - day)));
+          const date = new Date(baseStartDate);
+          date.setDate(baseStartDate.getDate() + (week * 7) + day);
           const dateStr = date.toISOString().split('T')[0];
           
-          let count = contributionMap.get(dateStr) || 0;
+          const count = contributionMap.get(dateStr) || 0;
           
-          // Fill in historical data with realistic pattern
-          if (count === 0 && distributed < baseContributions) {
-            const isWeekday = day >= 1 && day <= 5;
-            if (Math.random() < (isWeekday ? 0.4 : 0.2)) {
-              count = Math.floor(Math.random() * 5) + 1;
-              distributed += count;
-            }
-          }
-          
+          // GitHub's contribution levels (approximate)
           let level = 0;
-          if (count >= 8) level = 4;
-          else if (count >= 5) level = 3;
-          else if (count >= 2) level = 2;
-          else if (count >= 1) level = 1;
+          if (count >= 22) level = 4;      // Darkest green
+          else if (count >= 14) level = 3;  // Medium-dark green
+          else if (count >= 7) level = 2;   // Medium green
+          else if (count >= 1) level = 1;    // Light green
           
           weekData.push(level);
         }
@@ -87,13 +180,13 @@ const GitHubContributions = () => {
       }
 
       setContributions(weeks);
-      setTotalContributions(512);
+      setTotalContributions(total);
       setLoading(false);
     } catch (error) {
       console.error('Error fetching GitHub activity:', error);
       generateFallbackData();
     }
-  }, []);
+  }, [fetchAllGitHubEvents]);
 
   const generateFallbackData = () => {
     const weeks: number[][] = [];
@@ -120,7 +213,7 @@ const GitHubContributions = () => {
     }
     
     setContributions(weeks);
-    setTotalContributions(512);
+    setTotalContributions(0);
     setLoading(false);
   };
 

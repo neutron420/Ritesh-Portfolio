@@ -1,5 +1,177 @@
 import { useState, useRef, useEffect } from "react";
-import { Send, Bot, User, Minimize2, Maximize2, X } from "lucide-react";
+import { Send, Bot, User, Minimize2, Maximize2, X, Mail, Globe, Linkedin, Github, Twitter, Trophy, Code, BarChart3, Calendar, Target, Link2, Zap, FileText, DollarSign, Lock, CheckCircle, TrendingUp, Rocket, Cloud, Database, Shield, Palette, Smartphone } from "lucide-react";
+import { getAIResponse } from "@/lib/data";
+
+// Function to parse both emojis and links in text
+const parseMessageContent = (text: string): React.ReactNode => {
+  const emojiMap: Record<string, React.ReactNode> = {
+    '📧': <Mail key="mail" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
+    '🌐': <Globe key="globe" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
+    '💼': <Linkedin key="linkedin" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
+    '🐙': <Github key="github" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
+    '🐦': <Twitter key="twitter" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
+    '🏆': <Trophy key="trophy" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
+    '💻': <Code key="code" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
+    '📊': <BarChart3 key="chart" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
+    '📅': <Calendar key="calendar" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
+    '🎯': <Target key="target" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
+    '🔗': <Link2 key="link" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
+    '⚡': <Zap key="zap" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
+    '📝': <FileText key="file" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
+    '💰': <DollarSign key="dollar" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
+    '🔐': <Lock key="lock" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
+    '✅': <CheckCircle key="check" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
+    '📈': <TrendingUp key="trend" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
+    '🚀': <Rocket key="rocket" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
+    '☁️': <Cloud key="cloud" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
+    '🗄️': <Database key="db" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
+    '🎨': <Palette key="palette" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
+    '📱': <Smartphone key="phone" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
+  };
+
+  const parts: React.ReactNode[] = [];
+  const urlRegex = /(https?:\/\/[^\s]+|www\.[^\s]+|[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}[^\s]*|github\.com\/[^\s]+|linkedin\.com\/[^\s]+|@[a-zA-Z0-9_]+)/g;
+  const emojiRegex = /([📧🌐💼🐙🐦🏆💻📊📅🎯🔗⚡📝💰🔐✅📈🚀☁️🗄️🎨📱])/g;
+  
+  // Combine both regex patterns
+  const allMatches: Array<{ index: number; type: 'emoji' | 'url'; match: string }> = [];
+  
+  let match;
+  while ((match = emojiRegex.exec(text)) !== null) {
+    allMatches.push({ index: match.index, type: 'emoji', match: match[0] });
+  }
+  
+  urlRegex.lastIndex = 0;
+  while ((match = urlRegex.exec(text)) !== null) {
+    allMatches.push({ index: match.index, type: 'url', match: match[0] });
+  }
+  
+  // Sort by index
+  allMatches.sort((a, b) => a.index - b.index);
+  
+  let lastIndex = 0;
+  
+  for (const item of allMatches) {
+    // Add text before the match
+    if (item.index > lastIndex) {
+      parts.push(text.substring(lastIndex, item.index));
+    }
+    
+    if (item.type === 'emoji') {
+      const emoji = item.match;
+      if (emojiMap[emoji]) {
+        parts.push(emojiMap[emoji]);
+      } else {
+        parts.push(emoji);
+      }
+      lastIndex = item.index + item.match.length;
+    } else {
+      // Handle URL
+      const url = item.match;
+      let href = url;
+      
+      if (url.startsWith('http://') || url.startsWith('https://')) {
+        href = url;
+      } else if (url.startsWith('www.')) {
+        href = `https://${url}`;
+      } else if (url.startsWith('github.com/')) {
+        href = `https://${url}`;
+      } else if (url.startsWith('linkedin.com/')) {
+        href = `https://${url}`;
+      } else if (url.startsWith('@')) {
+        href = `https://x.com/${url.substring(1)}`;
+      } else if (url.includes('.') && !url.includes(' ')) {
+        href = `https://${url}`;
+      } else {
+        parts.push(url);
+        lastIndex = item.index + url.length;
+        continue;
+      }
+      
+      parts.push(
+        <a
+          key={`link-${item.index}`}
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[#ff6b35] hover:text-[#ff8555] underline break-all"
+          onClick={(e) => e.stopPropagation()}
+        >
+          {url}
+        </a>
+      );
+      lastIndex = item.index + url.length;
+    }
+  }
+  
+  // Add remaining text
+  if (lastIndex < text.length) {
+    parts.push(text.substring(lastIndex));
+  }
+  
+  return parts.length > 0 ? <>{parts}</> : text;
+};
+
+// Function to convert text with URLs to clickable links (kept for backward compatibility)
+const parseLinks = (text: string): React.ReactNode => {
+  const urlRegex = /(https?:\/\/[^\s]+|www\.[^\s]+|[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}[^\s]*|github\.com\/[^\s]+|linkedin\.com\/[^\s]+|@[a-zA-Z0-9_]+)/g;
+  const parts: React.ReactNode[] = [];
+  let lastIndex = 0;
+  let match;
+
+  while ((match = urlRegex.exec(text)) !== null) {
+    // Add text before the match
+    if (match.index > lastIndex) {
+      parts.push(text.substring(lastIndex, match.index));
+    }
+
+    const url = match[0];
+    let href = url;
+    
+    // Format different types of links
+    if (url.startsWith('http://') || url.startsWith('https://')) {
+      href = url;
+    } else if (url.startsWith('www.')) {
+      href = `https://${url}`;
+    } else if (url.startsWith('github.com/')) {
+      href = `https://${url}`;
+    } else if (url.startsWith('linkedin.com/')) {
+      href = `https://${url}`;
+    } else if (url.startsWith('@')) {
+      href = `https://x.com/${url.substring(1)}`;
+    } else if (url.includes('.') && !url.includes(' ')) {
+      href = `https://${url}`;
+    } else {
+      // Not a valid URL, just add as text
+      parts.push(url);
+      lastIndex = match.index + match[0].length;
+      continue;
+    }
+
+    // Add clickable link
+    parts.push(
+      <a
+        key={match.index}
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-[#ff6b35] hover:text-[#ff8555] underline break-all"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {url}
+      </a>
+    );
+
+    lastIndex = match.index + match[0].length;
+  }
+
+  // Add remaining text
+  if (lastIndex < text.length) {
+    parts.push(text.substring(lastIndex));
+  }
+
+  return parts.length > 0 ? parts : text;
+};
 
 interface Message {
   id: string;
@@ -8,12 +180,7 @@ interface Message {
   timestamp: Date;
 }
 
-interface AIChatBoxProps {
-  // This will be used when you create the data lib
-  getResponse?: (query: string) => Promise<string> | string;
-}
-
-const AIChatBox = ({ getResponse }: AIChatBoxProps) => {
+const AIChatBox = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "1",
@@ -63,16 +230,13 @@ const AIChatBox = ({ getResponse }: AIChatBoxProps) => {
     // Simulate typing delay
     await new Promise((resolve) => setTimeout(resolve, 500));
 
-    // Get response from data lib (placeholder for now)
-    let response = "Building in Progress...";
+    // Get response from data lib
+    let response = "I'm not sure how to answer that. Try asking about Ritesh's skills, projects, or experience!";
     
-    if (getResponse) {
-      try {
-        const result = await getResponse(userMessage.content);
-        response = typeof result === "string" ? result : result;
-      } catch (error) {
-        response = "Sorry, I encountered an error. Please try again.";
-      }
+    try {
+      response = getAIResponse(userMessage.content);
+    } catch (error) {
+      response = "Sorry, I encountered an error. Please try again.";
     }
 
     const assistantMessage: Message = {
@@ -117,7 +281,7 @@ const AIChatBox = ({ getResponse }: AIChatBoxProps) => {
   return (
     <div className="fixed bottom-0 right-0 left-0 sm:bottom-4 sm:right-4 sm:left-auto z-50 w-full sm:w-auto sm:max-w-md animate-fade-up safe-area-inset">
       {/* Terminal frame with Japanese aesthetic border */}
-      <div className="bg-[#0d1117]/95 backdrop-blur-sm border-2 sm:rounded-lg border-[#ff6b35]/50 shadow-2xl shadow-[#ff6b35]/20 overflow-hidden relative h-[85vh] sm:h-auto sm:max-h-[600px] flex flex-col">
+      <div className="bg-[#0d1117]/95 backdrop-blur-sm border-2 sm:rounded-lg border-[#ff6b35]/50 shadow-2xl shadow-[#ff6b35]/20 overflow-hidden relative h-[60vh] max-h-[500px] sm:h-auto sm:max-h-[600px] flex flex-col">
         {/* Japanese pattern corner decoration */}
         <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-[#ff6b35]/30 rounded-tl-lg" />
         <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-[#ff6b35]/30 rounded-tr-lg" />
@@ -194,9 +358,9 @@ const AIChatBox = ({ getResponse }: AIChatBoxProps) => {
                       })}
                     </span>
                   </div>
-                  <p className="text-[#c9d1d9] leading-relaxed whitespace-pre-wrap text-[13px] sm:text-sm break-words">
-                    {message.content}
-                  </p>
+                  <div className="text-[#c9d1d9] leading-relaxed whitespace-pre-wrap text-[13px] sm:text-sm break-words">
+                    {parseMessageContent(message.content)}
+                  </div>
                 </div>
                 {message.type === "user" && (
                   <div className="flex-shrink-0 w-6 h-6 sm:w-6 sm:h-6 rounded-full bg-[#ff8555]/20 flex items-center justify-center mt-0.5">

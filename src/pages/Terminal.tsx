@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback, useMemo, memo } from "react";
 import { useNavigate } from "react-router-dom";
+import { Mail, Globe, Github, Linkedin, Twitter, Rocket, Hand, Shield, FileText } from "lucide-react";
 import { projects, technologies, personalInfo, education, contact, socials } from "@/lib/data";
 
 interface CommandOutput {
@@ -285,10 +286,10 @@ export default function Terminal() {
         return (
           <div className="text-[11px] sm:text-xs font-mono">
             <p className="text-[#39d353] mb-3">┌─ Contact Information ─────────────────────────────────────┐</p>
-            <p className="ml-2"><span className="text-[#a371f7]">  📧 Email:</span>    <a href={`mailto:${contact.email}`} className="text-[#56d4dd] hover:underline">{contact.email}</a></p>
-            <p className="ml-2"><span className="text-[#a371f7]">  🌐 Website:</span>  <a href={socials.website} target="_blank" rel="noopener noreferrer" className="text-[#56d4dd] hover:underline">{socials.website}</a></p>
-            <p className="ml-2"><span className="text-[#a371f7]">  🐙 GitHub:</span>   <a href={socials.github} target="_blank" rel="noopener noreferrer" className="text-[#56d4dd] hover:underline">{socials.github}</a></p>
-            <p className="ml-2"><span className="text-[#a371f7]">  💼 LinkedIn:</span> <a href={socials.linkedin} target="_blank" rel="noopener noreferrer" className="text-[#56d4dd] hover:underline">{socials.linkedin}</a></p>
+            <p className="ml-2 flex items-center gap-1"><span className="text-[#a371f7]">  <Mail className="w-3.5 h-3.5 inline" /> Email:</span>    <a href={`mailto:${contact.email}`} className="text-[#56d4dd] hover:underline">{contact.email}</a></p>
+            <p className="ml-2 flex items-center gap-1"><span className="text-[#a371f7]">  <Globe className="w-3.5 h-3.5 inline" /> Website:</span>  <a href={socials.website} target="_blank" rel="noopener noreferrer" className="text-[#56d4dd] hover:underline">{socials.website}</a></p>
+            <p className="ml-2 flex items-center gap-1"><span className="text-[#a371f7]">  <Github className="w-3.5 h-3.5 inline" /> GitHub:</span>   <a href={socials.github} target="_blank" rel="noopener noreferrer" className="text-[#56d4dd] hover:underline">{socials.github}</a></p>
+            <p className="ml-2 flex items-center gap-1"><span className="text-[#a371f7]">  <Linkedin className="w-3.5 h-3.5 inline" /> LinkedIn:</span> <a href={socials.linkedin} target="_blank" rel="noopener noreferrer" className="text-[#56d4dd] hover:underline">{socials.linkedin}</a></p>
             <p className="text-[#39d353] mt-3">└────────────────────────────────────────────────────────────┘</p>
           </div>
         );
@@ -297,9 +298,9 @@ export default function Terminal() {
         return (
           <div className="text-[11px] sm:text-xs font-mono">
             <p className="text-[#39d353] mb-3">┌─ Social Links ─────────────────────────────────────────────┐</p>
-            <p className="ml-2">  <span className="text-[#c9d1d9]">🐙</span> GitHub:   <a href={socials.github} target="_blank" rel="noopener noreferrer" className="text-[#56d4dd] hover:underline">{socials.github}</a></p>
-            <p className="ml-2">  <span className="text-[#c9d1d9]">💼</span> LinkedIn: <a href={socials.linkedin} target="_blank" rel="noopener noreferrer" className="text-[#56d4dd] hover:underline">{socials.linkedin}</a></p>
-            <p className="ml-2">  <span className="text-[#c9d1d9]">🐦</span> Twitter:  <a href={socials.twitter} target="_blank" rel="noopener noreferrer" className="text-[#56d4dd] hover:underline">{socials.twitter}</a></p>
+            <p className="ml-2 flex items-center gap-1">  <Github className="w-3.5 h-3.5 text-[#c9d1d9] inline" /> GitHub:   <a href={socials.github} target="_blank" rel="noopener noreferrer" className="text-[#56d4dd] hover:underline">{socials.github}</a></p>
+            <p className="ml-2 flex items-center gap-1">  <Linkedin className="w-3.5 h-3.5 text-[#c9d1d9] inline" /> LinkedIn: <a href={socials.linkedin} target="_blank" rel="noopener noreferrer" className="text-[#56d4dd] hover:underline">{socials.linkedin}</a></p>
+            <p className="ml-2 flex items-center gap-1">  <Twitter className="w-3.5 h-3.5 text-[#c9d1d9] inline" /> Twitter:  <a href={socials.twitter} target="_blank" rel="noopener noreferrer" className="text-[#56d4dd] hover:underline">{socials.twitter}</a></p>
             <p className="text-[#39d353] mt-3">└────────────────────────────────────────────────────────────┘</p>
           </div>
         );
@@ -318,7 +319,7 @@ export default function Terminal() {
       case "quit":
       case "q":
         setTimeout(() => navigate("/"), 500);
-        return <p className="text-[#ff0040] text-xs font-mono drop-shadow-[0_0_8px_rgba(255,0,64,0.8)]">Logging out... Goodbye! 👋</p>;
+        return <p className="text-[#ff0040] text-xs font-mono drop-shadow-[0_0_8px_rgba(255,0,64,0.8)] flex items-center gap-1">Logging out... Goodbye! <Hand className="w-4 h-4 inline" /></p>;
 
       case "ls":
         if (args === "-la" || args === "-al" || args === "-l") {
@@ -405,18 +406,18 @@ export default function Terminal() {
         if (args === "readme.md" || args === "readme" || args === "README.md") {
           return (
             <div className="text-[11px] sm:text-xs font-mono">
-              <p className="text-[#58a6ff] font-bold"># 👋 Hi, I&apos;m Ritesh Singh!</p>
+              <p className="text-[#58a6ff] font-bold flex items-center gap-1"># <Hand className="w-4 h-4 inline" /> Hi, I&apos;m Ritesh Singh!</p>
               <br />
               <p className="text-[#c9d1d9]">Welcome to my terminal-based portfolio.</p>
               <p className="text-[#c9d1d9]">I&apos;m a Full Stack Developer & Blockchain enthusiast from India.</p>
               <br />
-              <p className="text-[#39d353]">## 🚀 Quick Start</p>
+              <p className="text-[#39d353] flex items-center gap-1">## <Rocket className="w-4 h-4 inline" /> Quick Start</p>
               <p className="text-[#8b949e]">  • Type `help` to see all available commands</p>
               <p className="text-[#8b949e]">  • Type `projects` to see my work</p>
               <p className="text-[#8b949e]">  • Type `skills` to see my tech stack</p>
               <p className="text-[#8b949e]">  • Type `exit` to return to the normal site</p>
               <br />
-              <p className="text-[#39d353]">## 📫 Get in Touch</p>
+              <p className="text-[#39d353] flex items-center gap-1">## <Mail className="w-4 h-4 inline" /> Get in Touch</p>
               <p className="text-[#8b949e]">  • GitHub: github.com/neutron420</p>
               <p className="text-[#8b949e]">  • Email: fnaticritesh2004@gmail.com</p>
             </div>
@@ -426,7 +427,7 @@ export default function Terminal() {
           return processCommand("whoami");
         }
         if (args === "resume" || args === "resume.pdf") {
-          return <p className="text-[#ffaa00] text-xs font-mono drop-shadow-[0_0_8px_rgba(255,170,0,0.8)]">📄 Opening resume... (This would download the resume in a real terminal)</p>;
+          return <p className="text-[#ffaa00] text-xs font-mono drop-shadow-[0_0_8px_rgba(255,170,0,0.8)] flex items-center gap-1"><FileText className="w-4 h-4 inline" /> Opening resume... (This would download the resume in a real terminal)</p>;
         }
         if (!args) {
           return <p className="text-[#ff0040] text-xs font-mono drop-shadow-[0_0_8px_rgba(255,0,64,0.8)]">cat: missing file operand</p>;
@@ -498,7 +499,7 @@ export default function Terminal() {
 
       case "sudo":
         if (args.startsWith("rm")) {
-          return <p className="text-[#ff0040] text-xs font-mono drop-shadow-[0_0_8px_rgba(255,0,64,0.8)]">Nice try! This portfolio is protected 🛡️</p>;
+          return <p className="text-[#ff0040] text-xs font-mono drop-shadow-[0_0_8px_rgba(255,0,64,0.8)] flex items-center gap-1">Nice try! This portfolio is protected <Shield className="w-4 h-4 inline" /></p>;
         }
         return <p className="text-[#ff0040] text-xs font-mono drop-shadow-[0_0_8px_rgba(255,0,64,0.8)]">[sudo] password for ritesh: ▓▓▓▓▓▓▓▓ Access Denied! 🔒</p>;
 
@@ -548,7 +549,7 @@ export default function Terminal() {
       case "hello":
       case "hi":
       case "hey":
-        return <p className="text-[#39d353] text-xs font-mono">Hello! 👋 Welcome to my portfolio. Type &apos;help&apos; to get started!</p>;
+        return <p className="text-[#39d353] text-xs font-mono flex items-center gap-1">Hello! <Hand className="w-4 h-4 inline" /> Welcome to my portfolio. Type &apos;help&apos; to get started!</p>;
 
       case "":
         return null;
