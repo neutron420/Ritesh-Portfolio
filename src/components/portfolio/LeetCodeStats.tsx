@@ -112,13 +112,40 @@ const LeetCodeStats = () => {
   const getLevelColor = (level: number) => {
     switch (level) {
       case 0: return "bg-muted/40";
-      case 1: return "bg-leetcode/20";
-      case 2: return "bg-leetcode/40";
-      case 3: return "bg-leetcode/70";
-      case 4: return "bg-leetcode";
+      case 1: return "bg-github/20";
+      case 2: return "bg-github/40";
+      case 3: return "bg-github/70";
+      case 4: return "bg-github";
       default: return "bg-muted/40";
     }
   };
+
+  // Generate hardcoded contribution data
+  const generateHardcodedContributions = () => {
+    const weeks: number[][] = [];
+    for (let week = 0; week < 52; week++) {
+      const weekData: number[] = [];
+      for (let day = 0; day < 7; day++) {
+        const isWeekday = day >= 1 && day <= 5;
+        const baseChance = isWeekday ? 0.35 : 0.15;
+        const isActive = Math.random() < baseChance;
+        
+        let level = 0;
+        if (isActive) {
+          const rand = Math.random();
+          if (rand < 0.45) level = 1;
+          else if (rand < 0.75) level = 2;
+          else if (rand < 0.92) level = 3;
+          else level = 4;
+        }
+        weekData.push(level);
+      }
+      weeks.push(weekData);
+    }
+    return weeks;
+  };
+
+  const hardcodedContributions = generateHardcodedContributions();
 
   const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
@@ -359,7 +386,7 @@ const LeetCodeStats = () => {
 
                 {/* Grid */}
                 <div className="flex gap-[2px] sm:gap-[3px]">
-                  {contributionData.map((week, weekIndex) => (
+                  {hardcodedContributions.map((week, weekIndex) => (
                     <div key={weekIndex} className="flex flex-col gap-[2px] sm:gap-[3px]">
                       {week.map((level, dayIndex) => (
                         <div
