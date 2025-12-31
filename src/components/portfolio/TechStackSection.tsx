@@ -11,7 +11,7 @@ import {
   SiGit,
   SiSolidity,
   SiRust,
-  SiEthereum,
+  SiSolana,
   SiRedis,
   SiGraphql,
   SiAmazonwebservices,
@@ -21,10 +21,12 @@ import {
   SiGooglecloud,
   SiCloudflare,
   SiJest,
-  SiTestinglibrary
+  SiCypress,
+  SiPrometheus,
+  SiGrafana
 } from "react-icons/si";
 import { FaJava } from "react-icons/fa";
-import { TbApi } from "react-icons/tb";
+import { VscDebugStart } from "react-icons/vsc";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import { useTheme } from "@/components/ThemeProvider";
 import { useEffect, useState } from "react";
@@ -75,19 +77,21 @@ const TechStackSection = () => {
   const technologies2 = [
     { name: "Solidity", icon: SiSolidity, color: "#ffffff", lightColor: "#363636", darkColor: "#ffffff" },
     { name: "Rust", icon: SiRust, color: "#ffffff", lightColor: "#000000", darkColor: "#ffffff" },
-    { name: "Ethereum", icon: SiEthereum, color: "#627EEA", lightColor: "#627EEA", darkColor: "#627EEA" },
+    { name: "Solana", icon: SiSolana, color: "#9945FF", lightColor: "#9945FF", darkColor: "#9945FF" },
     { name: "Redis", icon: SiRedis, color: "#DC382D", lightColor: "#DC382D", darkColor: "#DC382D" },
     { name: "GraphQL", icon: SiGraphql, color: "#E10098", lightColor: "#E10098", darkColor: "#E10098" },
     { name: "AWS", icon: SiAmazonwebservices, color: "#FF9900", lightColor: "#FF9900", darkColor: "#FF9900" },
     { name: "Linux", icon: SiLinux, color: "#FCC624", lightColor: "#FCC624", darkColor: "#FCC624" },
     { name: "Prisma", icon: SiPrisma, color: "#ffffff", lightColor: "#2D3748", darkColor: "#ffffff" },
-    { name: "gRPC", icon: TbApi, color: "#244c5a", lightColor: "#244c5a", darkColor: "#244c5a" },
+    { name: "gRPC", icon: VscDebugStart, color: "#244c5a", lightColor: "#244c5a", darkColor: "#4DB6AC" },
     { name: "Kubernetes", icon: SiKubernetes, color: "#326CE5", lightColor: "#326CE5", darkColor: "#326CE5" },
     { name: "GCP", icon: SiGooglecloud, color: "#4285F4", lightColor: "#4285F4", darkColor: "#4285F4" },
     { name: "Cloudflare", icon: SiCloudflare, color: "#F38020", lightColor: "#F38020", darkColor: "#F38020" },
     { name: "React Native", icon: SiReact, color: "#61DAFB", lightColor: "#61DAFB", darkColor: "#61DAFB" },
     { name: "Unit Testing", icon: SiJest, color: "#C21325", lightColor: "#C21325", darkColor: "#C21325" },
-    { name: "Integration Testing", icon: SiTestinglibrary, color: "#E33332", lightColor: "#E33332", darkColor: "#E33332" },
+    { name: "Integration Testing", icon: SiCypress, color: "#17202C", lightColor: "#17202C", darkColor: "#69D3A7" },
+    { name: "Prometheus", icon: SiPrometheus, color: "#E6522C", lightColor: "#E6522C", darkColor: "#E6522C" },
+    { name: "Grafana", icon: SiGrafana, color: "#F46800", lightColor: "#F46800", darkColor: "#F46800" },
   ];
 
   const TechCard = ({ tech }: { tech: typeof technologies[0] & { lightColor?: string; darkColor?: string } }) => {
