@@ -35,6 +35,10 @@
     --sidebar-accent-foreground: 0 0% 9%;
     --sidebar-border: 0 0% 90%;
     --sidebar-ring: 25 95% 53%;
+    /* GitHub green */
+    --github: 142 72% 42%;
+    /* LeetCode orange */
+    --leetcode: 36 100% 50%;
   }
 
   .dark {
@@ -66,6 +70,10 @@
     --sidebar-accent-foreground: 0 0% 95%;
     --sidebar-border: 0 0% 14%;
     --sidebar-ring: 25 95% 53%;
+    /* GitHub green */
+    --github: 142 72% 42%;
+    /* LeetCode orange */
+    --leetcode: 36 100% 50%;
   }
 }
 

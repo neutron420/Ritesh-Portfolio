@@ -57,6 +57,8 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        github: "hsl(var(--github))",
+        leetcode: "hsl(var(--leetcode))",
       },
       borderRadius: {
         lg: "var(--radius)",
