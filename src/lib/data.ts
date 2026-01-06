@@ -317,9 +317,9 @@ He's currently available for opportunities and looking for roles that combine tr
 
   // Resume/CV
   if (lowerQuery.match(/(resume|cv|curriculum vitae|download|pdf|document)/)) {
-    return `You can find Ritesh's resume and more details on his portfolio website: https://ritesh.codexly.xyz/
+    return `You can view Ritesh's resume here: https://ritesh.codexly.xyz/RiteshSinghResume.pdf
 
-For the latest information about his experience, projects, and skills, feel free to reach out via email at fnaticritesh2004@gmail.com or connect on LinkedIn!`;
+The resume will open in a new tab. For the latest information about his experience, projects, and skills, feel free to reach out via email at fnaticritesh2004@gmail.com or connect on LinkedIn!`;
   }
 
   // Hobbies/Interests

@@ -156,8 +156,9 @@ const Navbar = () => {
               </div>
             </TerminalTransition>
             <a
-              href="/resume.pdf"
-              download="Ritesh_Singh_Resume.pdf"
+              href="/RiteshSinghResume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
               className="ml-2 px-4 py-2 flex items-center gap-2 text-sm font-medium rounded-full bg-accent text-accent-foreground hover:bg-accent/90 transition-all hover:scale-105"
             >
               <Download className="w-4 h-4" />
@@ -243,12 +244,13 @@ const Navbar = () => {
                 </div>
               </TerminalTransition>
               <a
-                href="/resume.pdf"
-                download="Ritesh_Singh_Resume.pdf"
+                href="/RiteshSinghResume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="mt-2 mx-4 px-4 py-3 flex items-center justify-center gap-2 text-sm font-medium rounded-full bg-accent text-accent-foreground hover:bg-accent/90 transition-all"
               >
                 <Download className="w-4 h-4" />
-                Download Resume
+                View Resume
               </a>
             </div>
           </nav>

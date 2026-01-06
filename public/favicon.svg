@@ -1,6 +1,31 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <rect width="100" height="100" fill="#000000" />
-  <circle cx="50" cy="50" r="45" fill="none" stroke="#ff6b35" stroke-width="3" />
-  <text x="50" y="70" font-family="serif" font-size="60" font-weight="bold" text-anchor="middle" fill="#ff6b35">理</text>
+  <!-- Background -->
+  <rect width="100" height="100" fill="#0a0a0a" rx="8"/>
+  
+  <!-- Outer circle with gradient effect -->
+  <defs>
+    <linearGradient id="orangeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff6b35;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ff8555;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Circle border -->
+  <circle cx="50" cy="50" r="42" fill="none" stroke="url(#orangeGradient)" stroke-width="2.5"/>
+  
+  <!-- Inner glow circle -->
+  <circle cx="50" cy="50" r="38" fill="none" stroke="#ff6b35" stroke-width="1" opacity="0.3"/>
+  
+  <!-- Japanese character - centered and styled -->
+  <text 
+    x="50" 
+    y="62" 
+    font-family="serif, 'Noto Serif JP', 'MS Mincho', 'SimSun', 'Hiragino Mincho ProN', serif" 
+    font-size="52" 
+    font-weight="bold" 
+    text-anchor="middle" 
+    fill="url(#orangeGradient)"
+    style="text-rendering: optimizeLegibility;"
+  >理</text>
 </svg>
 

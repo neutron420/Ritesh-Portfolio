@@ -332,7 +332,7 @@ export default function Terminal() {
               <p><span className="text-[#58a6ff]">drwxr-xr-x</span>  <span className="text-[#8b949e]">ritesh ritesh</span>  <span className="text-[#c9d1d9]">4096</span>  <span className="text-[#8b949e]">Dec 19</span>  <span className="text-[#58a6ff]">education/</span></p>
               <p><span className="text-[#58a6ff]">drwxr-xr-x</span>  <span className="text-[#8b949e]">ritesh ritesh</span>  <span className="text-[#c9d1d9]">4096</span>  <span className="text-[#8b949e]">Dec 19</span>  <span className="text-[#58a6ff]">contact/</span></p>
               <p><span className="text-[#39d353]">-rw-r--r--</span>  <span className="text-[#8b949e]">ritesh ritesh</span>  <span className="text-[#c9d1d9]">1337</span>  <span className="text-[#8b949e]">Dec 19</span>  <span className="text-[#39d353]">README.md</span></p>
-              <p><span className="text-[#39d353]">-rw-r--r--</span>  <span className="text-[#8b949e]">ritesh ritesh</span>  <span className="text-[#c9d1d9]">2048</span>  <span className="text-[#8b949e]">Dec 19</span>  <span className="text-[#39d353]">resume.pdf</span></p>
+              <p><span className="text-[#39d353]">-rw-r--r--</span>  <span className="text-[#8b949e]">ritesh ritesh</span>  <span className="text-[#c9d1d9]">2048</span>  <span className="text-[#8b949e]">Dec 19</span>  <span className="text-[#39d353]">RiteshSinghResume.pdf</span></p>
               <p><span className="text-[#d29922]">-rwxr-xr-x</span>  <span className="text-[#8b949e]">ritesh ritesh</span>  <span className="text-[#c9d1d9]">512</span>   <span className="text-[#8b949e]">Dec 19</span>  <span className="text-[#d29922]">.bashrc</span></p>
             </div>
           );
@@ -345,7 +345,7 @@ export default function Terminal() {
             <span className="text-[#58a6ff]">education/</span>
             <span className="text-[#58a6ff]">contact/</span>
             <span className="text-[#39d353]">README.md</span>
-            <span className="text-[#39d353]">resume.pdf</span>
+            <span className="text-[#39d353]">RiteshSinghResume.pdf</span>
           </div>
         );
 
@@ -426,8 +426,22 @@ export default function Terminal() {
         if (args === "about" || args === "about/") {
           return processCommand("whoami");
         }
-        if (args === "resume" || args === "resume.pdf") {
-          return <p className="text-[#ffaa00] text-xs font-mono drop-shadow-[0_0_8px_rgba(255,170,0,0.8)] flex items-center gap-1"><FileText className="w-4 h-4 inline" /> Opening resume... (This would download the resume in a real terminal)</p>;
+        if (args === "resume" || args === "resume.pdf" || args === "RiteshSinghResume.pdf") {
+          return (
+            <div className="text-[#ffaa00] text-xs font-mono">
+              <p className="drop-shadow-[0_0_8px_rgba(255,170,0,0.8)] flex items-center gap-1 mb-2">
+                <FileText className="w-4 h-4 inline" /> Opening resume in new tab...
+              </p>
+              <a 
+                href="/RiteshSinghResume.pdf" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-[#39d353] hover:underline flex items-center gap-1"
+              >
+                <FileText className="w-3.5 h-3.5 inline" /> Click here to view resume
+              </a>
+            </div>
+          );
         }
         if (!args) {
           return <p className="text-[#ff0040] text-xs font-mono drop-shadow-[0_0_8px_rgba(255,0,64,0.8)]">cat: missing file operand</p>;
