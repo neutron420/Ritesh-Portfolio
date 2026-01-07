@@ -185,7 +185,7 @@ const AIChatBox = () => {
     {
       id: "1",
       type: "assistant",
-      content: "こんにちは! I'm Ritesh AI assistant. Ask me anything about Ritesh - his skills, projects, experience, or achievements!",
+      content: "こんにちは! I'm Ritesh's AI assistant. Ask me anything about Ritesh - his skills, projects, experience, or achievements!",
       timestamp: new Date(),
     },
   ]);
