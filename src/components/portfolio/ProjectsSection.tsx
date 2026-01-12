@@ -1,4 +1,4 @@
-import { ArrowUpRight, Github, Wifi, Users, ChevronDown, Shield } from "lucide-react";
+import { ArrowUpRight, Github, Wifi, Users, ChevronDown, Shield, Clock, Anchor } from "lucide-react";
 import { 
   SiReact, 
   SiNodedotjs, 
@@ -16,7 +16,11 @@ import {
   SiWeb3Dotjs,
   SiArgo,
   SiPython,
-  SiEthereum
+  SiEthereum,
+  SiSolana,
+  SiRust,
+  SiExpress,
+  SiTypescript
 } from "react-icons/si";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import projectRaby from "@/assets/project-raby.jpg";
@@ -52,6 +56,12 @@ const techIcons: Record<string, React.ReactNode> = {
   "Python": <SiPython className="w-3 h-3" />,
   "Hyperledger Fabric": <SiEthereum className="w-3 h-3" />,
   "Blockchain": <SiEthereum className="w-3 h-3" />,
+  "Solana": <SiSolana className="w-3 h-3" />,
+  "Rust": <SiRust className="w-3 h-3" />,
+  "Anchor": <Anchor className="w-3 h-3" />,
+  "Express.js": <SiExpress className="w-3 h-3" />,
+  "Express": <SiExpress className="w-3 h-3" />,
+  "TypeScript": <SiTypescript className="w-3 h-3" />,
 };
 
 // Curated projects in specific order with proper tech stacks
@@ -101,6 +111,15 @@ const projects = [
     live: null,
     image: projectRaby,
   },
+  {
+    name: "Trackmed",
+    description: "A comprehensive medicine tracking and purchasing platform. Features include a mobile app for users to track medications, purchase medicines, manage prescriptions, and receive reminders. Web dashboards for admin management, warehouse operations, and manufacturer control. Complete inventory management, order tracking, and analytics.",
+    techStack: ["Solana", "Rust", "Anchor", "Prisma", "PostgreSQL", "Node.js", "Express.js", "Web3.js", "TypeScript"],
+    github: "https://github.com/neutron420/Trackmed",
+    live: null,
+    comingSoon: true,
+    image: projectGrievance,
+  },
 ];
 
 const ProjectsSection = () => {
@@ -131,32 +150,76 @@ const ProjectsSection = () => {
           {projects.map((project, index) => (
             <div
               key={project.name}
-              className={`group bg-card rounded-2xl border border-border overflow-hidden transition-colors duration-300 scroll-reveal ${isVisible ? 'visible' : ''}`}
+              className={`group bg-card rounded-2xl border border-border overflow-hidden transition-colors duration-300 scroll-reveal ${isVisible ? 'visible' : ''} ${project.comingSoon ? 'relative' : ''}`}
               style={{ transitionDelay: `${index * 100}ms` }}
             >
-              <div className="grid md:grid-cols-5 gap-0">
-                {/* Image */}
-                <div className={`md:col-span-2 overflow-hidden relative ${project.name === 'Swaraj-Desk' || project.name === 'Swaraj-Desk-Admin' ? 'h-64 md:h-80' : 'h-48 md:h-64'}`}>
-                  <img
-                    src={project.image}
-                    alt={project.name}
-                    className={`w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ${project.name === 'Raby' ? 'object-bottom' : 'object-center'}`}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-card/90 via-card/30 to-transparent md:bg-gradient-to-r" />
-                  
-                  {/* Project number badge */}
-                  <div className="absolute top-4 left-4 w-8 h-8 rounded-lg bg-background/80 backdrop-blur flex items-center justify-center text-xs font-bold text-accent">
-                    0{index + 1}
-                  </div>
+              {project.comingSoon && (
+                <div className="absolute inset-0 bg-gradient-to-r from-accent/5 via-transparent to-accent/5 pointer-events-none z-0 rounded-2xl opacity-50" />
+              )}
+              <div className="grid md:grid-cols-5 gap-0 relative z-10">
+                {/* Image or Coming Soon */}
+                <div className={`md:col-span-2 overflow-hidden relative ${project.name === 'Swaraj-Desk' || project.name === 'Swaraj-Desk-Admin' || project.name === 'Trackmed' ? 'h-64 md:h-80' : 'h-48 md:h-64'}`}>
+                  {project.comingSoon ? (
+                    <div className="w-full h-full flex items-center justify-center animate-gradient-bg relative overflow-hidden">
+                      <div className="absolute inset-0 bg-gradient-to-t from-card/90 via-card/30 to-transparent md:bg-gradient-to-r" />
+                      
+                      {/* Animated background particles */}
+                      <div className="absolute inset-0 opacity-30">
+                        <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-accent rounded-full animate-float-gentle" style={{ animationDelay: '0s' }} />
+                        <div className="absolute top-1/3 right-1/4 w-1.5 h-1.5 bg-accent rounded-full animate-float-gentle" style={{ animationDelay: '1s' }} />
+                        <div className="absolute bottom-1/4 left-1/3 w-2.5 h-2.5 bg-accent rounded-full animate-float-gentle" style={{ animationDelay: '2s' }} />
+                        <div className="absolute bottom-1/3 right-1/3 w-1 h-1 bg-accent rounded-full animate-float-gentle" style={{ animationDelay: '1.5s' }} />
+                      </div>
+                      
+                      <div className="relative z-10 flex flex-col items-center justify-center gap-4">
+                        <div className="relative">
+                          <Clock className="w-14 h-14 md:w-20 md:h-20 text-accent animate-pulse-coming-soon animate-float-gentle drop-shadow-lg" />
+                          <div className="absolute inset-0 w-14 h-14 md:w-20 md:h-20 bg-accent/20 rounded-full blur-xl animate-pulse-coming-soon" />
+                        </div>
+                        <div className="text-center">
+                          <h4 className="text-xl md:text-3xl font-bold text-accent animate-pulse-coming-soon animate-shimmer-coming-soon animate-glow-pulse relative px-6 py-3 rounded-xl bg-accent/15 border-2 border-accent/30 backdrop-blur-sm">
+                            <span className="relative z-10 tracking-wider">Coming Soon</span>
+                          </h4>
+                        </div>
+                      </div>
+                      
+                      {/* Project number badge */}
+                      <div className="absolute top-4 left-4 w-8 h-8 rounded-lg bg-background/80 backdrop-blur flex items-center justify-center text-xs font-bold text-accent z-20">
+                        0{index + 1}
+                      </div>
+                    </div>
+                  ) : (
+                    <>
+                      <img
+                        src={project.image}
+                        alt={project.name}
+                        className={`w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ${project.name === 'Raby' ? 'object-bottom' : 'object-center'}`}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-card/90 via-card/30 to-transparent md:bg-gradient-to-r" />
+                      
+                      {/* Project number badge */}
+                      <div className="absolute top-4 left-4 w-8 h-8 rounded-lg bg-background/80 backdrop-blur flex items-center justify-center text-xs font-bold text-accent">
+                        0{index + 1}
+                      </div>
+                    </>
+                  )}
                 </div>
 
                 {/* Content */}
-                <div className={`md:col-span-3 flex flex-col ${project.name === 'Swaraj-Desk' || project.name === 'Swaraj-Desk-Admin' ? 'p-4 md:p-5 h-64 md:h-80 overflow-y-auto' : 'p-4 md:p-4'}`}>
+                <div className={`md:col-span-3 flex flex-col ${project.name === 'Swaraj-Desk' || project.name === 'Swaraj-Desk-Admin' || project.name === 'Trackmed' ? 'p-4 md:p-5 h-64 md:h-80 overflow-y-auto' : 'p-4 md:p-4'}`}>
                   {/* Header */}
-                    <div className={`flex items-start justify-between gap-3 sm:gap-4 ${project.name === 'Swaraj-Desk' || project.name === 'Swaraj-Desk-Admin' ? 'mb-3' : 'mb-2'}`}>
-                      <h3 className="text-base sm:text-lg md:text-xl font-semibold group-hover:text-accent transition-colors break-words flex-1 min-w-0">
-                        {project.name === 'Swaraj-Desk-Admin' ? 'Swaraj Desk Admin' : project.name.replace(/-/g, ' ')}
-                      </h3>
+                    <div className={`flex items-start justify-between gap-3 sm:gap-4 ${project.name === 'Swaraj-Desk' || project.name === 'Swaraj-Desk-Admin' || project.name === 'Trackmed' ? 'mb-3' : 'mb-2'}`}>
+                      <div className="flex items-center gap-2 flex-1 min-w-0">
+                        <h3 className="text-base sm:text-lg md:text-xl font-semibold group-hover:text-accent transition-colors break-words flex-1 min-w-0">
+                          {project.name === 'Swaraj-Desk-Admin' ? 'Swaraj Desk Admin' : project.name.replace(/-/g, ' ')}
+                        </h3>
+                        {project.comingSoon && (
+                          <span className="px-2 py-1 text-[10px] uppercase tracking-wider rounded-md bg-accent/15 text-accent border border-accent/20 flex items-center gap-1 flex-shrink-0 animate-pulse-coming-soon animate-shimmer-coming-soon relative">
+                            <Clock className="w-3 h-3 relative z-10" />
+                            <span className="relative z-10">Coming Soon</span>
+                          </span>
+                        )}
+                      </div>
                       <div className="flex items-center gap-2 flex-shrink-0">
                         <a
                           href={project.github}
@@ -194,7 +257,7 @@ const ProjectsSection = () => {
                     </div>
 
                   {/* Description */}
-                  <p className={`text-xs sm:text-sm text-muted-foreground leading-relaxed ${project.name === 'Swaraj-Desk' || project.name === 'Swaraj-Desk-Admin' ? 'mb-4' : 'mb-3'}`}>
+                  <p className={`text-xs sm:text-sm text-muted-foreground leading-relaxed ${project.name === 'Swaraj-Desk' || project.name === 'Swaraj-Desk-Admin' || project.name === 'Trackmed' ? 'mb-4' : 'mb-3'}`}>
                     {project.description}
                   </p>
 
@@ -229,7 +292,7 @@ const ProjectsSection = () => {
                   )}
 
                   {/* Tech Stack */}
-                  <div className={`${project.name === 'Swaraj-Desk' || project.name === 'Swaraj-Desk-Admin' ? 'mt-4' : 'mt-3'} pt-4 border-t border-border/30 flex-shrink-0`}>
+                  <div className={`${project.name === 'Swaraj-Desk' || project.name === 'Swaraj-Desk-Admin' || project.name === 'Trackmed' ? 'mt-4' : 'mt-3'} pt-4 border-t border-border/30 flex-shrink-0`}>
                     <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-2 font-medium">
                      Stack
                     </p>
