@@ -9,6 +9,7 @@ import ScrollReveal from "@/components/ui/scroll-reveal";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useScrollProgress } from "@/hooks/use-scroll-progress";
 import { useAnalytics } from "@/hooks/use-analytics";
+import BackToTop from "@/components/ui/back-to-top";
 
 // Lazy load sections below the fold for better performance
 const AchievementsSection = lazy(() => import("@/components/portfolio/AchievementsSection"));
@@ -149,6 +150,9 @@ const Index = () => {
         
         {/* AI Chat Box */}
         <AIChatBox />
+        
+        {/* Back to Top Button */}
+        <BackToTop />
       </motion.div>
     </>
   );
