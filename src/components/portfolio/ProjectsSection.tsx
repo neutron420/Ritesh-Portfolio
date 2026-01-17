@@ -1,4 +1,4 @@
-import { ArrowUpRight, Github, Wifi, Users, ChevronDown, Shield, Clock, Anchor } from "lucide-react";
+import { ArrowUpRight, Github, Wifi, Users, ChevronDown, Shield, Clock } from "lucide-react";
 import { 
   SiReact, 
   SiNodedotjs, 
@@ -20,7 +20,9 @@ import {
   SiSolana,
   SiRust,
   SiExpress,
-  SiTypescript
+  SiTypescript,
+  SiKotlin,
+  SiFirebase
 } from "react-icons/si";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import projectBloom from "@/assets/project-bloom.png";
@@ -32,35 +34,37 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-// Tech stack icon mapping
-const techIcons: Record<string, React.ReactNode> = {
-  "React": <SiReact className="w-3 h-3" />,
-  "React Native": <SiReact className="w-3 h-3" />,
-  "Next.js": <SiNextdotjs className="w-3 h-3" />,
-  "Node.js": <SiNodedotjs className="w-3 h-3" />,
-  "PostgreSQL": <SiPostgresql className="w-3 h-3" />,
-  "Prisma": <SiPrisma className="w-3 h-3" />,
-  "Redis": <SiRedis className="w-3 h-3" />,
-  "Docker": <SiDocker className="w-3 h-3" />,
-  "Kubernetes": <SiKubernetes className="w-3 h-3" />,
-  "Tailwind CSS": <SiTailwindcss className="w-3 h-3" />,
-  "WebRTC": <SiWebrtc className="w-3 h-3" />,
-  "Mediasoup": <Wifi className="w-3 h-3" />,
-  "Socket.io": <SiSocketdotio className="w-3 h-3" />,
-  "AWS": <SiAmazonwebservices className="w-3 h-3" />,
-  "S3": <SiAmazon className="w-3 h-3" />,
-  "Web3.js": <SiWeb3Dotjs className="w-3 h-3" />,
-  "WebSockets": <Wifi className="w-3 h-3" />,
-  "ArgoCD": <SiArgo className="w-3 h-3" />,
-  "Python": <SiPython className="w-3 h-3" />,
-  "Hyperledger Fabric": <SiEthereum className="w-3 h-3" />,
-  "Blockchain": <SiEthereum className="w-3 h-3" />,
-  "Solana": <SiSolana className="w-3 h-3" />,
-  "Rust": <SiRust className="w-3 h-3" />,
-  "Anchor": <Anchor className="w-3 h-3" />,
-  "Express.js": <SiExpress className="w-3 h-3" />,
-  "Express": <SiExpress className="w-3 h-3" />,
-  "TypeScript": <SiTypescript className="w-3 h-3" />,
+// Tech stack icon mapping with colors
+const techIcons: Record<string, { icon: React.ReactNode; color: string }> = {
+  "React": { icon: <SiReact className="w-3 h-3" />, color: "text-[#61DAFB]" },
+  "React Native": { icon: <SiReact className="w-3 h-3" />, color: "text-[#61DAFB]" },
+  "Next.js": { icon: <SiNextdotjs className="w-3 h-3" />, color: "text-foreground" },
+  "Node.js": { icon: <SiNodedotjs className="w-3 h-3" />, color: "text-[#339933]" },
+  "PostgreSQL": { icon: <SiPostgresql className="w-3 h-3" />, color: "text-[#336791]" },
+  "Prisma": { icon: <SiPrisma className="w-3 h-3" />, color: "text-[#2D3748]" },
+  "Redis": { icon: <SiRedis className="w-3 h-3" />, color: "text-[#DC382D]" },
+  "Docker": { icon: <SiDocker className="w-3 h-3" />, color: "text-[#2496ED]" },
+  "Kubernetes": { icon: <SiKubernetes className="w-3 h-3" />, color: "text-[#326CE5]" },
+  "Tailwind CSS": { icon: <SiTailwindcss className="w-3 h-3" />, color: "text-[#06B6D4]" },
+  "WebRTC": { icon: <SiWebrtc className="w-3 h-3" />, color: "text-[#333333]" },
+  "Mediasoup": { icon: <Wifi className="w-3 h-3" />, color: "text-[#00D4AA]" },
+  "Socket.io": { icon: <SiSocketdotio className="w-3 h-3" />, color: "text-foreground" },
+  "AWS": { icon: <SiAmazonwebservices className="w-3 h-3" />, color: "text-[#FF9900]" },
+  "S3": { icon: <SiAmazon className="w-3 h-3" />, color: "text-[#FF9900]" },
+  "Web3.js": { icon: <SiWeb3Dotjs className="w-3 h-3" />, color: "text-[#F16822]" },
+  "WebSockets": { icon: <Wifi className="w-3 h-3" />, color: "text-[#00D4AA]" },
+  "ArgoCD": { icon: <SiArgo className="w-3 h-3" />, color: "text-[#EF7B4D]" },
+  "Python": { icon: <SiPython className="w-3 h-3" />, color: "text-[#3776AB]" },
+  "Hyperledger Fabric": { icon: <SiEthereum className="w-3 h-3" />, color: "text-[#2F3134]" },
+  "Blockchain": { icon: <SiEthereum className="w-3 h-3" />, color: "text-[#627EEA]" },
+  "Solana": { icon: <SiSolana className="w-3 h-3" />, color: "text-[#9945FF]" },
+  "Rust": { icon: <SiRust className="w-3 h-3" />, color: "text-[#DEA584]" },
+  "Anchor": { icon: <span className="w-3 h-3 font-bold text-[10px] flex items-center justify-center">⚓</span>, color: "text-[#7C3AED]" },
+  "Express.js": { icon: <SiExpress className="w-3 h-3" />, color: "text-foreground" },
+  "Express": { icon: <SiExpress className="w-3 h-3" />, color: "text-foreground" },
+  "TypeScript": { icon: <SiTypescript className="w-3 h-3" />, color: "text-[#3178C6]" },
+  "Kotlin": { icon: <SiKotlin className="w-3 h-3" />, color: "text-[#7F52FF]" },
+  "Firebase": { icon: <SiFirebase className="w-3 h-3" />, color: "text-[#FFCA28]" },
 };
 
 // Curated projects in specific order with proper tech stacks
@@ -105,7 +109,7 @@ const projects = [
   {
     name: "Trackmed",
     description: "A comprehensive medicine tracking and purchasing platform. Features include a mobile app for users to track medications, purchase medicines, manage prescriptions, and receive reminders. Web dashboards for admin management, warehouse operations, and manufacturer control. Complete inventory management, order tracking, and analytics.",
-    techStack: ["Solana", "Rust", "Anchor", "Prisma", "PostgreSQL", "Node.js", "Express.js", "Web3.js", "TypeScript"],
+    techStack: ["Solana", "Rust", "Anchor", "Prisma", "PostgreSQL", "Node.js", "Express.js", "Web3.js", "TypeScript", "Kotlin", "Firebase"],
     github: "https://github.com/neutron420/Trackmed",
     live: null,
     comingSoon: true,
@@ -288,19 +292,22 @@ const ProjectsSection = () => {
                      Stack
                     </p>
                     <div className="flex flex-wrap gap-2">
-                      {project.techStack.map((tech, i) => (
-                        <span
-                          key={tech}
-                          className={`px-2.5 py-1 text-xs rounded-md transition-all flex items-center gap-1.5 ${
-                            i === 0 
-                              ? 'bg-accent/15 text-accent border border-accent/20 hover:bg-accent/20' 
-                              : 'bg-muted/50 text-muted-foreground hover:bg-accent/15 hover:text-accent hover:border-accent/20 border border-transparent'
-                          }`}
-                        >
-                          {techIcons[tech]}
-                          {tech}
-                        </span>
-                      ))}
+                      {project.techStack.map((tech, i) => {
+                        const techData = techIcons[tech];
+                        return (
+                          <span
+                            key={tech}
+                            className={`px-2.5 py-1 text-xs rounded-md transition-all flex items-center gap-1.5 ${
+                              i === 0 
+                                ? 'bg-accent/15 text-accent border border-accent/20 hover:bg-accent/20' 
+                                : 'bg-muted/50 text-muted-foreground hover:bg-accent/15 hover:text-accent hover:border-accent/20 border border-transparent'
+                            }`}
+                          >
+                            {techData && <span className={techData.color}>{techData.icon}</span>}
+                            {tech}
+                          </span>
+                        );
+                      })}
                     </div>
                   </div>
                 </div>

@@ -27,7 +27,7 @@ const currentProjects: CurrentProject[] = [
     techStack: [
       { name: "Solana", icon: <SiSolana className="w-3.5 h-3.5" />, color: "text-[#9945FF]" },
       { name: "Rust", icon: <SiRust className="w-3.5 h-3.5" />, color: "text-[#DEA584]" },
-      { name: "Anchor", color: "text-[#7C3AED]" },
+      { name: "Anchor", icon: <span className="w-3.5 h-3.5 font-bold text-xs flex items-center justify-center">⚓</span>, color: "text-[#7C3AED]" },
       { name: "Next.js", icon: <SiNextdotjs className="w-3.5 h-3.5" />, color: "text-foreground" },
       { name: "PostgreSQL", icon: <SiPostgresql className="w-3.5 h-3.5" />, color: "text-[#336791]" },
       { name: "Kotlin", icon: <SiKotlin className="w-3.5 h-3.5" />, color: "text-[#7F52FF]" },
