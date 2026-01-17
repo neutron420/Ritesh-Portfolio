@@ -22,7 +22,9 @@ const ProjectsSection = lazy(() => import("@/components/portfolio/ProjectsSectio
 const SpotifySection = lazy(() => import("@/components/portfolio/SpotifySection"));
 const AnimeVideoSection = lazy(() => import("@/components/portfolio/AnimeVideoSection"));
 const ContactSection = lazy(() => import("@/components/portfolio/ContactSection"));
-const Footer = lazy(() => import("@/components/portfolio/Footer"));
+const QuoteSection = lazy(() => import("@/components/portfolio/QuoteSection"));
+const VisitorCounter = lazy(() => import("@/components/portfolio/VisitorCounter"));
+const MadeWithLove = lazy(() => import("@/components/portfolio/MadeWithLove"));
 
 // Loading skeleton for lazy-loaded sections
 const SectionSkeleton = ({ height = "h-64" }: { height?: string }) => (
@@ -186,8 +188,18 @@ const Index = () => {
             </ScrollReveal>
           </Suspense>
 
-          <Suspense fallback={<SectionSkeleton height="h-48" />}>
-            <Footer />
+          <Suspense fallback={<SectionSkeleton height="h-32" />}>
+            <ScrollReveal delay={0.1}>
+              <QuoteSection />
+            </ScrollReveal>
+          </Suspense>
+
+          <Suspense fallback={<SectionSkeleton height="h-24" />}>
+            <VisitorCounter />
+          </Suspense>
+
+          <Suspense fallback={<SectionSkeleton height="h-20" />}>
+            <MadeWithLove />
           </Suspense>
         </main>
         
