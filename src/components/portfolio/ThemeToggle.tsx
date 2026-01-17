@@ -1,84 +1,44 @@
-import { Moon, Sun, Monitor } from "lucide-react";
+import { Moon, Sun } from "lucide-react";
 import { useTheme } from "@/components/ThemeProvider";
-import { useState, useCallback, memo } from "react";
+import { memo, useCallback } from "react";
 
 const ThemeToggle = memo(() => {
   const { theme, setTheme } = useTheme();
-  const [isOpen, setIsOpen] = useState(false);
+  
+  // Determine if currently dark (either explicit dark or system preference dark)
+  const isDark = theme === "dark" || 
+    (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches);
 
-  const themes = [
-    { value: "light" as const, icon: Sun, label: "Light" },
-    { value: "dark" as const, icon: Moon, label: "Dark" },
-    { value: "system" as const, icon: Monitor, label: "System" },
-  ];
-
-  const currentTheme = themes.find((t) => t.value === theme) || themes[2];
-  const CurrentIcon = currentTheme.icon;
-
-  const handleThemeChange = useCallback((newTheme: typeof theme) => {
-    setTheme(newTheme);
-    setIsOpen(false);
-  }, [setTheme]);
-
-  const toggleOpen = useCallback(() => {
-    setIsOpen(prev => !prev);
-  }, []);
-
-  const closeMenu = useCallback(() => {
-    setIsOpen(false);
-  }, []);
+  const toggleTheme = useCallback(() => {
+    setTheme(isDark ? "light" : "dark");
+  }, [isDark, setTheme]);
 
   return (
-    <div className="relative">
-      <button
-        onClick={toggleOpen}
-        className="p-2.5 rounded-xl hover:bg-muted active:scale-95 transition-all duration-150 relative overflow-hidden touch-manipulation"
-        aria-label={`Toggle theme. Current: ${currentTheme.label}`}
-        aria-expanded={isOpen}
-        aria-haspopup="true"
-        title={`Current: ${currentTheme.label}`}
-      >
-        <CurrentIcon className="w-4 h-4 transition-transform duration-200" />
-      </button>
-
-      {isOpen && (
-        <>
-          <div
-            className="fixed inset-0 z-40"
-            onClick={closeMenu}
-          />
-          <div 
-            className="absolute right-0 top-full mt-2 w-40 bg-card border border-border rounded-xl shadow-xl z-50 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-150"
-            role="menu"
-            aria-orientation="vertical"
-          >
-            {themes.map((themeOption) => {
-              const Icon = themeOption.icon;
-              const isActive = theme === themeOption.value;
-              return (
-                <button
-                  key={themeOption.value}
-                  onClick={() => handleThemeChange(themeOption.value)}
-                  className={`w-full flex items-center gap-3 px-4 py-3 text-sm transition-colors touch-manipulation ${
-                    isActive
-                      ? "bg-accent text-accent-foreground"
-                      : "hover:bg-muted active:bg-muted/80"
-                  }`}
-                  role="menuitem"
-                  aria-current={isActive ? "true" : undefined}
-                >
-                  <Icon className="w-4 h-4" aria-hidden="true" />
-                  <span className="font-medium">{themeOption.label}</span>
-                  {isActive && (
-                    <span className="ml-auto text-xs font-bold">✓</span>
-                  )}
-                </button>
-              );
-            })}
-          </div>
-        </>
-      )}
-    </div>
+    <button
+      onClick={toggleTheme}
+      className="relative p-2.5 rounded-xl bg-muted/50 hover:bg-muted border border-border/50 hover:border-border active:scale-95 transition-all duration-200 touch-manipulation overflow-hidden group"
+      aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+      title={isDark ? "Switch to light mode" : "Switch to dark mode"}
+    >
+      <div className="relative w-4 h-4">
+        {/* Sun icon - visible in dark mode */}
+        <Sun 
+          className={`absolute inset-0 w-4 h-4 text-amber-500 transition-all duration-300 ${
+            isDark 
+              ? "opacity-100 rotate-0 scale-100" 
+              : "opacity-0 -rotate-90 scale-0"
+          }`}
+        />
+        {/* Moon icon - visible in light mode */}
+        <Moon 
+          className={`absolute inset-0 w-4 h-4 text-slate-700 dark:text-slate-400 transition-all duration-300 ${
+            isDark 
+              ? "opacity-0 rotate-90 scale-0" 
+              : "opacity-100 rotate-0 scale-100"
+          }`}
+        />
+      </div>
+    </button>
   );
 });
 
