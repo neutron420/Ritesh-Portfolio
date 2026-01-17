@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Menu, X, Download, Terminal, Search, Eye } from "lucide-react";
 import { Link } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 import { TerminalTransition } from "@/components/TerminalTransition";
 import ThemeToggle from "./ThemeToggle";
 import SearchModal from "./SearchModal";
@@ -72,12 +73,16 @@ const Navbar = () => {
   ];
 
   return (
-    <header
+    <motion.header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled || isMobileMenuOpen
-          ? "py-2 bg-background/95 backdrop-blur-md border-b border-border/50"
+          ? "py-2 bg-background/95 backdrop-blur-md border-b border-border/50 shadow-sm"
           : "py-3 bg-background/80 backdrop-blur-sm"
       }`}
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.3 }}
+      role="banner"
     >
       <div className="section-container">
         <div className="flex items-center justify-between">
@@ -111,15 +116,15 @@ const Navbar = () => {
           </a>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-1">
+          <nav className="hidden md:flex items-center gap-1" role="navigation" aria-label="Main navigation">
             {navItems.map((item) => (
               <a
                 key={item.name}
                 href={item.href}
-                className="relative px-4 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors group"
+                className="relative px-4 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors group focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded-md"
               >
                 {item.name}
-                <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-px bg-accent transition-all duration-300 group-hover:w-1/2" />
+                <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-px bg-accent transition-all duration-300 group-hover:w-1/2" aria-hidden="true" />
               </a>
             ))}
             
@@ -181,19 +186,31 @@ const Navbar = () => {
         </div>
 
         {/* Mobile Navigation */}
-        {isMobileMenuOpen && (
-          <nav className="md:hidden mt-4 pb-4 border-t border-border/50 pt-4 animate-fade-in">
-            <div className="flex flex-col gap-1">
-              {navItems.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
-                >
-                  {item.name}
-                </a>
-              ))}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.nav 
+              className="md:hidden mt-4 pb-4 border-t border-border/50 pt-4"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.2 }}
+              role="navigation"
+              aria-label="Mobile navigation"
+            >
+              <div className="flex flex-col gap-1">
+                {navItems.map((item, index) => (
+                  <motion.a
+                    key={item.name}
+                    href={item.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all active:bg-muted touch-manipulation"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.05 }}
+                  >
+                    {item.name}
+                  </motion.a>
+                ))}
               
               {/* Visitor Count - Mobile */}
               <div className="mx-4 mt-2 px-4 py-3 flex items-center justify-center gap-2 text-sm bg-muted/30 rounded-lg border border-border/50">
@@ -252,12 +269,13 @@ const Navbar = () => {
                 <Download className="w-4 h-4" />
                 View Resume
               </a>
-            </div>
-          </nav>
-        )}
+              </div>
+            </motion.nav>
+          )}
+        </AnimatePresence>
       </div>
       <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
-    </header>
+    </motion.header>
   );
 };
 

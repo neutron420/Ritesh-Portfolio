@@ -1,22 +1,38 @@
-import { useState, useEffect } from "react";
-import { Helmet } from "react-helmet";
+import { useState, useEffect, lazy, Suspense } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "@/components/portfolio/Navbar";
 import HeroSection from "@/components/portfolio/HeroSection";
-import AchievementsSection from "@/components/portfolio/AchievementsSection";
-import TechStackSection from "@/components/portfolio/TechStackSection";
-import LeetCodeStats from "@/components/portfolio/LeetCodeStats";
-import GitHubContributions from "@/components/portfolio/GitHubContributions";
-import ProjectsSection from "@/components/portfolio/ProjectsSection";
-import SpotifySection from "@/components/portfolio/SpotifySection";
-import AnimeVideoSection from "@/components/portfolio/AnimeVideoSection";
-import ContactSection from "@/components/portfolio/ContactSection";
 import LoadingScreen from "@/components/portfolio/LoadingScreen";
 import AIChatBox from "@/components/portfolio/AIChatBox";
+import SEOHead from "@/components/SEOHead";
+import ScrollReveal from "@/components/ui/scroll-reveal";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useScrollProgress } from "@/hooks/use-scroll-progress";
+import { useAnalytics } from "@/hooks/use-analytics";
+
+// Lazy load sections below the fold for better performance
+const AchievementsSection = lazy(() => import("@/components/portfolio/AchievementsSection"));
+const TechStackSection = lazy(() => import("@/components/portfolio/TechStackSection"));
+const LeetCodeStats = lazy(() => import("@/components/portfolio/LeetCodeStats"));
+const GitHubContributions = lazy(() => import("@/components/portfolio/GitHubContributions"));
+const ProjectsSection = lazy(() => import("@/components/portfolio/ProjectsSection"));
+const SpotifySection = lazy(() => import("@/components/portfolio/SpotifySection"));
+const AnimeVideoSection = lazy(() => import("@/components/portfolio/AnimeVideoSection"));
+const ContactSection = lazy(() => import("@/components/portfolio/ContactSection"));
+
+// Loading skeleton for lazy-loaded sections
+const SectionSkeleton = ({ height = "h-64" }: { height?: string }) => (
+  <div className="section-container py-12">
+    <Skeleton className={`w-full ${height} rounded-xl`} />
+  </div>
+);
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [showContent, setShowContent] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const { scrollProgress } = useScrollProgress();
+  const { trackInteraction } = useAnalytics();
 
   useEffect(() => {
     // Always show loading screen on initial mount to prevent white flash
@@ -40,31 +56,36 @@ const Index = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Ritesh Singh — Full Stack Developer & Blockchain Engineer</title>
-        <meta 
-          name="description" 
-          content="Full Stack Developer and Blockchain Engineer. SIH Finalist 2025, Cardano Hackathon Finalist. Building end-to-end applications from frontend to smart contracts." 
-        />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </Helmet>
+      <SEOHead />
+      
+      {/* Scroll Progress Bar */}
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-1 bg-accent z-[60] origin-left"
+        style={{ scaleX: scrollProgress / 100 }}
+        initial={{ scaleX: 0 }}
+        aria-hidden="true"
+      />
       
       {/* Loading Screen - fades out smoothly */}
-      {isLoading && (
-        <div 
-          className={`fixed inset-0 z-[99999] transition-opacity duration-500 ${
-            isTransitioning ? "opacity-0 pointer-events-none" : "opacity-100"
-          }`}
-        >
-          <LoadingScreen onComplete={handleLoadingComplete} />
-        </div>
-      )}
+      <AnimatePresence mode="wait">
+        {isLoading && (
+          <motion.div 
+            className="fixed inset-0 z-[99999]"
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <LoadingScreen onComplete={handleLoadingComplete} />
+          </motion.div>
+        )}
+      </AnimatePresence>
       
       {/* Portfolio Content - always rendered but hidden until ready */}
-      <div 
-        className={`min-h-screen bg-background relative transition-opacity duration-700 ease-in-out ${
-          showContent ? "opacity-100" : "opacity-0"
-        }`}
+      <motion.div 
+        className="min-h-screen bg-background relative"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: showContent ? 1 : 0 }}
+        transition={{ duration: 0.7, ease: "easeInOut" }}
         style={{ 
           willChange: 'opacity',
           backgroundColor: 'hsl(var(--background))',
@@ -72,21 +93,70 @@ const Index = () => {
           visibility: showContent ? 'visible' : 'hidden'
         }}
       >
+        <a 
+          href="#main-content" 
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-accent focus:text-accent-foreground focus:rounded-lg"
+        >
+          Skip to main content
+        </a>
+        
         <Navbar />
-        <main>
+        
+        <main id="main-content" role="main" aria-label="Portfolio content">
           <HeroSection />
-          <AchievementsSection />
-          <TechStackSection />
-          <LeetCodeStats />
-          <GitHubContributions />
-          <ProjectsSection />
-          <SpotifySection />
-          <AnimeVideoSection />
-          <ContactSection />
+          
+          <Suspense fallback={<SectionSkeleton height="h-48" />}>
+            <ScrollReveal delay={0.1}>
+              <AchievementsSection />
+            </ScrollReveal>
+          </Suspense>
+          
+          <Suspense fallback={<SectionSkeleton height="h-96" />}>
+            <ScrollReveal delay={0.1}>
+              <TechStackSection />
+            </ScrollReveal>
+          </Suspense>
+          
+          <Suspense fallback={<SectionSkeleton height="h-80" />}>
+            <ScrollReveal delay={0.1}>
+              <LeetCodeStats />
+            </ScrollReveal>
+          </Suspense>
+          
+          <Suspense fallback={<SectionSkeleton height="h-80" />}>
+            <ScrollReveal delay={0.1}>
+              <GitHubContributions />
+            </ScrollReveal>
+          </Suspense>
+          
+          <Suspense fallback={<SectionSkeleton height="h-96" />}>
+            <ScrollReveal delay={0.1}>
+              <ProjectsSection />
+            </ScrollReveal>
+          </Suspense>
+          
+          <Suspense fallback={<SectionSkeleton height="h-64" />}>
+            <ScrollReveal delay={0.1}>
+              <SpotifySection />
+            </ScrollReveal>
+          </Suspense>
+          
+          <Suspense fallback={<SectionSkeleton height="h-64" />}>
+            <ScrollReveal delay={0.1}>
+              <AnimeVideoSection />
+            </ScrollReveal>
+          </Suspense>
+          
+          <Suspense fallback={<SectionSkeleton height="h-96" />}>
+            <ScrollReveal delay={0.1}>
+              <ContactSection />
+            </ScrollReveal>
+          </Suspense>
         </main>
+        
         {/* AI Chat Box */}
         <AIChatBox />
-      </div>
+      </motion.div>
     </>
   );
 };

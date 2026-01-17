@@ -1,6 +1,7 @@
 import { Moon, Sun, Monitor } from "lucide-react";
 import { useTheme } from "@/components/ThemeProvider";
-import { useState } from "react";
+import { useState, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const ThemeToggle = () => {
   const { theme, setTheme } = useTheme();
@@ -15,53 +16,92 @@ const ThemeToggle = () => {
   const currentTheme = themes.find((t) => t.value === theme) || themes[2];
   const CurrentIcon = currentTheme.icon;
 
-  const handleThemeChange = (newTheme: typeof theme) => {
+  const handleThemeChange = useCallback((newTheme: typeof theme) => {
+    // Add transition class before changing theme
+    document.documentElement.classList.add('theme-transition');
+    
     setTheme(newTheme);
     setIsOpen(false);
-  };
+    
+    // Remove transition class after animation completes
+    setTimeout(() => {
+      document.documentElement.classList.remove('theme-transition');
+    }, 400);
+  }, [setTheme]);
 
   return (
     <div className="relative">
-      <button
+      <motion.button
         onClick={() => setIsOpen(!isOpen)}
         className="p-2 rounded-lg hover:bg-muted transition-colors relative"
-        aria-label="Toggle theme"
+        aria-label={`Toggle theme. Current: ${currentTheme.label}`}
+        aria-expanded={isOpen}
+        aria-haspopup="true"
         title={`Current: ${currentTheme.label}`}
+        whileTap={{ scale: 0.95 }}
+        whileHover={{ scale: 1.05 }}
       >
-        <CurrentIcon className="w-4 h-4" />
-      </button>
+        <motion.div
+          key={theme}
+          initial={{ rotate: -90, opacity: 0 }}
+          animate={{ rotate: 0, opacity: 1 }}
+          exit={{ rotate: 90, opacity: 0 }}
+          transition={{ duration: 0.2 }}
+        >
+          <CurrentIcon className="w-4 h-4" />
+        </motion.div>
+      </motion.button>
 
-      {isOpen && (
-        <>
-          <div
-            className="fixed inset-0 z-40"
-            onClick={() => setIsOpen(false)}
-          />
-          <div className="absolute right-0 top-full mt-2 w-36 bg-card border border-border rounded-lg shadow-lg z-50 overflow-hidden">
-            {themes.map((themeOption) => {
-              const Icon = themeOption.icon;
-              const isActive = theme === themeOption.value;
-              return (
-                <button
-                  key={themeOption.value}
-                  onClick={() => handleThemeChange(themeOption.value)}
-                  className={`w-full flex items-center gap-2 px-3 py-2 text-sm transition-colors ${
-                    isActive
-                      ? "bg-accent text-accent-foreground"
-                      : "hover:bg-muted"
-                  }`}
-                >
-                  <Icon className="w-4 h-4" />
-                  <span>{themeOption.label}</span>
-                  {isActive && (
-                    <span className="ml-auto text-xs">✓</span>
-                  )}
-                </button>
-              );
-            })}
-          </div>
-        </>
-      )}
+      <AnimatePresence>
+        {isOpen && (
+          <>
+            <motion.div
+              className="fixed inset-0 z-40"
+              onClick={() => setIsOpen(false)}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            />
+            <motion.div 
+              className="absolute right-0 top-full mt-2 w-36 bg-card border border-border rounded-lg shadow-lg z-50 overflow-hidden"
+              initial={{ opacity: 0, y: -10, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -10, scale: 0.95 }}
+              transition={{ duration: 0.15 }}
+              role="menu"
+              aria-orientation="vertical"
+            >
+              {themes.map((themeOption, index) => {
+                const Icon = themeOption.icon;
+                const isActive = theme === themeOption.value;
+                return (
+                  <motion.button
+                    key={themeOption.value}
+                    onClick={() => handleThemeChange(themeOption.value)}
+                    className={`w-full flex items-center gap-2 px-3 py-2 text-sm transition-colors ${
+                      isActive
+                        ? "bg-accent text-accent-foreground"
+                        : "hover:bg-muted"
+                    }`}
+                    role="menuitem"
+                    aria-current={isActive ? "true" : undefined}
+                    whileHover={{ x: 2 }}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.05 }}
+                  >
+                    <Icon className="w-4 h-4" aria-hidden="true" />
+                    <span>{themeOption.label}</span>
+                    {isActive && (
+                      <span className="ml-auto text-xs" aria-hidden="true">✓</span>
+                    )}
+                  </motion.button>
+                );
+              })}
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
