@@ -1,12 +1,19 @@
 import { motion } from "framer-motion";
 import { Rocket, ExternalLink, Github, Sparkles } from "lucide-react";
+import { SiSolana, SiRust, SiNextdotjs, SiPostgresql, SiKotlin, SiFirebase } from "react-icons/si";
+
+interface TechItem {
+  name: string;
+  icon?: React.ReactNode;
+  color?: string;
+}
 
 interface CurrentProject {
   name: string;
   description: string;
   status: "In Progress" | "Planning" | "Testing";
   progress: number;
-  techStack: string[];
+  techStack: TechItem[];
   github?: string;
   preview?: string;
 }
@@ -17,7 +24,15 @@ const currentProjects: CurrentProject[] = [
     description: "A comprehensive medicine tracking and purchasing platform built on Solana blockchain with complete supply chain transparency, real-time inventory management, and secure prescription handling.",
     status: "In Progress",
     progress: 65,
-    techStack: ["Solana", "Rust", "Anchor", "Next.js", "PostgreSQL", "Kotlin", "Firebase"],
+    techStack: [
+      { name: "Solana", icon: <SiSolana className="w-3.5 h-3.5" />, color: "text-[#9945FF]" },
+      { name: "Rust", icon: <SiRust className="w-3.5 h-3.5" />, color: "text-[#DEA584]" },
+      { name: "Anchor", color: "text-[#7C3AED]" },
+      { name: "Next.js", icon: <SiNextdotjs className="w-3.5 h-3.5" />, color: "text-foreground" },
+      { name: "PostgreSQL", icon: <SiPostgresql className="w-3.5 h-3.5" />, color: "text-[#336791]" },
+      { name: "Kotlin", icon: <SiKotlin className="w-3.5 h-3.5" />, color: "text-[#7F52FF]" },
+      { name: "Firebase", icon: <SiFirebase className="w-3.5 h-3.5" />, color: "text-[#FFCA28]" },
+    ],
     github: "https://github.com/neutron420/Trackmed",
     preview: "https://trackmed-trust-portal.vercel.app/",
   },
@@ -155,17 +170,18 @@ const CurrentlyWorkingOn = () => {
                     <div className="flex flex-wrap gap-2">
                       {project.techStack.map((tech, i) => (
                         <motion.span
-                          key={tech}
+                          key={tech.name}
                           initial={{ opacity: 0, scale: 0.8 }}
                           animate={{ opacity: 1, scale: 1 }}
                           transition={{ delay: 0.1 + i * 0.05 }}
-                          className={`px-3 py-1.5 text-sm rounded-lg transition-all ${
+                          className={`px-3 py-1.5 text-sm rounded-lg transition-all flex items-center gap-1.5 ${
                             i === 0 
                               ? "bg-accent/15 text-accent border border-accent/30 font-medium"
                               : "bg-muted/50 text-muted-foreground border border-border/30 hover:border-accent/30 hover:text-accent"
                           }`}
                         >
-                          {tech}
+                          {tech.icon && <span className={tech.color}>{tech.icon}</span>}
+                          {tech.name}
                         </motion.span>
                       ))}
                     </div>
