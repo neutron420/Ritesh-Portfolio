@@ -1,61 +1,16 @@
-import { useState, useEffect } from "react";
-import { Mail, Eye, Send, Loader2, Twitter, Github, Linkedin, MapPin, Clock, Sparkles } from "lucide-react";
+import { useState } from "react";
+import { Mail, Send, Loader2, Twitter, Github, Linkedin, MapPin, Clock, Sparkles } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 
 const ContactSection = () => {
   const { toast } = useToast();
-  const [visitorCount, setVisitorCount] = useState<number | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    message: ""
+    message: "",
   });
-
-  useEffect(() => {
-    const fetchVisitorCount = async () => {
-      try {
-        // Try to get current count first
-        const getResponse = await fetch('https://api.countapi.xyz/get/ritesh-portfolio/visits');
-        let currentCount = 0;
-        
-        if (getResponse.ok) {
-          const getData = await getResponse.json();
-          currentCount = getData.value || 0;
-        }
-
-        // Increment the count
-        const hitResponse = await fetch('https://api.countapi.xyz/hit/ritesh-portfolio/visits', {
-          method: 'GET',
-          headers: {
-            'Accept': 'application/json',
-          },
-        });
-
-        if (hitResponse.ok) {
-          const hitData = await hitResponse.json();
-          setVisitorCount(hitData.value || currentCount + 1);
-        } else {
-          // Fallback to localStorage if API fails
-          const stored = localStorage.getItem('portfolio-visits');
-          const count = stored ? parseInt(stored) + 1 : 1;
-          localStorage.setItem('portfolio-visits', count.toString());
-          setVisitorCount(count);
-        }
-      } catch (error) {
-        console.error('Visitor count error:', error);
-        // Fallback to localStorage
-        const stored = localStorage.getItem('portfolio-visits');
-        const count = stored ? parseInt(stored) + 1 : 1;
-        localStorage.setItem('portfolio-visits', count.toString());
-        setVisitorCount(count);
-      }
-    };
-
-    fetchVisitorCount();
-  }, []);
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -269,73 +224,6 @@ const ContactSection = () => {
           </div>
         </div>
 
-        {/* Footer */}
-        <div className="mt-16 pt-8 border-t border-border/50">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-            {/* Brand */}
-            <div>
-              <div className="flex items-center gap-2 mb-3">
-                <div className="w-8 h-8 rounded-full border-2 border-accent flex items-center justify-center">
-                  <span className="text-sm font-bold text-accent">理</span>
-                </div>
-                <span className="font-semibold">Ritesh Singh</span>
-              </div>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                Full-Stack Engineer & Blockchain Developer building meaningful products from scratch.
-              </p>
-            </div>
-
-            {/* Quick Links */}
-            <div>
-              <h4 className="font-medium mb-3">Quick Links</h4>
-              <div className="flex flex-col gap-2">
-                <a href="#tech" className="text-sm text-muted-foreground hover:text-accent transition-colors">Stack</a>
-                <a href="#projects" className="text-sm text-muted-foreground hover:text-accent transition-colors">Projects</a>
-                <a href="#contact" className="text-sm text-muted-foreground hover:text-accent transition-colors">Contact</a>
-              </div>
-            </div>
-
-            {/* Connect */}
-            <div>
-              <h4 className="font-medium mb-3">Connect</h4>
-              <div className="flex flex-col gap-2">
-                <a href="https://github.com/neutron420" target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground hover:text-accent transition-colors flex items-center gap-1.5">
-                  <Github className="w-4 h-4" />
-                  GitHub
-                </a>
-                <a href="https://www.linkedin.com/in/ritesh-singh1/" target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground hover:text-accent transition-colors flex items-center gap-1.5">
-                  <Linkedin className="w-4 h-4" />
-                  LinkedIn
-                </a>
-                <a href="https://x.com/RiteshS18572143" target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground hover:text-accent transition-colors flex items-center gap-1.5">
-                  <Twitter className="w-4 h-4" />
-                  X (Twitter)
-                </a>
-              </div>
-            </div>
-          </div>
-
-          {/* Bottom Bar */}
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-border/30">
-            <p className="text-sm text-muted-foreground">
-              © {new Date().getFullYear()} Ritesh Kumar Singh. All rights reserved.
-            </p>
-            
-            {/* Visitor Count */}
-            <div className="flex items-center gap-2 px-3 py-1.5 bg-muted/30 rounded-full">
-              <div className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse" />
-              <Eye className="w-3.5 h-3.5 text-muted-foreground" />
-              <span className="text-xs font-medium">
-                {visitorCount !== null ? visitorCount.toLocaleString() : "—"}
-              </span>
-              <span className="text-xs text-muted-foreground">visitors</span>
-            </div>
-
-            <p className="text-xs text-muted-foreground">
-              Built with passion & React ⚡
-            </p>
-          </div>
-        </div>
       </div>
     </section>
   );
