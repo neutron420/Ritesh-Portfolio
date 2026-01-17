@@ -22,6 +22,7 @@ const ProjectsSection = lazy(() => import("@/components/portfolio/ProjectsSectio
 const SpotifySection = lazy(() => import("@/components/portfolio/SpotifySection"));
 const AnimeVideoSection = lazy(() => import("@/components/portfolio/AnimeVideoSection"));
 const ContactSection = lazy(() => import("@/components/portfolio/ContactSection"));
+const Footer = lazy(() => import("@/components/portfolio/Footer"));
 
 // Loading skeleton for lazy-loaded sections
 const SectionSkeleton = ({ height = "h-64" }: { height?: string }) => (
@@ -183,6 +184,10 @@ const Index = () => {
             <ScrollReveal delay={0.1}>
               <ContactSection />
             </ScrollReveal>
+          </Suspense>
+
+          <Suspense fallback={<SectionSkeleton height="h-48" />}>
+            <Footer />
           </Suspense>
         </main>
         
