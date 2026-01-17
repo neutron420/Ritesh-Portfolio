@@ -236,12 +236,41 @@ const Navbar = () => {
               </button>
               
               {/* Theme Toggle - Mobile */}
-              <div className="mx-4 mt-2 px-4 py-3 flex items-center justify-between text-sm bg-muted/30 rounded-lg border border-border/50">
-                <span className="text-foreground font-medium flex items-center gap-2">
-                  <span>Theme</span>
-                </span>
-                <div className="flex-shrink-0">
-                  <ThemeToggle />
+              <div className="mx-4 mt-3 p-4 bg-card rounded-xl border border-border/50 shadow-sm">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-sm font-medium text-foreground">Appearance</span>
+                </div>
+                <div className="grid grid-cols-3 gap-2">
+                  {[
+                    { value: "light", label: "Light", icon: "☀️" },
+                    { value: "dark", label: "Dark", icon: "🌙" },
+                    { value: "system", label: "Auto", icon: "💻" },
+                  ].map((option) => (
+                    <button
+                      key={option.value}
+                      onClick={() => {
+                        const root = document.documentElement;
+                        if (option.value === "dark") {
+                          root.classList.add("dark");
+                          localStorage.setItem("portfolio-theme", "dark");
+                        } else if (option.value === "light") {
+                          root.classList.remove("dark");
+                          localStorage.setItem("portfolio-theme", "light");
+                        } else {
+                          localStorage.setItem("portfolio-theme", "system");
+                          if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+                            root.classList.add("dark");
+                          } else {
+                            root.classList.remove("dark");
+                          }
+                        }
+                      }}
+                      className="flex flex-col items-center gap-1.5 p-3 rounded-lg bg-muted/50 hover:bg-accent hover:text-accent-foreground active:scale-95 transition-all touch-manipulation border border-transparent hover:border-accent/30"
+                    >
+                      <span className="text-lg">{option.icon}</span>
+                      <span className="text-xs font-medium">{option.label}</span>
+                    </button>
+                  ))}
                 </div>
               </div>
               
