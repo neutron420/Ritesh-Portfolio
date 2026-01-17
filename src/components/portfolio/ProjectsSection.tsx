@@ -23,7 +23,6 @@ import {
   SiTypescript
 } from "react-icons/si";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
-import projectRaby from "@/assets/project-raby.jpg";
 import projectBloom from "@/assets/project-bloom.png";
 import projectGrievance from "@/assets/project-grievance.jpg";
 import {
@@ -102,14 +101,6 @@ const projects = [
     github: "https://github.com/neutron420/Bloom",
     live: null,
     image: projectBloom,
-  },
-  {
-    name: "Raby",
-    description: "A secure cryptocurrency wallet application for managing digital assets. Features include multi-chain support, real-time transaction history, portfolio analytics, QR code scanning, secure key management with biometric authentication, and push notifications.",
-    techStack: ["React Native", "Node.js", "Web3.js", "Docker", "AWS"],
-    github: "https://github.com/neutron420/Raby",
-    live: null,
-    image: projectRaby,
   },
   {
     name: "Trackmed",
@@ -193,7 +184,7 @@ const ProjectsSection = () => {
                       <img
                         src={project.image}
                         alt={project.name}
-                        className={`w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ${project.name === 'Raby' ? 'object-bottom' : 'object-center'}`}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 object-center"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-card/90 via-card/30 to-transparent md:bg-gradient-to-r" />
                       
