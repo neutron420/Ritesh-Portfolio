@@ -10,11 +10,14 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useScrollProgress } from "@/hooks/use-scroll-progress";
 import { useAnalytics } from "@/hooks/use-analytics";
 import BackToTop from "@/components/ui/back-to-top";
+import KeyboardShortcutsModal from "@/components/portfolio/KeyboardShortcutsModal";
+import { useKeyboardShortcuts } from "@/hooks/use-keyboard-shortcuts";
 
 // Lazy load sections below the fold for better performance
 const AchievementsSection = lazy(() => import("@/components/portfolio/AchievementsSection"));
 const TechStackSection = lazy(() => import("@/components/portfolio/TechStackSection"));
 const LeetCodeStats = lazy(() => import("@/components/portfolio/LeetCodeStats"));
+const CurrentlyWorkingOn = lazy(() => import("@/components/portfolio/CurrentlyWorkingOn"));
 const ProjectsSection = lazy(() => import("@/components/portfolio/ProjectsSection"));
 const SpotifySection = lazy(() => import("@/components/portfolio/SpotifySection"));
 const AnimeVideoSection = lazy(() => import("@/components/portfolio/AnimeVideoSection"));
@@ -31,8 +34,37 @@ const Index = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [showContent, setShowContent] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [showShortcuts, setShowShortcuts] = useState(false);
   const { progressRef } = useScrollProgress();
   useAnalytics();
+
+  // Keyboard shortcuts
+  useKeyboardShortcuts([
+    {
+      key: "?",
+      action: () => setShowShortcuts(true),
+      description: "Show keyboard shortcuts",
+    },
+    {
+      key: "g",
+      action: () => {
+        // Wait for second key
+        const handleSecondKey = (e: KeyboardEvent) => {
+          if (e.key === "h") {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          } else if (e.key === "p") {
+            document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
+          } else if (e.key === "c") {
+            document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+          }
+          window.removeEventListener("keydown", handleSecondKey);
+        };
+        window.addEventListener("keydown", handleSecondKey);
+        setTimeout(() => window.removeEventListener("keydown", handleSecondKey), 1000);
+      },
+      description: "Go to section",
+    },
+  ]);
 
   useEffect(() => {
     // Always show loading screen on initial mount to prevent white flash
@@ -110,6 +142,12 @@ const Index = () => {
               <AchievementsSection />
             </ScrollReveal>
           </Suspense>
+
+          <Suspense fallback={<SectionSkeleton height="h-48" />}>
+            <ScrollReveal delay={0.1}>
+              <CurrentlyWorkingOn />
+            </ScrollReveal>
+          </Suspense>
           
           <Suspense fallback={<SectionSkeleton height="h-96" />}>
             <ScrollReveal delay={0.1}>
@@ -153,6 +191,12 @@ const Index = () => {
         
         {/* Back to Top Button */}
         <BackToTop />
+        
+        {/* Keyboard Shortcuts Modal */}
+        <KeyboardShortcutsModal 
+          isOpen={showShortcuts} 
+          onClose={() => setShowShortcuts(false)} 
+        />
       </motion.div>
     </>
   );

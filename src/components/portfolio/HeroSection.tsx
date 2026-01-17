@@ -1,8 +1,22 @@
 import { Github, Twitter, Linkedin, Mail, Download, GraduationCap, Terminal } from "lucide-react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 import { TerminalTransition } from "@/components/TerminalTransition";
+import Typewriter from "@/components/ui/typewriter";
 import bannerImage from "@/assets/banner.jpg";
 
 const HeroSection = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+
+  // Parallax transforms
+  const bannerY = useTransform(scrollYProgress, [0, 1], [0, 100]);
+  const avatarScale = useTransform(scrollYProgress, [0, 0.5], [1, 0.9]);
+  const textY = useTransform(scrollYProgress, [0, 1], [0, 50]);
+
   const socialLinks = [
     { icon: Github, href: "https://github.com/neutron420", label: "GitHub" },
     { icon: Twitter, href: "https://x.com/RiteshS18572143", label: "X" },
@@ -10,71 +24,132 @@ const HeroSection = () => {
     { icon: Mail, href: "mailto:fnaticritesh2004@gmail.com", label: "Email" },
   ];
 
+  const roles = [
+    "Full-Stack Engineer",
+    "Blockchain Developer",
+    "Competitive Programmer",
+    "Web3 Enthusiast",
+  ];
+
   return (
-    <section className="pt-20">
-      {/* Banner Image */}
+    <section ref={sectionRef} className="pt-20 relative overflow-hidden">
+      {/* Banner Image with Parallax */}
       <div className="section-container">
-        <div className="relative h-48 md:h-64 rounded-2xl overflow-hidden mt-6">
+        <motion.div 
+          className="relative h-48 md:h-64 rounded-2xl overflow-hidden mt-6"
+          style={{ y: bannerY }}
+        >
           <img
             src={bannerImage}
             alt="Mt. Fuji"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover scale-110"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
           
           {/* Floating text on banner */}
-          <div className="absolute bottom-4 right-6 text-right">
+          <motion.div 
+            className="absolute bottom-4 right-6 text-right"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+          >
             <p className="text-sm italic text-foreground/80 serif">
               Build · Ship · Learn · Repeat
             </p>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* Profile Section */}
         <div className="relative -mt-16 md:-mt-20 px-4">
-          {/* Avatar */}
-          <div className="w-28 h-28 md:w-36 md:h-36 rounded-full border-4 border-background overflow-hidden bg-card">
+          {/* Avatar with Parallax */}
+          <motion.div 
+            className="w-28 h-28 md:w-36 md:h-36 rounded-full border-4 border-background overflow-hidden bg-card shadow-xl"
+            style={{ scale: avatarScale }}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.2 }}
+          >
             <img
               src="https://avatars.githubusercontent.com/u/179364761?v=4"
               alt="Ritesh Singh"
               className="w-full h-full object-cover"
             />
-          </div>
+          </motion.div>
 
-          {/* Info */}
-          <div className="mt-4">
-            <h1 className="text-2xl md:text-3xl font-semibold tracking-tight">
+          {/* Info with Animation */}
+          <motion.div 
+            className="mt-4"
+            style={{ y: textY }}
+          >
+            <motion.h1 
+              className="text-2xl md:text-3xl font-semibold tracking-tight"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+            >
               Ritesh Singh
-            </h1>
-            <p className="text-muted-foreground mt-1 text-sm sm:text-base">
-              Full-Stack Engineer · Blockchain Developer · Competitive Programmer
-            </p>
-            <p className="text-xs sm:text-sm text-muted-foreground/80 mt-1 flex items-center gap-1.5 flex-wrap">
+            </motion.h1>
+            
+            {/* Typewriter Effect */}
+            <motion.p 
+              className="text-muted-foreground mt-1 text-sm sm:text-base h-6"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.4 }}
+            >
+              <Typewriter 
+                texts={roles}
+                typingSpeed={80}
+                deletingSpeed={40}
+                pauseDuration={2500}
+              />
+            </motion.p>
+            
+            <motion.p 
+              className="text-xs sm:text-sm text-muted-foreground/80 mt-1 flex items-center gap-1.5 flex-wrap"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 }}
+            >
               <GraduationCap className="w-4 h-4 flex-shrink-0" />
               <span className="break-words">BTech in CSE & Data Science · CV Raman Global University · 2027</span>
-            </p>
+            </motion.p>
 
             {/* Social Links + Resume Button */}
-            <div className="flex items-center gap-3 mt-4 flex-wrap">
-              {socialLinks.map((social) => {
+            <motion.div 
+              className="flex items-center gap-3 mt-4 flex-wrap"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6 }}
+            >
+              {socialLinks.map((social, index) => {
                 const Icon = social.icon;
                 return (
-                  <a
+                  <motion.a
                     key={social.label}
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-9 h-9 flex items-center justify-center rounded-lg bg-card border border-border hover:border-accent hover:text-accent transition-all"
                     aria-label={social.label}
+                    whileHover={{ scale: 1.1, y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.6 + index * 0.05 }}
                   >
                     <Icon className="w-4 h-4" />
-                  </a>
+                  </motion.a>
                 );
               })}
               
               {/* Terminal Button */}
               <TerminalTransition to="/terminal">
-                <div className="ml-0 sm:ml-2 px-3 sm:px-4 py-2 sm:py-2.5 flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-mono font-medium rounded-lg bg-[#0d1117] text-[#39d353] hover:bg-[#161b22] transition-all hover:scale-105 shadow-lg hover:shadow-xl border border-[#39d353]/30 hover:border-[#39d353]/50 backdrop-blur-sm group relative overflow-hidden">
+                <motion.div 
+                  className="ml-0 sm:ml-2 px-3 sm:px-4 py-2 sm:py-2.5 flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-mono font-medium rounded-lg bg-[#0d1117] text-[#39d353] hover:bg-[#161b22] transition-all shadow-lg hover:shadow-xl border border-[#39d353]/30 hover:border-[#39d353]/50 backdrop-blur-sm group relative overflow-hidden"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
                   <span className="absolute inset-0 bg-[#39d353]/5 opacity-0 group-hover:opacity-100 transition-opacity" />
                   <Terminal className="w-3.5 h-3.5 sm:w-4 sm:h-4 relative z-10 flex-shrink-0" />
                   <span className="relative z-10 flex items-center gap-1 sm:gap-1.5">
@@ -84,25 +159,32 @@ const HeroSection = () => {
                     <span className="text-[#58a6ff]">~</span>
                     <span className="text-[#8b949e]">$</span>
                   </span>
-                </div>
+                </motion.div>
               </TerminalTransition>
               
               {/* Resume Button */}
-              <a
+              <motion.a
                 href="/RiteshSinghResume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="ml-0 sm:ml-2 px-3 sm:px-4 py-2 flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-medium rounded-lg bg-accent text-accent-foreground hover:bg-accent/90 transition-all"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
                 <Download className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 <span className="hidden sm:inline">Resume</span>
                 <span className="sm:hidden">CV</span>
-              </a>
-            </div>
-          </div>
+              </motion.a>
+            </motion.div>
+          </motion.div>
 
           {/* Bio - Extended */}
-          <div className="mt-6 sm:mt-8 max-w-2xl">
+          <motion.div 
+            className="mt-6 sm:mt-8 max-w-2xl"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.7 }}
+          >
             <p className="text-foreground text-sm sm:text-base leading-relaxed mb-3 sm:mb-4">
               <span className="text-accent font-medium">I build from scratch.</span>{" "}
               Frontend, backend, full-stack, and blockchain applications end-to-end 
@@ -119,7 +201,7 @@ const HeroSection = () => {
               participating in hackathons, or learning about new blockchain protocols. 
               I thrive in competitive environments and enjoy pushing my limits.
             </p>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
