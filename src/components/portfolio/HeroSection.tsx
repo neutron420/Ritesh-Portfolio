@@ -41,8 +41,69 @@ const HeroSection = () => {
 
   return (
     <section className="pt-20 relative overflow-hidden">
+      {/* Animated Grid Background */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {/* Grid pattern */}
+        <div 
+          className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05]"
+          style={{
+            backgroundImage: `linear-gradient(to right, hsl(var(--foreground)) 1px, transparent 1px),
+                              linear-gradient(to bottom, hsl(var(--foreground)) 1px, transparent 1px)`,
+            backgroundSize: '60px 60px',
+          }}
+        />
+        
+        {/* Animated gradient orbs */}
+        <motion.div
+          className="absolute -top-40 -right-40 w-96 h-96 rounded-full bg-accent/10 blur-3xl"
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.3, 0.5, 0.3],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        <motion.div
+          className="absolute top-1/2 -left-40 w-80 h-80 rounded-full bg-primary/10 blur-3xl"
+          animate={{
+            scale: [1.2, 1, 1.2],
+            opacity: [0.2, 0.4, 0.2],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        
+        {/* Floating dots */}
+        {[...Array(6)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-1 h-1 rounded-full bg-accent/40"
+            style={{
+              left: `${15 + i * 15}%`,
+              top: `${20 + (i % 3) * 25}%`,
+            }}
+            animate={{
+              y: [0, -20, 0],
+              opacity: [0.2, 0.6, 0.2],
+            }}
+            transition={{
+              duration: 4 + i * 0.5,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: i * 0.3,
+            }}
+          />
+        ))}
+      </div>
+
       {/* Banner Image */}
-      <div className="section-container">
+      <div className="section-container relative z-10">
         <div className="relative h-48 md:h-64 rounded-2xl overflow-hidden mt-6">
           <img
             src={bannerImage}
