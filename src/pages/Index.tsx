@@ -30,8 +30,8 @@ const Index = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [showContent, setShowContent] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const { scrollProgress } = useScrollProgress();
-  const { trackInteraction } = useAnalytics();
+  const { progressRef } = useScrollProgress();
+  useAnalytics();
 
   useEffect(() => {
     // Always show loading screen on initial mount to prevent white flash
@@ -57,11 +57,11 @@ const Index = () => {
     <>
       <SEOHead />
       
-      {/* Scroll Progress Bar */}
-      <motion.div
-        className="fixed top-0 left-0 right-0 h-1 bg-accent z-[60] origin-left"
-        style={{ scaleX: scrollProgress / 100 }}
-        initial={{ scaleX: 0 }}
+      {/* Scroll Progress Bar - GPU accelerated */}
+      <div
+        ref={progressRef}
+        className="fixed top-0 left-0 right-0 h-1 bg-accent z-[60] origin-left will-change-transform"
+        style={{ transform: 'scaleX(0)' }}
         aria-hidden="true"
       />
       

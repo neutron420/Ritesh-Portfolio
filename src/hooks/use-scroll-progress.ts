@@ -1,61 +1,43 @@
-import { useState, useEffect, useCallback } from "react";
-
-interface SectionProgress {
-  sectionId: string;
-  progress: number;
-  isVisible: boolean;
-}
+import { useEffect, useRef, useCallback } from "react";
 
 export const useScrollProgress = () => {
-  const [scrollProgress, setScrollProgress] = useState(0);
-  const [sectionProgress, setSectionProgress] = useState<SectionProgress[]>([]);
+  const progressRef = useRef<HTMLDivElement | null>(null);
+  const rafRef = useRef<number | null>(null);
+  const lastScrollRef = useRef(0);
 
-  const calculateProgress = useCallback(() => {
+  const updateProgress = useCallback(() => {
     const scrollTop = window.scrollY;
     const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-    setScrollProgress(Math.min(100, Math.max(0, progress)));
-
-    // Calculate section visibility
-    const sections = document.querySelectorAll("section[id]");
-    const newSectionProgress: SectionProgress[] = [];
-
-    sections.forEach((section) => {
-      const rect = section.getBoundingClientRect();
-      const sectionTop = rect.top;
-      const sectionHeight = rect.height;
-      const viewportHeight = window.innerHeight;
-
-      // Calculate how much of the section is visible
-      let visibleHeight = 0;
-      if (sectionTop < 0) {
-        visibleHeight = Math.min(sectionHeight + sectionTop, viewportHeight);
-      } else if (sectionTop < viewportHeight) {
-        visibleHeight = Math.min(sectionHeight, viewportHeight - sectionTop);
-      }
-
-      const sectionVisibility = Math.max(0, Math.min(1, visibleHeight / Math.min(sectionHeight, viewportHeight)));
-      
-      newSectionProgress.push({
-        sectionId: section.id,
-        progress: sectionVisibility * 100,
-        isVisible: sectionVisibility > 0.1,
-      });
-    });
-
-    setSectionProgress(newSectionProgress);
+    const progress = docHeight > 0 ? scrollTop / docHeight : 0;
+    
+    // Update CSS variable directly for smooth GPU-accelerated animation
+    if (progressRef.current) {
+      progressRef.current.style.transform = `scaleX(${Math.min(1, Math.max(0, progress))})`;
+    }
+    
+    rafRef.current = null;
   }, []);
 
+  const handleScroll = useCallback(() => {
+    // Use requestAnimationFrame for smooth updates
+    if (rafRef.current === null) {
+      rafRef.current = requestAnimationFrame(updateProgress);
+    }
+  }, [updateProgress]);
+
   useEffect(() => {
-    calculateProgress();
-    window.addEventListener("scroll", calculateProgress, { passive: true });
-    window.addEventListener("resize", calculateProgress, { passive: true });
+    // Initial update
+    updateProgress();
+    
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => {
-      window.removeEventListener("scroll", calculateProgress);
-      window.removeEventListener("resize", calculateProgress);
+      window.removeEventListener("scroll", handleScroll);
+      if (rafRef.current !== null) {
+        cancelAnimationFrame(rafRef.current);
+      }
     };
-  }, [calculateProgress]);
+  }, [handleScroll, updateProgress]);
 
-  return { scrollProgress, sectionProgress };
+  return { progressRef };
 };
