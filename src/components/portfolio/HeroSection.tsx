@@ -1,21 +1,10 @@
 import { Github, Twitter, Linkedin, Mail, Download, GraduationCap, Terminal } from "lucide-react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
 import { TerminalTransition } from "@/components/TerminalTransition";
 import Typewriter from "@/components/ui/typewriter";
 import bannerImage from "@/assets/banner.jpg";
 
 const HeroSection = () => {
-  const sectionRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end start"],
-  });
-
-  // Parallax transforms
-  const bannerY = useTransform(scrollYProgress, [0, 1], [0, 100]);
-  const avatarScale = useTransform(scrollYProgress, [0, 0.5], [1, 0.9]);
-  const textY = useTransform(scrollYProgress, [0, 1], [0, 50]);
 
   const socialLinks = [
     { icon: Github, href: "https://github.com/neutron420", label: "GitHub" },
@@ -32,17 +21,15 @@ const HeroSection = () => {
   ];
 
   return (
-    <section ref={sectionRef} className="pt-20 relative overflow-hidden">
-      {/* Banner Image with Parallax */}
+    <section className="pt-20 relative overflow-hidden">
+      {/* Banner Image */}
       <div className="section-container">
-        <motion.div 
-          className="relative h-48 md:h-64 rounded-2xl overflow-hidden mt-6"
-          style={{ y: bannerY }}
-        >
+        <div className="relative h-48 md:h-64 rounded-2xl overflow-hidden mt-6">
           <img
             src={bannerImage}
             alt="Mt. Fuji"
-            className="w-full h-full object-cover scale-110"
+            className="w-full h-full object-cover"
+            loading="eager"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
           
@@ -57,14 +44,13 @@ const HeroSection = () => {
               Build · Ship · Learn · Repeat
             </p>
           </motion.div>
-        </motion.div>
+        </div>
 
         {/* Profile Section */}
         <div className="relative -mt-16 md:-mt-20 px-4">
-          {/* Avatar with Parallax */}
+          {/* Avatar */}
           <motion.div 
             className="w-28 h-28 md:w-36 md:h-36 rounded-full border-4 border-background overflow-hidden bg-card shadow-xl"
-            style={{ scale: avatarScale }}
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2 }}
@@ -73,14 +59,12 @@ const HeroSection = () => {
               src="https://avatars.githubusercontent.com/u/179364761?v=4"
               alt="Ritesh Singh"
               className="w-full h-full object-cover"
+              loading="eager"
             />
           </motion.div>
 
           {/* Info with Animation */}
-          <motion.div 
-            className="mt-4"
-            style={{ y: textY }}
-          >
+          <div className="mt-4">
             <motion.h1 
               className="text-2xl md:text-3xl font-semibold tracking-tight"
               initial={{ opacity: 0, y: 20 }}
@@ -176,7 +160,7 @@ const HeroSection = () => {
                 <span className="sm:hidden">CV</span>
               </motion.a>
             </motion.div>
-          </motion.div>
+          </div>
 
           {/* Bio - Extended */}
           <motion.div 

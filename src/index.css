@@ -86,9 +86,7 @@
     scroll-behavior: smooth;
     background-color: hsl(var(--background));
     /* Smooth theme transitions */
-    transition: background-color 0.4s ease, color 0.4s ease;
-    /* Enable GPU acceleration for smoother scrolling */
-    -webkit-overflow-scrolling: touch;
+    transition: background-color 0.3s ease;
   }
 
   body {
@@ -96,11 +94,13 @@
     font-family: 'Inter', sans-serif;
     background-color: hsl(var(--background));
     /* Smooth theme transitions */
-    transition: background-color 0.4s ease, color 0.4s ease;
+    transition: background-color 0.3s ease;
     /* Smoother text rendering */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    /* Prevent layout shifts */
+    overflow-x: hidden;
   }
   
   #root {
@@ -141,17 +141,9 @@
   }
 }
 
-/* Theme transition for all elements */
-.theme-transition,
-.theme-transition *,
-.theme-transition *::before,
-.theme-transition *::after {
-  transition: background-color 0.4s ease, 
-              border-color 0.4s ease, 
-              color 0.4s ease,
-              fill 0.4s ease,
-              stroke 0.4s ease,
-              box-shadow 0.4s ease !important;
+/* Theme transition - only on background and border */
+.theme-transition {
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 @layer components {
