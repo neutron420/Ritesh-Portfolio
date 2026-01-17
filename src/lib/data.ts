@@ -67,14 +67,6 @@ export const projects: Project[] = [
     liveUrl: "",
     githubUrl: "https://github.com/neutron420/Bloom",
   },
-  {
-    year: "2024",
-    title: "Raby",
-    description: "A secure cryptocurrency wallet application for managing digital assets. Features include multi-chain support, real-time transaction history, portfolio analytics, QR code scanning, secure key management with biometric authentication, and push notifications.",
-    tags: ["React Native", "Node.js", "Web3.js", "Docker", "AWS"],
-    liveUrl: "",
-    githubUrl: "https://github.com/neutron420/Raby",
-  },
 ];
 
 export const technologies: Technology[] = [
