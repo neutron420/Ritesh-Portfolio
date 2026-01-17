@@ -87,6 +87,8 @@
     background-color: hsl(var(--background));
     /* Smooth theme transitions */
     transition: background-color 0.4s ease, color 0.4s ease;
+    /* Enable GPU acceleration for smoother scrolling */
+    -webkit-overflow-scrolling: touch;
   }
 
   body {
@@ -95,6 +97,10 @@
     background-color: hsl(var(--background));
     /* Smooth theme transitions */
     transition: background-color 0.4s ease, color 0.4s ease;
+    /* Smoother text rendering */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
   
   #root {

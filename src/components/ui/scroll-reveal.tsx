@@ -1,5 +1,5 @@
+import { useRef, ReactNode, memo } from "react";
 import { motion, useInView, Variants } from "framer-motion";
-import { useRef, ReactNode } from "react";
 
 interface ScrollRevealProps {
   children: ReactNode;
@@ -12,13 +12,13 @@ interface ScrollRevealProps {
   threshold?: number;
 }
 
-const ScrollReveal = ({
+const ScrollReveal = memo(({
   children,
   className = "",
   delay = 0,
-  duration = 0.6,
+  duration = 0.5,
   direction = "up",
-  distance = 40,
+  distance = 30,
   once = true,
   threshold = 0.1,
 }: ScrollRevealProps) => {
@@ -54,7 +54,7 @@ const ScrollReveal = ({
       transition: {
         duration,
         delay,
-        ease: [0.25, 0.1, 0.25, 1],
+        ease: [0.25, 0.46, 0.45, 0.94], // Smoother easing
       },
     },
   };
@@ -66,10 +66,13 @@ const ScrollReveal = ({
       animate={isInView ? "visible" : "hidden"}
       variants={variants}
       className={className}
+      style={{ willChange: 'opacity, transform' }}
     >
       {children}
     </motion.div>
   );
-};
+});
+
+ScrollReveal.displayName = 'ScrollReveal';
 
 export default ScrollReveal;
