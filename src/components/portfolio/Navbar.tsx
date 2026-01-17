@@ -1,18 +1,18 @@
 import { useState, useEffect } from "react";
-import { Menu, X, Download, Terminal, Search, Eye } from "lucide-react";
+import { Menu, X, Download, Terminal, Search } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { TerminalTransition } from "@/components/TerminalTransition";
 import ThemeToggle from "./ThemeToggle";
 import SearchModal from "./SearchModal";
 import { useKeyboardShortcuts } from "@/hooks/use-keyboard-shortcuts";
-import { useVisitorCount } from "@/hooks/use-visitor-count";
+
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const { count: visitorCount, loading: visitorLoading } = useVisitorCount();
+  
 
   useEffect(() => {
     const handleScroll = () => {
@@ -128,14 +128,6 @@ const Navbar = () => {
               </a>
             ))}
             
-            {/* Visitor Count */}
-            <div className="px-3 py-1.5 flex items-center gap-1.5 text-xs text-muted-foreground bg-muted/50 rounded-full border border-border/50">
-              <Eye className="w-3.5 h-3.5" />
-              <span className="font-medium text-foreground">
-                {visitorLoading ? "..." : visitorCount?.toLocaleString() || "0"}
-              </span>
-              <span>visitors</span>
-            </div>
             
             <button
               onClick={() => setIsSearchOpen(true)}
@@ -212,14 +204,6 @@ const Navbar = () => {
                   </motion.a>
                 ))}
               
-              {/* Visitor Count - Mobile */}
-              <div className="mx-4 mt-2 px-4 py-3 flex items-center justify-center gap-2 text-sm bg-muted/30 rounded-lg border border-border/50">
-                <Eye className="w-4 h-4 text-muted-foreground" />
-                <span className="font-medium text-foreground">
-                  {visitorLoading ? "..." : visitorCount?.toLocaleString() || "0"}
-                </span>
-                <span className="text-muted-foreground">visitors</span>
-              </div>
               
               {/* Search Button - Mobile */}
               <button
