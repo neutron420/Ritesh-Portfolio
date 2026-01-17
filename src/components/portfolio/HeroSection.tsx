@@ -3,6 +3,24 @@ import { motion } from "framer-motion";
 import { TerminalTransition } from "@/components/TerminalTransition";
 import Typewriter from "@/components/ui/typewriter";
 import bannerImage from "@/assets/banner.jpg";
+import { 
+  SiTypescript, 
+  SiReact, 
+  SiNodedotjs, 
+  SiSolidity,
+  SiRust,
+  SiPostgresql
+} from "react-icons/si";
+
+// Tech badges for hero bio
+const techBadges = [
+  { name: "TypeScript", icon: <SiTypescript className="w-3.5 h-3.5" />, color: "bg-[#3178C6]/15 text-[#3178C6] border-[#3178C6]/30" },
+  { name: "React", icon: <SiReact className="w-3.5 h-3.5" />, color: "bg-[#61DAFB]/15 text-[#61DAFB] border-[#61DAFB]/30" },
+  { name: "Node.js", icon: <SiNodedotjs className="w-3.5 h-3.5" />, color: "bg-[#339933]/15 text-[#339933] border-[#339933]/30" },
+  { name: "Solidity", icon: <SiSolidity className="w-3.5 h-3.5" />, color: "bg-[#363636]/15 text-[#636363] dark:text-[#c4c4c4] border-[#363636]/30" },
+  { name: "Rust", icon: <SiRust className="w-3.5 h-3.5" />, color: "bg-[#DEA584]/15 text-[#DEA584] border-[#DEA584]/30" },
+  { name: "PostgreSQL", icon: <SiPostgresql className="w-3.5 h-3.5" />, color: "bg-[#336791]/15 text-[#336791] border-[#336791]/30" },
+];
 
 const HeroSection = () => {
 
@@ -171,9 +189,35 @@ const HeroSection = () => {
           >
             <p className="text-foreground text-sm sm:text-base leading-relaxed mb-3 sm:mb-4">
               <span className="text-accent font-medium">I build from scratch.</span>{" "}
-              Frontend, backend, full-stack, and blockchain applications end-to-end 
-              from deployment to smart contracts. I'm passionate about creating 
-              technology that solves real-world problems.
+              I create interactive web apps using{" "}
+              {techBadges.slice(0, 4).map((tech, index) => (
+                <motion.span
+                  key={tech.name}
+                  className={`inline-flex items-center gap-1 px-2 py-0.5 mx-0.5 rounded-md text-xs font-medium border ${tech.color}`}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.8 + index * 0.1 }}
+                  whileHover={{ scale: 1.05, y: -1 }}
+                >
+                  {tech.icon}
+                  <span>{tech.name}</span>
+                </motion.span>
+              ))}
+              {" "}and{" "}
+              {techBadges.slice(4).map((tech, index) => (
+                <motion.span
+                  key={tech.name}
+                  className={`inline-flex items-center gap-1 px-2 py-0.5 mx-0.5 rounded-md text-xs font-medium border ${tech.color}`}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 1.2 + index * 0.1 }}
+                  whileHover={{ scale: 1.05, y: -1 }}
+                >
+                  {tech.icon}
+                  <span>{tech.name}</span>
+                </motion.span>
+              ))}
+              . With a focus on <span className="font-medium text-accent">Web3</span> and <span className="font-medium text-accent">blockchain</span> development.
             </p>
             <p className="text-muted-foreground text-sm sm:text-base leading-relaxed mb-3 sm:mb-4">
               Currently exploring the intersection of Web3 and traditional software development, 

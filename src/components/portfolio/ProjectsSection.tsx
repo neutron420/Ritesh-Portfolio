@@ -77,6 +77,7 @@ const projects = [
     live: "https://sih-user-fe-sd.adityahota.online/",
     admin: "https://admin.swarajdesk.com", // Update this with the actual admin URL
     image: projectGrievance,
+    status: "live" as const,
     contributors: [
       { name: "Ritesh Singh", username: "neutron420", url: "https://github.com/neutron420" },
       { name: "Aditya Hota", username: "theogaditya", url: "https://github.com/theogaditya" },
@@ -91,6 +92,7 @@ const projects = [
     github: "https://github.com/neutron420/sih-swarajdesk-2025",
     live: "https://admin.swarajdesk.com", // Update this with the actual admin URL
     image: projectGrievance,
+    status: "live" as const,
     contributors: [
       { name: "Ritesh Singh", username: "neutron420", url: "https://github.com/neutron420" },
       { name: "Aditya Hota", username: "theogaditya", url: "https://github.com/theogaditya" },
@@ -105,6 +107,7 @@ const projects = [
     github: "https://github.com/neutron420/Bloom",
     live: null,
     image: projectBloom,
+    status: "development" as const,
   },
   {
     name: "Trackmed",
@@ -114,8 +117,48 @@ const projects = [
     live: null,
     comingSoon: true,
     image: projectGrievance,
+    status: "building" as const,
   },
 ];
+
+// Status badge component
+const StatusBadge = ({ status }: { status: "live" | "development" | "building" }) => {
+  const statusConfig = {
+    live: {
+      label: "Live",
+      bgColor: "bg-green-500/15",
+      textColor: "text-green-500",
+      borderColor: "border-green-500/30",
+      dotColor: "bg-green-500",
+      animate: true,
+    },
+    development: {
+      label: "In Development",
+      bgColor: "bg-yellow-500/15",
+      textColor: "text-yellow-500",
+      borderColor: "border-yellow-500/30",
+      dotColor: "bg-yellow-500",
+      animate: false,
+    },
+    building: {
+      label: "Building",
+      bgColor: "bg-accent/15",
+      textColor: "text-accent",
+      borderColor: "border-accent/30",
+      dotColor: "bg-accent",
+      animate: true,
+    },
+  };
+
+  const config = statusConfig[status];
+
+  return (
+    <span className={`inline-flex items-center gap-1.5 px-2 py-1 text-[10px] uppercase tracking-wider rounded-md ${config.bgColor} ${config.textColor} border ${config.borderColor}`}>
+      <span className={`w-1.5 h-1.5 rounded-full ${config.dotColor} ${config.animate ? 'animate-pulse' : ''}`} />
+      {config.label}
+    </span>
+  );
+};
 
 const ProjectsSection = () => {
   const { ref, isVisible } = useScrollReveal();
@@ -204,11 +247,12 @@ const ProjectsSection = () => {
                 <div className={`md:col-span-3 flex flex-col ${project.name === 'Swaraj-Desk' || project.name === 'Swaraj-Desk-Admin' || project.name === 'Trackmed' ? 'p-4 md:p-5 h-64 md:h-80 overflow-y-auto' : 'p-4 md:p-4'}`}>
                   {/* Header */}
                     <div className={`flex items-start justify-between gap-3 sm:gap-4 ${project.name === 'Swaraj-Desk' || project.name === 'Swaraj-Desk-Admin' || project.name === 'Trackmed' ? 'mb-3' : 'mb-2'}`}>
-                      <div className="flex items-center gap-2 flex-1 min-w-0">
-                        <h3 className="text-base sm:text-lg md:text-xl font-semibold group-hover:text-accent transition-colors break-words flex-1 min-w-0">
+                      <div className="flex items-center gap-2 flex-1 min-w-0 flex-wrap">
+                        <h3 className="text-base sm:text-lg md:text-xl font-semibold group-hover:text-accent transition-colors break-words min-w-0">
                           {project.name === 'Swaraj-Desk-Admin' ? 'Swaraj Desk Admin' : project.name.replace(/-/g, ' ')}
                         </h3>
-                        {project.comingSoon && (
+                        {project.status && <StatusBadge status={project.status} />}
+                        {project.comingSoon && !project.status && (
                           <span className="px-2 py-1 text-[10px] uppercase tracking-wider rounded-md bg-accent/15 text-accent border border-accent/20 flex items-center gap-1 flex-shrink-0 animate-pulse-coming-soon animate-shimmer-coming-soon relative">
                             <Clock className="w-3 h-3 relative z-10" />
                             <span className="relative z-10">Coming Soon</span>
