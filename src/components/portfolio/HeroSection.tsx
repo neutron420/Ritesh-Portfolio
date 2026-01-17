@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { TerminalTransition } from "@/components/TerminalTransition";
 import Typewriter from "@/components/ui/typewriter";
 import bannerImage from "@/assets/banner.jpg";
-import CodingActivity from "./CodingActivity";
+
 import { 
   SiTypescript, 
   SiReact, 
@@ -230,11 +230,6 @@ const HeroSection = () => {
               participating in hackathons, or learning about new blockchain protocols. 
               I thrive in competitive environments and enjoy pushing my limits.
             </p>
-            
-            {/* Coding Activity Widget */}
-            <div className="mt-6">
-              <CodingActivity />
-            </div>
           </motion.div>
         </div>
       </div>
