@@ -1,7 +1,7 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useMemo } from "react";
 import { SiLeetcode } from "react-icons/si";
 import { getCachedData, setCachedData } from "@/lib/stats-cache";
-
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 interface LeetCodeData {
   totalSolved: number;
   totalQuestions: number;
@@ -342,6 +342,44 @@ const LeetCodeStats = () => {
     }
     return weeks;
   })();
+
+  // Generate date labels for tooltips
+  const dateLabels = useMemo(() => {
+    const labels: string[][] = [];
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const dayOfWeek = today.getDay();
+    const startDateTimestamp = today.getTime() - ((52 * 7 + dayOfWeek) * 24 * 60 * 60 * 1000);
+    const baseStartDate = new Date(startDateTimestamp);
+    
+    for (let week = 0; week < 52; week++) {
+      const weekLabels: string[] = [];
+      for (let day = 0; day < 7; day++) {
+        const date = new Date(baseStartDate);
+        date.setDate(baseStartDate.getDate() + (week * 7) + day);
+        weekLabels.push(date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }));
+      }
+      labels.push(weekLabels);
+    }
+    return labels;
+  }, []);
+
+  // Get submission count for a specific week/day
+  const getSubmissionCount = useCallback((weekIndex: number, dayIndex: number): number => {
+    if (!stats?.submissionCalendar) return 0;
+    
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const dayOfWeek = today.getDay();
+    const startDateTimestamp = today.getTime() - ((52 * 7 + dayOfWeek) * 24 * 60 * 60 * 1000);
+    const baseStartDate = new Date(startDateTimestamp);
+    
+    const date = new Date(baseStartDate);
+    date.setDate(baseStartDate.getDate() + (weekIndex * 7) + dayIndex);
+    const timestamp = Math.floor(date.getTime() / 1000).toString();
+    
+    return stats.submissionCalendar[timestamp] || 0;
+  }, [stats?.submissionCalendar]);
   
   // Debug log
   if (contributionData.length > 0 && contributionData.length !== 52) {
@@ -600,19 +638,31 @@ const LeetCodeStats = () => {
                   </div>
 
                   {/* Grid */}
-                  <div className="flex gap-[2px] sm:gap-[3px]">
-                    {displayContributions.map((week, weekIndex) => (
-                      <div key={weekIndex} className="flex flex-col gap-[2px] sm:gap-[3px]">
-                        {week.map((level, dayIndex) => (
-                          <div
-                            key={`${weekIndex}-${dayIndex}`}
-                            className={`w-[9px] h-[9px] sm:w-[11px] sm:h-[11px] rounded-sm transition-colors ${getLevelColor(level)}`}
-                            title={`Level: ${level}, Count: ${level > 0 ? 'active' : 'none'}`}
-                          />
-                        ))}
-                      </div>
-                    ))}
-                  </div>
+                  <TooltipProvider delayDuration={0}>
+                    <div className="flex gap-[2px] sm:gap-[3px]">
+                      {displayContributions.map((week, weekIndex) => (
+                        <div key={weekIndex} className="flex flex-col gap-[2px] sm:gap-[3px]">
+                          {week.map((level, dayIndex) => {
+                            const count = getSubmissionCount(weekIndex, dayIndex);
+                            const dateLabel = dateLabels[weekIndex]?.[dayIndex] || '';
+                            return (
+                              <Tooltip key={`${weekIndex}-${dayIndex}`}>
+                                <TooltipTrigger asChild>
+                                  <div
+                                    className={`w-[9px] h-[9px] sm:w-[11px] sm:h-[11px] rounded-sm transition-colors cursor-pointer hover:ring-1 hover:ring-foreground/50 ${getLevelColor(level)}`}
+                                  />
+                                </TooltipTrigger>
+                                <TooltipContent side="top" className="text-xs">
+                                  <p className="font-medium">{count} submission{count !== 1 ? 's' : ''}</p>
+                                  <p className="text-muted-foreground">{dateLabel}</p>
+                                </TooltipContent>
+                              </Tooltip>
+                            );
+                          })}
+                        </div>
+                      ))}
+                    </div>
+                  </TooltipProvider>
 
                   {/* Legend */}
                   <div className="flex items-center justify-end gap-1.5 mt-3 text-[10px] text-muted-foreground">
