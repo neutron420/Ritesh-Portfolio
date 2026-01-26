@@ -30,7 +30,9 @@ import {
   SiTerraform,
   SiArgo,
   SiWeb3Dotjs,
-  SiClerk
+  SiClerk,
+  SiGnubash,
+  SiUbuntu
 } from "react-icons/si";
 import { FaJava } from "react-icons/fa";
 import { VscDebugStart } from "react-icons/vsc";
@@ -102,6 +104,8 @@ const TechStackSection = () => {
     { name: "Cloudflare", icon: SiCloudflare, color: "#F38020", lightColor: "#F38020", darkColor: "#F38020" },
     { name: "Clerk", icon: SiClerk, color: "#6C47FF", lightColor: "#6C47FF", darkColor: "#6C47FF" },
     { name: "React Native", icon: SiReact, color: "#61DAFB", lightColor: "#61DAFB", darkColor: "#61DAFB" },
+    { name: "Bash", icon: SiGnubash, color: "#4EAA25", lightColor: "#4EAA25", darkColor: "#4EAA25" },
+    { name: "Ubuntu", icon: SiUbuntu, color: "#E95420", lightColor: "#E95420", darkColor: "#E95420" },
     { name: "Unit Testing", icon: SiJest, color: "#C21325", lightColor: "#C21325", darkColor: "#C21325" },
     { name: "Integration Testing", icon: SiCypress, color: "#17202C", lightColor: "#17202C", darkColor: "#69D3A7" },
     { name: "Prometheus", icon: SiPrometheus, color: "#E6522C", lightColor: "#E6522C", darkColor: "#E6522C" },

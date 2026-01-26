@@ -22,7 +22,8 @@ import {
   SiExpress,
   SiTypescript,
   SiKotlin,
-  SiFirebase
+  SiFirebase,
+  SiBun
 } from "react-icons/si";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import projectBloom from "@/assets/project-bloom.png";
@@ -65,6 +66,7 @@ const techIcons: Record<string, { icon: React.ReactNode; color: string }> = {
   "TypeScript": { icon: <SiTypescript className="w-3 h-3" />, color: "text-[#3178C6]" },
   "Kotlin": { icon: <SiKotlin className="w-3 h-3" />, color: "text-[#7F52FF]" },
   "Firebase": { icon: <SiFirebase className="w-3 h-3" />, color: "text-[#FFCA28]" },
+  "Bun": { icon: <SiBun className="w-3 h-3" />, color: "text-[#FBF0DF] dark:text-[#FBF0DF]" },
 };
 
 // Curated projects in specific order with proper tech stacks
@@ -72,7 +74,7 @@ const projects = [
   {
     name: "Swaraj-Desk",
     description: "A comprehensive grievance management portal for government offices. Citizens can register complaints, track status, and receive updates in real-time. Built for Smart India Hackathon.",
-    techStack: ["Next.js", "Node.js", "PostgreSQL", "Prisma", "Redis", "WebSockets", "Docker", "Kubernetes", "ArgoCD", "Tailwind CSS", "Python", "Hyperledger Fabric"],
+    techStack: ["Next.js", "Node.js", "Bun", "PostgreSQL", "Prisma", "Redis", "WebSockets", "Docker", "Kubernetes", "ArgoCD", "Tailwind CSS", "Python", "Hyperledger Fabric"],
     github: "https://github.com/neutron420/sih-swarajdesk-2025",
     live: "https://sih-user-fe-sd.adityahota.online/",
     admin: "https://admin.swarajdesk.com", // Update this with the actual admin URL
@@ -88,7 +90,7 @@ const projects = [
   {
     name: "Swaraj-Desk-Admin",
     description: "Admin portal for SwarajDesk grievance management system. Features include complaint management, user administration, analytics dashboard, real-time notifications, report generation, and system configuration. Built with the same tech stack as the main application for seamless integration.",
-    techStack: ["Next.js", "Node.js", "PostgreSQL", "Prisma", "Redis", "S3", "Docker", "Kubernetes", "ArgoCD", "Tailwind CSS"],
+    techStack: ["Next.js", "Node.js", "Bun", "PostgreSQL", "Prisma", "Redis", "S3", "Docker", "Kubernetes", "ArgoCD", "Tailwind CSS"],
     github: "https://github.com/neutron420/sih-swarajdesk-2025",
     live: "https://admin.swarajdesk.com", // Update this with the actual admin URL
     image: projectGrievance,
