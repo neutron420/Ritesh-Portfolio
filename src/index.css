@@ -273,14 +273,14 @@
 }
 
 .animate-marquee-left {
-  animation: marquee-left 20s linear infinite;
+  animation: marquee-left 35s linear infinite;
   will-change: transform;
   display: flex;
   width: fit-content;
 }
 
 .animate-marquee-right {
-  animation: marquee-right 20s linear infinite;
+  animation: marquee-right 35s linear infinite;
   will-change: transform;
   display: flex;
   width: fit-content;
