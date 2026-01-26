@@ -23,7 +23,14 @@ import {
   SiJest,
   SiCypress,
   SiPrometheus,
-  SiGrafana
+  SiGrafana,
+  SiHono,
+  SiBun,
+  SiAnsible,
+  SiTerraform,
+  SiArgo,
+  SiWeb3Dotjs,
+  SiClerk
 } from "react-icons/si";
 import { FaJava } from "react-icons/fa";
 import { VscDebugStart } from "react-icons/vsc";
@@ -78,6 +85,9 @@ const TechStackSection = () => {
     { name: "Solidity", icon: SiSolidity, color: "#ffffff", lightColor: "#363636", darkColor: "#ffffff" },
     { name: "Rust", icon: SiRust, color: "#ffffff", lightColor: "#000000", darkColor: "#ffffff" },
     { name: "Solana", icon: SiSolana, color: "#9945FF", lightColor: "#9945FF", darkColor: "#9945FF" },
+    { name: "Web3.js", icon: SiWeb3Dotjs, color: "#F16822", lightColor: "#F16822", darkColor: "#F16822" },
+    { name: "Hono", icon: SiHono, color: "#E36002", lightColor: "#E36002", darkColor: "#FF7E1F" },
+    { name: "Bun", icon: SiBun, color: "#FBF0DF", lightColor: "#14151A", darkColor: "#FBF0DF" },
     { name: "Redis", icon: SiRedis, color: "#DC382D", lightColor: "#DC382D", darkColor: "#DC382D" },
     { name: "GraphQL", icon: SiGraphql, color: "#E10098", lightColor: "#E10098", darkColor: "#E10098" },
     { name: "AWS", icon: SiAmazonwebservices, color: "#FF9900", lightColor: "#FF9900", darkColor: "#FF9900" },
@@ -85,8 +95,12 @@ const TechStackSection = () => {
     { name: "Prisma", icon: SiPrisma, color: "#ffffff", lightColor: "#2D3748", darkColor: "#ffffff" },
     { name: "gRPC", icon: VscDebugStart, color: "#244c5a", lightColor: "#244c5a", darkColor: "#4DB6AC" },
     { name: "Kubernetes", icon: SiKubernetes, color: "#326CE5", lightColor: "#326CE5", darkColor: "#326CE5" },
+    { name: "Terraform", icon: SiTerraform, color: "#844FBA", lightColor: "#844FBA", darkColor: "#844FBA" },
+    { name: "Ansible", icon: SiAnsible, color: "#EE0000", lightColor: "#EE0000", darkColor: "#EE0000" },
+    { name: "ArgoCD", icon: SiArgo, color: "#EF7B4D", lightColor: "#EF7B4D", darkColor: "#EF7B4D" },
     { name: "GCP", icon: SiGooglecloud, color: "#4285F4", lightColor: "#4285F4", darkColor: "#4285F4" },
     { name: "Cloudflare", icon: SiCloudflare, color: "#F38020", lightColor: "#F38020", darkColor: "#F38020" },
+    { name: "Clerk", icon: SiClerk, color: "#6C47FF", lightColor: "#6C47FF", darkColor: "#6C47FF" },
     { name: "React Native", icon: SiReact, color: "#61DAFB", lightColor: "#61DAFB", darkColor: "#61DAFB" },
     { name: "Unit Testing", icon: SiJest, color: "#C21325", lightColor: "#C21325", darkColor: "#C21325" },
     { name: "Integration Testing", icon: SiCypress, color: "#17202C", lightColor: "#17202C", darkColor: "#69D3A7" },
