@@ -23,8 +23,12 @@ import {
   SiTypescript,
   SiKotlin,
   SiFirebase,
-  SiBun
+  SiBun,
+  SiVercel,
+  SiRender,
+  SiGithubactions
 } from "react-icons/si";
+import { TbDatabase } from "react-icons/tb";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import projectBloom from "@/assets/project-bloom.png";
 import projectGrievance from "@/assets/project-grievance.jpg";
@@ -67,6 +71,11 @@ const techIcons: Record<string, { icon: React.ReactNode; color: string }> = {
   "Kotlin": { icon: <SiKotlin className="w-3 h-3" />, color: "text-[#7F52FF]" },
   "Firebase": { icon: <SiFirebase className="w-3 h-3" />, color: "text-[#FFCA28]" },
   "Bun": { icon: <SiBun className="w-3 h-3" />, color: "text-[#FBF0DF] dark:text-[#FBF0DF]" },
+  "Vercel": { icon: <SiVercel className="w-3 h-3" />, color: "text-foreground" },
+  "Render": { icon: <SiRender className="w-3 h-3" />, color: "text-[#46E3B7]" },
+  "CI/CD": { icon: <SiGithubactions className="w-3 h-3" />, color: "text-[#2088FF]" },
+  "Actix": { icon: <SiRust className="w-3 h-3" />, color: "text-[#DEA584]" },
+  "SQLx": { icon: <TbDatabase className="w-3 h-3" />, color: "text-[#336791]" },
 };
 
 // Curated projects in specific order with proper tech stacks
@@ -110,6 +119,15 @@ const projects = [
     live: null,
     image: projectBloom,
     status: "development" as const,
+  },
+  {
+    name: "CodeConnect",
+    description: "A high-performance online code compiler and execution engine built with Rust backend (Actix-Web) and TypeScript/React frontend. Features secure sandboxed code execution, multi-language support, real-time output streaming, SQLx database integration, and blazing-fast compilation for running code snippets directly in the browser.",
+    techStack: ["TypeScript", "Rust", "Actix", "SQLx", "Prisma", "Next.js", "Render", "Vercel", "CI/CD"],
+    github: "https://github.com/neutron420/CodeConnect",
+    live: "https://code-connect-eta-ecru.vercel.app/",
+    image: projectBloom,
+    status: "live" as const,
   },
   {
     name: "Trackmed",
