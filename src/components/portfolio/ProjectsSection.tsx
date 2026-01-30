@@ -32,6 +32,7 @@ import { TbDatabase } from "react-icons/tb";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import projectBloom from "@/assets/project-bloom.png";
 import projectGrievance from "@/assets/project-grievance.jpg";
+import projectCodeConnect from "@/assets/project-codeconnect.png";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -126,7 +127,7 @@ const projects = [
     techStack: ["TypeScript", "Rust", "Actix", "SQLx", "Prisma", "Next.js", "Render", "Vercel", "CI/CD"],
     github: "https://github.com/neutron420/CodeConnect",
     live: "https://code-connect-eta-ecru.vercel.app/",
-    image: projectBloom,
+    image: projectCodeConnect,
     status: "live" as const,
   },
   {
@@ -216,7 +217,7 @@ const ProjectsSection = () => {
               )}
               <div className="grid md:grid-cols-5 gap-0 relative z-10">
                 {/* Image or Coming Soon */}
-                <div className={`md:col-span-2 overflow-hidden relative ${project.name === 'Swaraj-Desk' || project.name === 'Swaraj-Desk-Admin' || project.name === 'Trackmed' ? 'h-64 md:h-80' : 'h-48 md:h-64'}`}>
+                <div className={`md:col-span-2 overflow-hidden relative ${project.name === 'Swaraj-Desk' || project.name === 'Swaraj-Desk-Admin' || project.name === 'Trackmed' || project.name === 'CodeConnect' ? 'h-64 md:h-72' : 'h-48 md:h-64'}`}>
                   {project.comingSoon ? (
                     <div className="w-full h-full flex items-center justify-center animate-gradient-bg relative overflow-hidden">
                       <div className="absolute inset-0 bg-gradient-to-t from-card/90 via-card/30 to-transparent md:bg-gradient-to-r" />
@@ -264,9 +265,9 @@ const ProjectsSection = () => {
                 </div>
 
                 {/* Content */}
-                <div className={`md:col-span-3 flex flex-col ${project.name === 'Swaraj-Desk' || project.name === 'Swaraj-Desk-Admin' || project.name === 'Trackmed' ? 'p-4 md:p-5 h-64 md:h-80 overflow-y-auto' : 'p-4 md:p-4'}`}>
+                <div className={`md:col-span-3 flex flex-col ${project.name === 'Swaraj-Desk' || project.name === 'Swaraj-Desk-Admin' || project.name === 'Trackmed' || project.name === 'CodeConnect' ? 'p-4 md:p-5 h-64 md:h-72 overflow-y-auto' : 'p-4 md:p-4'}`}>
                   {/* Header */}
-                    <div className={`flex items-start justify-between gap-3 sm:gap-4 ${project.name === 'Swaraj-Desk' || project.name === 'Swaraj-Desk-Admin' || project.name === 'Trackmed' ? 'mb-3' : 'mb-2'}`}>
+                    <div className={`flex items-start justify-between gap-3 sm:gap-4 ${project.name === 'Swaraj-Desk' || project.name === 'Swaraj-Desk-Admin' || project.name === 'Trackmed' || project.name === 'CodeConnect' ? 'mb-3' : 'mb-2'}`}>
                       <div className="flex items-center gap-2 flex-1 min-w-0 flex-wrap">
                         <h3 className="text-base sm:text-lg md:text-xl font-semibold group-hover:text-accent transition-colors break-words min-w-0">
                           {project.name === 'Swaraj-Desk-Admin' ? 'Swaraj Desk Admin' : project.name.replace(/-/g, ' ')}
