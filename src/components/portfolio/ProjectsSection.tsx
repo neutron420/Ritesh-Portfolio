@@ -126,7 +126,7 @@ const projects = [
     description: "A high-performance online code compiler and execution engine built with Rust backend (Actix-Web) and TypeScript/React frontend. Features secure sandboxed code execution, multi-language support, real-time output streaming, SQLx database integration, and blazing-fast compilation for running code snippets directly in the browser.",
     techStack: ["TypeScript", "Rust", "Actix", "SQLx", "Prisma", "Next.js", "Render", "Vercel", "CI/CD"],
     github: "https://github.com/neutron420/CodeConnect",
-    live: "https://code-connect-eta-ecru.vercel.app/",
+    live: "https://www.neutrondev.in/",
     image: projectCodeConnect,
     status: "live" as const,
   },
