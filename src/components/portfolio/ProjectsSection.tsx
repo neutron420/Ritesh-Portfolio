@@ -230,7 +230,7 @@ const ProjectsSection = () => {
               )}
               <div className="grid md:grid-cols-5 gap-0 relative z-10">
                 {/* Image or Coming Soon */}
-                <div className={`md:col-span-2 overflow-hidden relative ${project.name === 'Swaraj-Desk' || project.name === 'Swaraj-Desk-Admin' || project.name === 'Trackmed' || project.name === 'CodeConnect' ? 'h-64 md:h-72' : project.name === 'NavigateU' ? 'h-64 md:h-80' : 'h-48 md:h-64'}`}>
+                <div className={`md:col-span-2 overflow-hidden relative ${project.name === 'Swaraj-Desk' || project.name === 'Swaraj-Desk-Admin' || project.name === 'Trackmed' || project.name === 'CodeConnect' ? 'h-64 md:h-72' : project.name === 'NavigateU' ? 'h-72 md:h-96' : 'h-48 md:h-64'}`}>
                   {project.comingSoon ? (
                     <div className="w-full h-full flex items-center justify-center animate-gradient-bg relative overflow-hidden">
                       <div className="absolute inset-0 bg-gradient-to-t from-card/90 via-card/30 to-transparent md:bg-gradient-to-r" />
@@ -262,14 +262,12 @@ const ProjectsSection = () => {
                     </div>
                   ) : project.name === 'NavigateU' ? (
                     <>
-                      <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-accent/5 via-background to-accent/10 p-3">
-                        <div className="relative h-full flex items-center justify-center">
-                          <img
-                            src={project.image}
-                            alt={project.name}
-                            className="h-full max-h-[280px] w-auto object-contain group-hover:scale-105 transition-transform duration-500 rounded-2xl drop-shadow-2xl"
-                          />
-                        </div>
+                      <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-accent/5 via-background to-accent/10 py-2 px-4">
+                        <img
+                          src={project.image}
+                          alt={project.name}
+                          className="h-[95%] w-auto object-contain group-hover:scale-105 transition-transform duration-500 drop-shadow-2xl"
+                        />
                       </div>
                       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-card/80 pointer-events-none" />
                       
@@ -296,7 +294,7 @@ const ProjectsSection = () => {
                 </div>
 
                 {/* Content */}
-                <div className={`md:col-span-3 flex flex-col ${project.name === 'Swaraj-Desk' || project.name === 'Swaraj-Desk-Admin' || project.name === 'Trackmed' || project.name === 'CodeConnect' ? 'p-4 md:p-5 h-64 md:h-72 overflow-y-auto' : project.name === 'NavigateU' ? 'p-4 md:p-5 h-64 md:h-80' : 'p-4 md:p-4'}`}>
+                <div className={`md:col-span-3 flex flex-col ${project.name === 'Swaraj-Desk' || project.name === 'Swaraj-Desk-Admin' || project.name === 'Trackmed' || project.name === 'CodeConnect' ? 'p-4 md:p-5 h-64 md:h-72 overflow-y-auto' : project.name === 'NavigateU' ? 'p-4 md:p-5 h-72 md:h-96' : 'p-4 md:p-4'}`}>
                   {/* Header */}
                     <div className={`flex items-start justify-between gap-3 sm:gap-4 ${project.name === 'Swaraj-Desk' || project.name === 'Swaraj-Desk-Admin' || project.name === 'Trackmed' || project.name === 'CodeConnect' ? 'mb-3' : 'mb-2'}`}>
                       <div className="flex items-center gap-2 flex-1 min-w-0 flex-wrap">
