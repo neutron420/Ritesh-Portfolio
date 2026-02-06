@@ -260,6 +260,22 @@ const ProjectsSection = () => {
                         0{index + 1}
                       </div>
                     </div>
+                  ) : project.name === 'NavigateU' ? (
+                    <>
+                      <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-muted/30 to-muted/10 p-4">
+                        <img
+                          src={project.image}
+                          alt={project.name}
+                          className="h-full w-auto object-contain group-hover:scale-105 transition-transform duration-500 rounded-xl shadow-lg"
+                        />
+                      </div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-card/60 via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:via-transparent md:to-card/40" />
+                      
+                      {/* Project number badge */}
+                      <div className="absolute top-4 left-4 w-8 h-8 rounded-lg bg-background/80 backdrop-blur flex items-center justify-center text-xs font-bold text-accent">
+                        0{index + 1}
+                      </div>
+                    </>
                   ) : (
                     <>
                       <img
