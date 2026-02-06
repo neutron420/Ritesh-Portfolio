@@ -28,11 +28,13 @@ import {
   SiRender,
   SiGithubactions
 } from "react-icons/si";
-import { TbDatabase } from "react-icons/tb";
+import { TbDatabase, TbMap2 } from "react-icons/tb";
+import { SiExpo } from "react-icons/si";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import projectBloom from "@/assets/project-bloom.png";
 import projectGrievance from "@/assets/project-grievance.jpg";
 import projectCodeConnect from "@/assets/project-codeconnect.png";
+import projectNavigateU from "@/assets/project-navigateu.png";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -77,6 +79,8 @@ const techIcons: Record<string, { icon: React.ReactNode; color: string }> = {
   "CI/CD": { icon: <SiGithubactions className="w-3 h-3" />, color: "text-[#2088FF]" },
   "Actix": { icon: <SiRust className="w-3 h-3" />, color: "text-[#DEA584]" },
   "SQLx": { icon: <TbDatabase className="w-3 h-3" />, color: "text-[#336791]" },
+  "Expo": { icon: <SiExpo className="w-3 h-3" />, color: "text-foreground" },
+  "TomTom Maps": { icon: <TbMap2 className="w-3 h-3" />, color: "text-[#D32F2F]" },
 };
 
 // Curated projects in specific order with proper tech stacks
@@ -129,6 +133,15 @@ const projects = [
     live: "https://www.neutrondev.in/",
     image: projectCodeConnect,
     status: "live" as const,
+  },
+  {
+    name: "NavigateU",
+    description: "A campus navigation and route finder mobile app. Helps students and visitors find their way around campus with real-time directions, indoor/outdoor navigation, building locations, and optimized route planning between any two points on campus.",
+    techStack: ["Expo", "React Native", "TypeScript", "Firebase", "TomTom Maps"],
+    github: "https://github.com/neutron420/NavigateU",
+    live: null,
+    image: projectNavigateU,
+    status: "development" as const,
   },
   {
     name: "Trackmed",
