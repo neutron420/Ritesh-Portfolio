@@ -32,7 +32,8 @@ import {
   SiWeb3Dotjs,
   SiClerk,
   SiGnubash,
-  SiUbuntu
+  SiUbuntu,
+  SiFirebase
 } from "react-icons/si";
 import { FaJava } from "react-icons/fa";
 import { VscDebugStart } from "react-icons/vsc";
@@ -88,6 +89,7 @@ const TechStackSection = () => {
     { name: "Rust", icon: SiRust, color: "#ffffff", lightColor: "#000000", darkColor: "#ffffff" },
     { name: "Solana", icon: SiSolana, color: "#9945FF", lightColor: "#9945FF", darkColor: "#9945FF" },
     { name: "Web3.js", icon: SiWeb3Dotjs, color: "#F16822", lightColor: "#F16822", darkColor: "#F16822" },
+    { name: "Firebase", icon: SiFirebase, color: "#FFCA28", lightColor: "#FFCA28", darkColor: "#FFCA28" },
     { name: "Hono", icon: SiHono, color: "#E36002", lightColor: "#E36002", darkColor: "#FF7E1F" },
     { name: "Bun", icon: SiBun, color: "#FBF0DF", lightColor: "#14151A", darkColor: "#FBF0DF" },
     { name: "Redis", icon: SiRedis, color: "#DC382D", lightColor: "#DC382D", darkColor: "#DC382D" },
