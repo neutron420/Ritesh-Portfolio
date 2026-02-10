@@ -9,7 +9,7 @@ interface SEOHeadProps {
 }
 
 const SEOHead = ({
-  title = "Ritesh Singh — Full Stack Developer & Blockchain Engineer",
+  title = "Ritesh Singh Full Stack Developer & Blockchain Engineer",
   description = "Full Stack Developer and Blockchain Engineer. SIH Finalist 2025, Cardano Hackathon Finalist. Building end-to-end applications from frontend to smart contracts.",
   image = "/banner.jpg",
   url = "https://ritesh.codexly.xyz",
