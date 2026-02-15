@@ -27,7 +27,6 @@ export const TerminalTransition = ({ children, to }: TerminalTransitionProps) =>
         {children}
       </div>
       
-      {/* Page Transition Overlay */}
       <AnimatePresence>
         {isTransitioning && (
           <motion.div
