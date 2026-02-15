@@ -333,9 +333,13 @@
     font-size: 16px !important; /* Prevents zoom on iOS */
   }
   
-  /* Improve touch targets */
-  button,
-  a {
+  /* Improve touch targets - scoped to nav/interactive elements only, not grid cells */
+  nav button,
+  nav a,
+  .section-container > button,
+  .section-container > a,
+  form button,
+  form a {
     min-height: 44px;
     min-width: 44px;
   }

@@ -245,7 +245,7 @@ const ProjectsSection = () => {
 
               <div className="grid md:grid-cols-5 gap-0 relative z-10">
                 {/* Image or Coming Soon */}
-                <div className={`md:col-span-2 overflow-hidden relative ${project.name === 'Swaraj-Desk' || project.name === 'Swaraj-Desk-Admin' || project.name === 'Trackmed' || project.name === 'CodeConnect' ? 'h-64 md:h-[22rem]' : project.name === 'NavigateU' ? 'h-[28rem] md:h-[32rem]' : 'h-52 md:h-72'}`}>
+                <div className={`md:col-span-2 overflow-hidden relative ${project.name === 'Swaraj-Desk' || project.name === 'Swaraj-Desk-Admin' || project.name === 'Trackmed' || project.name === 'CodeConnect' ? 'h-64 md:h-[22rem]' : project.name === 'NavigateU' ? 'h-64 md:h-[32rem]' : 'h-52 md:h-72'}`}>
                   {project.comingSoon ? (
                     <div className="w-full h-full flex items-center justify-center animate-gradient-bg relative overflow-hidden">
                       <div className="absolute inset-0 bg-gradient-to-t from-card/90 via-card/30 to-transparent md:bg-gradient-to-r" />
@@ -309,7 +309,7 @@ const ProjectsSection = () => {
                 </div>
 
                 {/* Content */}
-                <div className={`md:col-span-3 flex flex-col ${project.name === 'Swaraj-Desk' || project.name === 'Swaraj-Desk-Admin' || project.name === 'Trackmed' || project.name === 'CodeConnect' ? 'p-5 md:p-7 h-64 md:h-[22rem] overflow-y-auto' : project.name === 'NavigateU' ? 'p-5 md:p-7 h-[28rem] md:h-[32rem]' : 'p-5 md:p-7'}`}>
+                <div className={`md:col-span-3 flex flex-col ${project.name === 'Swaraj-Desk' || project.name === 'Swaraj-Desk-Admin' || project.name === 'Trackmed' || project.name === 'CodeConnect' ? 'p-5 md:p-7 h-64 md:h-[22rem] overflow-y-auto' : project.name === 'NavigateU' ? 'p-5 md:p-7 md:h-[32rem] overflow-y-auto' : 'p-5 md:p-7'}`}>
                   {/* Header */}
                   <div className="flex items-start justify-between gap-3 sm:gap-4 mb-4">
                     <div className="flex items-center gap-2.5 flex-1 min-w-0 flex-wrap">
