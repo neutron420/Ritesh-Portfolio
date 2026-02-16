@@ -26,7 +26,8 @@ import {
   SiBun,
   SiVercel,
   SiRender,
-  SiGithubactions
+  SiGithubactions,
+  SiJenkins
 } from "react-icons/si";
 import { TbDatabase, TbMap2 } from "react-icons/tb";
 import { FaAndroid, FaMapMarkerAlt } from "react-icons/fa";
@@ -86,6 +87,7 @@ const techIcons: Record<string, { icon: React.ReactNode; color: string }> = {
   "MapLibre": { icon: <TbMap2 className="w-3 h-3" />, color: "text-[#396CB2]" },
   "Android": { icon: <FaAndroid className="w-3 h-3" />, color: "text-[#3DDC84]" },
   "Gradle": { icon: <SiGradle className="w-3 h-3" />, color: "text-[#02303A]" },
+  "Jenkins": { icon: <SiJenkins className="w-3 h-3" />, color: "text-[#D24939]" },
 };
 
 // Curated projects in specific order with proper tech stacks

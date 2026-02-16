@@ -33,9 +33,10 @@ import {
   SiClerk,
   SiGnubash,
   SiUbuntu,
-  SiFirebase
+  SiFirebase,
 } from "react-icons/si";
 import { FaJava } from "react-icons/fa";
+import jenkinsLogo from "@/assets/jenkins-logo.svg";
 import { VscDebugStart } from "react-icons/vsc";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import { useTheme } from "@/components/ThemeProvider";
@@ -112,9 +113,10 @@ const TechStackSection = () => {
     { name: "Integration Testing", icon: SiCypress, color: "#17202C", lightColor: "#17202C", darkColor: "#69D3A7" },
     { name: "Prometheus", icon: SiPrometheus, color: "#E6522C", lightColor: "#E6522C", darkColor: "#E6522C" },
     { name: "Grafana", icon: SiGrafana, color: "#F46800", lightColor: "#F46800", darkColor: "#F46800" },
+    { name: "Jenkins", icon: () => <img src={jenkinsLogo} alt="Jenkins" className="w-5 h-5 md:w-6 md:h-6" />, color: "#D24939", lightColor: "#D24939", darkColor: "#D24939", isCustomIcon: true },
   ];
 
-  const TechCard = ({ tech }: { tech: typeof technologies[0] & { lightColor?: string; darkColor?: string } }) => {
+  const TechCard = ({ tech }: { tech: typeof technologies[0] & { lightColor?: string; darkColor?: string; isCustomIcon?: boolean } }) => {
     const Icon = tech.icon;
     const iconColor = tech.lightColor && tech.darkColor 
       ? (isDark ? tech.darkColor : tech.lightColor)
@@ -122,7 +124,11 @@ const TechStackSection = () => {
     
     return (
       <div className="flex items-center gap-2.5 px-4 py-2.5 bg-card/50 border border-border/50 rounded-lg whitespace-nowrap shrink-0">
-        <Icon className="w-5 h-5 md:w-6 md:h-6 shrink-0" style={{ color: iconColor }} />
+        {(tech as any).isCustomIcon ? (
+          <span className="shrink-0"><Icon /></span>
+        ) : (
+          <Icon className="w-5 h-5 md:w-6 md:h-6 shrink-0" style={{ color: iconColor }} />
+        )}
         <span className="text-sm font-medium text-foreground">{tech.name}</span>
       </div>
     );

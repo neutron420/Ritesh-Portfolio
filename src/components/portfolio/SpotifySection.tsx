@@ -40,7 +40,6 @@ const SpotifySection = () => {
               </div>
             </div>
 
-            {/* Music Vibes Tag */}
             <div className="mt-6 pt-6 border-t border-border/30">
               <p className="text-xs text-muted-foreground uppercase tracking-wider mb-3">Genres I Vibe With</p>
               <div className="flex flex-wrap gap-2">
