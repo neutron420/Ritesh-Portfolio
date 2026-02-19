@@ -124,15 +124,6 @@ const projects = [
     ],
   },
   {
-    name: "Bloom",
-    description: "A real-time video conferencing application similar to Google Meet. Features include HD video calls, screen sharing, chat messaging, virtual backgrounds, meeting scheduling, and participant management.",
-    techStack: ["Next.js", "React", "WebRTC", "Mediasoup", "Socket.io", "Node.js", "Redis", "Docker", "AWS"],
-    github: "https://github.com/neutron420/Bloom",
-    live: null,
-    image: projectBloom,
-    status: "development" as const,
-  },
-  {
     name: "CodeConnect",
     description: "A high-performance online code compiler and execution engine built with Rust backend (Actix-Web) and TypeScript/React frontend. Features secure sandboxed code execution, multi-language support, real-time output streaming, SQLx database integration, and blazing-fast compilation for running code snippets directly in the browser.",
     techStack: ["TypeScript", "Rust", "Actix", "SQLx", "Prisma", "Next.js", "Render", "Vercel", "CI/CD"],
@@ -148,6 +139,15 @@ const projects = [
     github: "https://github.com/neutron420/NavigateU",
     live: null,
     image: projectNavigateU,
+    status: "live" as const,
+  },
+  {
+    name: "Bloom",
+    description: "A real-time video conferencing application similar to Google Meet. Features include HD video calls, screen sharing, chat messaging, virtual backgrounds, meeting scheduling, and participant management.",
+    techStack: ["Next.js", "React", "WebRTC", "Mediasoup", "Socket.io", "Node.js", "Redis", "Docker", "AWS"],
+    github: "https://github.com/neutron420/Bloom",
+    live: null,
+    image: projectBloom,
     status: "development" as const,
   },
   {
