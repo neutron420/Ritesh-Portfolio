@@ -235,36 +235,7 @@ const ProjectsSection = () => {
               <div className="grid md:grid-cols-5 gap-0 relative z-10">
                 {/* Image or Coming Soon */}
                 <div className={`md:col-span-2 overflow-hidden relative ${project.name === 'Swaraj-Desk' || project.name === 'Swaraj-Desk-Admin' || project.name === 'CodeConnect' ? 'h-64 md:h-[22rem]' : project.name === 'NavigateU' ? 'h-64 md:h-[32rem]' : 'h-52 md:h-72'}`}>
-                  {project.comingSoon ? (
-                    <div className="w-full h-full flex items-center justify-center animate-gradient-bg relative overflow-hidden">
-                      <div className="absolute inset-0 bg-gradient-to-t from-card/90 via-card/30 to-transparent md:bg-gradient-to-r" />
-                      
-                      {/* Animated background particles */}
-                      <div className="absolute inset-0 opacity-30">
-                        <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-accent rounded-full animate-float-gentle" style={{ animationDelay: '0s' }} />
-                        <div className="absolute top-1/3 right-1/4 w-1.5 h-1.5 bg-accent rounded-full animate-float-gentle" style={{ animationDelay: '1s' }} />
-                        <div className="absolute bottom-1/4 left-1/3 w-2.5 h-2.5 bg-accent rounded-full animate-float-gentle" style={{ animationDelay: '2s' }} />
-                        <div className="absolute bottom-1/3 right-1/3 w-1 h-1 bg-accent rounded-full animate-float-gentle" style={{ animationDelay: '1.5s' }} />
-                      </div>
-                      
-                      <div className="relative z-10 flex flex-col items-center justify-center gap-4">
-                        <div className="relative">
-                          <Clock className="w-14 h-14 md:w-20 md:h-20 text-accent animate-pulse-coming-soon animate-float-gentle drop-shadow-lg" />
-                          <div className="absolute inset-0 w-14 h-14 md:w-20 md:h-20 bg-accent/20 rounded-full blur-xl animate-pulse-coming-soon" />
-                        </div>
-                        <div className="text-center">
-                          <h4 className="text-xl md:text-3xl font-bold text-accent animate-pulse-coming-soon animate-shimmer-coming-soon animate-glow-pulse relative px-6 py-3 rounded-xl bg-accent/15 border-2 border-accent/30 backdrop-blur-sm">
-                            <span className="relative z-10 tracking-wider">Coming Soon</span>
-                          </h4>
-                        </div>
-                      </div>
-                      
-                      {/* Project number badge */}
-                      <div className="absolute top-4 left-4 w-9 h-9 rounded-xl bg-background/90 backdrop-blur-md flex items-center justify-center text-xs font-bold text-accent border border-accent/20 z-20 shadow-lg">
-                        0{index + 1}
-                      </div>
-                    </div>
-                  ) : project.name === 'NavigateU' ? (
+                  {project.name === 'NavigateU' ? (
                     <>
                       <div className="w-full h-full bg-gradient-to-br from-[#d6e4f0] via-[#e2ecf5] to-[#cde0f0] dark:from-[#1a1a2e] dark:via-[#16213e] dark:to-[#0f172a] flex items-center justify-center overflow-hidden">
                         <img
