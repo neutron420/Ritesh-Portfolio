@@ -33,7 +33,7 @@ import { TbDatabase, TbMap2 } from "react-icons/tb";
 import { FaAndroid, FaMapMarkerAlt } from "react-icons/fa";
 import { SiExpo, SiGradle, SiGooglemaps } from "react-icons/si";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
-import projectBloom from "@/assets/project-bloom.png";
+
 import projectGrievance from "@/assets/project-grievance.jpg";
 import projectCodeConnect from "@/assets/project-codeconnect.png";
 import projectNavigateU from "@/assets/project-navigateu.png";
