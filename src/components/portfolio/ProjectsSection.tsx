@@ -1,4 +1,4 @@
-import { ArrowUpRight, Github, Wifi, Users, ChevronDown, Shield, Clock } from "lucide-react";
+import { ArrowUpRight, Github, Wifi, Users, ChevronDown, Shield } from "lucide-react";
 import { 
   SiReact, 
   SiNodedotjs, 
