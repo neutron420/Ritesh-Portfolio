@@ -7,6 +7,12 @@ const AchievementsSection = () => {
   const achievements = [
     {
       icon: Trophy,
+      title: "Code Relay 4.0 Winner",
+      description: "IIIT Bhubaneswar",
+      color: "text-yellow-500",
+    },
+    {
+      icon: Trophy,
       title: "SIH Finalist 2025",
       description: "Smart India Hackathon",
       color: "text-yellow-500",
@@ -27,7 +33,7 @@ const AchievementsSection = () => {
       >
         <h2 className="text-xl md:text-2xl font-semibold mb-6">Achievements</h2>
         
-        <div className="grid sm:grid-cols-2 gap-4">
+        <div className="grid sm:grid-cols-3 gap-4">
           {achievements.map((achievement) => {
             const Icon = achievement.icon;
             return (

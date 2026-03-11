@@ -1,4 +1,4 @@
-import { ArrowUpRight, Github, Wifi, Users, ChevronDown, Shield, Clock } from "lucide-react";
+import { ArrowUpRight, Github, Wifi, Users, ChevronDown, Shield } from "lucide-react";
 import { 
   SiReact, 
   SiNodedotjs, 
@@ -150,16 +150,6 @@ const projects = [
     image: projectBloom,
     status: "development" as const,
   },
-  {
-    name: "Trackmed",
-    description: "A comprehensive medicine tracking and purchasing platform. Features include a mobile app for users to track medications, purchase medicines, manage prescriptions, and receive reminders. Web dashboards for admin management, warehouse operations, and manufacturer control. Complete inventory management, order tracking, and analytics.",
-    techStack: ["Solana", "Rust", "Anchor", "Prisma", "PostgreSQL", "Node.js", "Express.js", "Web3.js", "TypeScript", "Kotlin", "Firebase"],
-    github: "https://github.com/neutron420/Trackmed",
-    live: null,
-    comingSoon: true,
-    image: projectGrievance,
-    status: "building" as const,
-  },
 ];
 
 // Status badge component
@@ -241,43 +231,11 @@ const ProjectsSection = () => {
               {/* Subtle accent gradient on hover */}
               <div className="absolute inset-0 bg-gradient-to-br from-accent/[0.03] via-transparent to-accent/[0.02] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl" />
 
-              {project.comingSoon && (
-                <div className="absolute inset-0 bg-gradient-to-r from-accent/5 via-transparent to-accent/5 pointer-events-none z-0 rounded-2xl opacity-50" />
-              )}
 
               <div className="grid md:grid-cols-5 gap-0 relative z-10">
                 {/* Image or Coming Soon */}
-                <div className={`md:col-span-2 overflow-hidden relative ${project.name === 'Swaraj-Desk' || project.name === 'Swaraj-Desk-Admin' || project.name === 'Trackmed' || project.name === 'CodeConnect' ? 'h-64 md:h-[22rem]' : project.name === 'NavigateU' ? 'h-64 md:h-[32rem]' : 'h-52 md:h-72'}`}>
-                  {project.comingSoon ? (
-                    <div className="w-full h-full flex items-center justify-center animate-gradient-bg relative overflow-hidden">
-                      <div className="absolute inset-0 bg-gradient-to-t from-card/90 via-card/30 to-transparent md:bg-gradient-to-r" />
-                      
-                      {/* Animated background particles */}
-                      <div className="absolute inset-0 opacity-30">
-                        <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-accent rounded-full animate-float-gentle" style={{ animationDelay: '0s' }} />
-                        <div className="absolute top-1/3 right-1/4 w-1.5 h-1.5 bg-accent rounded-full animate-float-gentle" style={{ animationDelay: '1s' }} />
-                        <div className="absolute bottom-1/4 left-1/3 w-2.5 h-2.5 bg-accent rounded-full animate-float-gentle" style={{ animationDelay: '2s' }} />
-                        <div className="absolute bottom-1/3 right-1/3 w-1 h-1 bg-accent rounded-full animate-float-gentle" style={{ animationDelay: '1.5s' }} />
-                      </div>
-                      
-                      <div className="relative z-10 flex flex-col items-center justify-center gap-4">
-                        <div className="relative">
-                          <Clock className="w-14 h-14 md:w-20 md:h-20 text-accent animate-pulse-coming-soon animate-float-gentle drop-shadow-lg" />
-                          <div className="absolute inset-0 w-14 h-14 md:w-20 md:h-20 bg-accent/20 rounded-full blur-xl animate-pulse-coming-soon" />
-                        </div>
-                        <div className="text-center">
-                          <h4 className="text-xl md:text-3xl font-bold text-accent animate-pulse-coming-soon animate-shimmer-coming-soon animate-glow-pulse relative px-6 py-3 rounded-xl bg-accent/15 border-2 border-accent/30 backdrop-blur-sm">
-                            <span className="relative z-10 tracking-wider">Coming Soon</span>
-                          </h4>
-                        </div>
-                      </div>
-                      
-                      {/* Project number badge */}
-                      <div className="absolute top-4 left-4 w-9 h-9 rounded-xl bg-background/90 backdrop-blur-md flex items-center justify-center text-xs font-bold text-accent border border-accent/20 z-20 shadow-lg">
-                        0{index + 1}
-                      </div>
-                    </div>
-                  ) : project.name === 'NavigateU' ? (
+                <div className={`md:col-span-2 overflow-hidden relative ${project.name === 'Swaraj-Desk' || project.name === 'Swaraj-Desk-Admin' || project.name === 'CodeConnect' ? 'h-64 md:h-[22rem]' : project.name === 'NavigateU' ? 'h-64 md:h-[32rem]' : 'h-52 md:h-72'}`}>
+                  {project.name === 'NavigateU' ? (
                     <>
                       <div className="w-full h-full bg-gradient-to-br from-[#d6e4f0] via-[#e2ecf5] to-[#cde0f0] dark:from-[#1a1a2e] dark:via-[#16213e] dark:to-[#0f172a] flex items-center justify-center overflow-hidden">
                         <img
@@ -311,7 +269,7 @@ const ProjectsSection = () => {
                 </div>
 
                 {/* Content */}
-                <div className={`md:col-span-3 flex flex-col ${project.name === 'Swaraj-Desk' || project.name === 'Swaraj-Desk-Admin' || project.name === 'Trackmed' || project.name === 'CodeConnect' ? 'p-5 md:p-7 h-64 md:h-[22rem] overflow-y-auto' : project.name === 'NavigateU' ? 'p-5 md:p-7 md:h-[32rem] overflow-y-auto' : 'p-5 md:p-7'}`}>
+                <div className={`md:col-span-3 flex flex-col ${project.name === 'Swaraj-Desk' || project.name === 'Swaraj-Desk-Admin' || project.name === 'CodeConnect' ? 'p-5 md:p-7 h-64 md:h-[22rem] overflow-y-auto' : project.name === 'NavigateU' ? 'p-5 md:p-7 md:h-[32rem] overflow-y-auto' : 'p-5 md:p-7'}`}>
                   {/* Header */}
                   <div className="flex items-start justify-between gap-3 sm:gap-4 mb-4">
                     <div className="flex items-center gap-2.5 flex-1 min-w-0 flex-wrap">
@@ -319,12 +277,6 @@ const ProjectsSection = () => {
                         {project.name === 'Swaraj-Desk-Admin' ? 'Swaraj Desk Admin' : project.name.replace(/-/g, ' ')}
                       </h3>
                       {project.status && <StatusBadge status={project.status} />}
-                      {project.comingSoon && !project.status && (
-                        <span className="px-2 py-1 text-[10px] uppercase tracking-wider rounded-md bg-accent/15 text-accent border border-accent/20 flex items-center gap-1 flex-shrink-0 animate-pulse-coming-soon animate-shimmer-coming-soon relative">
-                          <Clock className="w-3 h-3 relative z-10" />
-                          <span className="relative z-10">Coming Soon</span>
-                        </span>
-                      )}
                     </div>
                     <div className="flex items-center gap-2 flex-shrink-0">
                       <a
