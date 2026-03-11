@@ -277,12 +277,6 @@ const ProjectsSection = () => {
                         {project.name === 'Swaraj-Desk-Admin' ? 'Swaraj Desk Admin' : project.name.replace(/-/g, ' ')}
                       </h3>
                       {project.status && <StatusBadge status={project.status} />}
-                      {project.comingSoon && !project.status && (
-                        <span className="px-2 py-1 text-[10px] uppercase tracking-wider rounded-md bg-accent/15 text-accent border border-accent/20 flex items-center gap-1 flex-shrink-0 animate-pulse-coming-soon animate-shimmer-coming-soon relative">
-                          <Clock className="w-3 h-3 relative z-10" />
-                          <span className="relative z-10">Coming Soon</span>
-                        </span>
-                      )}
                     </div>
                     <div className="flex items-center gap-2 flex-shrink-0">
                       <a
