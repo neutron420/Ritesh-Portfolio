@@ -8,7 +8,7 @@ const AchievementsSection = () => {
     {
       icon: Trophy,
       title: "Code Relay 4.0 Winner",
-      description: "IIIT Bhubaneswar",
+      description: "IIT Bhubaneswar",
       color: "text-yellow-500",
     },
     {
