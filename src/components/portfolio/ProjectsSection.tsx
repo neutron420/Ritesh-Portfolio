@@ -269,7 +269,7 @@ const ProjectsSection = () => {
                 </div>
 
                 {/* Content */}
-                <div className={`md:col-span-3 flex flex-col ${project.name === 'Swaraj-Desk' || project.name === 'Swaraj-Desk-Admin' || project.name === 'Trackmed' || project.name === 'CodeConnect' ? 'p-5 md:p-7 h-64 md:h-[22rem] overflow-y-auto' : project.name === 'NavigateU' ? 'p-5 md:p-7 md:h-[32rem] overflow-y-auto' : 'p-5 md:p-7'}`}>
+                <div className={`md:col-span-3 flex flex-col ${project.name === 'Swaraj-Desk' || project.name === 'Swaraj-Desk-Admin' || project.name === 'CodeConnect' ? 'p-5 md:p-7 h-64 md:h-[22rem] overflow-y-auto' : project.name === 'NavigateU' ? 'p-5 md:p-7 md:h-[32rem] overflow-y-auto' : 'p-5 md:p-7'}`}>
                   {/* Header */}
                   <div className="flex items-start justify-between gap-3 sm:gap-4 mb-4">
                     <div className="flex items-center gap-2.5 flex-1 min-w-0 flex-wrap">
