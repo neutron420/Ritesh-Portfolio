@@ -7,6 +7,12 @@ const AchievementsSection = () => {
   const achievements = [
     {
       icon: Trophy,
+      title: "Code Relay 4.0 Winner",
+      description: "IIIT Bhubaneswar",
+      color: "text-yellow-500",
+    },
+    {
+      icon: Trophy,
       title: "SIH Finalist 2025",
       description: "Smart India Hackathon",
       color: "text-yellow-500",
