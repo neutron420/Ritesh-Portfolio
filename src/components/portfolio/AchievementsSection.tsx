@@ -14,13 +14,13 @@ const AchievementsSection = () => {
     {
       icon: Trophy,
       title: "SIH Finalist 2025",
-      description: "Smart India Hackathon",
+      description: "Government of India",
       color: "text-yellow-500",
     },
     {
       icon: Award,
       title: "Cardano Hackathon Finalist 2025",
-      description: "Blockchain Innovation",
+      description: "Blockchain Innovation by Cardano",
       color: "text-blue-400",
     },
   ];
