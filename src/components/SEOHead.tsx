@@ -9,8 +9,8 @@ interface SEOHeadProps {
 }
 
 const SEOHead = ({
-  title = "Ritesh Singh Full Stack Developer & Blockchain Engineer",
-  description = "Full Stack Developer and Blockchain Engineer. SIH Finalist 2025, Cardano Hackathon Finalist. Building end-to-end applications from frontend to smart contracts.",
+  title = "Ritesh Singh Full Stack Developer",
+  description = "Full Stack Developer. SIH Finalist 2025. Building end-to-end applications from frontend to backend.",
   image = "/banner.jpg",
   url = "https://ritesh.codexly.xyz",
   type = "website",
@@ -27,7 +27,7 @@ const SEOHead = ({
       "https://x.com/RiteshS18572143",
       "https://leetcode.com/u/neutron420/",
     ],
-    jobTitle: "Full Stack Developer & Blockchain Engineer",
+    jobTitle: "Full Stack Developer",
     worksFor: {
       "@type": "Organization",
       name: "Freelance",
@@ -38,14 +38,10 @@ const SEOHead = ({
     },
     knowsAbout: [
       "Full Stack Development",
-      "Blockchain Development",
-      "Smart Contracts",
       "React",
       "Next.js",
       "Node.js",
       "TypeScript",
-      "Solidity",
-      "Web3",
     ],
   };
 
@@ -64,7 +60,7 @@ const SEOHead = ({
       {/* Keywords */}
       <meta
         name="keywords"
-        content="Ritesh Singh, Full Stack Developer, Blockchain Developer, Web3, React, Next.js, Node.js, TypeScript, Solidity, Smart Contracts, Portfolio"
+        content="Ritesh Singh, Full Stack Developer, React, Next.js, Node.js, TypeScript, Portfolio"
       />
 
       {/* Open Graph / Facebook */}

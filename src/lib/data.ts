@@ -47,7 +47,7 @@ export const projects: Project[] = [
     year: "2025",
     title: "Swaraj-Desk",
     description: "A comprehensive grievance management portal for government offices. Citizens can register complaints, track status, and receive updates in real-time. Built for Smart India Hackathon 2025 (Finalist).",
-    tags: ["Next.js", "Node.js", "PostgreSQL", "Prisma", "Redis", "WebSockets", "Docker", "Kubernetes", "ArgoCD", "Tailwind CSS", "Python", "Hyperledger Fabric"],
+    tags: ["Next.js", "Node.js", "PostgreSQL", "Prisma", "Redis", "WebSockets", "Docker", "Kubernetes", "ArgoCD", "Tailwind CSS", "Python"],
     liveUrl: "https://sih-user-fe-sd.adityahota.online/",
     githubUrl: "https://github.com/neutron420/sih-swarajdesk-2025",
   },
@@ -72,7 +72,7 @@ export const projects: Project[] = [
 export const technologies: Technology[] = [
   {
     category: "Languages",
-    skills: ["TypeScript", "JavaScript", "Python", "Rust", "Solidity", "C", "C++"],
+    skills: ["TypeScript", "JavaScript", "Python", "Rust", "C", "C++"],
   },
   {
     category: "Frontend",
@@ -90,19 +90,15 @@ export const technologies: Technology[] = [
     category: "DevOps & Cloud",
     skills: ["Docker", "Kubernetes", "CI/CD", "AWS", "GCP", "Cloudflare"],
   },
-  {
-    category: "Blockchain",
-    skills: ["Ethereum", "Solana", "Smart Contracts", "Web3.js", "Ethers.js"],
-  },
 ];
 
 export const personalInfo: PersonalInfo = {
   name: "Ritesh Singh",
-  role: "Full-Stack Engineer · Blockchain Developer · Competitive Programmer",
+  role: "Full-Stack Engineer · Competitive Programmer",
   location: "India",
   university: "C.V. Raman Global University",
   status: "Available for opportunities",
-  bio: "I build from scratch. Frontend, backend, full-stack, and blockchain applications end-to-end from deployment to smart contracts. I'm passionate about creating technology that solves real-world problems. Currently exploring the intersection of Web3 and traditional software development, with a focus on decentralized applications and smart contract security.",
+  bio: "I build from scratch. Frontend, backend, full-stack applications end-to-end from development to deployment. I'm passionate about creating technology that solves real-world problems.",
 };
 
 export const education: Education = {
@@ -184,21 +180,19 @@ export const getAIResponse = (query: string): string => {
   if (lowerQuery.match(/(who|what|about|tell me about|ritesh)/)) {
     return `Ritesh Singh is a Full-Stack Engineer, Blockchain Developer, and Competitive Programmer from India. He's currently pursuing BTech in Computer Science & Data Science at C.V. Raman Global University (2023-2027) with a CGPA of 8.5+.
 
-He's passionate about building end-to-end applications from frontend to smart contracts. Ritesh was a Finalist in Smart India Hackathon 2025 and Cardano Hackathon. He's available for opportunities and loves solving real-world problems through technology.`;
+He's passionate about building end-to-end applications from frontend to backend. Ritesh was a Finalist in Smart India Hackathon 2025. He's available for opportunities and loves solving real-world problems through technology.`;
   }
 
   // Skills
   if (lowerQuery.match(/(skill|tech|technology|stack|what can|expertise|programming|language|framework)/)) {
     return `Ritesh's technical stack includes:
 
-**Languages:** TypeScript, JavaScript, Python, Rust, Solidity, C, C++
+**Languages:** TypeScript, JavaScript, Python, Rust, C, C++
 **Frontend:** React, Next.js, Tailwind CSS, HTML5, CSS3
 **Backend:** Node.js, Express, Bun, WebSocket, gRPC, Redis
 **Databases:** PostgreSQL, MongoDB, Prisma ORM
-**DevOps & Cloud:** Docker, Kubernetes, CI/CD, AWS, GCP, Cloudflare
-**Blockchain:** Ethereum, Solana, Smart Contracts, Web3.js, Ethers.js
 
-He's a full-stack developer who can work on both frontend and backend, plus blockchain development!`;
+He's a full-stack developer who can work on both frontend and backend!`;
   }
 
   // Projects
@@ -215,7 +209,7 @@ Live: https://admin.swarajdesk.com
 3. **Bloom** (2024) - Real-time video conferencing app like Google Meet with HD video, screen sharing, and chat. Tech: Next.js, WebRTC, Mediasoup, Socket.io.
 GitHub: https://github.com/neutron420/Bloom
 
-4. **Raby** (2024) - Secure cryptocurrency wallet with multi-chain support, portfolio analytics, and biometric authentication. Tech: React Native, Node.js, Web3.js.
+4. **Raby** (2024) - Secure mobile application with multi-factor authentication. Tech: React Native, Node.js.
 GitHub: https://github.com/neutron420/Raby
 
 Check out his GitHub: https://github.com/neutron420`;
@@ -235,7 +229,6 @@ Check out his GitHub: https://github.com/neutron420`;
   if (lowerQuery.match(/(achievement|award|hackathon|finalist|sih|cardano|competition)/)) {
     return `Ritesh's achievements include:
 - **Smart India Hackathon 2025 Finalist** - Built Swaraj-Desk grievance management system
-- **Cardano Hackathon Finalist** - Blockchain development competition
 - Active on LeetCode (109+ problems solved)
 - Strong GitHub contribution history (550+ contributions)`;
   }
@@ -278,28 +271,14 @@ He practices regularly to improve his problem-solving skills!`;
 Check out his profile: https://github.com/neutron420`;
   }
 
-  // Blockchain/Web3
-  if (lowerQuery.match(/(blockchain|web3|crypto|smart contract|ethereum|solana|solidity|defi)/)) {
-    return `Ritesh is a Blockchain Developer with expertise in:
-- **Ethereum** ecosystem
-- **Solana** ecosystem
-- **Smart Contracts** development
-- **Web3.js** and **Ethers.js**
-- **DeFi** applications
-- Smart contract security
-
-He's worked on projects like Raby (cryptocurrency wallet) and has experience building decentralized applications!`;
-  }
-
   // Experience/Work
   if (lowerQuery.match(/(experience|work|job|intern|position|role|career|professional)/)) {
     return `Ritesh is a Full-Stack Engineer specializing in:
 - Building end-to-end applications (frontend to backend)
-- Blockchain and smart contract development
 - Full-stack web development
 - DevOps and cloud deployment
 
-He's currently available for opportunities and looking for roles that combine traditional software development with blockchain technology.`;
+He's currently available for opportunities and looking for roles in software engineering.`;
   }
 
   // Location/Where
@@ -318,26 +297,20 @@ The resume will open in a new tab. For the latest information about his experien
   if (lowerQuery.match(/(hobby|interest|like|enjoy|passion|favorite|favourite|what does|what do)/)) {
     return `Ritesh is passionate about:
 - Building full-stack applications from scratch
-- Blockchain and Web3 development
 - Competitive programming and problem-solving
 - Exploring new technologies and frameworks
 - Creating solutions for real-world problems
 
-He enjoys working on projects that combine traditional software development with cutting-edge blockchain technology!`;
+He enjoys working on challenging projects and learning new things!`;
   }
 
   // What can he do / Services
   if (lowerQuery.match(/(what can|service|offer|do|capable|ability|help|build|create|develop)/)) {
     return `Ritesh can help with:
 - Full-stack web development (Frontend + Backend)
-- Blockchain and smart contract development
-- Mobile app development (React Native)
-- DevOps and cloud deployment (Docker, Kubernetes, AWS)
-- Database design and management
-- Security and authentication systems
 - UI/UX implementation
 
-He builds complete applications from design to deployment, including smart contracts for blockchain projects!`;
+He builds complete applications from design to deployment!`;
   }
 
   // University/College
@@ -356,27 +329,25 @@ He's actively learning and applying his knowledge through projects and hackathon
   if (lowerQuery.match(/(sih|smart india hackathon|hackathon|competition|contest|win|prize|award)/)) {
     return `Ritesh's hackathon achievements:
 - **Smart India Hackathon 2025 Finalist** - Built Swaraj-Desk, a comprehensive grievance management system for government offices
-- **Cardano Hackathon Finalist** - Blockchain development competition
 
 These experiences showcase his ability to build real-world solutions under time constraints and collaborate effectively in teams!`;
   }
 
   // Languages/Programming Languages
-  if (lowerQuery.match(/(language|python|javascript|typescript|rust|solidity|programming language)/)) {
+  if (lowerQuery.match(/(language|python|javascript|typescript|rust|programming language)/)) {
     return `Ritesh is proficient in multiple programming languages:
 - **TypeScript/JavaScript** - For web development
 - **Python** - For backend and scripting
 - **Rust** - For systems programming
-- **Solidity** - For smart contract development
 - **C/C++** - For competitive programming
 
 He adapts to the right language for each project's requirements!`;
   }
 
   // Specific Technology Questions
-  if (lowerQuery.match(/(react|next\.js|node\.js|typescript|javascript|python|rust|solidity|docker|kubernetes|aws|postgresql|mongodb)/)) {
-    const tech = lowerQuery.match(/(react|next\.js|node\.js|typescript|javascript|python|rust|solidity|docker|kubernetes|aws|postgresql|mongodb)/)?.[0];
-    return `Ritesh has experience with ${tech} and uses it in his projects. He's worked with ${tech} in various full-stack applications and blockchain projects. For specific details about his ${tech} experience, check out his projects on GitHub: https://github.com/neutron420`;
+  if (lowerQuery.match(/(react|next\.js|node\.js|typescript|javascript|python|rust|docker|kubernetes|aws|postgresql|mongodb)/)) {
+    const tech = lowerQuery.match(/(react|next\.js|node\.js|typescript|javascript|python|rust|docker|kubernetes|aws|postgresql|mongodb)/)?.[0];
+    return `Ritesh has experience with ${tech} and uses it in his projects. He's worked with ${tech} in various full-stack applications. For specific details about his ${tech} experience, check out his projects on GitHub: https://github.com/neutron420`;
   }
 
   // Age/Year of Birth
@@ -388,7 +359,6 @@ He adapts to the right language for each project's requirements!`;
   if (lowerQuery.match(/(available|hiring|hire|job|opportunity|open to|looking for|recruiting)/)) {
     return `Yes! Ritesh is currently available for opportunities. He's looking for roles in:
 - Full-stack development
-- Blockchain and Web3 development
 - Software engineering positions
 
 You can reach out via:
@@ -432,12 +402,10 @@ He's been building projects and contributing to open source actively while study
 - **GitHub:** https://github.com/neutron420/Bloom`;
   }
 
-  if (lowerQuery.match(/(raby|crypto|wallet|cryptocurrency)/)) {
-    return `**Raby** is a secure cryptocurrency wallet:
-- Multi-chain support
-- Portfolio analytics
-- Biometric authentication
-- **Tech Stack:** React Native, Node.js, Web3.js
+  if (lowerQuery.match(/(raby|app)/)) {
+    return `**Raby** is a secure mobile application:
+- Feature rich and secure
+- **Tech Stack:** React Native, Node.js
 - **GitHub:** https://github.com/neutron420/Raby`;
   }
 
@@ -477,12 +445,11 @@ He's been building projects and contributing to open source actively while study
   if (lowerQuery.match(/(what.*technolog|which.*tech|tech stack|technologies.*use|tools.*use)/)) {
     return `Ritesh uses a comprehensive tech stack:
 
-**Languages:** TypeScript, JavaScript, Python, Rust, Solidity, C, C++
+**Languages:** TypeScript, JavaScript, Python, Rust, C, C++
 **Frontend:** React, Next.js, Tailwind CSS
 **Backend:** Node.js, Express, Bun, WebSocket, gRPC, Redis
 **Databases:** PostgreSQL, MongoDB, Prisma ORM
 **DevOps:** Docker, Kubernetes, CI/CD, AWS, GCP, Cloudflare
-**Blockchain:** Ethereum, Solana, Web3.js, Ethers.js
 
 He selects the right tools for each project's requirements.`;
   }
@@ -498,9 +465,8 @@ He selects the right tools for each project's requirements.`;
 
   // What does he do
   if (lowerQuery.match(/(what.*do|what.*work|what.*job|occupation|profession)/)) {
-    return `Ritesh is a Full-Stack Engineer and Blockchain Developer. He:
+    return `Ritesh is a Full-Stack Engineer. He:
 - Builds end-to-end applications (frontend to backend)
-- Develops smart contracts and blockchain applications
 - Works on full-stack web development
 - Deploys applications using DevOps practices
 
@@ -518,7 +484,7 @@ He's currently a student but actively working on real-world projects.`;
 1. Swaraj-Desk (2025) - Grievance management system
 2. Swaraj-Desk Admin (2025) - Admin portal
 3. Bloom (2024) - Video conferencing app
-4. Raby (2024) - Cryptocurrency wallet
+4. Raby (2024) - Secure mobile application
 
 Plus multiple other open-source contributions. Check his GitHub: https://github.com/neutron420`;
   }
@@ -555,7 +521,6 @@ Plus multiple other open-source contributions. Check his GitHub: https://github.
 - Education and achievements
 - Contact information (email, LinkedIn, GitHub, etc.)
 - LeetCode and GitHub stats
-- Blockchain/Web3 expertise
 - Hackathons and competitions
 - Specific technologies he uses
 
@@ -573,7 +538,6 @@ Try asking specific questions like:
 - Education and achievements
 - Contact information (try "what is the github profile" or "email")
 - LeetCode or GitHub stats
-- Blockchain/Web3 expertise
 - Hackathons and competitions
 - What he can do or build
 - Specific technologies or tools

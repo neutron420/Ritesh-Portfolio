@@ -9,9 +9,7 @@ import {
   SiMongodb, 
   SiDocker,
   SiGit,
-  SiSolidity,
   SiRust,
-  SiSolana,
   SiRedis,
   SiGraphql,
   SiAmazonwebservices,
@@ -29,7 +27,7 @@ import {
   SiAnsible,
   SiTerraform,
   SiArgo,
-  SiWeb3Dotjs,
+
   SiApachekafka,
   SiGnubash,
   SiUbuntu,
@@ -86,10 +84,7 @@ const TechStackSection = () => {
   ];
 
   const technologies2 = [
-    { name: "Solidity", icon: SiSolidity, color: "#ffffff", lightColor: "#363636", darkColor: "#ffffff" },
     { name: "Rust", icon: SiRust, color: "#ffffff", lightColor: "#000000", darkColor: "#ffffff" },
-    { name: "Solana", icon: SiSolana, color: "#9945FF", lightColor: "#9945FF", darkColor: "#9945FF" },
-    { name: "Web3.js", icon: SiWeb3Dotjs, color: "#F16822", lightColor: "#F16822", darkColor: "#F16822" },
     { name: "Firebase", icon: SiFirebase, color: "#FFCA28", lightColor: "#FFCA28", darkColor: "#FFCA28" },
     { name: "Hono", icon: SiHono, color: "#E36002", lightColor: "#E36002", darkColor: "#FF7E1F" },
     { name: "Bun", icon: SiBun, color: "#FBF0DF", lightColor: "#14151A", darkColor: "#FBF0DF" },

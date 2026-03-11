@@ -267,12 +267,10 @@ const AIChatBox = () => {
       <div className="fixed bottom-4 right-4 z-50">
         <button
           onClick={() => setIsMinimized(false)}
-          className="bg-[#0d1117] border-2 border-[#ff6b35]/50 rounded-lg px-3 sm:px-4 py-2.5 sm:py-2 flex items-center gap-2 text-[#ff6b35] font-mono text-xs sm:text-sm hover:bg-[#161b22] active:scale-95 transition-all shadow-lg shadow-[#ff6b35]/20 hover:shadow-[#ff6b35]/30 touch-manipulation"
+          className="bg-[#0d1117] border-2 border-[#ff6b35]/50 rounded-full w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center text-[#ff6b35] hover:bg-[#161b22] active:scale-95 transition-all shadow-lg shadow-[#ff6b35]/20 hover:shadow-[#ff6b35]/30 touch-manipulation overflow-hidden p-0.5"
           aria-label="Open AI Chat"
         >
-          <Bot className="w-4 h-4 sm:w-4 sm:h-4" />
-          <span className="hidden sm:inline">AI Chat</span>
-          <Maximize2 className="w-3.5 h-3.5 sm:w-3 sm:h-3" />
+          <img src="https://github.com/neutron420.png" alt="AI Chat" className="w-full h-full object-cover rounded-full" />
         </button>
       </div>
     );
@@ -297,9 +295,9 @@ const AIChatBox = () => {
               <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#ff6b35] shadow-[0_0_8px_rgba(255,107,53,0.8)]" />
             </div>
             <div className="flex items-center gap-1.5 sm:gap-2 ml-2 min-w-0">
-              <Bot className="w-4 h-4 sm:w-4 sm:h-4 text-[#ff6b35] flex-shrink-0" />
+              <Github className="w-4 h-4 sm:w-4 sm:h-4 text-[#ff6b35] flex-shrink-0" />
               <span className="text-[#ff6b35] text-[11px] sm:text-xs font-mono drop-shadow-[0_0_6px_rgba(255,107,53,0.6)] truncate">
-                ai@ritesh:~ <span className="text-[#ff8555] hidden sm:inline">チャット</span>
+                Ritesh AI <span className="text-[#ff8555] hidden sm:inline">チャット</span>
               </span>
             </div>
           </div>
@@ -331,8 +329,8 @@ const AIChatBox = () => {
                 }`}
               >
                 {message.type === "assistant" && (
-                  <div className="flex-shrink-0 w-6 h-6 sm:w-6 sm:h-6 rounded-full bg-[#ff6b35]/20 flex items-center justify-center mt-0.5">
-                    <Bot className="w-3.5 h-3.5 sm:w-3.5 sm:h-3.5 text-[#ff6b35]" />
+                  <div className="flex-shrink-0 w-6 h-6 sm:w-6 sm:h-6 rounded-full bg-[#ff6b35]/20 flex items-center justify-center mt-0.5 overflow-hidden">
+                    <img src="https://github.com/neutron420.png" alt="AI" className="w-full h-full object-cover" />
                   </div>
                 )}
                 <div
@@ -346,7 +344,7 @@ const AIChatBox = () => {
                     {message.type === "user" ? (
                       <User className="w-3.5 h-3.5 sm:w-3 sm:h-3 text-[#ff6b35]" />
                     ) : (
-                      <Bot className="w-3.5 h-3.5 sm:w-3 sm:h-3 text-[#ff8555]" />
+                      <Github className="w-3.5 h-3.5 sm:w-3 sm:h-3 text-[#ff8555]" />
                     )}
                     <span className="text-[#ff6b35] text-[11px] sm:text-[10px] font-medium">
                       {message.type === "user" ? "you" : "ai"}
@@ -371,8 +369,8 @@ const AIChatBox = () => {
             ))}
             {isTyping && (
               <div className="flex gap-2 justify-start">
-                <div className="flex-shrink-0 w-6 h-6 sm:w-6 sm:h-6 rounded-full bg-[#ff6b35]/20 flex items-center justify-center mt-0.5">
-                  <Bot className="w-3.5 h-3.5 sm:w-3.5 sm:h-3.5 text-[#ff6b35]" />
+                <div className="flex-shrink-0 w-6 h-6 sm:w-6 sm:h-6 rounded-full bg-[#ff6b35]/20 flex items-center justify-center mt-0.5 overflow-hidden">
+                  <img src="https://github.com/neutron420.png" alt="AI" className="w-full h-full object-cover" />
                 </div>
                 <div className="bg-[#161b22] text-[#8b949e] border border-[#21262d] rounded-lg px-3 sm:px-3 py-2.5 sm:py-2">
                   <div className="flex gap-1.5">
