@@ -281,14 +281,14 @@ const LeetCodeStats = () => {
       // Use hardcoded data as fallback
       const hardcodedCalendar = getHardcodedSubmissionCalendar();
       const hardcodedStats: LeetCodeData = {
-        totalSolved: 109,
-        totalQuestions: 3792,
-        easySolved: 45,
-        easyTotal: 918,
-        mediumSolved: 57,
-        mediumTotal: 1978,
-        hardSolved: 7,
-        hardTotal: 896,
+        totalSolved: 304,
+        totalQuestions: 3865,
+        easySolved: 130,
+        easyTotal: 930,
+        mediumSolved: 145,
+        mediumTotal: 2022,
+        hardSolved: 29,
+        hardTotal: 913,
         acceptanceRate: 0,
         ranking: 0,
         submissionCalendar: hardcodedCalendar,

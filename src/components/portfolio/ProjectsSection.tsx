@@ -150,16 +150,6 @@ const projects = [
     image: projectBloom,
     status: "development" as const,
   },
-  {
-    name: "Trackmed",
-    description: "A comprehensive medicine tracking and purchasing platform. Features include a mobile app for users to track medications, purchase medicines, manage prescriptions, and receive reminders. Web dashboards for admin management, warehouse operations, and manufacturer control. Complete inventory management, order tracking, and analytics.",
-    techStack: ["Solana", "Rust", "Anchor", "Prisma", "PostgreSQL", "Node.js", "Express.js", "Web3.js", "TypeScript", "Kotlin", "Firebase"],
-    github: "https://github.com/neutron420/Trackmed",
-    live: null,
-    comingSoon: true,
-    image: projectGrievance,
-    status: "building" as const,
-  },
 ];
 
 // Status badge component

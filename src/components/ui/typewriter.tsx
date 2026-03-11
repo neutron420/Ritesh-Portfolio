@@ -23,7 +23,7 @@ const Typewriter = ({
   const currentFullText = useMemo(() => texts[currentTextIndex], [texts, currentTextIndex]);
 
   useEffect(() => {
-    let timeout: NodeJS.Timeout;
+    let timeout: ReturnType<typeof setTimeout>;
 
     if (!isDeleting && currentText === currentFullText) {
       // Pause before deleting

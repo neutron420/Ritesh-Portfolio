@@ -17,7 +17,7 @@ import { useKeyboardShortcuts } from "@/hooks/use-keyboard-shortcuts";
 const AchievementsSection = lazy(() => import("@/components/portfolio/AchievementsSection"));
 const TechStackSection = lazy(() => import("@/components/portfolio/TechStackSection"));
 const LeetCodeStats = lazy(() => import("@/components/portfolio/LeetCodeStats"));
-const CurrentlyWorkingOn = lazy(() => import("@/components/portfolio/CurrentlyWorkingOn"));
+
 const ProjectsSection = lazy(() => import("@/components/portfolio/ProjectsSection"));
 const SpotifySection = lazy(() => import("@/components/portfolio/SpotifySection"));
 const AnimeVideoSection = lazy(() => import("@/components/portfolio/AnimeVideoSection"));

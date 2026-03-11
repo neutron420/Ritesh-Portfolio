@@ -18,7 +18,7 @@ import {
   SiLinux,
   SiPrisma,
   SiKubernetes,
-  SiGooglecloud,
+  
   SiCloudflare,
   SiJest,
   SiCypress,
