@@ -30,7 +30,7 @@ import {
   SiTerraform,
   SiArgo,
   SiWeb3Dotjs,
-  SiClerk,
+  SiApachekafka,
   SiGnubash,
   SiUbuntu,
   SiFirebase,
