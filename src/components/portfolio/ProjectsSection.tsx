@@ -231,9 +231,6 @@ const ProjectsSection = () => {
               {/* Subtle accent gradient on hover */}
               <div className="absolute inset-0 bg-gradient-to-br from-accent/[0.03] via-transparent to-accent/[0.02] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl" />
 
-              {project.comingSoon && (
-                <div className="absolute inset-0 bg-gradient-to-r from-accent/5 via-transparent to-accent/5 pointer-events-none z-0 rounded-2xl opacity-50" />
-              )}
 
               <div className="grid md:grid-cols-5 gap-0 relative z-10">
                 {/* Image or Coming Soon */}
