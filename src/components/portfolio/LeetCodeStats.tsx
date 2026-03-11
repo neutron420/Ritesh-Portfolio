@@ -250,14 +250,14 @@ const LeetCodeStats = () => {
       }
 
       const nextStats: LeetCodeData = {
-        totalSolved: data?.totalSolved || data?.total_solved || 109,
-        totalQuestions: data?.totalQuestions || data?.total_questions || 3792,
-        easySolved: data?.easySolved || data?.easy_solved || 45,
-        easyTotal: data?.totalEasy || data?.total_easy || 918,
-        mediumSolved: data?.mediumSolved || data?.medium_solved || 57,
-        mediumTotal: data?.totalMedium || data?.total_medium || 1978,
-        hardSolved: data?.hardSolved || data?.hard_solved || 7,
-        hardTotal: data?.totalHard || data?.total_hard || 896,
+        totalSolved: data?.totalSolved || data?.total_solved || 304,
+        totalQuestions: data?.totalQuestions || data?.total_questions || 3865,
+        easySolved: data?.easySolved || data?.easy_solved || 130,
+        easyTotal: data?.totalEasy || data?.total_easy || 930,
+        mediumSolved: data?.mediumSolved || data?.medium_solved || 145,
+        mediumTotal: data?.totalMedium || data?.total_medium || 2022,
+        hardSolved: data?.hardSolved || data?.hard_solved || 29,
+        hardTotal: data?.totalHard || data?.total_hard || 913,
         acceptanceRate: data?.acceptanceRate || data?.acceptance_rate || 0,
         ranking: data?.ranking || data?.rank || 0,
         submissionCalendar: submissionCalendar,
