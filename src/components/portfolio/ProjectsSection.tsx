@@ -16,7 +16,6 @@ import {
   SiWeb3Dotjs,
   SiArgo,
   SiPython,
-  SiEthereum,
   SiSolana,
   SiRust,
   SiExpress,
@@ -65,8 +64,7 @@ const techIcons: Record<string, { icon: React.ReactNode; color: string }> = {
   "WebSockets": { icon: <Wifi className="w-3 h-3" />, color: "text-[#00D4AA]" },
   "ArgoCD": { icon: <SiArgo className="w-3 h-3" />, color: "text-[#EF7B4D]" },
   "Python": { icon: <SiPython className="w-3 h-3" />, color: "text-[#3776AB]" },
-  "Hyperledger Fabric": { icon: <SiEthereum className="w-3 h-3" />, color: "text-[#2F3134]" },
-  "Blockchain": { icon: <SiEthereum className="w-3 h-3" />, color: "text-[#627EEA]" },
+
   "Solana": { icon: <SiSolana className="w-3 h-3" />, color: "text-[#9945FF]" },
   "Rust": { icon: <SiRust className="w-3 h-3" />, color: "text-[#DEA584]" },
   "Anchor": { icon: <span className="w-3 h-3 font-bold text-[10px] flex items-center justify-center">⚓</span>, color: "text-[#7C3AED]" },
@@ -95,7 +93,7 @@ const projects = [
   {
     name: "Swaraj-Desk",
     description: "A comprehensive grievance management portal for government offices. Citizens can register complaints, track status, and receive updates in real-time. Built for Smart India Hackathon.",
-    techStack: ["Next.js", "Node.js", "Bun", "PostgreSQL", "Prisma", "Redis", "WebSockets", "Docker", "Kubernetes", "ArgoCD", "Tailwind CSS", "Python", "Hyperledger Fabric"],
+    techStack: ["Next.js", "Node.js", "Bun", "PostgreSQL", "Prisma", "Redis", "WebSockets", "Docker", "Kubernetes", "ArgoCD", "Tailwind CSS", "Python"],
     github: "https://github.com/neutron420/sih-swarajdesk-2025",
     live: "https://sih-user-fe-sd.adityahota.online/",
     admin: "https://admin.swarajdesk.com", // Update this with the actual admin URL
