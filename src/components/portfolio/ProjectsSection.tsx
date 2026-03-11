@@ -234,7 +234,7 @@ const ProjectsSection = () => {
 
               <div className="grid md:grid-cols-5 gap-0 relative z-10">
                 {/* Image or Coming Soon */}
-                <div className={`md:col-span-2 overflow-hidden relative ${project.name === 'Swaraj-Desk' || project.name === 'Swaraj-Desk-Admin' || project.name === 'Trackmed' || project.name === 'CodeConnect' ? 'h-64 md:h-[22rem]' : project.name === 'NavigateU' ? 'h-64 md:h-[32rem]' : 'h-52 md:h-72'}`}>
+                <div className={`md:col-span-2 overflow-hidden relative ${project.name === 'Swaraj-Desk' || project.name === 'Swaraj-Desk-Admin' || project.name === 'CodeConnect' ? 'h-64 md:h-[22rem]' : project.name === 'NavigateU' ? 'h-64 md:h-[32rem]' : 'h-52 md:h-72'}`}>
                   {project.comingSoon ? (
                     <div className="w-full h-full flex items-center justify-center animate-gradient-bg relative overflow-hidden">
                       <div className="absolute inset-0 bg-gradient-to-t from-card/90 via-card/30 to-transparent md:bg-gradient-to-r" />
