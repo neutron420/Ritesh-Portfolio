@@ -146,11 +146,6 @@ const Index = () => {
             </ScrollReveal>
           </Suspense>
 
-          <Suspense fallback={<SectionSkeleton height="h-48" />}>
-            <ScrollReveal delay={0.1}>
-              <CurrentlyWorkingOn />
-            </ScrollReveal>
-          </Suspense>
           
           <Suspense fallback={<SectionSkeleton height="h-96" />}>
             <ScrollReveal delay={0.1}>
