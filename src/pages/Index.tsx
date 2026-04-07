@@ -16,8 +16,7 @@ import { useKeyboardShortcuts } from "@/hooks/use-keyboard-shortcuts";
 // Lazy load sections below the fold for better performance
 const AchievementsSection = lazy(() => import("@/components/portfolio/AchievementsSection"));
 const TechStackSection = lazy(() => import("@/components/portfolio/TechStackSection"));
-const LeetCodeStats = lazy(() => import("@/components/portfolio/LeetCodeStats"));
-
+const GitHubContributions = lazy(() => import("@/components/portfolio/GitHubContributions"));
 const ProjectsSection = lazy(() => import("@/components/portfolio/ProjectsSection"));
 const SpotifySection = lazy(() => import("@/components/portfolio/SpotifySection"));
 const AnimeVideoSection = lazy(() => import("@/components/portfolio/AnimeVideoSection"));
@@ -153,9 +152,10 @@ const Index = () => {
             </ScrollReveal>
           </Suspense>
           
-          <Suspense fallback={<SectionSkeleton height="h-80" />}>
+
+          <Suspense fallback={<SectionSkeleton height="h-64" />}>
             <ScrollReveal delay={0.1}>
-              <LeetCodeStats />
+              <GitHubContributions />
             </ScrollReveal>
           </Suspense>
           

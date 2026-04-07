@@ -7,6 +7,12 @@ const AchievementsSection = () => {
   const achievements = [
     {
       icon: Trophy,
+      title: "HackTheStack Winner 2026",
+      description: "National Level Hackathon",
+      color: "text-green-400",
+    },
+    {
+      icon: Trophy,
       title: "Code Relay 4.0 Winner",
       description: "IIT Bhubaneswar",
       color: "text-yellow-500",
@@ -31,15 +37,15 @@ const AchievementsSection = () => {
         ref={ref}
         className={`section-container scroll-reveal ${isVisible ? 'visible' : ''}`}
       >
-        <h2 className="text-xl md:text-2xl font-semibold mb-6">Achievements</h2>
+        <h2 className="text-xl md:text-2xl font-semibold mb-6 text-center">Achievements</h2>
         
-        <div className="grid sm:grid-cols-3 gap-4">
+        <div className="flex flex-wrap justify-center gap-4">
           {achievements.map((achievement) => {
             const Icon = achievement.icon;
             return (
               <div
                 key={achievement.title}
-                className="flex items-center gap-4 p-4 bg-card rounded-xl border border-border/50 hover:border-accent/30 transition-all group"
+                className="flex items-center gap-4 p-4 bg-card rounded-xl border border-border/50 hover:border-accent/30 transition-all group min-w-[280px] w-full sm:w-[calc(50%-8px)] lg:w-[calc(33.333%-11px)] max-w-sm"
               >
                 <div className={`w-12 h-12 flex items-center justify-center rounded-lg bg-muted ${achievement.color}`}>
                   <Icon className="w-6 h-6" />
