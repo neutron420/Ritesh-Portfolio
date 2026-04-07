@@ -1,246 +1,145 @@
-import { useEffect, useState, useCallback } from "react";
-import { Github } from "lucide-react";
+import { useEffect, useState, useCallback, useMemo } from "react";
+import { Github, Calendar, Users, Code, Star, ExternalLink, GitBranch } from "lucide-react";
+import { 
+  ContributionGraph, 
+  ContributionGraphCalendar, 
+  ContributionGraphBlock, 
+  ContributionGraphFooter, 
+  ContributionGraphTotalCount, 
+  ContributionGraphLegend,
+  type Activity
+} from "@/components/kibo-ui/contribution-graph";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { cn } from "@/lib/utils";
 
-interface GitHubEvent {
-  id: string;
-  type: string;
-  created_at: string;
-  payload?: {
-    commits?: { sha: string }[];
-    size?: number;
-  };
+interface ProfileStats {
+  followers: number;
+  public_repos: number;
+  following: number;
+  total_stars: number;
 }
 
 const GitHubContributions = () => {
-  const [contributions, setContributions] = useState<number[][]>([]);
-  const [totalContributions, setTotalContributions] = useState(0);
+  const [activities, setActivities] = useState<Activity[]>([]);
+  const [stats, setStats] = useState<ProfileStats | null>(null);
   const [loading, setLoading] = useState(true);
+  const [selectedYear, setSelectedYear] = useState<number>(new Date().getFullYear());
+  const username = 'neutron420';
+  
+  const years = [2026, 2025, 2024];
 
-  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  const days = ['Mon', 'Wed', 'Fri'];
+  const fetchProfileStats = useCallback(async () => {
+    try {
+      // Fetch profile basic info from official GitHub API (No Key Needed)
+      const profileResponse = await fetch(`https://api.github.com/users/${username}`);
+      const profileData = await profileResponse.json();
+      
+      // Fetch repositories to calculate total stars (No Key Needed)
+      const reposResponse = await fetch(`https://api.github.com/users/${username}/repos?per_page=100`);
+      const reposData = await reposResponse.json();
+      
+      const totalStars = Array.isArray(reposData) 
+        ? reposData.reduce((acc: number, repo: any) => acc + repo.stargazers_count, 0)
+        : 0;
 
-  // Fetch all events by paginating through pages
-  const fetchAllGitHubEvents = useCallback(async (username: string): Promise<GitHubEvent[]> => {
-    const allEvents: GitHubEvent[] = [];
-    let page = 1;
-    const perPage = 100;
-    let hasMore = true;
-
-    while (hasMore && page <= 10) { // Limit to 10 pages (1000 events) to avoid rate limits
-      try {
-        const response = await fetch(
-          `https://api.github.com/users/${username}/events/public?per_page=${perPage}&page=${page}`,
-          {
-            headers: {
-              'Accept': 'application/vnd.github.v3+json'
-            }
-          }
-        );
-
-        if (!response.ok) {
-          if (response.status === 404 || response.status === 403) {
-            break;
-          }
-          throw new Error(`GitHub API error: ${response.status}`);
-        }
-
-        const events: GitHubEvent[] = await response.json();
-        
-        if (events.length === 0) {
-          hasMore = false;
-        } else {
-          allEvents.push(...events);
-          // If we got less than perPage, we've reached the end
-          if (events.length < perPage) {
-            hasMore = false;
-          }
-          page++;
-        }
-      } catch (error) {
-        console.error(`Error fetching page ${page}:`, error);
-        hasMore = false;
-      }
+      setStats({
+        followers: profileData.followers || 0,
+        public_repos: profileData.public_repos || 0,
+        following: profileData.following || 0,
+        total_stars: totalStars
+      });
+    } catch (error) {
+      console.warn("Failed to fetch official GitHub profile stats:", error);
     }
-
-    return allEvents;
   }, []);
 
   const fetchGitHubActivity = useCallback(async () => {
     try {
-      const username = 'neutron420';
+      // Contribution data fetcher (Using a public service as GitHub's official REST API 
+      // doesn't provide contribution counts without GraphQL + Auth Token)
+      const yearsQuery = years.map(y => `y=${y}`).join('&');
+      const serviceUrl = `https://github-contributions-api.jogruber.de/v4/${username}?${yearsQuery}`;
       
-      // Try to fetch contribution graph data from a service that parses GitHub's contribution graph
-      // First, try using github-contributions-api or similar service
-      let contributionMap = new Map<string, number>();
-      let total = 0;
+      const response = await fetch(serviceUrl, { 
+        cache: "no-store",
+        headers: { 'Accept': 'application/json' },
+        signal: AbortSignal.timeout(15000)
+      });
       
-      // Try multiple services for GitHub contribution data
-      const contributionServices = [
-        `https://github-contributions-api.jogruber.de/v4/${username}?y=2024&y=2025`,
-        `https://github-contributions.vercel.app/api/v1/${username}`,
-      ];
-      
-      let apiSuccess = false;
-      
-      for (const serviceUrl of contributionServices) {
-        try {
-          const contributionResponse = await fetch(serviceUrl, { 
-            cache: "no-store",
-            headers: { 'Accept': 'application/json' },
-            signal: AbortSignal.timeout(10000)
-          });
-          
-          if (contributionResponse.ok) {
-            const contributionData = await contributionResponse.json();
-            
-            // Parse the contribution data (different services have different formats)
-            if (contributionData.contributions && Array.isArray(contributionData.contributions)) {
-              contributionData.contributions.forEach((day: any) => {
-                if (day.date && day.count !== undefined) {
-                  const dateStr = day.date.split('T')[0];
-                  contributionMap.set(dateStr, day.count);
-                  total += day.count;
-                }
-              });
-              apiSuccess = true;
-              console.log('GitHub contributions fetched from API service:', serviceUrl);
-              break;
-            } else if (contributionData.data && Array.isArray(contributionData.data)) {
-              // Alternative format
-              contributionData.data.forEach((day: any) => {
-                if (day.date && day.count !== undefined) {
-                  const dateStr = day.date.split('T')[0];
-                  contributionMap.set(dateStr, day.count);
-                  total += day.count;
-                }
-              });
-              apiSuccess = true;
-              console.log('GitHub contributions fetched from API service:', serviceUrl);
-              break;
-            }
-          }
-        } catch (apiError) {
-          console.warn(`GitHub contribution API service ${serviceUrl} failed:`, apiError);
-          continue;
+      if (response.ok) {
+        const data = await response.json();
+        if (data.contributions && Array.isArray(data.contributions)) {
+          const fetchedActivities = data.contributions.map((day: any) => ({
+            date: day.date.split('T')[0],
+            count: day.count,
+            level: day.level
+          }));
+          setActivities(fetchedActivities);
+          setLoading(false);
+          return;
         }
       }
-      
-      if (!apiSuccess) {
-        console.warn('All GitHub contribution API services failed, falling back to events');
-        
-        // Fallback to fetching events
-        const events = await fetchAllGitHubEvents(username);
-
-        // Process all events
-        events.forEach((event) => {
-          const date = event.created_at?.split('T')[0];
-          if (date) {
-            let eventCount = 1;
-            // Count commits for push events
-            if (event.type === 'PushEvent' && event.payload?.commits) {
-              eventCount = event.payload.commits.length;
-            }
-            const count = contributionMap.get(date) || 0;
-            contributionMap.set(date, count + eventCount);
-            total += eventCount;
-          }
-        });
-      }
-
-      // Build contribution graph for the last 52 weeks
-      const weeks: number[][] = [];
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-      
-      // Calculate the start date (52 weeks ago, aligned to Sunday)
-      const startDate = new Date(today);
-      const dayOfWeek = startDate.getDay(); // 0 = Sunday, 6 = Saturday
-      const startDateTimestamp = startDate.getTime() - ((52 * 7 + dayOfWeek) * 24 * 60 * 60 * 1000);
-      const baseStartDate = new Date(startDateTimestamp);
-
-      for (let week = 0; week < 52; week++) {
-        const weekData: number[] = [];
-        for (let day = 0; day < 7; day++) {
-          const date = new Date(baseStartDate);
-          date.setDate(baseStartDate.getDate() + (week * 7) + day);
-          const dateStr = date.toISOString().split('T')[0];
-          
-          const count = contributionMap.get(dateStr) || 0;
-          
-          // GitHub's contribution levels (approximate)
-          let level = 0;
-          if (count >= 22) level = 4;      // Darkest green
-          else if (count >= 14) level = 3;  // Medium-dark green
-          else if (count >= 7) level = 2;   // Medium green
-          else if (count >= 1) level = 1;    // Light green
-          
-          weekData.push(level);
-        }
-        weeks.push(weekData);
-      }
-
-      setContributions(weeks);
-      setTotalContributions(total);
-      setLoading(false);
-    } catch (error) {
-      console.error('Error fetching GitHub activity:', error);
       generateFallbackData();
+    } catch (error) {
+      console.error('Error fetching contribution data:', error);
+      generateFallbackData();
+    } finally {
+      setLoading(false);
     }
-  }, [fetchAllGitHubEvents]);
+  }, []);
 
   const generateFallbackData = () => {
-    const weeks: number[][] = [];
+    const fallbackActivities: Activity[] = [];
+    const startDate = new Date("2024-01-01");
+    const today = new Date("2026-12-31");
     
-    for (let week = 0; week < 52; week++) {
-      const weekData: number[] = [];
-      for (let day = 0; day < 7; day++) {
-        const isWeekday = day >= 1 && day <= 5;
-        const baseChance = isWeekday ? 0.45 : 0.2;
-        const isActive = Math.random() < baseChance;
-        
-        let level = 0;
-        if (isActive) {
-          const rand = Math.random();
-          if (rand < 0.4) level = 1;
-          else if (rand < 0.7) level = 2;
-          else if (rand < 0.9) level = 3;
-          else level = 4;
-        }
-        
-        weekData.push(level);
+    for (let d = new Date(startDate); d <= today; d.setDate(d.getDate() + 1)) {
+      const isWeekday = d.getDay() >= 1 && d.getDay() <= 5;
+      const baseChance = isWeekday ? 0.45 : 0.2;
+      const isActive = Math.random() < baseChance;
+      
+      let count = 0;
+      let level = 0;
+      if (isActive) {
+        count = Math.floor(Math.random() * 10) + 1;
+        if (count >= 8) level = 4;
+        else if (count >= 5) level = 3;
+        else if (count >= 2) level = 2;
+        else level = 1;
       }
-      weeks.push(weekData);
+      
+      fallbackActivities.push({
+        date: d.toISOString().split('T')[0],
+        count,
+        level
+      });
     }
-    
-    setContributions(weeks);
-    setTotalContributions(0);
-    setLoading(false);
+    setActivities(fallbackActivities);
   };
 
   useEffect(() => {
+    fetchProfileStats();
     fetchGitHubActivity();
-    
-    // Refresh every 5 minutes for real-time updates
-    const interval = setInterval(fetchGitHubActivity, 5 * 60 * 1000);
+    const interval = setInterval(() => {
+      fetchProfileStats();
+      fetchGitHubActivity();
+    }, 10 * 60 * 1000);
     return () => clearInterval(interval);
-  }, [fetchGitHubActivity]);
+  }, [fetchProfileStats, fetchGitHubActivity]);
 
-  const getLevelColor = (level: number) => {
-    switch (level) {
-      case 0: return 'bg-muted/40';
-      case 1: return 'bg-github/20';
-      case 2: return 'bg-github/40';
-      case 3: return 'bg-github/70';
-      case 4: return 'bg-github';
-      default: return 'bg-muted/40';
-    }
-  };
+  const filteredActivities = useMemo(() => {
+    return activities.filter(a => a.date.startsWith(selectedYear.toString()));
+  }, [activities, selectedYear]);
+
+  const totalCurrentYear = useMemo(() => {
+    return filteredActivities.reduce((sum, a) => sum + a.count, 0);
+  }, [filteredActivities]);
 
   if (loading) {
     return (
       <section className="py-12 md:py-16">
         <div className="section-container">
-          <div className="animate-pulse bg-card rounded-xl h-48" />
+          <div className="animate-pulse bg-card rounded-xl h-96 border border-border" />
         </div>
       </section>
     );
@@ -249,81 +148,112 @@ const GitHubContributions = () => {
   return (
     <section className="py-12 md:py-16">
       <div className="section-container">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
-          <div className="flex items-center gap-3">
-            <Github className="w-6 h-6 text-github" />
+        {/* Header and Profile Connection */}
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
+          <div className="flex items-center gap-5">
+            <div className="relative group">
+              <div className="absolute inset-0 bg-github/20 rounded-full blur-lg group-hover:bg-github/40 transition-all duration-500" />
+              <div className="relative w-14 h-14 rounded-2xl bg-black flex items-center justify-center border-2 border-github/30 shadow-2xl overflow-hidden">
+                <Github className="w-8 h-8 text-github animate-float-gentle" />
+              </div>
+            </div>
             <div>
-              <h2 className="text-xl md:text-2xl font-semibold">GitHub</h2>
-              <a 
-                href="https://github.com/neutron420" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-muted-foreground text-sm hover:text-github transition-colors flex items-center gap-1"
-              >
-                @neutron420
-                <span className="text-[10px] px-1.5 py-0.5 bg-github/20 text-github rounded">LIVE</span>
-              </a>
+              <div className="flex items-center gap-2">
+                <h2 className="text-2xl md:text-3xl font-black tracking-tight">GITHUB ACTIVITY</h2>
+              </div>
             </div>
           </div>
-          <p className="text-sm text-muted-foreground">
-            <span className="text-github font-medium">{totalContributions}</span> contributions in the last year
-          </p>
+
+          <div className="flex bg-muted/40 p-1.5 rounded-2xl border border-white/5 backdrop-blur-xl">
+            {years.map(year => (
+              <button
+                key={year}
+                onClick={() => setSelectedYear(year)}
+                className={cn(
+                  "px-5 py-2 rounded-xl text-xs font-bold uppercase tracking-widest transition-all duration-500",
+                  selectedYear === year 
+                    ? "bg-github text-black shadow-[0_0_20px_rgba(35,209,96,0.3)]" 
+                    : "text-muted-foreground hover:text-white"
+                )}
+              >
+                {year}
+              </button>
+            ))}
+          </div>
         </div>
 
-        {/* Contribution Graph */}
-        <div className="bg-card rounded-xl border border-github/20 p-3 sm:p-4 md:p-6">
-          {/* Months row */}
-          <div className="overflow-x-auto -mx-3 px-3 sm:mx-0 sm:px-0">
-            <div className="min-w-[580px]">
-              <div className="flex mb-2 ml-8">
-                {months.map((month) => (
-                  <span 
-                    key={month} 
-                    className="text-[10px] text-muted-foreground"
-                    style={{ width: `${100 / 12}%`, minWidth: '30px' }}
-                  >
-                    {month}
-                  </span>
-                ))}
+        {/* Stats Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+          {[
+            { label: "Public Repos", value: stats?.public_repos || 0, icon: Code, color: "text-blue-400" },
+            { label: "Followers", value: stats?.followers || 0, icon: Users, color: "text-purple-400" },
+            { label: "Total Stars", value: stats?.total_stars || 0, icon: Star, color: "text-yellow-400" },
+            { label: "Following", value: stats?.following || 0, icon: GitBranch, color: "text-green-400" }
+          ].map((stat, i) => (
+            <div key={i} className="bg-card/50 border border-white/5 p-4 rounded-2xl backdrop-blur-sm group hover:border-github/20 transition-all duration-500">
+              <div className="flex items-center gap-3 mb-2">
+                <stat.icon className={cn("w-4 h-4", stat.color)} />
+                <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">{stat.label}</span>
               </div>
+              <div className="text-2xl font-black group-hover:scale-110 transition-transform duration-500 origin-left">{stat.value}</div>
+            </div>
+          ))}
+        </div>
 
-              {/* Graph */}
-              <div className="flex gap-2">
-                {/* Day labels */}
-                <div className="flex flex-col justify-around text-[10px] text-muted-foreground pr-2">
-                  {days.map((day) => (
-                    <span key={day}>{day}</span>
-                  ))}
-                </div>
-
-                {/* Contribution grid */}
-                <div className="flex gap-[2px] sm:gap-[3px] flex-1">
-                  {contributions.map((week, weekIndex) => (
-                    <div key={weekIndex} className="flex flex-col gap-[2px] sm:gap-[3px]">
-                      {week.map((level, dayIndex) => (
-                        <div
-                          key={dayIndex}
-                          className={`w-[9px] h-[9px] sm:w-[10px] sm:h-[10px] md:w-[12px] md:h-[12px] rounded-sm ${getLevelColor(level)}`}
-                        />
-                      ))}
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Legend */}
-              <div className="flex items-center justify-end gap-2 mt-4">
-                <span className="text-[10px] text-muted-foreground">Less</span>
-                {[0, 1, 2, 3, 4].map((level) => (
-                  <div
-                    key={level}
-                    className={`w-[9px] h-[9px] sm:w-[10px] sm:h-[10px] rounded-sm ${getLevelColor(level)}`}
-                  />
-                ))}
-                <span className="text-[10px] text-muted-foreground">More</span>
-              </div>
+        <div className="bg-card rounded-[2.5rem] border border-white/10 p-6 sm:p-10 shadow-2xl relative overflow-hidden group">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-github/10 blur-[120px] rounded-full pointer-events-none -translate-y-1/2 translate-x-1/4 animate-pulse" />
+          
+          <div className="flex items-center justify-between mb-8">
+            <div className="flex items-center gap-3 px-4 py-2 bg-white/5 rounded-full border border-white/10 backdrop-blur-md">
+              <Calendar className="w-4 h-4 text-github" />
+              <span className="text-sm font-bold tracking-tight">{selectedYear} JOURNEY</span>
+            </div>
+            <div className="flex flex-col items-end">
+              <span className="text-[10px] font-black text-muted-foreground uppercase tracking-tighter mb-1 opacity-50 text-right">Contributions</span>
+              <span className="text-2xl font-black text-github">{totalCurrentYear.toLocaleString()}</span>
             </div>
           </div>
+
+          <TooltipProvider delayDuration={0}>
+            <ContributionGraph data={filteredActivities} blockSize={11} blockMargin={5}>
+              <ContributionGraphCalendar>
+                {({ activity, dayIndex, weekIndex }) => (
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <ContributionGraphBlock
+                        activity={activity}
+                        dayIndex={dayIndex}
+                        weekIndex={weekIndex}
+                        className="transition-all hover:scale-150 hover:ring-2 hover:ring-github/50 cursor-pointer duration-300 rounded-[3px] shadow-sm"
+                      />
+                    </TooltipTrigger>
+                    <TooltipContent side="top" className="text-xs bg-black/90 text-white border-white/10 shadow-2xl p-3 rounded-xl backdrop-blur-xl animate-in fade-in zoom-in slide-in-from-bottom-2">
+                      <div className="flex flex-col gap-1.5">
+                        <div className="flex items-center gap-2">
+                          <div className={cn("w-2 h-2 rounded-full", activity.count > 0 ? "bg-github" : "bg-muted")} />
+                          <span className="font-black text-lg">{activity.count}</span>
+                        </div>
+                        <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">
+                          {new Date(activity.date).toLocaleDateString('en-US', { 
+                            weekday: 'long',
+                            month: 'long', 
+                            day: 'numeric'
+                          })}
+                        </span>
+                      </div>
+                    </TooltipContent>
+                  </Tooltip>
+                )}
+              </ContributionGraphCalendar>
+              
+              <ContributionGraphFooter className="mt-10 pt-8 border-t border-white/5 flex flex-col sm:flex-row sm:items-center justify-end gap-6">
+                <div className="flex flex-col items-end gap-2">
+                   <span className="text-[10px] uppercase font-bold text-muted-foreground tracking-widest">Density Map</span>
+                   <ContributionGraphLegend />
+                </div>
+              </ContributionGraphFooter>
+            </ContributionGraph>
+          </TooltipProvider>
         </div>
       </div>
     </section>
