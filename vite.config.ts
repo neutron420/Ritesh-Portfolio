@@ -20,6 +20,7 @@ export default defineConfig(({ mode }) => ({
         short_name: 'Ritesh',
         description: 'Full-Stack Developer Portfolio',
         theme_color: '#0d1117',
+        background_color: '#0d1117',
         icons: [
           {
             src: 'logo.jpg',
