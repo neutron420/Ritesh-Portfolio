@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
-import { Search, X, ArrowRight, FileText, Code, Mail, Github, Linkedin } from "lucide-react";
+import { Search, X, ArrowRight, FileText, Code, Mail } from "lucide-react";
+import { SiGithub, SiLinkedin } from "react-icons/si";
 
 interface SearchResult {
   id: string;
@@ -58,7 +59,7 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
       title: "GitHub",
       description: "View my GitHub profile",
       href: "https://github.com/neutron420",
-      icon: <Github className="w-4 h-4" />,
+      icon: <SiGithub className="w-4 h-4" />,
       category: "External",
     },
     {
@@ -66,7 +67,7 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
       title: "LinkedIn",
       description: "Connect on LinkedIn",
       href: "https://www.linkedin.com/in/ritesh-singh1/",
-      icon: <Linkedin className="w-4 h-4" />,
+      icon: <SiLinkedin className="w-4 h-4" />,
       category: "External",
     },
   ];

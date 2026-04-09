@@ -1,16 +1,10 @@
-import { Github, Twitter, Linkedin, Mail, Download, GraduationCap, Terminal } from "lucide-react";
+import { Mail, Download, GraduationCap, Terminal } from "lucide-react";
 import { motion } from "framer-motion";
 import { TerminalTransition } from "@/components/TerminalTransition";
 import Typewriter from "@/components/ui/typewriter";
 import bannerImage from "@/assets/banner.jpg";
 
-import { 
-  SiTypescript, 
-  SiReact, 
-  SiNodedotjs, 
-  SiRust,
-  SiPostgresql
-} from "react-icons/si";
+import { SiTypescript, SiReact, SiNodedotjs, SiRust, SiPostgresql, SiLeetcode, SiGithub, SiX, SiLinkedin } from "react-icons/si";
 
 // Tech badges for hero bio
 const techBadges = [
@@ -24,9 +18,10 @@ const techBadges = [
 const HeroSection = () => {
 
   const socialLinks = [
-    { icon: Github, href: "https://github.com/neutron420", label: "GitHub" },
-    { icon: Twitter, href: "https://x.com/RiteshS18572143", label: "X" },
-    { icon: Linkedin, href: "https://www.linkedin.com/in/ritesh-singh1/", label: "LinkedIn" },
+    { icon: SiGithub, href: "https://github.com/neutron420", label: "GitHub" },
+    { icon: SiX, href: "https://x.com/RiteshS18572143", label: "X" },
+    { icon: SiLinkedin, href: "https://www.linkedin.com/in/ritesh-singh1/", label: "LinkedIn" },
+    { icon: SiLeetcode, href: "https://leetcode.com/u/neutron420", label: "LeetCode" },
     { icon: Mail, href: "mailto:fnaticritesh2004@gmail.com", label: "Email" },
   ];
 
@@ -42,11 +37,12 @@ const HeroSection = () => {
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Grid pattern */}
         <div 
-          className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05]"
+          className="absolute inset-0 opacity-[0.08] dark:opacity-[0.12] pointer-events-none"
           style={{
-            backgroundImage: `linear-gradient(to right, hsl(var(--foreground)) 1px, transparent 1px),
-                              linear-gradient(to bottom, hsl(var(--foreground)) 1px, transparent 1px)`,
+            backgroundImage: `linear-gradient(to right, #3ca2fa 1px, transparent 1px),
+                              linear-gradient(to bottom, #3ca2fa 1px, transparent 1px)`,
             backgroundSize: '60px 60px',
+            maskImage: 'radial-gradient(ellipse at center, black, transparent 90%)'
           }}
         />
         
@@ -225,7 +221,7 @@ const HeroSection = () => {
               
               {/* Resume Button */}
               <motion.a
-                href="/RiteshSinghResume.pdf"
+                href="/Ritesh_Kumar_Singh_Resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="ml-0 sm:ml-2 px-3 sm:px-4 py-2 flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-medium rounded-lg bg-accent text-accent-foreground hover:bg-accent/90 transition-all"

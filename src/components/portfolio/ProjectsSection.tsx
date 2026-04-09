@@ -1,4 +1,4 @@
-import { ArrowUpRight, Github, Wifi, Users, ChevronDown, Shield } from "lucide-react";
+import { ArrowUpRight, Wifi, Users, ChevronDown, Shield } from "lucide-react";
 import { 
   SiReact, 
   SiNodedotjs, 
@@ -15,7 +15,7 @@ import {
   SiNextdotjs,
   SiWeb3Dotjs,
   SiArgo,
-  SiPython,
+  SiGithub,
   SiSolana,
   SiRust,
   SiExpress,
@@ -26,22 +26,26 @@ import {
   SiVercel,
   SiRender,
   SiGithubactions,
-  SiJenkins
+  SiJenkins,
+  SiMapbox,
+  SiTerraform,
+  SiApachekafka,
+  SiOpenai
 } from "react-icons/si";
 import { TbDatabase, TbMap2 } from "react-icons/tb";
-import { FaAndroid, FaMapMarkerAlt } from "react-icons/fa";
+import { FaJava, FaAndroid, FaMapMarkerAlt } from "react-icons/fa";
 import { SiExpo, SiGradle, SiGooglemaps } from "react-icons/si";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
-import projectGrievance from "@/assets/project-grievance.jpg";
-import projectCodeConnect from "@/assets/project-codeconnect.png";
-import projectNavigateU from "@/assets/project-navigateu.png";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { motion } from "framer-motion";
+import React from "react";
 
 // Tech stack icon mapping with colors
 const techIcons: Record<string, { icon: React.ReactNode; color: string }> = {
@@ -63,7 +67,7 @@ const techIcons: Record<string, { icon: React.ReactNode; color: string }> = {
   "Web3.js": { icon: <SiWeb3Dotjs className="w-3 h-3" />, color: "text-[#F16822]" },
   "WebSockets": { icon: <Wifi className="w-3 h-3" />, color: "text-[#00D4AA]" },
   "ArgoCD": { icon: <SiArgo className="w-3 h-3" />, color: "text-[#EF7B4D]" },
-  "Python": { icon: <SiPython className="w-3 h-3" />, color: "text-[#3776AB]" },
+  "Java": { icon: <FaJava className="w-3 h-3" />, color: "text-[#ED8B00]" },
 
   "Solana": { icon: <SiSolana className="w-3 h-3" />, color: "text-[#9945FF]" },
   "Rust": { icon: <SiRust className="w-3 h-3" />, color: "text-[#DEA584]" },
@@ -86,18 +90,23 @@ const techIcons: Record<string, { icon: React.ReactNode; color: string }> = {
   "Android": { icon: <FaAndroid className="w-3 h-3" />, color: "text-[#3DDC84]" },
   "Gradle": { icon: <SiGradle className="w-3 h-3" />, color: "text-[#02303A]" },
   "Jenkins": { icon: <SiJenkins className="w-3 h-3" />, color: "text-[#D24939]" },
+  "Mapbox": { icon: <SiMapbox className="w-3 h-3" />, color: "text-[#4264fb]" },
+  "Terraform": { icon: <SiTerraform className="w-3 h-3" />, color: "text-[#844FBA]" },
+  "Apache Kafka": { icon: <SiApachekafka className="w-3 h-3" />, color: "text-foreground" },
+  "Kafka": { icon: <SiApachekafka className="w-3 h-3" />, color: "text-foreground" },
+  "Groq": { icon: <SiOpenai className="w-3 h-3" />, color: "text-[#f55036]" },
+  "PostGIS": { icon: <TbDatabase className="w-3 h-3" />, color: "text-[#336791]" },
 };
 
 // Curated projects in specific order with proper tech stacks
 const projects = [
   {
     name: "Swaraj-Desk",
-    description: "A comprehensive grievance management portal for government offices. Citizens can register complaints, track status, and receive updates in real-time. Built for Smart India Hackathon.",
-    techStack: ["Next.js", "Node.js", "Bun", "PostgreSQL", "Prisma", "Redis", "WebSockets", "Docker", "Kubernetes", "ArgoCD", "Tailwind CSS", "Python"],
+    description: "A comprehensive grievance management portal for government offices. Citizens can register complaints, track status, and receive updates in real-time. Built for Smart India Hackathon. Optimized backend for handling 10k+ concurrent requests with Redis and WebSocket integration. Implemented role-based access control and automated workload distribution for government officials. Integrated automated email notifications for grievance status updates.",
+    techStack: ["Next.js", "Node.js", "Bun", "PostgreSQL", "Prisma", "Redis", "WebSockets", "Docker", "Kubernetes", "ArgoCD", "Tailwind CSS", "Java"],
     github: "https://github.com/neutron420/sih-swarajdesk-2025",
-    live: "https://sih-user-fe-sd.adityahota.online/",
-    admin: "https://admin.swarajdesk.com", // Update this with the actual admin URL
-    image: projectGrievance,
+    user: "https://sih-user-fe-sd.adityahota.online/",
+    admin: "https://admin.swarajdesk.com",
     status: "live" as const,
     contributors: [
       { name: "Ritesh Singh", username: "neutron420", url: "https://github.com/neutron420" },
@@ -107,36 +116,35 @@ const projects = [
     ],
   },
   {
-    name: "Swaraj-Desk-Admin",
-    description: "Admin portal for SwarajDesk grievance management system. Features include complaint management, user administration, analytics dashboard, real-time notifications, report generation, and system configuration. Built with the same tech stack as the main application for seamless integration.",
-    techStack: ["Next.js", "Node.js", "Bun", "PostgreSQL", "Prisma", "Redis", "S3", "Docker", "Kubernetes", "ArgoCD", "Tailwind CSS"],
-    github: "https://github.com/neutron420/sih-swarajdesk-2025",
-    live: "https://admin.swarajdesk.com", // Update this with the actual admin URL
-    image: projectGrievance,
+    name: "RakshaSetu",
+    description: "An intelligent disaster management and emergency response system. Combines AI triage, real-time SOS reporting, automated volunteer dispatch based on geospatial proximity, and early warning systems. Features offline SOS broadcasting via BLE mesh relay and AI-powered emergency guidance. Integrated PostGIS for high-performance geospatial queries and automated alert zoning. Developed a priority-based message queue using Kafka for critical alert dissemination. Optimized geospatial data indexing for sub-second emergency response times.",
+    techStack: ["React Native", "Expo", "Bun", "Express", "PostgreSQL", "PostGIS", "Redis", "Apache Kafka", "TypeScript", "WebSocket", "Docker", "Kubernetes"],
+    github: "https://github.com/neutron420/RakshaSetu",
+    live: null,
     status: "live" as const,
-    contributors: [
-      { name: "Ritesh Singh", username: "neutron420", url: "https://github.com/neutron420" },
-      { name: "Aditya Hota", username: "theogaditya", url: "https://github.com/theogaditya" },
-      { name: "Abhash Behera", username: "MistaHolmes", url: "https://github.com/MistaHolmes" },
-      { name: "Aniroodh Padhee", username: "Aniroodh1234", url: "https://github.com/Aniroodh1234" },
-    ],
+  },
+  {
+    name: "ShareBite",
+    description: "A full-stack food rescue platform connecting donors, NGOs, riders, and admins to reduce food waste. Features real-time coordination, map-based pickups, role-based dashboards, and transparent fulfillment workflows with AI-powered support and karma-based engagement mechanics. Leveraged Mapbox for real-time optimal route generation for riders. Integrated Groq AI for automated food quality assessment and donor matching. Implemented a localized 'Karma' point system to incentivize consistent food donations.",
+    techStack: ["Next.js", "TypeScript", "Tailwind CSS", "Node.js", "Prisma", "PostgreSQL", "Redis", "WebSocket", "Groq", "Mapbox", "Docker", "Terraform"],
+    github: "https://github.com/neutron420/Sharebite",
+    live: null,
+    status: "live" as const,
   },
   {
     name: "CodeConnect",
-    description: "A high-performance online code compiler and execution engine built with Rust backend (Actix-Web) and TypeScript/React frontend. Features secure sandboxed code execution, multi-language support, real-time output streaming, SQLx database integration, and blazing-fast compilation for running code snippets directly in the browser.",
+    description: "A high-performance online code compiler and execution engine built with Rust backend (Actix-Web) and TypeScript/React frontend. Features secure sandboxed code execution, multi-language support, real-time output streaming, SQLx database integration, and blazing-fast compilation. Implemented secure gVisor-based isolation for untrusted code execution. Developed a custom protocol for real-time terminal output streaming with low latency. Integrated real-time collaborative editing features using Operational Transformation.",
     techStack: ["TypeScript", "Rust", "Actix", "SQLx", "Prisma", "Next.js", "Render", "Vercel", "CI/CD"],
     github: "https://github.com/neutron420/CodeConnect",
     live: "https://www.neutrondev.in/",
-    image: projectCodeConnect,
     status: "live" as const,
   },
   {
     name: "NavigateU",
-    description: "A campus navigation and route finder mobile app built for students and visitors. Features real-time turn-by-turn directions with voice guidance, seamless indoor/outdoor navigation powered by Google Maps API and MapLibre GL, searchable building & facility locations with detailed floor plans, and smart route optimization between any two points on campus. Supports offline map caching for areas with poor connectivity. Built with a native Android layer using Gradle for performance-critical modules and Firebase for authentication, real-time location sharing, and campus data synchronization across devices.",
+    description: "A campus navigation and route finder mobile app built for students and visitors. Features real-time turn-by-turn directions, indoor/outdoor navigation powered by Google Maps API, floor plans, and smart route optimization. Supports offline map caching and real-time location sharing. Optimized for power efficiency using low-impact background location tracking. Integrated Firebase for live status updates and campus-wide emergency notifications. Added AR (Augmented Reality) directional cues for easier indoor navigation.",
     techStack: ["Expo", "React Native", "TypeScript", "Firebase", "Google Maps API", "MapLibre", "Android", "Gradle", "AWS", "Docker"],
     github: "https://github.com/neutron420/NavigateU",
     live: null,
-    image: projectNavigateU,
     status: "live" as const,
   },
 ];
@@ -190,7 +198,7 @@ const ProjectsSection = () => {
         className={`section-container scroll-reveal ${isVisible ? 'visible' : ''}`}
       >
         {/* Section Header */}
-        <div className="flex items-center justify-between mb-10 md:mb-14">
+        <div className="flex items-center justify-between mb-6 md:mb-8">
           <div>
             <div className="flex items-center gap-3 mb-2">
               <div className="h-px w-8 bg-accent" />
@@ -210,164 +218,152 @@ const ProjectsSection = () => {
           </a>
         </div>
 
-        <div className="grid gap-8">
+        <div className="flex flex-col">
           {projects.map((project, index) => (
-            <div
+            <motion.div
               key={project.name}
-              className={`group relative bg-card/50 backdrop-blur-sm rounded-2xl border border-border/50 overflow-hidden transition-all duration-500 scroll-reveal ${isVisible ? 'visible' : ''} hover:border-accent/30 hover:shadow-[0_0_40px_-12px_hsl(var(--accent)/0.15)]`}
-              style={{ transitionDelay: `${index * 100}ms` }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="py-12 border-b border-border/40 last:border-0 group"
             >
-              {/* Subtle accent gradient on hover */}
-              <div className="absolute inset-0 bg-gradient-to-br from-accent/[0.03] via-transparent to-accent/[0.02] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl" />
-
-
-              <div className="grid md:grid-cols-5 gap-0 relative z-10">
-                {/* Image or Coming Soon */}
-                <div className={`md:col-span-2 overflow-hidden relative ${project.name === 'Swaraj-Desk' || project.name === 'Swaraj-Desk-Admin' || project.name === 'CodeConnect' ? 'h-64 md:h-[22rem]' : project.name === 'NavigateU' ? 'h-64 md:h-[32rem]' : 'h-52 md:h-72'}`}>
-                  {project.name === 'NavigateU' ? (
-                    <>
-                      <div className="w-full h-full bg-gradient-to-br from-[#d6e4f0] via-[#e2ecf5] to-[#cde0f0] dark:from-[#1a1a2e] dark:via-[#16213e] dark:to-[#0f172a] flex items-center justify-center overflow-hidden">
-                        <img
-                          src={project.image}
-                          alt={project.name}
-                          className="w-full h-full object-cover object-top group-hover:scale-[1.03] transition-transform duration-700 ease-out"
-                        />
-                      </div>
-                      <div className="absolute inset-0 bg-gradient-to-r from-transparent to-card/80 pointer-events-none" />
-                      
-                      {/* Project number badge */}
-                      <div className="absolute top-4 left-4 w-9 h-9 rounded-xl bg-background/90 backdrop-blur-md flex items-center justify-center text-xs font-bold text-accent border border-accent/20 z-10 shadow-lg">
-                        0{index + 1}
-                      </div>
-                    </>
-                  ) : (
-                    <>
-                      <img
-                        src={project.image}
-                        alt={project.name}
-                        className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700 ease-out object-center"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-card via-card/40 to-transparent md:bg-gradient-to-r md:from-transparent md:via-card/20 md:to-card" />
-                      
-                      {/* Project number badge */}
-                      <div className="absolute top-4 left-4 w-9 h-9 rounded-xl bg-background/90 backdrop-blur-md flex items-center justify-center text-xs font-bold text-accent border border-accent/20 shadow-lg">
-                        0{index + 1}
-                      </div>
-                    </>
-                  )}
-                </div>
-
-                {/* Content */}
-                <div className={`md:col-span-3 flex flex-col ${project.name === 'Swaraj-Desk' || project.name === 'Swaraj-Desk-Admin' || project.name === 'CodeConnect' ? 'p-5 md:p-7 h-64 md:h-[22rem] overflow-y-auto' : project.name === 'NavigateU' ? 'p-5 md:p-7 md:h-[32rem] overflow-y-auto' : 'p-5 md:p-7'}`}>
-                  {/* Header */}
-                  <div className="flex items-start justify-between gap-3 sm:gap-4 mb-4">
-                    <div className="flex items-center gap-2.5 flex-1 min-w-0 flex-wrap">
-                      <h3 className="text-lg sm:text-xl md:text-2xl font-bold group-hover:text-accent transition-colors duration-300 break-words min-w-0">
-                        {project.name === 'Swaraj-Desk-Admin' ? 'Swaraj Desk Admin' : project.name.replace(/-/g, ' ')}
-                      </h3>
-                      {project.status && <StatusBadge status={project.status} />}
-                    </div>
-                    <div className="flex items-center gap-2 flex-shrink-0">
-                      <a
-                        href={project.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-9 h-9 flex items-center justify-center rounded-xl bg-muted/40 hover:bg-accent hover:text-accent-foreground transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-accent/20 border border-transparent hover:border-accent/30"
-                        aria-label="GitHub"
-                      >
-                        <Github className="w-4 h-4" />
-                      </a>
-                      {project.live && (
-                        <a
-                          href={project.live}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="w-9 h-9 flex items-center justify-center rounded-xl bg-muted/40 hover:bg-accent hover:text-accent-foreground transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-accent/20 border border-transparent hover:border-accent/30"
-                          aria-label="Live Demo"
-                        >
-                          <ArrowUpRight className="w-4 h-4" />
-                        </a>
-                      )}
-                      {project.admin && (
-                        <a
-                          href={project.admin}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="w-9 h-9 flex items-center justify-center rounded-xl bg-muted/40 hover:bg-accent hover:text-accent-foreground transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-accent/20 border border-transparent hover:border-accent/30"
-                          aria-label="Admin"
-                          title="Admin Portal"
-                        >
-                          <Shield className="w-4 h-4" />
-                        </a>
-                      )}
-                    </div>
+              <div className="flex flex-col md:flex-row justify-between gap-6">
+                {/* Left Side: Info */}
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-3 mb-2 flex-wrap">
+                    <h3 className="text-xl md:text-2xl font-bold tracking-tight group-hover:text-accent transition-colors duration-300">
+                      {project.name.replace(/-/g, ' ')}
+                    </h3>
+                    {project.status && <StatusBadge status={project.status} />}
                   </div>
 
-                  {/* Description */}
-                  <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-                    {project.description}
-                  </p>
+                  {/* Actions & Links - Mobile: visible, Desktop: visible */}
+                  <div className="flex items-center gap-4 mb-6">
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-1.5 text-xs font-medium uppercase tracking-wider text-muted-foreground hover:text-accent transition-colors group/link"
+                    >
+                      <SiGithub className="w-3.5 h-3.5" />
+                      <span>Code</span>
+                      <ArrowUpRight className="w-3 h-3 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
+                    </a>
+                    {project.live && (
+                      <a
+                        href={project.live}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1.5 text-xs font-medium uppercase tracking-wider text-muted-foreground hover:text-accent transition-colors group/link"
+                      >
+                        <ArrowUpRight className="w-3.5 h-3.5" />
+                        <span>Live</span>
+                        <ArrowUpRight className="w-3 h-3 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
+                      </a>
+                    )}
+                    {(project as any).user && (
+                      <a
+                        href={(project as any).user}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1.5 text-xs font-medium uppercase tracking-wider text-muted-foreground hover:text-accent transition-colors group/link"
+                      >
+                        <Users className="w-3.5 h-3.5" />
+                        <span>{project.name === "Swaraj-Desk" ? "Super User" : "User"}</span>
+                        <ArrowUpRight className="w-3 h-3 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
+                      </a>
+                    )}
+                    {project.admin && (
+                      <a
+                        href={project.admin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1.5 text-xs font-medium uppercase tracking-wider text-muted-foreground hover:text-accent transition-colors group/link"
+                      >
+                        <Shield className="w-3.5 h-3.5" />
+                        <span>Admin</span>
+                        <ArrowUpRight className="w-3 h-3 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
+                      </a>
+                    )}
+                  </div>
 
-                  {/* Contributors - Only for Swaraj-Desk projects */}
-                  {project.contributors && (
-                    <div className="mb-4">
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <button className="px-3.5 py-2 text-xs rounded-lg bg-muted/30 text-muted-foreground hover:bg-accent/10 hover:text-accent hover:border-accent/20 border border-border/50 transition-all duration-300 flex items-center gap-2">
-                            <Users className="w-3.5 h-3.5" />
-                            <span>Contributors ({project.contributors.length})</span>
-                            <ChevronDown className="w-3 h-3 opacity-50" />
-                          </button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="start" className="w-56">
-                          {project.contributors.map((contributor) => (
-                            <DropdownMenuItem key={contributor.username} asChild>
-                              <a
-                                href={contributor.url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex items-center gap-2 cursor-pointer"
-                              >
-                                <Github className="w-4 h-4" />
-                                <span>{contributor.name}</span>
-                              </a>
-                            </DropdownMenuItem>
-                          ))}
-                        </DropdownMenuContent>
-                      </DropdownMenu>
+                  <div className="space-y-8">
+                    {/* Tech Stack - Inspired by ramx.in */}
+                    <div className="space-y-4">
+                      <h4 className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground/60 font-bold">
+                        Technologies & Tools
+                      </h4>
+                      <div className="flex flex-wrap gap-2">
+                        {project.techStack.map((tech) => {
+                          const techData = techIcons[tech];
+                          return (
+                            <div
+                              key={tech}
+                              title={tech}
+                              className="w-10 h-10 flex items-center justify-center rounded-xl bg-muted/20 border border-border/40 hover:border-accent/30 hover:bg-accent/5 transition-all duration-300 group/tech"
+                            >
+                              {techData ? (
+                                <span className={`${techData.color} transition-transform group-hover/tech:scale-110`}>
+                                  {React.cloneElement(techData.icon as React.ReactElement, { className: "w-5 h-5" })}
+                                </span>
+                              ) : (
+                                <span className="text-[10px] font-bold text-muted-foreground">{tech[0]}</span>
+                              )}
+                            </div>
+                          );
+                        })}
+                      </div>
                     </div>
-                  )}
 
-                  {/* Spacer to push tech stack to bottom */}
-                  <div className="flex-1" />
-
-                  {/* Tech Stack */}
-                  <div className="pt-4 border-t border-border/20 flex-shrink-0">
-                    <p className="text-[10px] uppercase tracking-[0.15em] text-muted-foreground/70 mb-3 font-medium">
-                      Tech Stack
-                    </p>
-                    <div className="flex flex-wrap gap-1.5">
-                      {project.techStack.map((tech, i) => {
-                        const techData = techIcons[tech];
-                        return (
-                          <span
-                            key={tech}
-                            className={`px-2.5 py-1.5 text-[11px] rounded-lg transition-all duration-300 flex items-center gap-1.5 cursor-default ${
-                              i === 0 
-                                ? 'bg-accent/15 text-accent border border-accent/25 hover:bg-accent/25 shadow-sm shadow-accent/10' 
-                                : 'bg-muted/30 text-muted-foreground hover:bg-accent/10 hover:text-accent hover:border-accent/20 border border-border/30 hover:shadow-sm'
-                            }`}
-                          >
-                            {techData && <span className={`${techData.color} flex-shrink-0`}>{techData.icon}</span>}
-                            {tech}
-                          </span>
-                        );
-                      })}
+                    {/* Description - Bullet style like ramx.in */}
+                    <div className="space-y-4">
+                      <h4 className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground/60 font-bold">
+                        What I've done
+                      </h4>
+                      <ul className="space-y-3">
+                        {project.description.split('. ').filter(p => p.trim()).map((point, i) => (
+                          <li key={i} className="flex gap-3 text-sm text-muted-foreground leading-relaxed">
+                            <span className="bg-muted-foreground/40 mt-1.5 shrink-0 block w-1.5 h-1.5 rounded-sm" />
+                            <span>{point.trim()}{point.endsWith('.') ? '' : '.'}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
+
+                    {/* Contributors */}
+                    {project.contributors && (
+                      <div className="pt-2">
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <button className="flex items-center gap-2 text-xs text-muted-foreground hover:text-accent transition-colors">
+                              <Users className="w-3.5 h-3.5" />
+                              <span>Collaborated with {project.contributors.length} people</span>
+                              <ChevronDown className="w-3 h-3" />
+                            </button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent align="start" className="w-56 bg-card border-border/50">
+                            {project.contributors.map((contributor) => (
+                              <DropdownMenuItem key={contributor.username} asChild>
+                                <a
+                                  href={contributor.url}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="flex items-center gap-2 cursor-pointer"
+                                >
+                                  <SiGithub className="w-4 h-4" />
+                                  <span>{contributor.name}</span>
+                                </a>
+                              </DropdownMenuItem>
+                            ))}
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

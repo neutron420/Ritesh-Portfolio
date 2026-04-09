@@ -98,8 +98,8 @@ const Navbar = () => {
           >
             {/* Japanese-inspired logo mark */}
             <div className="relative w-10 h-10 flex items-center justify-center">
-              <div className="absolute inset-0 rounded-full border-2 border-[#ff6b35] group-hover:border-[#ff8555] transition-colors" />
-              <span className="text-lg font-bold text-[#ff6b35] group-hover:scale-110 transition-transform">
+              <div className="absolute inset-0 rounded-full border-2 border-[#3ca2fa] group-hover:border-[#60b5ff] transition-colors" />
+              <span className="text-lg font-bold text-[#3ca2fa] group-hover:scale-110 transition-transform">
                 理
               </span>
             </div>
