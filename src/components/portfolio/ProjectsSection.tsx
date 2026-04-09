@@ -30,7 +30,10 @@ import {
   SiMapbox,
   SiTerraform,
   SiApachekafka,
-  SiOpenai
+  SiOpenai,
+  SiAnsible,
+  SiCloudflare,
+  SiGooglecloud
 } from "react-icons/si";
 import { TbDatabase, TbMap2 } from "react-icons/tb";
 import { FaJava, FaAndroid, FaMapMarkerAlt } from "react-icons/fa";
@@ -68,6 +71,9 @@ const techIcons: Record<string, { icon: React.ReactNode; color: string }> = {
   "WebSockets": { icon: <Wifi className="w-3 h-3" />, color: "text-[#00D4AA]" },
   "ArgoCD": { icon: <SiArgo className="w-3 h-3" />, color: "text-[#EF7B4D]" },
   "Java": { icon: <FaJava className="w-3 h-3" />, color: "text-[#ED8B00]" },
+  "GCP": { icon: <SiGooglecloud className="w-3 h-3" />, color: "text-[#4285F4]" },
+  "Cloudflare": { icon: <SiCloudflare className="w-3 h-3" />, color: "text-[#F38020]" },
+  "Ansible": { icon: <SiAnsible className="w-3 h-3" />, color: "text-[#EE0000]" },
 
   "Solana": { icon: <SiSolana className="w-3 h-3" />, color: "text-[#9945FF]" },
   "Rust": { icon: <SiRust className="w-3 h-3" />, color: "text-[#DEA584]" },
@@ -103,7 +109,7 @@ const projects = [
   {
     name: "Swaraj-Desk",
     description: "A comprehensive grievance management portal for government offices. Citizens can register complaints, track status, and receive updates in real-time. Built for Smart India Hackathon. Optimized backend for handling 10k+ concurrent requests with Redis and WebSocket integration. Implemented role-based access control and automated workload distribution for government officials. Integrated automated email notifications for grievance status updates.",
-    techStack: ["Next.js", "Node.js", "Bun", "PostgreSQL", "Prisma", "Redis", "WebSockets", "Docker", "Kubernetes", "ArgoCD", "Tailwind CSS", "Java"],
+    techStack: ["Next.js", "Node.js", "Bun", "PostgreSQL", "Prisma", "Redis", "WebSockets", "Docker", "Kubernetes", "ArgoCD", "Tailwind CSS", "AWS", "GCP", "Cloudflare"],
     github: "https://github.com/neutron420/sih-swarajdesk-2025",
     user: "https://sih-user-fe-sd.adityahota.online/",
     admin: "https://admin.swarajdesk.com",
@@ -118,7 +124,7 @@ const projects = [
   {
     name: "RakshaSetu",
     description: "An intelligent disaster management and emergency response system. Combines AI triage, real-time SOS reporting, automated volunteer dispatch based on geospatial proximity, and early warning systems. Features offline SOS broadcasting via BLE mesh relay and AI-powered emergency guidance. Integrated PostGIS for high-performance geospatial queries and automated alert zoning. Developed a priority-based message queue using Kafka for critical alert dissemination. Optimized geospatial data indexing for sub-second emergency response times.",
-    techStack: ["React Native", "Expo", "Bun", "Express", "PostgreSQL", "PostGIS", "Redis", "Apache Kafka", "TypeScript", "WebSocket", "Docker", "Kubernetes"],
+    techStack: ["React Native", "Expo", "Bun", "Express", "PostgreSQL", "PostGIS", "Redis", "Apache Kafka", "TypeScript", "WebSockets", "Docker", "Kubernetes", "AWS"],
     github: "https://github.com/neutron420/RakshaSetu",
     live: null,
     status: "live" as const,
@@ -126,7 +132,7 @@ const projects = [
   {
     name: "ShareBite",
     description: "A full-stack food rescue platform connecting donors, NGOs, riders, and admins to reduce food waste. Features real-time coordination, map-based pickups, role-based dashboards, and transparent fulfillment workflows with AI-powered support and karma-based engagement mechanics. Leveraged Mapbox for real-time optimal route generation for riders. Integrated Groq AI for automated food quality assessment and donor matching. Implemented a localized 'Karma' point system to incentivize consistent food donations.",
-    techStack: ["Next.js", "TypeScript", "Tailwind CSS", "Node.js", "Prisma", "PostgreSQL", "Redis", "WebSocket", "Groq", "Mapbox", "Docker", "Terraform"],
+    techStack: ["Next.js", "TypeScript", "Tailwind CSS", "Node.js", "Prisma", "PostgreSQL", "Redis", "WebSockets", "Groq", "Mapbox", "Docker", "Terraform" ,"AWS"],
     github: "https://github.com/neutron420/Sharebite",
     live: null,
     status: "live" as const,
