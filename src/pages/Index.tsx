@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "@/components/portfolio/Navbar";
 import HeroSection from "@/components/portfolio/HeroSection";
 import LoadingScreen from "@/components/portfolio/LoadingScreen";
-import AIChatBox from "@/components/portfolio/AIChatBox";
+import {AIChat} from "@/components/portfolio/AIChat";
 import SEOHead from "@/components/SEOHead";
 import ScrollReveal from "@/components/ui/scroll-reveal";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -16,14 +16,13 @@ import { useKeyboardShortcuts } from "@/hooks/use-keyboard-shortcuts";
 // Lazy load sections below the fold for better performance
 const AchievementsSection = lazy(() => import("@/components/portfolio/AchievementsSection"));
 const TechStackSection = lazy(() => import("@/components/portfolio/TechStackSection"));
-const GitHubContributions = lazy(() => import("@/components/portfolio/GitHubContributions"));
 const ProjectsSection = lazy(() => import("@/components/portfolio/ProjectsSection"));
 const SpotifySection = lazy(() => import("@/components/portfolio/SpotifySection"));
 const AnimeVideoSection = lazy(() => import("@/components/portfolio/AnimeVideoSection"));
 const ContactSection = lazy(() => import("@/components/portfolio/ContactSection"));
 const QuoteSection = lazy(() => import("@/components/portfolio/QuoteSection"));
 const VisitorCounter = lazy(() => import("@/components/portfolio/VisitorCounter"));
-const MadeWithLove = lazy(() => import("@/components/portfolio/MadeWithLove"));
+const Footer = lazy(() => import("@/components/hover-footer").then(module => ({ default: module.Footer })));
 
 // Loading skeleton for lazy-loaded sections
 const SectionSkeleton = ({ height = "h-64" }: { height?: string }) => (
@@ -151,14 +150,7 @@ const Index = () => {
               <TechStackSection />
             </ScrollReveal>
           </Suspense>
-          
 
-          <Suspense fallback={<SectionSkeleton height="h-64" />}>
-            <ScrollReveal delay={0.1}>
-              <GitHubContributions />
-            </ScrollReveal>
-          </Suspense>
-          
           <Suspense fallback={<SectionSkeleton height="h-96" />}>
             <ScrollReveal delay={0.1}>
               <ProjectsSection />
@@ -193,13 +185,13 @@ const Index = () => {
             <VisitorCounter />
           </Suspense>
 
-          <Suspense fallback={<SectionSkeleton height="h-20" />}>
-            <MadeWithLove />
+          <Suspense fallback={<SectionSkeleton height="h-32" />}>
+            <Footer />
           </Suspense>
         </main>
         
-        {/* AI Chat Box */}
-        <AIChatBox />
+        {/* AI Chat */}
+        <AIChat />
         
         {/* Back to Top Button */}
         <BackToTop />

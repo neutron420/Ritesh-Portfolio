@@ -60,6 +60,22 @@ export const projects: Project[] = [
     githubUrl: "https://github.com/neutron420/sih-swarajdesk-2025",
   },
   {
+    year: "2025",
+    title: "RakshaSetu",
+    description: "An intelligent disaster management and emergency response system. Combines AI triage, real-time SOS reporting, automated volunteer dispatch based on geospatial proximity, and early warning systems. Features offline SOS broadcasting via BLE mesh relay and AI-powered emergency guidance.",
+    tags: ["React Native", "Expo", "Bun", "Express", "PostgreSQL", "PostGIS", "Redis", "Apache Kafka", "TypeScript", "WebSocket", "Docker", "Kubernetes"],
+    liveUrl: "",
+    githubUrl: "https://github.com/neutron420/RakshaSetu",
+  },
+  {
+    year: "2025",
+    title: "ShareBite",
+    description: "A full-stack food rescue platform connecting donors, NGOs, riders, and admins to reduce food waste. Features real-time coordination, map-based pickups, role-based dashboards, and transparent fulfillment workflows with AI-powered support and karma-based engagement mechanics.",
+    tags: ["Next.js", "TypeScript", "Tailwind CSS", "Node.js", "Prisma", "PostgreSQL", "Redis", "WebSocket", "Groq", "Mapbox", "Docker", "Terraform"],
+    liveUrl: "",
+    githubUrl: "https://github.com/neutron420/Sharebite",
+  },
+  {
     year: "2024",
     title: "Bloom",
     description: "A real-time video conferencing application similar to Google Meet. Features include HD video calls, screen sharing, chat messaging, virtual backgrounds, meeting scheduling, and participant management.",
@@ -206,7 +222,13 @@ GitHub: https://github.com/neutron420/sih-swarajdesk-2025
 2. **Swaraj-Desk Admin** (2025) - Admin portal with complaint management, analytics dashboard, and real-time notifications.
 Live: https://admin.swarajdesk.com
 
-3. **Bloom** (2024) - Real-time video conferencing app like Google Meet with HD video, screen sharing, and chat. Tech: Next.js, WebRTC, Mediasoup, Socket.io.
+3. **RakshaSetu** (2025) - Intelligent disaster management system with AI triage, volunteer dispatch, and BLE mesh offline SOS. Tech: React Native, Expo, Bun, Express, PostGIS, Kafka, Docker.
+GitHub: https://github.com/neutron420/RakshaSetu
+
+4. **ShareBite** (2025) - Full-stack food rescue platform connecting donors and NGOs. Tech: Next.js, Node.js, Prisma, PostgreSQL, Redis, Groq, Mapbox.
+GitHub: https://github.com/neutron420/Sharebite
+
+5. **Bloom** (2024) - Real-time video conferencing app like Google Meet with HD video, screen sharing, and chat. Tech: Next.js, WebRTC, Mediasoup, Socket.io.
 GitHub: https://github.com/neutron420/Bloom
 
 4. **Raby** (2024) - Secure mobile application with multi-factor authentication. Tech: React Native, Node.js.
@@ -254,7 +276,7 @@ He's currently available for opportunities!`;
 - **Active Days:** 45 days
 - **Acceptance Rate:** Strong performance
 
-Profile: https://leetcode.com/u/neutron420/
+Profile: https://leetcode.com/u/neutron420
 
 He practices regularly to improve his problem-solving skills!`;
   }
@@ -288,7 +310,7 @@ He's currently available for opportunities and looking for roles in software eng
 
   // Resume/CV
   if (lowerQuery.match(/(resume|cv|curriculum vitae|download|pdf|document)/)) {
-    return `You can view Ritesh's resume here: https://ritesh.codexly.xyz/RiteshSinghResume.pdf
+    return `You can view Ritesh's resume here: https://ritesh.codexly.xyz/Ritesh_Kumar_Singh_Resume.pdf
 
 The resume will open in a new tab. For the latest information about his experience, projects, and skills, feel free to reach out via email at fnaticritesh2004@gmail.com or connect on LinkedIn!`;
   }
@@ -407,6 +429,25 @@ He's been building projects and contributing to open source actively while study
 - Feature rich and secure
 - **Tech Stack:** React Native, Node.js
 - **GitHub:** https://github.com/neutron420/Raby`;
+  }
+
+  if (lowerQuery.match(/(rakshasetu|raksha|disaster)/)) {
+    return `**RakshaSetu** is Ritesh's intelligent disaster management system:
+- Real-time SOS reporting and AI triage
+- Automated volunteer dispatch using PostGIS proximity search
+- Early Warning System integrating USGS and Weather data
+- Offline SOS broadcasting via BLE mesh relay
+- **Tech Stack:** React Native, Expo, Bun, Express, PostgreSQL, PostGIS, Redis, Apache Kafka, Docker, Kubernetes
+- **GitHub:** https://github.com/neutron420/RakshaSetu`;
+  }
+
+  if (lowerQuery.match(/(sharebite|food|rescue)/)) {
+    return `**ShareBite** is a full-stack food rescue platform:
+- Connects donors, NGOs, and riders to reduce food waste
+- Real-time coordination and map-based pickup discovery
+- Transparent fulfillment workflows and karma leaderboard
+- **Tech Stack:** Next.js, TypeScript, Node.js, Prisma, PostgreSQL, Redis, Groq AI, Mapbox, Terraform
+- **GitHub:** https://github.com/neutron420/Sharebite`;
   }
 
   // CGPA/Grades

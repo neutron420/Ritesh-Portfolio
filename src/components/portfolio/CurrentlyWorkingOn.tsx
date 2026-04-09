@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
-import { ExternalLink, Github, Code2 } from "lucide-react";
-import { SiSolana, SiRust, SiNextdotjs, SiPostgresql, SiKotlin, SiFirebase } from "react-icons/si";
+import { ExternalLink, Code2 } from "lucide-react";
+import { SiSolana, SiRust, SiNextdotjs, SiPostgresql, SiKotlin, SiFirebase, SiGithub } from "react-icons/si";
 
 interface TechItem {
   name: string;
@@ -124,7 +124,7 @@ const CurrentlyWorkingOn = () => {
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.95 }}
                       >
-                        <Github className="w-4 h-4" />
+                        <SiGithub className="w-4 h-4" />
                       </motion.a>
                     )}
                     {project.preview && (

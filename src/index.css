@@ -19,13 +19,13 @@
     --secondary-foreground: 0 0% 9%;
     --muted: 0 0% 96%;
     --muted-foreground: 0 0% 45%;
-    --accent: 25 95% 53%;
+    --accent: 208 95% 61%;
     --accent-foreground: 0 0% 98%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
     --border: 0 0% 90%;
     --input: 0 0% 96%;
-    --ring: 25 95% 53%;
+    --ring: 208 95% 61%;
     --radius: 0.75rem;
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 0 0% 9%;
@@ -55,13 +55,13 @@
     --secondary-foreground: 0 0% 95%;
     --muted: 0 0% 10%;
     --muted-foreground: 0 0% 55%;
-    --accent: 25 95% 53%;
+    --accent: 208 95% 61%;
     --accent-foreground: 0 0% 0%;
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 98%;
     --border: 0 0% 14%;
     --input: 0 0% 12%;
-    --ring: 25 95% 53%;
+    --ring: 208 95% 61%;
     --sidebar-background: 0 0% 5%;
     --sidebar-foreground: 0 0% 95%;
     --sidebar-primary: 0 0% 95%;
@@ -69,7 +69,7 @@
     --sidebar-accent: 0 0% 10%;
     --sidebar-accent-foreground: 0 0% 95%;
     --sidebar-border: 0 0% 14%;
-    --sidebar-ring: 25 95% 53%;
+    --sidebar-ring: 208 95% 61%;
     /* GitHub green */
     --github: 142 72% 42%;
     /* LeetCode orange */

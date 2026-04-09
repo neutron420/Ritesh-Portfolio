@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Mail, Send, Loader2, Twitter, Github, Linkedin, MapPin, Clock, Sparkles } from "lucide-react";
+import { Mail, Send, Loader2, MapPin, Clock, Sparkles } from "lucide-react";
+import { SiGithub, SiLinkedin, SiX } from "react-icons/si";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 
@@ -65,9 +66,9 @@ const ContactSection = () => {
   };
 
   const socialLinks = [
-    { icon: Github, href: "https://github.com/neutron420", label: "GitHub" },
-    { icon: Linkedin, href: "https://www.linkedin.com/in/ritesh-singh1/", label: "LinkedIn" },
-    { icon: Twitter, href: "https://x.com/RiteshS18572143", label: "Twitter" },
+    { icon: SiGithub, href: "https://github.com/neutron420", label: "GitHub" },
+    { icon: SiLinkedin, href: "https://www.linkedin.com/in/ritesh-singh1/", label: "LinkedIn" },
+    { icon: SiX, href: "https://x.com/RiteshS18572143", label: "Twitter" },
     { icon: Mail, href: "mailto:fnaticritesh2004@gmail.com", label: "Email" },
   ];
 

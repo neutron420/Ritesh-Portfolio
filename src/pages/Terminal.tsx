@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback, useMemo, memo } from "react";
 import { useNavigate } from "react-router-dom";
-import { Mail, Globe, Github, Linkedin, Twitter, Rocket, Hand, Shield, FileText } from "lucide-react";
+import { Mail, Globe, Rocket, Hand, Shield, FileText } from "lucide-react";
+import { SiGithub, SiLinkedin, SiX } from "react-icons/si";
 import { projects, technologies, personalInfo, education, contact, socials } from "@/lib/data";
 
 interface CommandOutput {
@@ -43,11 +44,11 @@ const HELP_TEXT = `
 │  fortune           Display a random fortune                     │
 │  matrix            Start/stop matrix rain effect                │
 │  matrix stop       Stop matrix rain effect                      │
-│  binary            Start/stop binary rain (0s and 1s)            │
+│  binary            Start/stop binary rain (0s and 1s)           │
 │  binary stop       Stop binary rain effect                      │
 │  hex               Start/stop hexadecimal code rain             │
-│  hex stop          Stop hex code rain effect                     │
-│  effects           Show all available visual effects             │
+│  hex stop          Stop hex code rain effect                    │
+│  effects           Show all available visual effects            │
 │  clear / cls       Clear the terminal                           │
 │  exit / quit       Exit terminal mode                           │
 ╰─────────────────────────────────────────────────────────────────╯
@@ -288,8 +289,8 @@ export default function Terminal() {
             <p className="text-[#39d353] mb-3">┌─ Contact Information ─────────────────────────────────────┐</p>
             <p className="ml-2 flex items-center gap-1"><span className="text-[#a371f7]">  <Mail className="w-3.5 h-3.5 inline" /> Email:</span>    <a href={`mailto:${contact.email}`} className="text-[#56d4dd] hover:underline">{contact.email}</a></p>
             <p className="ml-2 flex items-center gap-1"><span className="text-[#a371f7]">  <Globe className="w-3.5 h-3.5 inline" /> Website:</span>  <a href={socials.website} target="_blank" rel="noopener noreferrer" className="text-[#56d4dd] hover:underline">{socials.website}</a></p>
-            <p className="ml-2 flex items-center gap-1"><span className="text-[#a371f7]">  <Github className="w-3.5 h-3.5 inline" /> GitHub:</span>   <a href={socials.github} target="_blank" rel="noopener noreferrer" className="text-[#56d4dd] hover:underline">{socials.github}</a></p>
-            <p className="ml-2 flex items-center gap-1"><span className="text-[#a371f7]">  <Linkedin className="w-3.5 h-3.5 inline" /> LinkedIn:</span> <a href={socials.linkedin} target="_blank" rel="noopener noreferrer" className="text-[#56d4dd] hover:underline">{socials.linkedin}</a></p>
+            <p className="ml-2 flex items-center gap-1"><span className="text-[#a371f7]">  <SiGithub className="w-3.5 h-3.5 inline" /> GitHub:</span>   <a href={socials.github} target="_blank" rel="noopener noreferrer" className="text-[#56d4dd] hover:underline">{socials.github}</a></p>
+            <p className="ml-2 flex items-center gap-1"><span className="text-[#a371f7]">  <SiLinkedin className="w-3.5 h-3.5 inline" /> LinkedIn:</span> <a href={socials.linkedin} target="_blank" rel="noopener noreferrer" className="text-[#56d4dd] hover:underline">{socials.linkedin}</a></p>
             <p className="text-[#39d353] mt-3">└────────────────────────────────────────────────────────────┘</p>
           </div>
         );
@@ -298,9 +299,9 @@ export default function Terminal() {
         return (
           <div className="text-[11px] sm:text-xs font-mono">
             <p className="text-[#39d353] mb-3">┌─ Social Links ─────────────────────────────────────────────┐</p>
-            <p className="ml-2 flex items-center gap-1">  <Github className="w-3.5 h-3.5 text-[#c9d1d9] inline" /> GitHub:   <a href={socials.github} target="_blank" rel="noopener noreferrer" className="text-[#56d4dd] hover:underline">{socials.github}</a></p>
-            <p className="ml-2 flex items-center gap-1">  <Linkedin className="w-3.5 h-3.5 text-[#c9d1d9] inline" /> LinkedIn: <a href={socials.linkedin} target="_blank" rel="noopener noreferrer" className="text-[#56d4dd] hover:underline">{socials.linkedin}</a></p>
-            <p className="ml-2 flex items-center gap-1">  <Twitter className="w-3.5 h-3.5 text-[#c9d1d9] inline" /> Twitter:  <a href={socials.twitter} target="_blank" rel="noopener noreferrer" className="text-[#56d4dd] hover:underline">{socials.twitter}</a></p>
+            <p className="ml-2 flex items-center gap-1">  <SiGithub className="w-3.5 h-3.5 text-[#c9d1d9] inline" /> GitHub:   <a href={socials.github} target="_blank" rel="noopener noreferrer" className="text-[#56d4dd] hover:underline">{socials.github}</a></p>
+            <p className="ml-2 flex items-center gap-1">  <SiLinkedin className="w-3.5 h-3.5 text-[#c9d1d9] inline" /> LinkedIn: <a href={socials.linkedin} target="_blank" rel="noopener noreferrer" className="text-[#56d4dd] hover:underline">{socials.linkedin}</a></p>
+            <p className="ml-2 flex items-center gap-1">  <SiX className="w-3.5 h-3.5 text-[#c9d1d9] inline" /> Twitter:  <a href={socials.twitter} target="_blank" rel="noopener noreferrer" className="text-[#56d4dd] hover:underline">{socials.twitter}</a></p>
             <p className="text-[#39d353] mt-3">└────────────────────────────────────────────────────────────┘</p>
           </div>
         );
