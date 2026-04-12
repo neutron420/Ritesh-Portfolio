@@ -353,7 +353,7 @@ export default function Terminal() {
       case "pwd":
         return <p className="text-[#c9d1d9] text-xs font-mono">/home/ritesh/portfolio{currentDir === "~" ? "" : "/" + currentDir}</p>;
 
-      case "cd":
+      case "cd": {
         const validDirs = ["~", "about", "skills", "projects", "education", "contact", "..", "-"];
         if (!args || args === "~" || args === "") {
           setCurrentDir("~");
@@ -368,6 +368,7 @@ export default function Terminal() {
           return null;
         }
         return <p className="text-[#ff0040] text-xs font-mono drop-shadow-[0_0_8px_rgba(255,0,64,0.8)]">bash: cd: {args}: No such file or directory</p>;
+      }
 
       case "date":
         return <p className="text-[#c9d1d9] text-xs font-mono">{new Date().toString()}</p>;
@@ -449,7 +450,7 @@ export default function Terminal() {
         }
         return <p className="text-[#ff0040] text-xs font-mono drop-shadow-[0_0_8px_rgba(255,0,64,0.8)]">cat: {args}: No such file or directory</p>;
 
-      case "cowsay":
+      case "cowsay": {
         const cowText = args || "Moo! Type 'help' for commands!";
         const borderLen = Math.min(cowText.length + 2, 40);
         const displayText = cowText.length > 38 ? cowText.substring(0, 35) + "..." : cowText;
@@ -465,14 +466,16 @@ export default function Terminal() {
                 ||     ||`}
           </pre>
         );
+      }
 
-      case "fortune":
+      case "fortune": {
         const randomFortune = FORTUNES[Math.floor(Math.random() * FORTUNES.length)];
         return (
           <p className="text-[#a371f7] text-xs font-mono italic">
             &quot;{randomFortune}&quot;
           </p>
         );
+      }
 
       case "matrix":
         if (args.toLowerCase() === "stop") {

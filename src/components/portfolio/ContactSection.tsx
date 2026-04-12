@@ -53,7 +53,7 @@ const ContactSection = () => {
       });
 
       setFormData({ name: "", email: "", message: "" });
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Error sending message:", error);
       toast({
         title: "Failed to send",

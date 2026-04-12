@@ -268,9 +268,9 @@ const ProjectsSection = () => {
                         <ArrowUpRight className="w-3 h-3 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
                       </a>
                     )}
-                    {(project as any).user && (
+                    {(project as { user?: string }).user && (
                       <a
-                        href={(project as any).user}
+                        href={(project as { user?: string }).user}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center gap-1.5 text-xs font-medium uppercase tracking-wider text-muted-foreground hover:text-accent transition-colors group/link"
