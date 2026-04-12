@@ -1,37 +1,40 @@
 import { useState, useRef, useEffect } from "react";
-import { Send, Bot, User, Minimize2, Maximize2, X, Mail, Globe, Linkedin, Github, Twitter, Trophy, Code, BarChart3, Calendar, Target, Link2, Zap, FileText, DollarSign, Lock, CheckCircle, TrendingUp, Rocket, Cloud, Database, Shield, Palette, Smartphone } from "lucide-react";
+import { Send, Bot, User, Minimize2, Maximize2, X, Shield } from "lucide-react";
+import { SiLinkedin, SiGithub, SiX } from "react-icons/si";
+import { FaCheckCircle, FaChartBar } from "react-icons/fa";
+import { LuMail, LuGlobe, LuTrophy, LuCode, LuCalendar, LuTarget, LuLink2, LuZap, LuFileText, LuDollarSign, LuLock, LuTrendingUp, LuRocket, LuCloud, LuDatabase, LuPalette, LuSmartphone } from "react-icons/lu";
 import { getAIResponse } from "@/lib/data";
 
 // Function to parse both emojis and links in text
 const parseMessageContent = (text: string): React.ReactNode => {
   const emojiMap: Record<string, React.ReactNode> = {
-    '📧': <Mail key="mail" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
-    '🌐': <Globe key="globe" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
-    '💼': <Linkedin key="linkedin" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
-    '🐙': <Github key="github" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
-    '🐦': <Twitter key="twitter" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
-    '🏆': <Trophy key="trophy" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
-    '💻': <Code key="code" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
-    '📊': <BarChart3 key="chart" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
-    '📅': <Calendar key="calendar" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
-    '🎯': <Target key="target" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
-    '🔗': <Link2 key="link" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
-    '⚡': <Zap key="zap" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
-    '📝': <FileText key="file" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
-    '💰': <DollarSign key="dollar" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
-    '🔐': <Lock key="lock" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
-    '✅': <CheckCircle key="check" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
-    '📈': <TrendingUp key="trend" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
-    '🚀': <Rocket key="rocket" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
-    '☁️': <Cloud key="cloud" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
-    '🗄️': <Database key="db" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
-    '🎨': <Palette key="palette" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
-    '📱': <Smartphone key="phone" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
+    '📧': <LuMail key="mail" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
+    '🌐': <LuGlobe key="globe" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
+    '💼': <SiLinkedin key="linkedin" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
+    '🐙': <SiGithub key="github" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
+    '🐦': <SiX key="twitter" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
+    '🏆': <LuTrophy key="trophy" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
+    '💻': <LuCode key="code" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
+    '📊': <FaChartBar key="chart" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
+    '📅': <LuCalendar key="calendar" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
+    '🎯': <LuTarget key="target" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
+    '🔗': <LuLink2 key="link" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
+    '⚡': <LuZap key="zap" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
+    '📝': <LuFileText key="file" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
+    '💰': <LuDollarSign key="dollar" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
+    '🔐': <LuLock key="lock" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
+    '✅': <FaCheckCircle key="check" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
+    '📈': <LuTrendingUp key="trend" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
+    '🚀': <LuRocket key="rocket" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
+    '☁️': <LuCloud key="cloud" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
+    '🗄️': <LuDatabase key="db" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
+    '🎨': <LuPalette key="palette" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
+    '📱': <LuSmartphone key="phone" className="w-3.5 h-3.5 inline align-middle mr-1 text-[#ff6b35]" />,
   };
 
   const parts: React.ReactNode[] = [];
   const urlRegex = /(https?:\/\/[^\s]+|www\.[^\s]+|[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}[^\s]*|github\.com\/[^\s]+|linkedin\.com\/[^\s]+|@[a-zA-Z0-9_]+)/g;
-  const emojiRegex = /([📧🌐💼🐙🐦🏆💻📊📅🎯🔗⚡📝💰🔐✅📈🚀☁️🗄️🎨📱])/g;
+  const emojiRegex = /(📧|🌐|💼|🐙|🐦|🏆|💻|📊|📅|🎯|🔗|⚡|📝|💰|🔐|✅|📈|🚀|☁️|🗄️|🎨|📱)/gu;
   
   // Combine both regex patterns
   const allMatches: Array<{ index: number; type: 'emoji' | 'url'; match: string }> = [];
@@ -295,7 +298,7 @@ const AIChatBox = () => {
               <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#ff6b35] shadow-[0_0_8px_rgba(255,107,53,0.8)]" />
             </div>
             <div className="flex items-center gap-1.5 sm:gap-2 ml-2 min-w-0">
-              <Github className="w-4 h-4 sm:w-4 sm:h-4 text-[#ff6b35] flex-shrink-0" />
+              <SiGithub className="w-4 h-4 sm:w-4 sm:h-4 text-[#ff6b35] flex-shrink-0" />
               <span className="text-[#ff6b35] text-[11px] sm:text-xs font-mono drop-shadow-[0_0_6px_rgba(255,107,53,0.6)] truncate">
                 Ritesh AI <span className="text-[#ff8555] hidden sm:inline">チャット</span>
               </span>
@@ -344,7 +347,7 @@ const AIChatBox = () => {
                     {message.type === "user" ? (
                       <User className="w-3.5 h-3.5 sm:w-3 sm:h-3 text-[#ff6b35]" />
                     ) : (
-                      <Github className="w-3.5 h-3.5 sm:w-3 sm:h-3 text-[#ff8555]" />
+                      <SiGithub className="w-3.5 h-3.5 sm:w-3 sm:h-3 text-[#ff8555]" />
                     )}
                     <span className="text-[#ff6b35] text-[11px] sm:text-[10px] font-medium">
                       {message.type === "user" ? "you" : "ai"}
