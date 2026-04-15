@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { ExternalLink, Code2 } from "lucide-react";
-import { SiSolana, SiRust, SiNextdotjs, SiPostgresql, SiKotlin, SiFirebase, SiGithub } from "react-icons/si";
+import { SiSolana, SiGo, SiNextdotjs, SiPostgresql, SiKotlin, SiFirebase, SiGithub } from "react-icons/si";
 
 interface TechItem {
   name: string;
@@ -24,7 +24,7 @@ const currentProjects: CurrentProject[] = [
     status: "In Progress",
     techStack: [
       { name: "Solana", icon: <SiSolana className="w-4 h-4" />, color: "text-[#9945FF]" },
-      { name: "Rust", icon: <SiRust className="w-4 h-4" />, color: "text-[#DEA584]" },
+      { name: "Go", icon: <SiGo className="w-4 h-4" />, color: "text-[#00ADD8]" },
       { name: "Next.js", icon: <SiNextdotjs className="w-4 h-4" />, color: "text-foreground" },
       { name: "PostgreSQL", icon: <SiPostgresql className="w-4 h-4" />, color: "text-[#336791]" },
       { name: "Kotlin", icon: <SiKotlin className="w-4 h-4" />, color: "text-[#7F52FF]" },

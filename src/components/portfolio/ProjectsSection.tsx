@@ -17,7 +17,7 @@ import {
   SiArgo,
   SiGithub,
   SiSolana,
-  SiRust,
+  SiGo,
   SiExpress,
   SiTypescript,
   SiKotlin,
@@ -33,7 +33,10 @@ import {
   SiOpenai,
   SiAnsible,
   SiCloudflare,
-  SiGooglecloud
+  SiGooglecloud,
+  SiRabbitmq,
+  SiGin,
+  SiJavascript
 } from "react-icons/si";
 import { TbDatabase, TbMap2 } from "react-icons/tb";
 import { FaJava, FaAndroid, FaMapMarkerAlt } from "react-icons/fa";
@@ -76,7 +79,10 @@ const techIcons: Record<string, { icon: React.ReactNode; color: string }> = {
   "Ansible": { icon: <SiAnsible className="w-3 h-3" />, color: "text-[#EE0000]" },
 
   "Solana": { icon: <SiSolana className="w-3 h-3" />, color: "text-[#9945FF]" },
-  "Rust": { icon: <SiRust className="w-3 h-3" />, color: "text-[#DEA584]" },
+  "Go": { icon: <SiGo className="w-3 h-3" />, color: "text-[#00ADD8]" },
+  "RabbitMQ": { icon: <SiRabbitmq className="w-3 h-3" />, color: "text-[#FF6600]" },
+  "Gin": { icon: <SiGin className="w-3 h-3" />, color: "text-[#00ADD8]" },
+  "GORM": { icon: <TbDatabase className="w-3 h-3" />, color: "text-[#336791]" },
   "Anchor": { icon: <span className="w-3 h-3 font-bold text-[10px] flex items-center justify-center">⚓</span>, color: "text-[#7C3AED]" },
   "Express.js": { icon: <SiExpress className="w-3 h-3" />, color: "text-foreground" },
   "Express": { icon: <SiExpress className="w-3 h-3" />, color: "text-foreground" },
@@ -87,12 +93,12 @@ const techIcons: Record<string, { icon: React.ReactNode; color: string }> = {
   "Vercel": { icon: <SiVercel className="w-3 h-3" />, color: "text-foreground" },
   "Render": { icon: <SiRender className="w-3 h-3" />, color: "text-[#46E3B7]" },
   "CI/CD": { icon: <SiGithubactions className="w-3 h-3" />, color: "text-[#2088FF]" },
-  "Actix": { icon: <SiRust className="w-3 h-3" />, color: "text-[#DEA584]" },
   "SQLx": { icon: <TbDatabase className="w-3 h-3" />, color: "text-[#336791]" },
   "Expo": { icon: <SiExpo className="w-3 h-3" />, color: "text-foreground" },
   "TomTom Maps": { icon: <TbMap2 className="w-3 h-3" />, color: "text-[#D32F2F]" },
   "Google Maps API": { icon: <SiGooglemaps className="w-3 h-3" />, color: "text-[#4285F4]" },
   "MapLibre": { icon: <TbMap2 className="w-3 h-3" />, color: "text-[#396CB2]" },
+  "JavaScript": { icon: <SiJavascript className="w-3 h-3" />, color: "text-[#F7DF1E]" },
   "Android": { icon: <FaAndroid className="w-3 h-3" />, color: "text-[#3DDC84]" },
   "Gradle": { icon: <SiGradle className="w-3 h-3" />, color: "text-[#02303A]" },
   "Jenkins": { icon: <SiJenkins className="w-3 h-3" />, color: "text-[#D24939]" },
@@ -138,25 +144,17 @@ const projects = [
     status: "live" as const,
   },
   {
-    name: "CodeConnect",
-    description: "A high-performance online code compiler and execution engine built with Rust backend (Actix-Web) and TypeScript/React frontend. Features secure sandboxed code execution, multi-language support, real-time output streaming, SQLx database integration, and blazing-fast compilation. Implemented secure gVisor-based isolation for untrusted code execution. Developed a custom protocol for real-time terminal output streaming with low latency. Integrated real-time collaborative editing features using Operational Transformation.",
-    techStack: ["TypeScript", "Rust", "Actix", "SQLx", "Prisma", "Next.js", "Render", "Vercel", "CI/CD"],
-    github: "https://github.com/neutron420/CodeConnect",
-    live: "https://www.neutrondev.in/",
-    status: "live" as const,
-  },
-  {
-    name: "NavigateU",
-    description: "A campus navigation and route finder mobile app built for students and visitors. Features real-time turn-by-turn directions, indoor/outdoor navigation powered by Google Maps API, floor plans, and smart route optimization. Supports offline map caching and real-time location sharing. Optimized for power efficiency using low-impact background location tracking. Integrated Firebase for live status updates and campus-wide emergency notifications. Added AR (Augmented Reality) directional cues for easier indoor navigation.",
-    techStack: ["Expo", "React Native", "TypeScript", "Firebase", "Google Maps API", "MapLibre", "Android", "Gradle", "AWS", "Docker"],
-    github: "https://github.com/neutron420/NavigateU",
+    name: "Lineo",
+    description: "A multi-tenant queue and appointment platform for clinics, hospitals, and service centers. Features real-time coordination, role-based access control, and automated workload distribution. Optimized backend for high-concurrency handling with Go, Redis, and RabbitMQ. Integrated Razorpay for seamless payment processing and payment verification. Implemented real-time queue state tracking and notification system for improved user experience.",
+    techStack: ["Next.js", "Go", "Gin", "PostgreSQL", "GORM", "Redis", "RabbitMQ", "Google Maps API", "Tailwind CSS", "TypeScript", "Docker"],
+    github: "https://github.com/neutron420/Lineo",
     live: null,
-    status: "live" as const,
+    status: "coming_soon" as const,
   },
 ];
 
 // Status badge component
-const StatusBadge = ({ status }: { status: "live" | "development" | "building" }) => {
+const StatusBadge = ({ status }: { status: "live" | "development" | "building" | "coming_soon" }) => {
   const statusConfig = {
     live: {
       label: "Live",
@@ -180,6 +178,14 @@ const StatusBadge = ({ status }: { status: "live" | "development" | "building" }
       textColor: "text-accent",
       borderColor: "border-accent/30",
       dotColor: "bg-accent",
+      animate: true,
+    },
+    coming_soon: {
+      label: "Coming Soon",
+      bgColor: "bg-blue-500/15",
+      textColor: "text-blue-500",
+      borderColor: "border-blue-500/30",
+      dotColor: "bg-blue-500",
       animate: true,
     },
   };
@@ -238,7 +244,7 @@ const ProjectsSection = () => {
                 {/* Left Side: Info */}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-3 mb-2 flex-wrap">
-                    <h3 className="text-xl md:text-2xl font-bold tracking-tight group-hover:text-accent transition-colors duration-300">
+                    <h3 className={`text-xl md:text-2xl font-bold tracking-tight group-hover:text-accent transition-colors duration-300 ${project.name === "Lineo" ? "blur-[4px] select-none" : ""}`}>
                       {project.name.replace(/-/g, ' ')}
                     </h3>
                     {project.status && <StatusBadge status={project.status} />}

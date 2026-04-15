@@ -9,7 +9,7 @@ import {
   SiMongodb, 
   SiDocker,
   SiGit,
-  SiRust,
+  SiGo,
   SiRedis,
   SiGraphql,
   SiAmazonwebservices,
@@ -38,6 +38,9 @@ import {
   SiJenkins,
   SiVite,
   SiFramer,
+  SiJavascript,
+  SiRabbitmq,
+  SiTurborepo
 } from "react-icons/si";
 import { FaJava } from "react-icons/fa";
 import { VscDebugStart } from "react-icons/vsc";
@@ -47,11 +50,19 @@ import { motion } from "framer-motion";
 const TechStackSection = () => {
   const categories = [
     {
+      title: "Languages",
+      skills: [
+        { name: "Go", icon: SiGo, color: "text-[#00ADD8]" },
+        { name: "Java", icon: FaJava, color: "text-[#ED8B00]" },
+        { name: "TypeScript", icon: SiTypescript, color: "text-[#3178C6]" },
+        { name: "JavaScript", icon: SiJavascript, color: "text-[#F7DF1E]" },
+      ],
+    },
+    {
       title: "Frontend",
       skills: [
         { name: "React", icon: SiReact, color: "text-[#61DAFB]" },
         { name: "Next.js", icon: SiNextdotjs, color: "text-foreground" },
-        { name: "TypeScript", icon: SiTypescript, color: "text-[#3178C6]" },
         { name: "Tailwind CSS", icon: SiTailwindcss, color: "text-[#06B6D4]" },
         { name: "React Native", icon: SiReact, color: "text-[#61DAFB]" },
         { name: "PWA Builder", icon: SiPwa, color: "text-[#5A0FC8]" },
@@ -66,8 +77,6 @@ const TechStackSection = () => {
         { name: "Node.js", icon: SiNodedotjs, color: "text-[#339933]" },
         { name: "Express", icon: SiExpress, color: "text-foreground" },
         { name: "Bun", icon: SiBun, color: "text-[#FBF0DF]" },
-        { name: "Rust", icon: SiRust, color: "text-[#DEA584]" },
-        { name: "Java", icon: FaJava, color: "text-[#ED8B00]" },
         { name: "PostgreSQL", icon: SiPostgresql, color: "text-[#4169E1]" },
         { name: "Prisma", icon: SiPrisma, color: "text-foreground" },
         { name: "Redis", icon: SiRedis, color: "text-[#DC382D]" },
@@ -79,6 +88,7 @@ const TechStackSection = () => {
       skills: [
         { name: "Docker", icon: SiDocker, color: "text-[#2496ED]" },
         { name: "Kubernetes", icon: SiKubernetes, color: "text-[#326CE5]" },
+        { name: "Ansible", icon: SiAnsible, color: "text-[#EE0000]" },
         { name: "AWS", icon: SiAmazonwebservices, color: "text-[#FF9900]" },
         { name: "Terraform", icon: SiTerraform, color: "text-[#844FBA]" },
         { name: "ArgoCD", icon: SiArgo, color: "text-[#EF7B4D]" },
@@ -98,6 +108,8 @@ const TechStackSection = () => {
         { name: "Prometheus", icon: SiPrometheus, color: "text-[#E6522C]" },
         { name: "Grafana", icon: SiGrafana, color: "text-[#F46800]" },
         { name: "Bash", icon: SiGnubash, color: "text-[#4EAA25]" },
+        { name: "RabbitMQ", icon: SiRabbitmq, color: "text-[#FF6600]" },
+        { name: "Turborepo", icon: SiTurborepo, color: "text-[#EF4444]" },
         { name: "Vercel / Render", icon: SiVercel, color: "text-foreground" },
       ],
     },

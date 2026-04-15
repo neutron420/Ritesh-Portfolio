@@ -83,12 +83,20 @@ export const projects: Project[] = [
     liveUrl: "",
     githubUrl: "https://github.com/neutron420/Bloom",
   },
+  {
+    year: "2025",
+    title: "Lineo",
+    description: "A multi-tenant queue and appointment platform for clinics, hospitals, and service centers. Features real-time coordination, role-based access control, and automated workload distribution. Optimized backend for high-concurrency handling with Go, Redis, and RabbitMQ.",
+    tags: ["Next.js", "Go", "PostgreSQL", "GORM", "Redis", "RabbitMQ", "Tailwind CSS", "TypeScript", "Docker"],
+    liveUrl: "",
+    githubUrl: "https://github.com/neutron420/Lineo",
+  },
 ];
 
 export const technologies: Technology[] = [
   {
     category: "Languages",
-    skills: ["TypeScript", "JavaScript", "Python", "Rust", "C", "C++"],
+    skills: ["TypeScript", "JavaScript", "Go", "C", "C++"],
   },
   {
     category: "Frontend",
@@ -203,7 +211,7 @@ He's passionate about building end-to-end applications from frontend to backend.
   if (lowerQuery.match(/(skill|tech|technology|stack|what can|expertise|programming|language|framework)/)) {
     return `Ritesh's technical stack includes:
 
-**Languages:** TypeScript, JavaScript, Python, Rust, C, C++
+**Languages:** TypeScript, JavaScript, Go, C, C++
 **Frontend:** React, Next.js, Tailwind CSS, HTML5, CSS3
 **Backend:** Node.js, Express, Bun, WebSocket, gRPC, Redis
 **Databases:** PostgreSQL, MongoDB, Prisma ORM
@@ -228,11 +236,8 @@ GitHub: https://github.com/neutron420/RakshaSetu
 4. **ShareBite** (2025) - Full-stack food rescue platform connecting donors and NGOs. Tech: Next.js, Node.js, Prisma, PostgreSQL, Redis, Groq, Mapbox.
 GitHub: https://github.com/neutron420/Sharebite
 
-5. **Bloom** (2024) - Real-time video conferencing app like Google Meet with HD video, screen sharing, and chat. Tech: Next.js, WebRTC, Mediasoup, Socket.io.
-GitHub: https://github.com/neutron420/Bloom
-
-4. **Raby** (2024) - Secure mobile application with multi-factor authentication. Tech: React Native, Node.js.
-GitHub: https://github.com/neutron420/Raby
+5. **Lineo** (2025) - Multi-tenant queue and appointment platform. Tech: Next.js, Go, PostgreSQL, GORM, Redis, RabbitMQ.
+GitHub: https://github.com/neutron420/Lineo
 
 Check out his GitHub: https://github.com/neutron420`;
   }
@@ -356,19 +361,18 @@ These experiences showcase his ability to build real-world solutions under time 
   }
 
   // Languages/Programming Languages
-  if (lowerQuery.match(/(language|python|javascript|typescript|rust|programming language)/)) {
+  if (lowerQuery.match(/(language|python|javascript|typescript|go|programming language)/)) {
     return `Ritesh is proficient in multiple programming languages:
 - **TypeScript/JavaScript** - For web development
-- **Python** - For backend and scripting
-- **Rust** - For systems programming
+- **Go** - For backend and high-performance systems programming
 - **C/C++** - For competitive programming
 
 He adapts to the right language for each project's requirements!`;
   }
 
   // Specific Technology Questions
-  if (lowerQuery.match(/(react|next\.js|node\.js|typescript|javascript|python|rust|docker|kubernetes|aws|postgresql|mongodb)/)) {
-    const tech = lowerQuery.match(/(react|next\.js|node\.js|typescript|javascript|python|rust|docker|kubernetes|aws|postgresql|mongodb)/)?.[0];
+  if (lowerQuery.match(/(react|next\.js|node\.js|typescript|javascript|go|docker|kubernetes|aws|postgresql|mongodb)/)) {
+    const tech = lowerQuery.match(/(react|next\.js|node\.js|typescript|javascript|go|docker|kubernetes|aws|postgresql|mongodb)/)?.[0];
     return `Ritesh has experience with ${tech} and uses it in his projects. He's worked with ${tech} in various full-stack applications. For specific details about his ${tech} experience, check out his projects on GitHub: https://github.com/neutron420`;
   }
 
@@ -486,7 +490,7 @@ He's been building projects and contributing to open source actively while study
   if (lowerQuery.match(/(what.*technolog|which.*tech|tech stack|technologies.*use|tools.*use)/)) {
     return `Ritesh uses a comprehensive tech stack:
 
-**Languages:** TypeScript, JavaScript, Python, Rust, C, C++
+**Languages:** TypeScript, JavaScript, Go, C, C++
 **Frontend:** React, Next.js, Tailwind CSS
 **Backend:** Node.js, Express, Bun, WebSocket, gRPC, Redis
 **Databases:** PostgreSQL, MongoDB, Prisma ORM

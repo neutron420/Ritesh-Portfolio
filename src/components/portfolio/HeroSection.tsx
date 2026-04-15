@@ -4,14 +4,14 @@ import { TerminalTransition } from "@/components/TerminalTransition";
 import Typewriter from "@/components/ui/typewriter";
 import bannerImage from "@/assets/banner.jpg";
 
-import { SiTypescript, SiReact, SiNodedotjs, SiRust, SiPostgresql, SiLeetcode, SiGithub, SiX, SiLinkedin } from "react-icons/si";
+import { SiTypescript, SiReact, SiNodedotjs, SiGo, SiPostgresql, SiLeetcode, SiGithub, SiX, SiLinkedin } from "react-icons/si";
 
 // Tech badges for hero bio
 const techBadges = [
   { name: "TypeScript", icon: <SiTypescript className="w-3.5 h-3.5" />, color: "bg-[#3178C6]/15 text-[#3178C6] border-[#3178C6]/30" },
   { name: "React", icon: <SiReact className="w-3.5 h-3.5" />, color: "bg-[#61DAFB]/15 text-[#61DAFB] border-[#61DAFB]/30" },
   { name: "Node.js", icon: <SiNodedotjs className="w-3.5 h-3.5" />, color: "bg-[#339933]/15 text-[#339933] border-[#339933]/30" },
-  { name: "Rust", icon: <SiRust className="w-3.5 h-3.5" />, color: "bg-[#DEA584]/15 text-[#DEA584] border-[#DEA584]/30" },
+  { name: "Go", icon: <SiGo className="w-3.5 h-3.5" />, color: "bg-[#00ADD8]/15 text-[#00ADD8] border-[#00ADD8]/30" },
   { name: "PostgreSQL", icon: <SiPostgresql className="w-3.5 h-3.5" />, color: "bg-[#336791]/15 text-[#336791] border-[#336791]/30" },
 ];
 
