@@ -4,7 +4,7 @@ const AnimeVideoSection = () => {
   const { ref, isVisible } = useScrollReveal();
 
   return (
-    <section className="py-16 md:py-20">
+    <section id="anime" className="py-16 md:py-20">
       <div 
         ref={ref}
         className={`section-container scroll-reveal ${isVisible ? 'visible' : ''}`}

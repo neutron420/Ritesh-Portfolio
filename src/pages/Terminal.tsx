@@ -579,7 +579,7 @@ export default function Terminal() {
           </p>
         );
     }
-  }, [commandHistory, showMatrix, showBinary, showHex, navigate, currentDir, bootTime, personalInfo, technologies, projects, education, contact, socials]);
+  }, [commandHistory, showMatrix, showBinary, showHex, navigate, currentDir, bootTime]);
 
   const handleSubmit = useCallback((e: React.FormEvent) => {
     e.preventDefault();

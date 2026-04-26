@@ -1,21 +1,21 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+const bootSteps = [
+  { text: "[*] Initializing terminal session...", delay: 300 },
+  { text: "[*] Loading system modules...", delay: 600 },
+  { text: "[*] Establishing connection...", delay: 900 },
+  { text: "[*] Authenticating user...", delay: 1200 },
+  { text: "[*] Bypassing security protocols...", delay: 1500 },
+  { text: "[✓] Connection established", delay: 1800 },
+  { text: "[✓] Terminal ready", delay: 2100 },
+  { text: "[✓] Redirecting to terminal...", delay: 2400 },
+];
+
 export default function TerminalTransitionPage() {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(0);
   const [glitchActive, setGlitchActive] = useState(false);
-
-  const bootSteps = [
-    { text: "[*] Initializing terminal session...", delay: 300 },
-    { text: "[*] Loading system modules...", delay: 600 },
-    { text: "[*] Establishing connection...", delay: 900 },
-    { text: "[*] Authenticating user...", delay: 1200 },
-    { text: "[*] Bypassing security protocols...", delay: 1500 },
-    { text: "[✓] Connection established", delay: 1800 },
-    { text: "[✓] Terminal ready", delay: 2100 },
-    { text: "[✓] Redirecting to terminal...", delay: 2400 },
-  ];
 
   // Glitch effect
   useEffect(() => {

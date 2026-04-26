@@ -2,6 +2,15 @@ import { useEffect, useState } from "react";
 import { useTheme } from "@/components/ThemeProvider";
 import { Code2, Terminal, Zap, Cpu, Sparkles } from "lucide-react";
 
+const loadingLines = [
+  "[*] Initializing portfolio...",
+  "[*] Loading components...",
+  "[*] Connecting to APIs...",
+  "[*] Compiling assets...",
+  "[*] Optimizing performance...",
+  "[✓] Portfolio ready!",
+];
+
 const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
   const [progress, setProgress] = useState(0);
   const [showContent, setShowContent] = useState(false);
@@ -10,14 +19,7 @@ const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
   const { theme } = useTheme();
   const [isDark, setIsDark] = useState(true);
 
-  const loadingLines = [
-    "[*] Initializing portfolio...",
-    "[*] Loading components...",
-    "[*] Connecting to APIs...",
-    "[*] Compiling assets...",
-    "[*] Optimizing performance...",
-    "[✓] Portfolio ready!",
-  ];
+
 
   useEffect(() => {
     const root = document.documentElement;

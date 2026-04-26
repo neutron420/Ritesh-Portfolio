@@ -40,7 +40,8 @@ import {
   SiFramer,
   SiJavascript,
   SiRabbitmq,
-  SiTurborepo
+  SiTurborepo,
+  SiSupabase
 } from "react-icons/si";
 import { FaJava } from "react-icons/fa";
 import { VscDebugStart } from "react-icons/vsc";
@@ -77,6 +78,8 @@ const TechStackSection = () => {
         { name: "Node.js", icon: SiNodedotjs, color: "text-[#339933]" },
         { name: "Express", icon: SiExpress, color: "text-foreground" },
         { name: "Bun", icon: SiBun, color: "text-[#FBF0DF]" },
+        { name: "Firebase", icon: SiFirebase, color: "text-[#FFCA28]" },
+        { name: "Supabase", icon: SiSupabase, color: "text-[#3ECF8E]" },
         { name: "PostgreSQL", icon: SiPostgresql, color: "text-[#4169E1]" },
         { name: "Prisma", icon: SiPrisma, color: "text-foreground" },
         { name: "Redis", icon: SiRedis, color: "text-[#DC382D]" },

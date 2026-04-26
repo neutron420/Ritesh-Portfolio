@@ -32,7 +32,7 @@ const HeroSection = () => {
   ];
 
   return (
-    <section className="pt-20 relative overflow-hidden">
+    <section id="hero" className="pt-20 relative overflow-hidden">
       {/* Animated Grid Background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Grid pattern */}
@@ -174,7 +174,7 @@ const HeroSection = () => {
 
             {/* Social Links + Resume Button */}
             <motion.div 
-              className="flex items-center gap-3 mt-4 flex-wrap"
+              className="flex items-center gap-3 gap-y-4 mt-4 flex-wrap"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}

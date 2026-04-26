@@ -32,7 +32,7 @@ const AchievementsSection = () => {
   ];
 
   return (
-    <section className="py-12 md:py-16">
+    <section id="achievements" className="py-12 md:py-16">
       <div 
         ref={ref}
         className={`section-container scroll-reveal ${isVisible ? 'visible' : ''}`}

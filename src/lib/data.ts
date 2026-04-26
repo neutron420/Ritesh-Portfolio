@@ -104,7 +104,7 @@ export const technologies: Technology[] = [
   },
   {
     category: "Backend",
-    skills: ["Node.js", "Express", "Bun", "WebSocket", "gRPC", "Redis"],
+    skills: ["Node.js", "Express", "Bun", "Firebase", "Supabase", "WebSocket", "gRPC", "Redis"],
   },
   {
     category: "Databases",

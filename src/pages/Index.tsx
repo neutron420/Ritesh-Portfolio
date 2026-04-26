@@ -1,8 +1,9 @@
 import { useState, useEffect, lazy, Suspense } from "react";
+import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "@/components/portfolio/Navbar";
 import HeroSection from "@/components/portfolio/HeroSection";
-import LoadingScreen from "@/components/portfolio/LoadingScreen";
+import MacOSDock from "@/components/mac-os-dock";
 import {AIChat} from "@/components/portfolio/AIChat";
 import SEOHead from "@/components/SEOHead";
 import ScrollReveal from "@/components/ui/scroll-reveal";
@@ -31,13 +32,73 @@ const SectionSkeleton = ({ height = "h-64" }: { height?: string }) => (
   </div>
 );
 
+const dockApps = [
+  { id: 'hero', name: 'Finder', icon: 'https://cdn.jim-nielsen.com/macos/1024/finder-2021-09-10.png?rf=1024' },
+  { id: 'achievements', name: 'Awards', icon: 'https://cdn.jim-nielsen.com/macos/1024/notes-2021-05-25.png?rf=1024' },
+  { id: 'tech', name: 'Terminal', icon: 'https://cdn.jim-nielsen.com/macos/1024/terminal-2021-06-03.png?rf=1024' },
+  { id: 'projects', name: 'Portfolio', icon: 'https://cdn.jim-nielsen.com/macos/1024/photos-2021-05-28.png?rf=1024' },
+  { id: 'spotify', name: 'Music', icon: 'https://cdn.jim-nielsen.com/macos/1024/music-2021-05-25.png?rf=1024' },
+  { id: 'anime', name: 'TV', icon: 'https://images.icon-icons.com/3053/PNG/512/tv_macos_bigsur_icon_189672.png' },
+  { id: 'contact', name: 'Mail', icon: 'https://cdn.jim-nielsen.com/macos/1024/mail-2021-05-25.png?rf=1024' },
+];
+
 const Index = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [showContent, setShowContent] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [showContent, setShowContent] = useState(true);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [showShortcuts, setShowShortcuts] = useState(false);
+  const [activeSection, setActiveSection] = useState("hero");
   const { progressRef } = useScrollProgress();
+  const navigate = useNavigate();
   useAnalytics();
+
+
+
+  const handleAppClick = (id: string) => {
+    if (id === 'tech') {
+      navigate('/terminal');
+      return;
+    }
+
+    const element = document.getElementById(id);
+    if (element) {
+      const offset = 80; // Offset for navbar
+      const bodyRect = document.body.getBoundingClientRect().top;
+      const elementRect = element.getBoundingClientRect().top;
+      const elementPosition = elementRect - bodyRect;
+      const offsetPosition = elementPosition - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
+    }
+  };
+
+  useEffect(() => {
+    const observerOptions = {
+      root: null,
+      rootMargin: '-20% 0px -70% 0px',
+      threshold: 0
+    };
+
+    const handleIntersection = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(handleIntersection, observerOptions);
+    
+    dockApps.forEach((app) => {
+      const element = document.getElementById(app.id);
+      if (element) observer.observe(element);
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   // Keyboard shortcuts
   useKeyboardShortcuts([
@@ -68,24 +129,12 @@ const Index = () => {
   ]);
 
   useEffect(() => {
-    // Always show loading screen on initial mount to prevent white flash
     // Ensure background is set immediately
     document.documentElement.style.backgroundColor = '#0a0a0a';
     document.body.style.backgroundColor = '#0a0a0a';
-    setIsLoading(true);
   }, []);
 
-  const handleLoadingComplete = () => {
-    // Start transition: fade out loading, fade in content simultaneously
-    setIsTransitioning(true);
-    setShowContent(true); // Start showing content immediately
-    
-    // After transition completes, remove loading screen from DOM
-    setTimeout(() => {
-      setIsLoading(false);
-      setIsTransitioning(false);
-    }, 500); // Match transition duration
-  };
+
 
   return (
     <>
@@ -99,19 +148,7 @@ const Index = () => {
         aria-hidden="true"
       />
       
-      {/* Loading Screen - fades out smoothly */}
-      <AnimatePresence mode="wait">
-        {isLoading && (
-          <motion.div 
-            className="fixed inset-0 z-[99999]"
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <LoadingScreen onComplete={handleLoadingComplete} />
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Portfolio Content */}
       
       {/* Portfolio Content - always rendered but hidden until ready */}
       <motion.div 
@@ -201,6 +238,17 @@ const Index = () => {
           isOpen={showShortcuts} 
           onClose={() => setShowShortcuts(false)} 
         />
+        {/* Floating Dock */}
+        <div className="fixed bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 z-40 px-4 w-full flex justify-center pointer-events-none">
+          <div className="pointer-events-auto">
+            <MacOSDock
+              apps={dockApps}
+              onAppClick={handleAppClick}
+              openApps={[activeSection]}
+              className="max-w-[95vw] sm:max-w-none"
+            />
+          </div>
+        </div>
       </motion.div>
     </>
   );

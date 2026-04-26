@@ -5,7 +5,7 @@ const SpotifySection = () => {
   const spotifyProfileUrl = "https://open.spotify.com/user/31z5zydy6avat6sca542yiotjcmi";
 
   return (
-    <section className="py-12 md:py-16">
+    <section id="spotify" className="py-12 md:py-16">
       <div className="section-container">
         <div className="flex items-center gap-3 mb-6">
           <SiSpotify className="w-6 h-6 text-[#1DB954]" />
