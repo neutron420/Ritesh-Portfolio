@@ -132,6 +132,7 @@ const generateNeofetch = (uptime: number) => {
  .\`                                 \`/   Languages: ${langs}
                                          Frameworks: React, Next.js, Node.js
                                          DevOps: Docker, K8s, ArgoCD
+                                         Logging: ELK Stack
 `;
 };
 

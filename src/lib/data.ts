@@ -114,6 +114,10 @@ export const technologies: Technology[] = [
     category: "DevOps & Cloud",
     skills: ["Docker", "Kubernetes", "CI/CD", "AWS", "GCP", "Cloudflare"],
   },
+  {
+    category: "Logging & Search",
+    skills: ["Elasticsearch", "Logstash", "Kibana"],
+  },
 ];
 
 export const personalInfo: PersonalInfo = {
@@ -215,6 +219,7 @@ He's passionate about building end-to-end applications from frontend to backend.
 **Frontend:** React, Next.js, Tailwind CSS, HTML5, CSS3
 **Backend:** Node.js, Express, Bun, WebSocket, gRPC, Redis
 **Databases:** PostgreSQL, MongoDB, Prisma ORM
+**Logging & Search:** Elasticsearch, Logstash, Kibana
 
 He's a full-stack developer who can work on both frontend and backend!`;
   }
@@ -495,6 +500,7 @@ He's been building projects and contributing to open source actively while study
 **Backend:** Node.js, Express, Bun, WebSocket, gRPC, Redis
 **Databases:** PostgreSQL, MongoDB, Prisma ORM
 **DevOps:** Docker, Kubernetes, CI/CD, AWS, GCP, Cloudflare
+**Logging & Search:** Elasticsearch, Logstash, Kibana
 
 He selects the right tools for each project's requirements.`;
   }

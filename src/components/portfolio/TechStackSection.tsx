@@ -41,7 +41,10 @@ import {
   SiJavascript,
   SiRabbitmq,
   SiTurborepo,
-  SiSupabase
+  SiSupabase,
+  SiElasticsearch,
+  SiLogstash,
+  SiKibana
 } from "react-icons/si";
 import { FaJava } from "react-icons/fa";
 import { VscDebugStart } from "react-icons/vsc";
@@ -114,6 +117,9 @@ const TechStackSection = () => {
         { name: "RabbitMQ", icon: SiRabbitmq, color: "text-[#FF6600]" },
         { name: "Turborepo", icon: SiTurborepo, color: "text-[#EF4444]" },
         { name: "Vercel / Render", icon: SiVercel, color: "text-foreground" },
+        { name: "Elasticsearch", icon: SiElasticsearch, color: "text-[#005571]" },
+        { name: "Logstash", icon: SiLogstash, color: "text-[#005571]" },
+        { name: "Kibana", icon: SiKibana, color: "text-[#005571]" },
       ],
     },
   ];
