@@ -1,4 +1,4 @@
-import { ArrowUpRight, Wifi, Users, ChevronDown, Shield } from "lucide-react";
+import { ArrowUpRight, Wifi, Users, ChevronDown, Shield, Globe } from "lucide-react";
 import { 
   SiReact, 
   SiNodedotjs, 
@@ -40,7 +40,7 @@ import {
 } from "react-icons/si";
 import { TbDatabase, TbMap2 } from "react-icons/tb";
 import { FaJava, FaAndroid, FaMapMarkerAlt } from "react-icons/fa";
-import { SiExpo, SiGradle, SiGooglemaps } from "react-icons/si";
+import { SiExpo, SiGradle, SiGooglemaps, SiSupabase, SiRazorpay, SiElasticsearch, SiLogstash, SiKibana } from "react-icons/si";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
 
@@ -71,7 +71,7 @@ const techIcons: Record<string, { icon: React.ReactNode; color: string }> = {
   "AWS": { icon: <SiAmazonwebservices className="w-3 h-3" />, color: "text-[#FF9900]" },
   "S3": { icon: <SiAmazon className="w-3 h-3" />, color: "text-[#FF9900]" },
   "Web3.js": { icon: <SiWeb3Dotjs className="w-3 h-3" />, color: "text-[#F16822]" },
-  "WebSockets": { icon: <Wifi className="w-3 h-3" />, color: "text-[#00D4AA]" },
+  "WebSockets": { icon: <SiSocketdotio className="w-3 h-3" />, color: "text-foreground" },
   "ArgoCD": { icon: <SiArgo className="w-3 h-3" />, color: "text-[#EF7B4D]" },
   "Java": { icon: <FaJava className="w-3 h-3" />, color: "text-[#ED8B00]" },
   "GCP": { icon: <SiGooglecloud className="w-3 h-3" />, color: "text-[#4285F4]" },
@@ -108,6 +108,9 @@ const techIcons: Record<string, { icon: React.ReactNode; color: string }> = {
   "Kafka": { icon: <SiApachekafka className="w-3 h-3" />, color: "text-foreground" },
   "Groq": { icon: <SiOpenai className="w-3 h-3" />, color: "text-[#f55036]" },
   "PostGIS": { icon: <TbDatabase className="w-3 h-3" />, color: "text-[#336791]" },
+  "Supabase": { icon: <SiSupabase className="w-3 h-3" />, color: "text-[#3ECF8E]" },
+  "Razorpay": { icon: <SiRazorpay className="w-3 h-3" />, color: "text-[#3395FF]" },
+  "Elasticsearch": { icon: <SiElasticsearch className="w-3 h-3" />, color: "text-[#FEC111]" },
 };
 
 // Curated projects in specific order with proper tech stacks
@@ -117,8 +120,8 @@ const projects = [
     description: "A comprehensive grievance management portal for government offices. Citizens can register complaints, track status, and receive updates in real-time. Built for Smart India Hackathon. Optimized backend for handling 10k+ concurrent requests with Redis and WebSocket integration. Implemented role-based access control and automated workload distribution for government officials. Integrated automated email notifications for grievance status updates.",
     techStack: ["Next.js", "Node.js", "Bun", "PostgreSQL", "Prisma", "Redis", "WebSockets", "Docker", "Kubernetes", "ArgoCD", "Tailwind CSS", "AWS", "GCP", "Cloudflare"],
     github: "https://github.com/neutron420/sih-swarajdesk-2025",
-    user: "https://sih-user-fe-sd.adityahota.online/",
-    admin: "https://admin.swarajdesk.com",
+    user: "https://gsc-user-fe.abhasbehera.in/",
+    admin: "https://gsc-admin-fe.abhasbehera.in",
     status: "live" as const,
     contributors: [
       { name: "Ritesh Singh", username: "neutron420", url: "https://github.com/neutron420" },
@@ -146,10 +149,18 @@ const projects = [
   {
     name: "Lineo",
     description: "A multi-tenant queue and appointment platform for clinics, hospitals, and service centers. Features real-time coordination, role-based access control, and automated workload distribution. Optimized backend for high-concurrency handling with Go, Redis, and RabbitMQ. Integrated Razorpay for seamless payment processing and payment verification. Implemented real-time queue state tracking and notification system for improved user experience.",
-    techStack: ["Next.js", "Go", "Gin", "PostgreSQL", "GORM", "Redis", "RabbitMQ", "Google Maps API", "Tailwind CSS", "TypeScript", "Docker"],
+    techStack: ["Next.js", "Go", "Gin", "PostgreSQL", "GORM", "Redis", "RabbitMQ", "Razorpay", "Google Maps API", "Tailwind CSS", "TypeScript", "Docker"],
     github: "https://github.com/neutron420/Lineo",
     live: null,
-    status: "coming_soon" as const,
+    apk: "/Lineo.apk",
+    api: "https://lineo-five.vercel.app/",
+  },
+  {
+    name: "Devix",
+    description: "A high-performance cloud-native platform featuring real-time communication and advanced search capabilities. Implemented a robust backend architecture using Go and GORM with PostgreSQL for persistent storage. Integrated Redis for low-latency data caching and Elasticsearch for high-speed full-text search. Developed real-time features using Socket.io and deployed the entire stack on AWS using Docker and Kubernetes for automated scaling and orchestration.",
+    techStack: ["React Native", "Expo", "Go", "GORM", "PostgreSQL", "Redis", "Elasticsearch", "Socket.io", "Kubernetes", "Docker", "AWS"],
+    github: "https://github.com/neutron420/devix-backend",
+    status: "development" as const,
   },
 ];
 
@@ -165,12 +176,12 @@ const StatusBadge = ({ status }: { status: "live" | "development" | "building" |
       animate: true,
     },
     development: {
-      label: "In Development",
-      bgColor: "bg-yellow-500/15",
-      textColor: "text-yellow-500",
-      borderColor: "border-yellow-500/30",
-      dotColor: "bg-yellow-500",
-      animate: false,
+      label: "Working",
+      bgColor: "bg-[#05160c]",
+      textColor: "text-[#00ff88]",
+      borderColor: "border-[#00ff88]/30",
+      dotColor: "bg-[#00ff88]",
+      animate: true,
     },
     building: {
       label: "Building",
@@ -193,8 +204,8 @@ const StatusBadge = ({ status }: { status: "live" | "development" | "building" |
   const config = statusConfig[status];
 
   return (
-    <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 text-[10px] uppercase tracking-[0.1em] rounded-lg ${config.bgColor} ${config.textColor} border ${config.borderColor} font-medium shadow-sm backdrop-blur-sm`}>
-      <span className={`w-1.5 h-1.5 rounded-full ${config.dotColor} ${config.animate ? 'animate-pulse' : ''} shadow-sm`} />
+    <span className={`inline-flex items-center gap-1.5 px-2 py-0.5 text-[9px] uppercase tracking-[0.15em] rounded-md ${config.bgColor} ${config.textColor} border ${config.borderColor} font-bold shadow-sm backdrop-blur-sm`}>
+      <span className={`w-1 h-1 rounded-full ${config.dotColor} ${config.animate ? 'animate-pulse' : ''} shadow-sm`} />
       {config.label}
     </span>
   );
@@ -244,7 +255,7 @@ const ProjectsSection = () => {
                 {/* Left Side: Info */}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-3 mb-2 flex-wrap">
-                    <h3 className={`text-xl md:text-2xl font-bold tracking-tight group-hover:text-accent transition-colors duration-300 ${project.name === "Lineo" ? "blur-[4px] select-none" : ""}`}>
+                    <h3 className="text-xl md:text-2xl font-bold tracking-tight group-hover:text-accent transition-colors duration-300">
                       {project.name.replace(/-/g, ' ')}
                     </h3>
                     {project.status && <StatusBadge status={project.status} />}
@@ -252,16 +263,18 @@ const ProjectsSection = () => {
 
                   {/* Actions & Links - Mobile: visible, Desktop: visible */}
                   <div className="flex items-center gap-4 mb-6">
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-1.5 text-xs font-medium uppercase tracking-wider text-muted-foreground hover:text-accent transition-colors group/link"
-                    >
-                      <SiGithub className="w-3.5 h-3.5" />
-                      <span>Code</span>
-                      <ArrowUpRight className="w-3 h-3 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
-                    </a>
+                    {project.github && (
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1.5 text-xs font-medium uppercase tracking-wider text-muted-foreground hover:text-accent transition-colors group/link"
+                      >
+                        <SiGithub className="w-3.5 h-3.5" />
+                        <span>Code</span>
+                        <ArrowUpRight className="w-3 h-3 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
+                      </a>
+                    )}
                     {project.live && (
                       <a
                         href={project.live}
@@ -274,6 +287,30 @@ const ProjectsSection = () => {
                         <ArrowUpRight className="w-3 h-3 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
                       </a>
                     )}
+                    {(project as { apk?: string }).apk && (
+                      <a
+                        href={(project as { apk?: string }).apk}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1.5 text-xs font-medium uppercase tracking-wider text-muted-foreground hover:text-accent transition-colors group/link"
+                      >
+                        <FaAndroid className="w-3.5 h-3.5" />
+                        <span>Download APK</span>
+                        <ArrowUpRight className="w-3 h-3 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
+                      </a>
+                    )}
+                    {(project as { api?: string }).api && (
+                      <a
+                        href={(project as { api?: string }).api}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1.5 text-xs font-medium uppercase tracking-wider text-muted-foreground hover:text-accent transition-colors group/link"
+                      >
+                        <Globe className="w-3.5 h-3.5" />
+                        <span>Live Link</span>
+                        <ArrowUpRight className="w-3 h-3 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
+                      </a>
+                    )}
                     {(project as { user?: string }).user && (
                       <a
                         href={(project as { user?: string }).user}
@@ -282,7 +319,7 @@ const ProjectsSection = () => {
                         className="flex items-center gap-1.5 text-xs font-medium uppercase tracking-wider text-muted-foreground hover:text-accent transition-colors group/link"
                       >
                         <Users className="w-3.5 h-3.5" />
-                        <span>{project.name === "Swaraj-Desk" ? "Super User" : "User"}</span>
+                        <span>{project.name === "Swaraj-Desk" ? "User" : "User"}</span>
                         <ArrowUpRight className="w-3 h-3 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
                       </a>
                     )}
@@ -310,38 +347,38 @@ const ProjectsSection = () => {
                         {project.techStack.map((tech) => {
                           const techData = techIcons[tech];
                           return (
-                            <div
+                            <motion.div
                               key={tech}
-                              title={tech}
-                              className="w-10 h-10 flex items-center justify-center rounded-xl bg-muted/20 border border-border/40 hover:border-accent/30 hover:bg-accent/5 transition-all duration-300 group/tech"
+                              initial="initial"
+                              whileHover="hover"
+                              className="h-10 flex items-center rounded-xl bg-muted/20 border border-border/40 hover:border-accent/30 hover:bg-accent/5 group/tech overflow-hidden cursor-default transition-colors"
                             >
-                              {techData ? (
-                                <span className={`${techData.color} transition-transform group-hover/tech:scale-110`}>
-                                  {React.cloneElement(techData.icon as React.ReactElement, { className: "w-5 h-5" })}
-                                </span>
-                              ) : (
-                                <span className="text-[10px] font-bold text-muted-foreground">{tech[0]}</span>
-                              )}
-                            </div>
+                              <div className="w-10 h-10 flex items-center justify-center shrink-0">
+                                {techData ? (
+                                  <span className={`${techData.color} transition-transform duration-300 group-hover/tech:scale-110`}>
+                                    {React.cloneElement(techData.icon as React.ReactElement, { className: "w-5 h-5" })}
+                                  </span>
+                                ) : (
+                                  <span className="text-[10px] font-bold text-muted-foreground">{tech[0]}</span>
+                                )}
+                              </div>
+                              <motion.span 
+                                variants={{
+                                  initial: { width: 0, opacity: 0 },
+                                  hover: { width: "auto", opacity: 1, paddingRight: "0.85rem" }
+                                }}
+                                transition={{ duration: 0.2, ease: "easeOut" }}
+                                className="text-[11px] font-bold whitespace-nowrap overflow-hidden text-foreground"
+                              >
+                                {tech}
+                              </motion.span>
+                            </motion.div>
                           );
                         })}
                       </div>
                     </div>
 
-                    {/* Description - Bullet style like ramx.in */}
-                    <div className="space-y-4">
-                      <h4 className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground/60 font-bold">
-                        What I've done
-                      </h4>
-                      <ul className="space-y-3">
-                        {project.description.split('. ').filter(p => p.trim()).map((point, i) => (
-                          <li key={i} className="flex gap-3 text-sm text-muted-foreground leading-relaxed">
-                            <span className="bg-muted-foreground/40 mt-1.5 shrink-0 block w-1.5 h-1.5 rounded-sm" />
-                            <span>{point.trim()}{point.endsWith('.') ? '' : '.'}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+                    {/* Description removed */}
 
                     {/* Contributors */}
                     {project.contributors && (

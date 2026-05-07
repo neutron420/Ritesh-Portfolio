@@ -4,7 +4,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "@/components/portfolio/Navbar";
 import HeroSection from "@/components/portfolio/HeroSection";
 import MacOSDock from "@/components/mac-os-dock";
-import {AIChat} from "@/components/portfolio/AIChat";
 import SEOHead from "@/components/SEOHead";
 import ScrollReveal from "@/components/ui/scroll-reveal";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -18,9 +17,6 @@ import { useKeyboardShortcuts } from "@/hooks/use-keyboard-shortcuts";
 const AchievementsSection = lazy(() => import("@/components/portfolio/AchievementsSection"));
 const TechStackSection = lazy(() => import("@/components/portfolio/TechStackSection"));
 const ProjectsSection = lazy(() => import("@/components/portfolio/ProjectsSection"));
-const SpotifySection = lazy(() => import("@/components/portfolio/SpotifySection"));
-const AnimeVideoSection = lazy(() => import("@/components/portfolio/AnimeVideoSection"));
-const ContactSection = lazy(() => import("@/components/portfolio/ContactSection"));
 const QuoteSection = lazy(() => import("@/components/portfolio/QuoteSection"));
 const VisitorCounter = lazy(() => import("@/components/portfolio/VisitorCounter"));
 const Footer = lazy(() => import("@/components/hover-footer").then(module => ({ default: module.Footer })));
@@ -37,9 +33,6 @@ const dockApps = [
   { id: 'achievements', name: 'Awards', icon: 'https://cdn.jim-nielsen.com/macos/1024/notes-2021-05-25.png?rf=1024' },
   { id: 'tech', name: 'Terminal', icon: 'https://cdn.jim-nielsen.com/macos/1024/terminal-2021-06-03.png?rf=1024' },
   { id: 'projects', name: 'Portfolio', icon: 'https://cdn.jim-nielsen.com/macos/1024/photos-2021-05-28.png?rf=1024' },
-  { id: 'spotify', name: 'Music', icon: 'https://cdn.jim-nielsen.com/macos/1024/music-2021-05-25.png?rf=1024' },
-  { id: 'anime', name: 'TV', icon: 'https://images.icon-icons.com/3053/PNG/512/tv_macos_bigsur_icon_189672.png' },
-  { id: 'contact', name: 'Mail', icon: 'https://cdn.jim-nielsen.com/macos/1024/mail-2021-05-25.png?rf=1024' },
 ];
 
 const Index = () => {
@@ -194,24 +187,6 @@ const Index = () => {
             </ScrollReveal>
           </Suspense>
           
-          <Suspense fallback={<SectionSkeleton height="h-64" />}>
-            <ScrollReveal delay={0.1}>
-              <SpotifySection />
-            </ScrollReveal>
-          </Suspense>
-          
-          <Suspense fallback={<SectionSkeleton height="h-64" />}>
-            <ScrollReveal delay={0.1}>
-              <AnimeVideoSection />
-            </ScrollReveal>
-          </Suspense>
-          
-          <Suspense fallback={<SectionSkeleton height="h-96" />}>
-            <ScrollReveal delay={0.1}>
-              <ContactSection />
-            </ScrollReveal>
-          </Suspense>
-
           <Suspense fallback={<SectionSkeleton height="h-32" />}>
             <ScrollReveal delay={0.1}>
               <QuoteSection />
@@ -227,8 +202,7 @@ const Index = () => {
           </Suspense>
         </main>
         
-        {/* AI Chat */}
-        <AIChat />
+        {/* AI Chat removed */}
         
         {/* Back to Top Button */}
         <BackToTop />
