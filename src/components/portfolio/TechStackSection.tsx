@@ -50,6 +50,7 @@ import { FaJava } from "react-icons/fa";
 import { VscDebugStart } from "react-icons/vsc";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import { motion } from "framer-motion";
+import { MarkerHighlight } from "@/components/ui/marker-highlight";
 
 const TechStackSection = () => {
   const categories = [
@@ -135,7 +136,7 @@ const TechStackSection = () => {
             <div className="h-px w-8 bg-accent" />
             <span className="text-xs uppercase tracking-[0.2em] text-accent font-medium">Expertise</span>
           </div>
-          <h2 className="text-2xl md:text-3xl font-bold">Tech Stack</h2>
+          <h2 className="text-2xl md:text-3xl font-bold"><MarkerHighlight before="Tech " highlight="Stack" markerColor="#facc15" /></h2>
           <p className="text-sm text-muted-foreground mt-2 text-center max-w-lg">
             A comprehensive suite of technologies I use to build robust, scalable, and user-centric applications.
           </p>

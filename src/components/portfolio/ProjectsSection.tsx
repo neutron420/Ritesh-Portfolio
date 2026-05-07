@@ -41,6 +41,8 @@ import {
 import { TbDatabase, TbMap2 } from "react-icons/tb";
 import { FaJava, FaAndroid, FaMapMarkerAlt } from "react-icons/fa";
 import { SiExpo, SiGradle, SiGooglemaps, SiSupabase, SiRazorpay, SiElasticsearch, SiLogstash, SiKibana } from "react-icons/si";
+import Plan from "@/components/ui/agent-plan";
+import { MarkerHighlight } from "@/components/ui/marker-highlight";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
 
@@ -129,6 +131,46 @@ const projects = [
       { name: "Abhash Behera", username: "MistaHolmes", url: "https://github.com/MistaHolmes" },
       { name: "Aniroodh Padhee", username: "Aniroodh1234", url: "https://github.com/Aniroodh1234" },
     ],
+    roadmap: [
+      {
+        id: "1", title: "Project Foundation", description: "Core architecture and initial setup", status: "completed", priority: "high", level: 0, dependencies: [],
+        subtasks: [
+          { id: "1.1", title: "Grievance System Design", description: "Database schema for 10k+ concurrent requests", status: "completed", priority: "high" },
+          { id: "1.2", title: "Prisma ORM Setup", description: "Type-safe database access layer with PostgreSQL", status: "completed", priority: "high" },
+          { id: "1.3", title: "Redis Caching Layer", description: "In-memory caching for high-performance reads", status: "completed", priority: "medium" }
+        ]
+      },
+      {
+        id: "2", title: "Real-time Communication", description: "Live updates and notification system", status: "completed", priority: "high", level: 0, dependencies: [],
+        subtasks: [
+          { id: "2.1", title: "WebSocket Implementation", description: "Real-time citizen notifications and status tracking", status: "completed", priority: "high" },
+          { id: "2.2", title: "Email Notification Engine", description: "Automated grievance status update emails", status: "completed", priority: "medium" }
+        ]
+      },
+      {
+        id: "3", title: "Access Control & Security", description: "Role-based access and workload distribution", status: "completed", priority: "high", level: 1, dependencies: ["1", "2"],
+        subtasks: [
+          { id: "3.1", title: "RBAC Implementation", description: "Role-based access for citizens, officials, and admins", status: "completed", priority: "high" },
+          { id: "3.2", title: "Workload Distribution", description: "Automated grievance assignment to government officials", status: "completed", priority: "medium" }
+        ]
+      },
+      {
+        id: "4", title: "Cloud Infrastructure", description: "Production deployment and orchestration", status: "completed", priority: "high", level: 0, dependencies: [],
+        subtasks: [
+          { id: "4.1", title: "Kubernetes Orchestration", description: "Container scaling with K8s on AWS & GCP", status: "completed", priority: "high" },
+          { id: "4.2", title: "ArgoCD CI/CD Pipeline", description: "GitOps-based automated deployments", status: "completed", priority: "medium" },
+          { id: "4.3", title: "Cloudflare CDN", description: "Edge caching and DDoS protection", status: "completed", priority: "medium" }
+        ]
+      },
+      {
+        id: "5", title: "Frontend & Testing", description: "User-facing application and quality assurance", status: "completed", priority: "medium", level: 1, dependencies: ["4"],
+        subtasks: [
+          { id: "5.1", title: "User Portal", description: "Citizen-facing grievance registration and tracking UI", status: "completed", priority: "high" },
+          { id: "5.2", title: "Admin Dashboard", description: "Government official management interface", status: "completed", priority: "high" },
+          { id: "5.3", title: "Load Testing", description: "Validated 10k+ concurrent request handling", status: "completed", priority: "low" }
+        ]
+      }
+    ]
   },
   {
     name: "RakshaSetu",
@@ -137,6 +179,46 @@ const projects = [
     github: "https://github.com/neutron420/RakshaSetu",
     live: null,
     status: "live" as const,
+    roadmap: [
+      {
+        id: "1", title: "Emergency Core System", description: "SOS reporting and messaging foundation", status: "completed", priority: "high", level: 0, dependencies: [],
+        subtasks: [
+          { id: "1.1", title: "BLE Mesh Relay Network", description: "Offline SOS broadcasting without internet", status: "completed", priority: "high" },
+          { id: "1.2", title: "Real-time SOS Triage", description: "AI-powered emergency severity grading", status: "completed", priority: "high" },
+          { id: "1.3", title: "Emergency Guidance Engine", description: "AI-powered first-aid and safety instructions", status: "completed", priority: "medium" }
+        ]
+      },
+      {
+        id: "2", title: "Geospatial Intelligence", description: "Location-based volunteer dispatching", status: "completed", priority: "high", level: 0, dependencies: [],
+        subtasks: [
+          { id: "2.1", title: "PostGIS Integration", description: "Proximity-based volunteer matching with sub-second queries", status: "completed", priority: "high" },
+          { id: "2.2", title: "Automated Alert Zoning", description: "Geofenced disaster zone management", status: "completed", priority: "medium" }
+        ]
+      },
+      {
+        id: "3", title: "Message Queue & Alerts", description: "High-priority alert dissemination system", status: "completed", priority: "high", level: 1, dependencies: ["1", "2"],
+        subtasks: [
+          { id: "3.1", title: "Apache Kafka Integration", description: "Priority-based message queue for critical alerts", status: "completed", priority: "high" },
+          { id: "3.2", title: "Push Notification System", description: "Real-time emergency alerts to nearby volunteers", status: "completed", priority: "high" }
+        ]
+      },
+      {
+        id: "4", title: "Mobile Application", description: "Cross-platform emergency response app", status: "completed", priority: "high", level: 0, dependencies: [],
+        subtasks: [
+          { id: "4.1", title: "React Native App", description: "Cross-platform mobile app with Expo", status: "completed", priority: "high" },
+          { id: "4.2", title: "Offline-first Architecture", description: "Local storage sync for network-dead zones", status: "completed", priority: "medium" },
+          { id: "4.3", title: "Live Map Interface", description: "Real-time disaster zone visualization", status: "completed", priority: "medium" }
+        ]
+      },
+      {
+        id: "5", title: "Deployment & Scaling", description: "Cloud infrastructure and orchestration", status: "completed", priority: "medium", level: 1, dependencies: ["4"],
+        subtasks: [
+          { id: "5.1", title: "Kubernetes on AWS", description: "Auto-scaling container orchestration", status: "completed", priority: "high" },
+          { id: "5.2", title: "Docker Containerization", description: "Multi-service containerized deployment", status: "completed", priority: "medium" },
+          { id: "5.3", title: "Redis Session Store", description: "High-speed session management for concurrent users", status: "completed", priority: "low" }
+        ]
+      }
+    ]
   },
   {
     name: "ShareBite",
@@ -145,6 +227,46 @@ const projects = [
     github: "https://github.com/neutron420/Sharebite",
     live: null,
     status: "live" as const,
+    roadmap: [
+      {
+        id: "1", title: "Platform Foundation", description: "Core donation and rescue workflow", status: "completed", priority: "high", level: 0, dependencies: [],
+        subtasks: [
+          { id: "1.1", title: "Donation Flow Engine", description: "Seamless food donation entry and listing system", status: "completed", priority: "high" },
+          { id: "1.2", title: "NGO Management Portal", description: "Dashboard for food rescue coordination", status: "completed", priority: "high" },
+          { id: "1.3", title: "Rider Assignment System", description: "Automated pickup task distribution", status: "completed", priority: "medium" }
+        ]
+      },
+      {
+        id: "2", title: "AI & Smart Matching", description: "Intelligent food quality and donor matching", status: "completed", priority: "high", level: 0, dependencies: [],
+        subtasks: [
+          { id: "2.1", title: "Groq AI Integration", description: "Automated food quality assessment via LLM", status: "completed", priority: "high" },
+          { id: "2.2", title: "Donor-NGO Matching", description: "Smart proximity and capacity-based matching", status: "completed", priority: "medium" }
+        ]
+      },
+      {
+        id: "3", title: "Logistics & Routing", description: "Map-based pickup optimization", status: "completed", priority: "high", level: 1, dependencies: ["1", "2"],
+        subtasks: [
+          { id: "3.1", title: "Mapbox Route Optimization", description: "Real-time optimal pickup routes for riders", status: "completed", priority: "high" },
+          { id: "3.2", title: "Live Tracking Dashboard", description: "Real-time rider location and ETA tracking", status: "completed", priority: "medium" }
+        ]
+      },
+      {
+        id: "4", title: "Engagement & Gamification", description: "Karma system and user retention", status: "completed", priority: "medium", level: 0, dependencies: [],
+        subtasks: [
+          { id: "4.1", title: "Karma Point System", description: "Incentivize consistent food donations with rewards", status: "completed", priority: "medium" },
+          { id: "4.2", title: "Role-based Dashboards", description: "Custom views for donors, NGOs, riders, and admins", status: "completed", priority: "high" },
+          { id: "4.3", title: "WebSocket Notifications", description: "Real-time coordination updates across all roles", status: "completed", priority: "medium" }
+        ]
+      },
+      {
+        id: "5", title: "Infrastructure & DevOps", description: "Cloud deployment with Terraform", status: "completed", priority: "medium", level: 1, dependencies: ["4"],
+        subtasks: [
+          { id: "5.1", title: "Terraform IaC Setup", description: "Infrastructure as Code for AWS provisioning", status: "completed", priority: "high" },
+          { id: "5.2", title: "Docker Multi-stage Builds", description: "Optimized container images for production", status: "completed", priority: "medium" },
+          { id: "5.3", title: "PostgreSQL + Redis Stack", description: "Persistent storage with caching layer", status: "completed", priority: "low" }
+        ]
+      }
+    ]
   },
   {
     name: "Lineo",
@@ -154,6 +276,46 @@ const projects = [
     live: null,
     apk: "/Lineo.apk",
     api: "https://lineo-five.vercel.app/",
+    roadmap: [
+      {
+        id: "1", title: "Queue Engine", description: "High-concurrency queue management backend", status: "completed", priority: "high", level: 0, dependencies: [],
+        subtasks: [
+          { id: "1.1", title: "Go + Gin Backend", description: "High-performance REST API with Go and Gin framework", status: "completed", priority: "high" },
+          { id: "1.2", title: "GORM Data Layer", description: "Type-safe ORM with PostgreSQL for multi-tenant data", status: "completed", priority: "high" },
+          { id: "1.3", title: "Redis Queue State", description: "Real-time queue position tracking with sub-ms latency", status: "completed", priority: "medium" }
+        ]
+      },
+      {
+        id: "2", title: "Messaging & Notifications", description: "Async processing and real-time alerts", status: "completed", priority: "high", level: 0, dependencies: [],
+        subtasks: [
+          { id: "2.1", title: "RabbitMQ Integration", description: "Message broker for appointment notifications", status: "completed", priority: "high" },
+          { id: "2.2", title: "Push Notification System", description: "Real-time queue updates to patient devices", status: "completed", priority: "medium" }
+        ]
+      },
+      {
+        id: "3", title: "Payments & Verification", description: "Secure payment processing", status: "completed", priority: "high", level: 1, dependencies: ["1", "2"],
+        subtasks: [
+          { id: "3.1", title: "Razorpay Gateway", description: "Seamless appointment payment processing", status: "completed", priority: "high" },
+          { id: "3.2", title: "Payment Verification", description: "Webhook-based payment confirmation and receipts", status: "completed", priority: "high" }
+        ]
+      },
+      {
+        id: "4", title: "Access Control & Maps", description: "RBAC and location services", status: "completed", priority: "high", level: 0, dependencies: [],
+        subtasks: [
+          { id: "4.1", title: "Role-based Access Control", description: "Clinic admin, doctor, and patient permission levels", status: "completed", priority: "high" },
+          { id: "4.2", title: "Google Maps Integration", description: "Nearby clinic discovery and navigation", status: "completed", priority: "medium" },
+          { id: "4.3", title: "Automated Workload Distribution", description: "Smart appointment slot balancing across doctors", status: "completed", priority: "medium" }
+        ]
+      },
+      {
+        id: "5", title: "Frontend & Deployment", description: "User interfaces and containerized deployment", status: "completed", priority: "medium", level: 1, dependencies: ["4"],
+        subtasks: [
+          { id: "5.1", title: "Next.js Patient App", description: "Responsive web app with real-time queue display", status: "completed", priority: "high" },
+          { id: "5.2", title: "React Native Mobile APK", description: "Android app for on-the-go queue management", status: "completed", priority: "high" },
+          { id: "5.3", title: "Docker Deployment", description: "Containerized microservice deployment", status: "completed", priority: "low" }
+        ]
+      }
+    ]
   },
   {
     name: "Devix",
@@ -161,6 +323,47 @@ const projects = [
     techStack: ["React Native", "Expo", "Go", "GORM", "PostgreSQL", "Redis", "Elasticsearch", "Socket.io", "Kubernetes", "Docker", "AWS"],
     github: "https://github.com/neutron420/devix-backend",
     status: "development" as const,
+    roadmap: [
+      {
+        id: "1", title: "Backend Architecture", description: "High-performance Go backend foundation", status: "in-progress", priority: "high", level: 0, dependencies: [],
+        subtasks: [
+          { id: "1.1", title: "Go & GORM Setup", description: "Database persistence layer with PostgreSQL", status: "completed", priority: "high" },
+          { id: "1.2", title: "Redis Caching", description: "Low-latency data caching for hot queries", status: "completed", priority: "high" },
+          { id: "1.3", title: "Elasticsearch Indexing", description: "Full-text search with advanced query DSL", status: "in-progress", priority: "high" }
+        ]
+      },
+      {
+        id: "2", title: "Real-time Communication", description: "Live messaging and event streaming", status: "in-progress", priority: "high", level: 0, dependencies: [],
+        subtasks: [
+          { id: "2.1", title: "Socket.io Integration", description: "Bi-directional real-time event streaming", status: "in-progress", priority: "high" },
+          { id: "2.2", title: "Presence System", description: "Online/offline status tracking for users", status: "pending", priority: "medium" }
+        ]
+      },
+      {
+        id: "3", title: "Mobile Application", description: "Cross-platform React Native app", status: "pending", priority: "high", level: 1, dependencies: ["1", "2"],
+        subtasks: [
+          { id: "3.1", title: "React Native + Expo", description: "Cross-platform mobile app scaffolding", status: "pending", priority: "high" },
+          { id: "3.2", title: "Navigation & Auth Flow", description: "Secure authentication with token management", status: "pending", priority: "high" },
+          { id: "3.3", title: "Real-time Chat UI", description: "Socket-powered messaging interface", status: "pending", priority: "medium" }
+        ]
+      },
+      {
+        id: "4", title: "Cloud Infrastructure", description: "Containerized deployment on AWS", status: "pending", priority: "medium", level: 0, dependencies: [],
+        subtasks: [
+          { id: "4.1", title: "Docker Containerization", description: "Multi-stage builds for Go and Node services", status: "pending", priority: "high" },
+          { id: "4.2", title: "Kubernetes Config", description: "Container orchestration with auto-scaling policies", status: "pending", priority: "medium" },
+          { id: "4.3", title: "AWS Deployment", description: "EKS cluster setup with load balancing", status: "pending", priority: "medium" }
+        ]
+      },
+      {
+        id: "5", title: "Testing & Launch", description: "Quality assurance and production release", status: "pending", priority: "medium", level: 1, dependencies: ["3", "4"],
+        subtasks: [
+          { id: "5.1", title: "Integration Testing", description: "End-to-end API and WebSocket test suites", status: "pending", priority: "high" },
+          { id: "5.2", title: "Performance Benchmarks", description: "Load testing for concurrent connection limits", status: "pending", priority: "medium" },
+          { id: "5.3", title: "Production Release", description: "Final deployment and monitoring setup", status: "pending", priority: "low" }
+        ]
+      }
+    ]
   },
 ];
 
@@ -211,6 +414,10 @@ const StatusBadge = ({ status }: { status: "live" | "development" | "building" |
   );
 };
 
+/**
+ * ProjectsSection Component
+ * Last updated: 2026-05-08T02:02:00
+ */
 const ProjectsSection = () => {
   const { ref, isVisible } = useScrollReveal();
 
@@ -227,7 +434,7 @@ const ProjectsSection = () => {
               <div className="h-px w-8 bg-accent" />
               <span className="text-xs uppercase tracking-[0.2em] text-accent font-medium">Portfolio</span>
             </div>
-            <h2 className="text-2xl md:text-3xl font-bold">Featured Projects</h2>
+            <h2 className="text-2xl md:text-3xl font-bold"><MarkerHighlight before="Featured " highlight="Projects" markerColor="#facc15" /></h2>
             <p className="text-sm text-muted-foreground mt-2">A selection of things I've designed & built</p>
           </div>
           <a
@@ -378,7 +585,15 @@ const ProjectsSection = () => {
                       </div>
                     </div>
 
-                    {/* Description removed */}
+                    {/* Roadmap Section */}
+                    <div className="mt-8 space-y-4">
+                      <h4 className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground/60 font-bold">
+                        Development Roadmap
+                      </h4>
+                      <div className="rounded-xl overflow-hidden border border-border/40 bg-muted/5">
+                        <Plan key={project.name} initialTasks={project.roadmap as import("@/components/ui/agent-plan").Task[]} />
+                      </div>
+                    </div>
 
                     {/* Contributors */}
                     {project.contributors && (

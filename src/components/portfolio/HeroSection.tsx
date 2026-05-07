@@ -2,6 +2,7 @@ import { Mail, Download, GraduationCap, Terminal } from "lucide-react";
 import { motion } from "framer-motion";
 import { TerminalTransition } from "@/components/TerminalTransition";
 import Typewriter from "@/components/ui/typewriter";
+import { MarkerHighlight } from "@/components/ui/marker-highlight";
 import bannerImage from "@/assets/banner.jpg";
 
 import { SiTypescript, SiReact, SiNodedotjs, SiGo, SiPostgresql, SiLeetcode, SiGithub, SiX, SiLinkedin } from "react-icons/si";
@@ -144,7 +145,7 @@ const HeroSection = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
             >
-              Ritesh Singh
+              <MarkerHighlight before="Ritesh " highlight="Singh" markerColor="#facc15" delay={0.3} />
             </motion.h1>
             
             {/* Typewriter Effect */}
