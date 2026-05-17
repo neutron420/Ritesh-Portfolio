@@ -44,7 +44,9 @@ import {
   SiSupabase,
   SiElasticsearch,
   SiLogstash,
-  SiKibana
+  SiKibana,
+  SiHelm,
+  SiClerk
 } from "react-icons/si";
 import { FaJava } from "react-icons/fa";
 import { VscDebugStart } from "react-icons/vsc";
@@ -82,8 +84,6 @@ const TechStackSection = () => {
         { name: "Node.js", icon: SiNodedotjs, color: "text-[#339933]" },
         { name: "Express", icon: SiExpress, color: "text-foreground" },
         { name: "Bun", icon: SiBun, color: "text-[#FBF0DF]" },
-        { name: "Firebase", icon: SiFirebase, color: "text-[#FFCA28]" },
-        { name: "Supabase", icon: SiSupabase, color: "text-[#3ECF8E]" },
         { name: "PostgreSQL", icon: SiPostgresql, color: "text-[#4169E1]" },
         { name: "Prisma", icon: SiPrisma, color: "text-foreground" },
         { name: "Redis", icon: SiRedis, color: "text-[#DC382D]" },
@@ -95,7 +95,7 @@ const TechStackSection = () => {
       skills: [
         { name: "Docker", icon: SiDocker, color: "text-[#2496ED]" },
         { name: "Kubernetes", icon: SiKubernetes, color: "text-[#326CE5]" },
-        { name: "Ansible", icon: SiAnsible, color: "text-[#EE0000]" },
+        { name: "Helm", icon: SiHelm, color: "text-[#0F1689]" },
         { name: "AWS", icon: SiAmazonwebservices, color: "text-[#FF9900]" },
         { name: "Terraform", icon: SiTerraform, color: "text-[#844FBA]" },
         { name: "ArgoCD", icon: SiArgo, color: "text-[#EF7B4D]" },
@@ -123,6 +123,16 @@ const TechStackSection = () => {
     },
   ];
 
+  const row1Skills = [
+    "Node.js", "Express", "WebSockets", "Docker", "Kubernetes", "Terraform", "Prisma", 
+    "Redis", "PostgreSQL", "React", "Next.js", "Actix Web", "Rust", "Clerk"
+  ];
+
+  const row2Skills = [
+    "Go", "Gin", "RabbitMQ", "Apache Kafka", "Ansible", "AWS", "ArgoCD", "Cloudflare", 
+    "Tailwind CSS", "TypeScript", "Helm", "Git", "GitHub Actions"
+  ];
+
   const { ref, isVisible } = useScrollReveal();
 
   return (
@@ -142,35 +152,69 @@ const TechStackSection = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-6 max-w-5xl mx-auto">
+        {/* Endless Skill Marquee (Airport conveyor belt style - Slow & Spacious) */}
+        <div className="w-full overflow-hidden relative mb-16 select-none max-w-5xl mx-auto py-3 flex flex-col gap-6">
+          {/* Edge Gradient Fades */}
+          <div className="absolute left-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-background via-background/60 to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-background via-background/60 to-transparent z-10 pointer-events-none" />
+
+          {/* Row 1: Scrolling Left */}
+          <div className="flex w-full overflow-hidden">
+            <motion.div
+              className="flex gap-16 shrink-0 items-center justify-around min-w-full text-base md:text-lg font-bold tracking-tight text-white/80"
+              animate={{ x: [0, "-50%"] }}
+              transition={{ ease: "linear", duration: 65, repeat: Infinity }}
+            >
+              {[...row1Skills, ...row1Skills].map((skill, index) => (
+                <span key={index} className="hover:text-white transition-colors cursor-default whitespace-nowrap">
+                  {skill}
+                </span>
+              ))}
+            </motion.div>
+          </div>
+
+          {/* Row 2: Scrolling Right */}
+          <div className="flex w-full overflow-hidden">
+            <motion.div
+              className="flex gap-16 shrink-0 items-center justify-around min-w-full text-base md:text-lg font-bold tracking-tight text-white/80"
+              animate={{ x: ["-50%", 0] }}
+              transition={{ ease: "linear", duration: 65, repeat: Infinity }}
+            >
+              {[...row2Skills, ...row2Skills].map((skill, index) => (
+                <span key={index} className="hover:text-white transition-colors cursor-default whitespace-nowrap">
+                  {skill}
+                </span>
+              ))}
+            </motion.div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
           {categories.map((category, idx) => (
             <motion.div
               key={category.title}
-              initial={{ opacity: 0, x: idx % 2 === 0 ? -20 : 20 }}
-              animate={isVisible ? { opacity: 1, x: 0 } : {}}
+              initial={{ opacity: 0, y: 20 }}
+              animate={isVisible ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="group relative bg-card/40 backdrop-blur-sm rounded-2xl border border-border/40 p-5 md:p-6 hover:border-accent/30 hover:shadow-[0_0_50px_-12px_hsl(var(--accent)/0.1)] transition-all duration-500 overflow-hidden"
+              className="group relative bg-card/40 backdrop-blur-sm rounded-2xl border border-border/40 p-6 hover:border-border/80 transition-all duration-500 overflow-hidden flex flex-col justify-between"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-accent/[0.04] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               
-              <div className="flex flex-col md:flex-row md:items-center gap-6 relative z-10">
-                <div className="md:w-48 shrink-0">
-                  <h3 className="text-lg md:text-xl font-bold flex items-center gap-3 group-hover:text-accent transition-colors">
-                    <span className="w-1.5 h-6 bg-accent rounded-full transition-all" />
-                    {category.title}
-                  </h3>
-                </div>
+              <div className="relative z-10 w-full">
+                <h3 className="text-base md:text-lg font-bold flex items-center gap-2 mb-4 transition-colors text-foreground">
+                  <span className="w-1.5 h-5 bg-accent rounded-full transition-all" />
+                  {category.title}
+                </h3>
 
-                <div className="flex flex-wrap gap-3">
+                <div className="grid grid-cols-2 gap-2.5">
                   {category.skills.map((skill) => {
                     const Icon = skill.icon;
                     return (
                       <div 
                         key={skill.name} 
-                        className="flex items-center gap-2.5 px-3.5 py-2 rounded-xl bg-muted/30 border border-border/50 hover:border-accent/20 hover:bg-accent/5 transition-all duration-300 group/skill"
+                        className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl bg-muted/30 border border-border/50 hover:border-border hover:bg-muted/60 transition-all duration-300 group/skill w-full"
                       >
-                        <Icon className={`w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-300 group-hover/skill:scale-110 ${skill.color}`} />
-                        <span className="text-xs font-semibold text-muted-foreground group-hover/skill:text-foreground whitespace-nowrap">
+                        <Icon className={`w-4.5 h-4.5 transition-transform duration-300 group-hover/skill:scale-105 shrink-0 ${skill.color}`} />
+                        <span className="text-xs font-semibold text-muted-foreground group-hover/skill:text-foreground">
                           {skill.name}
                         </span>
                       </div>

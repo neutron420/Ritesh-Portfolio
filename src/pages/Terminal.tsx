@@ -436,7 +436,7 @@ export default function Terminal() {
                 <FileText className="w-4 h-4 inline" /> Opening resume in new tab...
               </p>
               <a 
-                href="/RiteshSinghResume.pdf" 
+                href="/Ritesh_Kumar_Singh_Resume.pdf" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="text-[#39d353] hover:underline flex items-center gap-1"

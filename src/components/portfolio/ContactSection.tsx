@@ -1,230 +1,136 @@
 import { useState } from "react";
-import { Mail, Send, Loader2, MapPin, Clock, Sparkles } from "lucide-react";
-import { SiGithub, SiLinkedin, SiX } from "react-icons/si";
-import { supabase } from "@/integrations/supabase/client";
+import { Mail, Check, Copy } from "lucide-react";
+import { SiGithub, SiLinkedin, SiX, SiWhatsapp } from "react-icons/si";
 import { useToast } from "@/hooks/use-toast";
+import { motion } from "framer-motion";
+import { MarkerHighlight } from "@/components/ui/marker-highlight";
 
 const ContactSection = () => {
   const { toast } = useToast();
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
-      toast({
-        title: "Missing fields",
-        description: "Please fill in all fields",
-        variant: "destructive"
-      });
-      return;
-    }
+  const [copied, setCopied] = useState(false);
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email)) {
-      toast({
-        title: "Invalid email",
-        description: "Please enter a valid email address",
-        variant: "destructive"
-      });
-      return;
-    }
-
-    setIsSubmitting(true);
-
-    try {
-      const { data, error } = await supabase.functions.invoke('send-contact-email', {
-        body: {
-          name: formData.name.trim(),
-          email: formData.email.trim(),
-          message: formData.message.trim()
-        }
-      });
-
-      if (error) throw error;
-
-      toast({
-        title: "Message sent! 🎉",
-        description: "Thanks for reaching out. I'll get back to you soon!",
-      });
-
-      setFormData({ name: "", email: "", message: "" });
-    } catch (error: unknown) {
-      console.error("Error sending message:", error);
-      toast({
-        title: "Failed to send",
-        description: "Something went wrong. Please try again or email me directly.",
-        variant: "destructive"
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText("fnaticritesh2004@gmail.com");
+    setCopied(true);
+    toast({
+      title: "Copied! 🚀",
+      description: "Email address copied to your clipboard.",
+    });
+    setTimeout(() => setCopied(false), 2000);
   };
 
   const socialLinks = [
     { icon: SiGithub, href: "https://github.com/neutron420", label: "GitHub" },
     { icon: SiLinkedin, href: "https://www.linkedin.com/in/ritesh-singh1/", label: "LinkedIn" },
     { icon: SiX, href: "https://x.com/RiteshS18572143", label: "Twitter" },
-    { icon: Mail, href: "mailto:fnaticritesh2004@gmail.com", label: "Email" },
+    { icon: SiWhatsapp, href: "https://wa.me/919002132340", label: "WhatsApp" },
   ];
 
   return (
     <section id="contact" className="py-16 md:py-24">
-      <div className="section-container">
-        {/* Main Contact Card */}
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-card via-card to-muted/20 border border-border/50">
-          {/* Background decoration */}
-          <div className="absolute top-0 right-0 w-64 h-64 bg-accent/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-          <div className="absolute bottom-0 left-0 w-48 h-48 bg-accent/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
-          
-          <div className="relative p-6 md:p-10 lg:p-12">
-            <div className="grid lg:grid-cols-2 gap-10 lg:gap-16">
-              {/* Left Side - Info */}
-              <div className="space-y-8">
-                <div>
-                  <div className="inline-flex items-center gap-2 px-3 py-1 bg-accent/10 text-accent text-sm rounded-full mb-4">
-                    <Sparkles className="w-3.5 h-3.5" />
-                    Available for work
-                  </div>
-                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">
-                    Let's work<br />
-                    <span className="text-accent">together</span>
-                  </h2>
-                  <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-                    Have a project in mind or want to collaborate? I'm always excited to work on interesting challenges and build something amazing.
-                  </p>
-                </div>
-
-                {/* Quick Info */}
-                <div className="space-y-4">
-                  <div className="flex items-center gap-3 text-sm">
-                    <div className="w-10 h-10 rounded-xl bg-muted/50 flex items-center justify-center">
-                      <Mail className="w-4 h-4 text-accent" />
-                    </div>
-                    <div>
-                      <p className="text-muted-foreground text-xs">Email</p>
-                      <a href="mailto:fnaticritesh2004@gmail.com" className="hover:text-accent transition-colors">
-                        fnaticritesh2004@gmail.com
-                      </a>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-center gap-3 text-sm">
-                    <div className="w-10 h-10 rounded-xl bg-muted/50 flex items-center justify-center">
-                      <MapPin className="w-4 h-4 text-accent" />
-                    </div>
-                    <div>
-                      <p className="text-muted-foreground text-xs">Location</p>
-                      <p>India</p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-3 text-sm">
-                    <div className="w-10 h-10 rounded-xl bg-muted/50 flex items-center justify-center">
-                      <Clock className="w-4 h-4 text-accent" />
-                    </div>
-                    <div>
-                      <p className="text-muted-foreground text-xs">Response Time</p>
-                      <p>Within 24 hours</p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Social Links */}
-                <div>
-                  <p className="text-sm text-muted-foreground mb-3">Connect with me</p>
-                  <div className="flex gap-3">
-                    {socialLinks.map((social) => {
-                      const Icon = social.icon;
-                      return (
-                        <a
-                          key={social.label}
-                          href={social.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="w-11 h-11 flex items-center justify-center rounded-xl bg-muted/50 border border-border/50 hover:bg-accent hover:text-accent-foreground hover:border-accent transition-all"
-                          aria-label={social.label}
-                        >
-                          <Icon className="w-5 h-5" />
-                        </a>
-                      );
-                    })}
-                  </div>
-                </div>
-              </div>
-
-              {/* Right Side - Form */}
-              <div className="bg-background/50 backdrop-blur rounded-2xl p-4 sm:p-6 md:p-8 border border-border/30">
-                <h3 className="text-base sm:text-lg font-semibold mb-4 sm:mb-6">Send me a message</h3>
-                
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  <div className="grid sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="text-xs text-muted-foreground mb-1.5 block">Your Name</label>
-                      <input
-                        type="text"
-                        placeholder="John Doe"
-                        value={formData.name}
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-muted/30 border border-border/50 text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent/50 transition-all text-sm"
-                        disabled={isSubmitting}
-                        maxLength={100}
-                      />
-                    </div>
-                    <div>
-                      <label className="text-xs text-muted-foreground mb-1.5 block">Your Email</label>
-                      <input
-                        type="email"
-                        placeholder="john@example.com"
-                        value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-muted/30 border border-border/50 text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent/50 transition-all text-sm"
-                        disabled={isSubmitting}
-                        maxLength={255}
-                      />
-                    </div>
-                  </div>
-                  
-                  <div>
-                    <label className="text-xs text-muted-foreground mb-1.5 block">Your Message</label>
-                    <textarea
-                      placeholder="Tell me about your project..."
-                      value={formData.message}
-                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      rows={5}
-                      className="w-full px-4 py-3 rounded-xl bg-muted/30 border border-border/50 text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent/50 transition-all resize-none text-sm"
-                      disabled={isSubmitting}
-                      maxLength={1000}
-                    />
-                  </div>
-
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full flex items-center justify-center gap-2 px-6 py-3.5 bg-accent text-accent-foreground rounded-xl font-medium hover:bg-accent/90 transition-all disabled:opacity-50 disabled:cursor-not-allowed text-sm"
-                  >
-                    {isSubmitting ? (
-                      <>
-                        <Loader2 className="w-4 h-4 animate-spin" />
-                        Sending...
-                      </>
-                    ) : (
-                      <>
-                        <Send className="w-4 h-4" />
-                        Send Message
-                      </>
-                    )}
-                  </button>
-                </form>
-              </div>
-            </div>
+      <div className="section-container max-w-4xl mx-auto px-4">
+        {/* Section Header */}
+        <div className="flex flex-col items-center mb-12 text-center">
+          <div className="flex items-center gap-3 mb-2">
+            <div className="h-px w-8 bg-accent" />
+            <span className="text-xs uppercase tracking-[0.2em] text-accent font-medium">Connect</span>
           </div>
+          <h2 className="text-3xl md:text-4xl font-bold">
+            <MarkerHighlight before="Get in " highlight="Touch" markerColor="#facc15" />
+          </h2>
         </div>
 
+        {/* Dual Card Layout */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
+          {/* Left Card: Direct Message / Email */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="flex flex-col items-center justify-between text-center p-8 md:p-10 rounded-3xl bg-card/30 backdrop-blur-md border border-border/40 hover:border-border/80 transition-all duration-500 min-h-[320px]"
+          >
+            <div className="w-16 h-16 rounded-2xl bg-muted/40 border border-border/50 flex items-center justify-center mb-6">
+              <Mail className="w-8 h-8 text-foreground" />
+            </div>
+
+            <p className="text-sm sm:text-base text-muted-foreground leading-relaxed max-w-xs mb-8">
+              Want to chat? Just <span className="font-bold text-foreground">shoot me a DM on Twitter</span> and I'll respond when I can. I ignore all soliciting.
+            </p>
+
+            {/* Interactive Email Capsule */}
+            <div className="flex items-center justify-between gap-3 pl-4 pr-2.5 py-2.5 rounded-2xl bg-muted/30 border border-border/50 w-full max-w-[320px] sm:max-w-sm">
+              <span className="text-xs font-semibold text-muted-foreground truncate select-all">
+                fnaticritesh2004@gmail.com
+              </span>
+
+              <div className="flex items-center gap-2 shrink-0">
+                <button
+                  onClick={handleCopyEmail}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-background border border-border/50 hover:bg-muted text-xs font-bold text-foreground transition-all"
+                >
+                  {copied ? (
+                    <>
+                      <Check className="w-3.5 h-3.5 text-green-500 animate-in fade-in" />
+                      Copied
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-3.5 h-3.5" />
+                      Copy
+                    </>
+                  )}
+                </button>
+
+                <a
+                  href="mailto:fnaticritesh2004@gmail.com"
+                  className="w-9 h-9 flex items-center justify-center rounded-xl bg-foreground text-background hover:opacity-90 transition-all"
+                  title="Send Direct Email"
+                >
+                  <Mail className="w-4 h-4" />
+                </a>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Right Card: Social Profiles */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="flex flex-col items-center justify-between text-center p-8 md:p-10 rounded-3xl bg-card/30 backdrop-blur-md border border-border/40 hover:border-border/80 transition-all duration-500 min-h-[320px]"
+          >
+            <div className="flex flex-col items-center">
+              <h3 className="text-xl md:text-2xl font-bold mb-4 text-foreground">
+                Social Profiles
+              </h3>
+              <p className="text-sm sm:text-base text-muted-foreground leading-relaxed max-w-xs">
+                Connect with me on social media or check out my open-source projects.
+              </p>
+            </div>
+
+            {/* Circular Profiles Grid */}
+            <div className="flex justify-center gap-4 mt-8">
+              {socialLinks.map((social) => {
+                const Icon = social.icon;
+                return (
+                  <a
+                    key={social.label}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-14 h-14 flex items-center justify-center rounded-full bg-muted/40 border border-border/40 hover:bg-foreground hover:text-background hover:scale-105 transition-all duration-300"
+                    aria-label={social.label}
+                    title={social.label}
+                  >
+                    <Icon className="w-5 h-5" />
+                  </a>
+                );
+              })}
+            </div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

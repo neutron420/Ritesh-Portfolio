@@ -1,6 +1,5 @@
-import { Mail, Download, GraduationCap, Terminal } from "lucide-react";
+import { Mail, Download, GraduationCap } from "lucide-react";
 import { motion } from "framer-motion";
-import { TerminalTransition } from "@/components/TerminalTransition";
 import Typewriter from "@/components/ui/typewriter";
 import { MarkerHighlight } from "@/components/ui/marker-highlight";
 import bannerImage from "@/assets/banner.jpg";
@@ -201,31 +200,12 @@ const HeroSection = () => {
                 );
               })}
               
-              {/* Terminal Button */}
-              <TerminalTransition to="/terminal">
-                <motion.div 
-                  className="ml-0 sm:ml-2 px-3 sm:px-4 py-2 sm:py-2.5 flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-mono font-medium rounded-lg bg-[#0d1117] text-[#39d353] hover:bg-[#161b22] transition-all shadow-lg hover:shadow-xl border border-[#39d353]/30 hover:border-[#39d353]/50 backdrop-blur-sm group relative overflow-hidden"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <span className="absolute inset-0 bg-[#39d353]/5 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  <Terminal className="w-3.5 h-3.5 sm:w-4 sm:h-4 relative z-10 flex-shrink-0" />
-                  <span className="relative z-10 flex items-center gap-1 sm:gap-1.5">
-                    <span className="text-[#39d353] hidden sm:inline">ritesh@portfolio</span>
-                    <span className="text-[#39d353] sm:hidden">ritesh</span>
-                    <span className="text-[#8b949e]">:</span>
-                    <span className="text-[#58a6ff]">~</span>
-                    <span className="text-[#8b949e]">$</span>
-                  </span>
-                </motion.div>
-              </TerminalTransition>
-              
               {/* Resume Button */}
               <motion.a
                 href="/Ritesh_Kumar_Singh_Resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="ml-0 sm:ml-2 px-3 sm:px-4 py-2 flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-medium rounded-lg bg-accent text-accent-foreground hover:bg-accent/90 transition-all"
+                className="ml-0 sm:ml-2 px-3 sm:px-4 py-2 flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-medium rounded-lg bg-foreground text-background border border-foreground hover:bg-transparent hover:text-foreground transition-all duration-300"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >

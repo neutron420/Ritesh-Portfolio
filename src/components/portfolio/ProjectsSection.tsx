@@ -1,5 +1,19 @@
-import { ArrowUpRight, Wifi, Users, ChevronDown, Shield, Globe } from "lucide-react";
 import { 
+  ArrowUpRight, 
+  Wifi, 
+  Users, 
+  ChevronDown, 
+  Shield, 
+  Globe, 
+  Zap, 
+  Sparkles, 
+  Calendar, 
+  Package,
+  Terminal,
+  FileText
+} from "lucide-react";
+import { 
+  SiGithub, 
   SiReact, 
   SiNodedotjs, 
   SiPostgresql, 
@@ -15,7 +29,6 @@ import {
   SiNextdotjs,
   SiWeb3Dotjs,
   SiArgo,
-  SiGithub,
   SiSolana,
   SiGo,
   SiExpress,
@@ -36,87 +49,32 @@ import {
   SiGooglecloud,
   SiRabbitmq,
   SiGin,
-  SiJavascript
+  SiJavascript,
+  SiRust
 } from "react-icons/si";
 import { TbDatabase, TbMap2 } from "react-icons/tb";
-import { FaJava, FaAndroid, FaMapMarkerAlt } from "react-icons/fa";
-import { SiExpo, SiGradle, SiGooglemaps, SiSupabase, SiRazorpay, SiElasticsearch, SiLogstash, SiKibana } from "react-icons/si";
-import Plan from "@/components/ui/agent-plan";
+import { FaJava, FaAndroid } from "react-icons/fa";
 import { MarkerHighlight } from "@/components/ui/marker-highlight";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
+import React, { useState, useEffect, useRef } from "react";
 
+interface Project {
+  name: string;
+  description: string;
+  techStack: string[];
+  github?: string;
+  live?: string;
+  apk?: string;
+  api?: string;
+  user?: string;
+  admin?: string;
+  status: "live" | "development" | "building" | "coming_soon";
+  icon: React.ElementType;
+  highlights: string[];
+}
 
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { motion } from "framer-motion";
-import React from "react";
-
-// Tech stack icon mapping with colors
-const techIcons: Record<string, { icon: React.ReactNode; color: string }> = {
-  "React": { icon: <SiReact className="w-3 h-3" />, color: "text-[#61DAFB]" },
-  "React Native": { icon: <SiReact className="w-3 h-3" />, color: "text-[#61DAFB]" },
-  "Next.js": { icon: <SiNextdotjs className="w-3 h-3" />, color: "text-foreground" },
-  "Node.js": { icon: <SiNodedotjs className="w-3 h-3" />, color: "text-[#339933]" },
-  "PostgreSQL": { icon: <SiPostgresql className="w-3 h-3" />, color: "text-[#336791]" },
-  "Prisma": { icon: <SiPrisma className="w-3 h-3" />, color: "text-[#2D3748]" },
-  "Redis": { icon: <SiRedis className="w-3 h-3" />, color: "text-[#DC382D]" },
-  "Docker": { icon: <SiDocker className="w-3 h-3" />, color: "text-[#2496ED]" },
-  "Kubernetes": { icon: <SiKubernetes className="w-3 h-3" />, color: "text-[#326CE5]" },
-  "Tailwind CSS": { icon: <SiTailwindcss className="w-3 h-3" />, color: "text-[#06B6D4]" },
-  "WebRTC": { icon: <SiWebrtc className="w-3 h-3" />, color: "text-[#333333]" },
-  "Mediasoup": { icon: <Wifi className="w-3 h-3" />, color: "text-[#00D4AA]" },
-  "Socket.io": { icon: <SiSocketdotio className="w-3 h-3" />, color: "text-foreground" },
-  "AWS": { icon: <SiAmazonwebservices className="w-3 h-3" />, color: "text-[#FF9900]" },
-  "S3": { icon: <SiAmazon className="w-3 h-3" />, color: "text-[#FF9900]" },
-  "Web3.js": { icon: <SiWeb3Dotjs className="w-3 h-3" />, color: "text-[#F16822]" },
-  "WebSockets": { icon: <SiSocketdotio className="w-3 h-3" />, color: "text-foreground" },
-  "ArgoCD": { icon: <SiArgo className="w-3 h-3" />, color: "text-[#EF7B4D]" },
-  "Java": { icon: <FaJava className="w-3 h-3" />, color: "text-[#ED8B00]" },
-  "GCP": { icon: <SiGooglecloud className="w-3 h-3" />, color: "text-[#4285F4]" },
-  "Cloudflare": { icon: <SiCloudflare className="w-3 h-3" />, color: "text-[#F38020]" },
-  "Ansible": { icon: <SiAnsible className="w-3 h-3" />, color: "text-[#EE0000]" },
-
-  "Solana": { icon: <SiSolana className="w-3 h-3" />, color: "text-[#9945FF]" },
-  "Go": { icon: <SiGo className="w-3 h-3" />, color: "text-[#00ADD8]" },
-  "RabbitMQ": { icon: <SiRabbitmq className="w-3 h-3" />, color: "text-[#FF6600]" },
-  "Gin": { icon: <SiGin className="w-3 h-3" />, color: "text-[#00ADD8]" },
-  "GORM": { icon: <TbDatabase className="w-3 h-3" />, color: "text-[#336791]" },
-  "Anchor": { icon: <span className="w-3 h-3 font-bold text-[10px] flex items-center justify-center">⚓</span>, color: "text-[#7C3AED]" },
-  "Express.js": { icon: <SiExpress className="w-3 h-3" />, color: "text-foreground" },
-  "Express": { icon: <SiExpress className="w-3 h-3" />, color: "text-foreground" },
-  "TypeScript": { icon: <SiTypescript className="w-3 h-3" />, color: "text-[#3178C6]" },
-  "Kotlin": { icon: <SiKotlin className="w-3 h-3" />, color: "text-[#7F52FF]" },
-  "Firebase": { icon: <SiFirebase className="w-3 h-3" />, color: "text-[#FFCA28]" },
-  "Bun": { icon: <SiBun className="w-3 h-3" />, color: "text-[#FBF0DF] dark:text-[#FBF0DF]" },
-  "Vercel": { icon: <SiVercel className="w-3 h-3" />, color: "text-foreground" },
-  "Render": { icon: <SiRender className="w-3 h-3" />, color: "text-[#46E3B7]" },
-  "CI/CD": { icon: <SiGithubactions className="w-3 h-3" />, color: "text-[#2088FF]" },
-  "SQLx": { icon: <TbDatabase className="w-3 h-3" />, color: "text-[#336791]" },
-  "Expo": { icon: <SiExpo className="w-3 h-3" />, color: "text-foreground" },
-  "TomTom Maps": { icon: <TbMap2 className="w-3 h-3" />, color: "text-[#D32F2F]" },
-  "Google Maps API": { icon: <SiGooglemaps className="w-3 h-3" />, color: "text-[#4285F4]" },
-  "MapLibre": { icon: <TbMap2 className="w-3 h-3" />, color: "text-[#396CB2]" },
-  "JavaScript": { icon: <SiJavascript className="w-3 h-3" />, color: "text-[#F7DF1E]" },
-  "Android": { icon: <FaAndroid className="w-3 h-3" />, color: "text-[#3DDC84]" },
-  "Gradle": { icon: <SiGradle className="w-3 h-3" />, color: "text-[#02303A]" },
-  "Jenkins": { icon: <SiJenkins className="w-3 h-3" />, color: "text-[#D24939]" },
-  "Mapbox": { icon: <SiMapbox className="w-3 h-3" />, color: "text-[#4264fb]" },
-  "Terraform": { icon: <SiTerraform className="w-3 h-3" />, color: "text-[#844FBA]" },
-  "Apache Kafka": { icon: <SiApachekafka className="w-3 h-3" />, color: "text-foreground" },
-  "Kafka": { icon: <SiApachekafka className="w-3 h-3" />, color: "text-foreground" },
-  "Groq": { icon: <SiOpenai className="w-3 h-3" />, color: "text-[#f55036]" },
-  "PostGIS": { icon: <TbDatabase className="w-3 h-3" />, color: "text-[#336791]" },
-  "Supabase": { icon: <SiSupabase className="w-3 h-3" />, color: "text-[#3ECF8E]" },
-  "Razorpay": { icon: <SiRazorpay className="w-3 h-3" />, color: "text-[#3395FF]" },
-  "Elasticsearch": { icon: <SiElasticsearch className="w-3 h-3" />, color: "text-[#FEC111]" },
-};
-
-// Curated projects in specific order with proper tech stacks
-const projects = [
+// Curated projects data
+const projects: Project[] = [
   {
     name: "Swaraj-Desk",
     description: "A comprehensive grievance management portal for government offices. Citizens can register complaints, track status, and receive updates in real-time. Built for Smart India Hackathon. Optimized backend for handling 10k+ concurrent requests with Redis and WebSocket integration. Implemented role-based access control and automated workload distribution for government officials. Integrated automated email notifications for grievance status updates.",
@@ -125,51 +83,10 @@ const projects = [
     user: "https://gsc-user-fe.abhasbehera.in/",
     admin: "https://gsc-admin-fe.abhasbehera.in",
     status: "live" as const,
-    contributors: [
-      { name: "Ritesh Singh", username: "neutron420", url: "https://github.com/neutron420" },
-      { name: "Aditya Hota", username: "theogaditya", url: "https://github.com/theogaditya" },
-      { name: "Abhash Behera", username: "MistaHolmes", url: "https://github.com/MistaHolmes" },
-      { name: "Aniroodh Padhee", username: "Aniroodh1234", url: "https://github.com/Aniroodh1234" },
-    ],
-    roadmap: [
-      {
-        id: "1", title: "Project Foundation", description: "Core architecture and initial setup", status: "completed", priority: "high", level: 0, dependencies: [],
-        subtasks: [
-          { id: "1.1", title: "Grievance System Design", description: "Database schema for 10k+ concurrent requests", status: "completed", priority: "high" },
-          { id: "1.2", title: "Prisma ORM Setup", description: "Type-safe database access layer with PostgreSQL", status: "completed", priority: "high" },
-          { id: "1.3", title: "Redis Caching Layer", description: "In-memory caching for high-performance reads", status: "completed", priority: "medium" }
-        ]
-      },
-      {
-        id: "2", title: "Real-time Communication", description: "Live updates and notification system", status: "completed", priority: "high", level: 0, dependencies: [],
-        subtasks: [
-          { id: "2.1", title: "WebSocket Implementation", description: "Real-time citizen notifications and status tracking", status: "completed", priority: "high" },
-          { id: "2.2", title: "Email Notification Engine", description: "Automated grievance status update emails", status: "completed", priority: "medium" }
-        ]
-      },
-      {
-        id: "3", title: "Access Control & Security", description: "Role-based access and workload distribution", status: "completed", priority: "high", level: 1, dependencies: ["1", "2"],
-        subtasks: [
-          { id: "3.1", title: "RBAC Implementation", description: "Role-based access for citizens, officials, and admins", status: "completed", priority: "high" },
-          { id: "3.2", title: "Workload Distribution", description: "Automated grievance assignment to government officials", status: "completed", priority: "medium" }
-        ]
-      },
-      {
-        id: "4", title: "Cloud Infrastructure", description: "Production deployment and orchestration", status: "completed", priority: "high", level: 0, dependencies: [],
-        subtasks: [
-          { id: "4.1", title: "Kubernetes Orchestration", description: "Container scaling with K8s on AWS & GCP", status: "completed", priority: "high" },
-          { id: "4.2", title: "ArgoCD CI/CD Pipeline", description: "GitOps-based automated deployments", status: "completed", priority: "medium" },
-          { id: "4.3", title: "Cloudflare CDN", description: "Edge caching and DDoS protection", status: "completed", priority: "medium" }
-        ]
-      },
-      {
-        id: "5", title: "Frontend & Testing", description: "User-facing application and quality assurance", status: "completed", priority: "medium", level: 1, dependencies: ["4"],
-        subtasks: [
-          { id: "5.1", title: "User Portal", description: "Citizen-facing grievance registration and tracking UI", status: "completed", priority: "high" },
-          { id: "5.2", title: "Admin Dashboard", description: "Government official management interface", status: "completed", priority: "high" },
-          { id: "5.3", title: "Load Testing", description: "Validated 10k+ concurrent request handling", status: "completed", priority: "low" }
-        ]
-      }
+    icon: Shield,
+    highlights: [
+      "High-performance backend optimized to handle 10k+ concurrent requests.",
+      "Real-time status updates via active WebSockets and automated Redis cache."
     ]
   },
   {
@@ -177,47 +94,11 @@ const projects = [
     description: "An intelligent disaster management and emergency response system. Combines AI triage, real-time SOS reporting, automated volunteer dispatch based on geospatial proximity, and early warning systems. Features offline SOS broadcasting via BLE mesh relay and AI-powered emergency guidance. Integrated PostGIS for high-performance geospatial queries and automated alert zoning. Developed a priority-based message queue using Kafka for critical alert dissemination. Optimized geospatial data indexing for sub-second emergency response times.",
     techStack: ["React Native", "Expo", "Bun", "Express", "PostgreSQL", "PostGIS", "Redis", "Apache Kafka", "TypeScript", "WebSockets", "Docker", "Kubernetes", "AWS"],
     github: "https://github.com/neutron420/RakshaSetu",
-    live: null,
     status: "live" as const,
-    roadmap: [
-      {
-        id: "1", title: "Emergency Core System", description: "SOS reporting and messaging foundation", status: "completed", priority: "high", level: 0, dependencies: [],
-        subtasks: [
-          { id: "1.1", title: "BLE Mesh Relay Network", description: "Offline SOS broadcasting without internet", status: "completed", priority: "high" },
-          { id: "1.2", title: "Real-time SOS Triage", description: "AI-powered emergency severity grading", status: "completed", priority: "high" },
-          { id: "1.3", title: "Emergency Guidance Engine", description: "AI-powered first-aid and safety instructions", status: "completed", priority: "medium" }
-        ]
-      },
-      {
-        id: "2", title: "Geospatial Intelligence", description: "Location-based volunteer dispatching", status: "completed", priority: "high", level: 0, dependencies: [],
-        subtasks: [
-          { id: "2.1", title: "PostGIS Integration", description: "Proximity-based volunteer matching with sub-second queries", status: "completed", priority: "high" },
-          { id: "2.2", title: "Automated Alert Zoning", description: "Geofenced disaster zone management", status: "completed", priority: "medium" }
-        ]
-      },
-      {
-        id: "3", title: "Message Queue & Alerts", description: "High-priority alert dissemination system", status: "completed", priority: "high", level: 1, dependencies: ["1", "2"],
-        subtasks: [
-          { id: "3.1", title: "Apache Kafka Integration", description: "Priority-based message queue for critical alerts", status: "completed", priority: "high" },
-          { id: "3.2", title: "Push Notification System", description: "Real-time emergency alerts to nearby volunteers", status: "completed", priority: "high" }
-        ]
-      },
-      {
-        id: "4", title: "Mobile Application", description: "Cross-platform emergency response app", status: "completed", priority: "high", level: 0, dependencies: [],
-        subtasks: [
-          { id: "4.1", title: "React Native App", description: "Cross-platform mobile app with Expo", status: "completed", priority: "high" },
-          { id: "4.2", title: "Offline-first Architecture", description: "Local storage sync for network-dead zones", status: "completed", priority: "medium" },
-          { id: "4.3", title: "Live Map Interface", description: "Real-time disaster zone visualization", status: "completed", priority: "medium" }
-        ]
-      },
-      {
-        id: "5", title: "Deployment & Scaling", description: "Cloud infrastructure and orchestration", status: "completed", priority: "medium", level: 1, dependencies: ["4"],
-        subtasks: [
-          { id: "5.1", title: "Kubernetes on AWS", description: "Auto-scaling container orchestration", status: "completed", priority: "high" },
-          { id: "5.2", title: "Docker Containerization", description: "Multi-service containerized deployment", status: "completed", priority: "medium" },
-          { id: "5.3", title: "Redis Session Store", description: "High-speed session management for concurrent users", status: "completed", priority: "low" }
-        ]
-      }
+    icon: Zap,
+    highlights: [
+      "Offline SOS mesh broadcasting via BLE mesh relay without active internet.",
+      "Sub-second geospatial match queries using PostGIS volunteer routing."
     ]
   },
   {
@@ -225,47 +106,11 @@ const projects = [
     description: "A full-stack food rescue platform connecting donors, NGOs, riders, and admins to reduce food waste. Features real-time coordination, map-based pickups, role-based dashboards, and transparent fulfillment workflows with AI-powered support and karma-based engagement mechanics. Leveraged Mapbox for real-time optimal route generation for riders. Integrated Groq AI for automated food quality assessment and donor matching. Implemented a localized 'Karma' point system to incentivize consistent food donations.",
     techStack: ["Next.js", "TypeScript", "Tailwind CSS", "Node.js", "Prisma", "PostgreSQL", "Redis", "WebSockets", "Groq", "Mapbox", "Docker", "Terraform" ,"AWS"],
     github: "https://github.com/neutron420/Sharebite",
-    live: null,
     status: "live" as const,
-    roadmap: [
-      {
-        id: "1", title: "Platform Foundation", description: "Core donation and rescue workflow", status: "completed", priority: "high", level: 0, dependencies: [],
-        subtasks: [
-          { id: "1.1", title: "Donation Flow Engine", description: "Seamless food donation entry and listing system", status: "completed", priority: "high" },
-          { id: "1.2", title: "NGO Management Portal", description: "Dashboard for food rescue coordination", status: "completed", priority: "high" },
-          { id: "1.3", title: "Rider Assignment System", description: "Automated pickup task distribution", status: "completed", priority: "medium" }
-        ]
-      },
-      {
-        id: "2", title: "AI & Smart Matching", description: "Intelligent food quality and donor matching", status: "completed", priority: "high", level: 0, dependencies: [],
-        subtasks: [
-          { id: "2.1", title: "Groq AI Integration", description: "Automated food quality assessment via LLM", status: "completed", priority: "high" },
-          { id: "2.2", title: "Donor-NGO Matching", description: "Smart proximity and capacity-based matching", status: "completed", priority: "medium" }
-        ]
-      },
-      {
-        id: "3", title: "Logistics & Routing", description: "Map-based pickup optimization", status: "completed", priority: "high", level: 1, dependencies: ["1", "2"],
-        subtasks: [
-          { id: "3.1", title: "Mapbox Route Optimization", description: "Real-time optimal pickup routes for riders", status: "completed", priority: "high" },
-          { id: "3.2", title: "Live Tracking Dashboard", description: "Real-time rider location and ETA tracking", status: "completed", priority: "medium" }
-        ]
-      },
-      {
-        id: "4", title: "Engagement & Gamification", description: "Karma system and user retention", status: "completed", priority: "medium", level: 0, dependencies: [],
-        subtasks: [
-          { id: "4.1", title: "Karma Point System", description: "Incentivize consistent food donations with rewards", status: "completed", priority: "medium" },
-          { id: "4.2", title: "Role-based Dashboards", description: "Custom views for donors, NGOs, riders, and admins", status: "completed", priority: "high" },
-          { id: "4.3", title: "WebSocket Notifications", description: "Real-time coordination updates across all roles", status: "completed", priority: "medium" }
-        ]
-      },
-      {
-        id: "5", title: "Infrastructure & DevOps", description: "Cloud deployment with Terraform", status: "completed", priority: "medium", level: 1, dependencies: ["4"],
-        subtasks: [
-          { id: "5.1", title: "Terraform IaC Setup", description: "Infrastructure as Code for AWS provisioning", status: "completed", priority: "high" },
-          { id: "5.2", title: "Docker Multi-stage Builds", description: "Optimized container images for production", status: "completed", priority: "medium" },
-          { id: "5.3", title: "PostgreSQL + Redis Stack", description: "Persistent storage with caching layer", status: "completed", priority: "low" }
-        ]
-      }
+    icon: Sparkles,
+    highlights: [
+      "Optimal donor-NGO route optimization pathways powered by Mapbox.",
+      "Groq LLM integrations for automated food validation and matching."
     ]
   },
   {
@@ -273,133 +118,110 @@ const projects = [
     description: "A multi-tenant queue and appointment platform for clinics, hospitals, and service centers. Features real-time coordination, role-based access control, and automated workload distribution. Optimized backend for high-concurrency handling with Go, Redis, and RabbitMQ. Integrated Razorpay for seamless payment processing and payment verification. Implemented real-time queue state tracking and notification system for improved user experience.",
     techStack: ["Next.js", "Go", "Gin", "PostgreSQL", "GORM", "Redis", "RabbitMQ", "Razorpay", "Google Maps API", "Tailwind CSS", "TypeScript", "Docker"],
     github: "https://github.com/neutron420/Lineo",
-    live: null,
     apk: "/Lineo.apk",
     api: "https://lineo-five.vercel.app/",
-    roadmap: [
-      {
-        id: "1", title: "Queue Engine", description: "High-concurrency queue management backend", status: "completed", priority: "high", level: 0, dependencies: [],
-        subtasks: [
-          { id: "1.1", title: "Go + Gin Backend", description: "High-performance REST API with Go and Gin framework", status: "completed", priority: "high" },
-          { id: "1.2", title: "GORM Data Layer", description: "Type-safe ORM with PostgreSQL for multi-tenant data", status: "completed", priority: "high" },
-          { id: "1.3", title: "Redis Queue State", description: "Real-time queue position tracking with sub-ms latency", status: "completed", priority: "medium" }
-        ]
-      },
-      {
-        id: "2", title: "Messaging & Notifications", description: "Async processing and real-time alerts", status: "completed", priority: "high", level: 0, dependencies: [],
-        subtasks: [
-          { id: "2.1", title: "RabbitMQ Integration", description: "Message broker for appointment notifications", status: "completed", priority: "high" },
-          { id: "2.2", title: "Push Notification System", description: "Real-time queue updates to patient devices", status: "completed", priority: "medium" }
-        ]
-      },
-      {
-        id: "3", title: "Payments & Verification", description: "Secure payment processing", status: "completed", priority: "high", level: 1, dependencies: ["1", "2"],
-        subtasks: [
-          { id: "3.1", title: "Razorpay Gateway", description: "Seamless appointment payment processing", status: "completed", priority: "high" },
-          { id: "3.2", title: "Payment Verification", description: "Webhook-based payment confirmation and receipts", status: "completed", priority: "high" }
-        ]
-      },
-      {
-        id: "4", title: "Access Control & Maps", description: "RBAC and location services", status: "completed", priority: "high", level: 0, dependencies: [],
-        subtasks: [
-          { id: "4.1", title: "Role-based Access Control", description: "Clinic admin, doctor, and patient permission levels", status: "completed", priority: "high" },
-          { id: "4.2", title: "Google Maps Integration", description: "Nearby clinic discovery and navigation", status: "completed", priority: "medium" },
-          { id: "4.3", title: "Automated Workload Distribution", description: "Smart appointment slot balancing across doctors", status: "completed", priority: "medium" }
-        ]
-      },
-      {
-        id: "5", title: "Frontend & Deployment", description: "User interfaces and containerized deployment", status: "completed", priority: "medium", level: 1, dependencies: ["4"],
-        subtasks: [
-          { id: "5.1", title: "Next.js Patient App", description: "Responsive web app with real-time queue display", status: "completed", priority: "high" },
-          { id: "5.2", title: "React Native Mobile APK", description: "Android app for on-the-go queue management", status: "completed", priority: "high" },
-          { id: "5.3", title: "Docker Deployment", description: "Containerized microservice deployment", status: "completed", priority: "low" }
-        ]
-      }
+    status: "live" as const,
+    icon: Calendar,
+    highlights: [
+      "Clinic schedules and appointment queues engine written in Go with Gin.",
+      "Secure payment gateway configurations with Razorpay checkout webhooks."
+    ]
+  },
+  {
+    name: "CodeConnect",
+    description: "A high-performance online code compiler and execution engine built with a Rust backend and modern web technologies. Compile and run code in multiple programming languages with secure sandboxed execution, real-time output, and blazing-fast performance.",
+    techStack: ["Rust", "TypeScript", "Actix Web", "React", "SQLx", "PostgreSQL", "Docker", "Vercel"],
+    github: "https://github.com/neutron420/CodeConnect",
+    live: "https://code-connect-eta-ecru.vercel.app/",
+    status: "live" as const,
+    icon: Terminal,
+    highlights: [
+      "Multi-language secure code compilation sandboxed with isolated execution.",
+      "Blazing-fast performance powered by Rust Actix Web and TypeScript/React."
     ]
   },
   {
     name: "Devix",
-    description: "A high-performance cloud-native platform featuring real-time communication and advanced search capabilities. Implemented a robust backend architecture using Go and GORM with PostgreSQL for persistent storage. Integrated Redis for low-latency data caching and Elasticsearch for high-speed full-text search. Developed real-time features using Socket.io and deployed the entire stack on AWS using Docker and Kubernetes for automated scaling and orchestration.",
-    techStack: ["React Native", "Expo", "Go", "GORM", "PostgreSQL", "Redis", "Elasticsearch", "Socket.io", "Kubernetes", "Docker", "AWS"],
+    description: "Devix is a production-grade, modular monolith backend architected for a developer-centric knowledge sharing and collaboration platform. The system is built with Go, leveraging GORM for schema management and PostgreSQL for persistent storage, with a focus on modularity, security, and real-time performance.",
+    techStack: ["Go", "Gin", "PostgreSQL", "GORM", "WebSockets", "Cloudflare R2", "JWT", "Argon2id", "Docker", "Kubernetes", "AWS"],
     github: "https://github.com/neutron420/devix-backend",
     status: "development" as const,
-    roadmap: [
-      {
-        id: "1", title: "Backend Architecture", description: "High-performance Go backend foundation", status: "in-progress", priority: "high", level: 0, dependencies: [],
-        subtasks: [
-          { id: "1.1", title: "Go & GORM Setup", description: "Database persistence layer with PostgreSQL", status: "completed", priority: "high" },
-          { id: "1.2", title: "Redis Caching", description: "Low-latency data caching for hot queries", status: "completed", priority: "high" },
-          { id: "1.3", title: "Elasticsearch Indexing", description: "Full-text search with advanced query DSL", status: "in-progress", priority: "high" }
-        ]
-      },
-      {
-        id: "2", title: "Real-time Communication", description: "Live messaging and event streaming", status: "in-progress", priority: "high", level: 0, dependencies: [],
-        subtasks: [
-          { id: "2.1", title: "Socket.io Integration", description: "Bi-directional real-time event streaming", status: "in-progress", priority: "high" },
-          { id: "2.2", title: "Presence System", description: "Online/offline status tracking for users", status: "pending", priority: "medium" }
-        ]
-      },
-      {
-        id: "3", title: "Mobile Application", description: "Cross-platform React Native app", status: "pending", priority: "high", level: 1, dependencies: ["1", "2"],
-        subtasks: [
-          { id: "3.1", title: "React Native + Expo", description: "Cross-platform mobile app scaffolding", status: "pending", priority: "high" },
-          { id: "3.2", title: "Navigation & Auth Flow", description: "Secure authentication with token management", status: "pending", priority: "high" },
-          { id: "3.3", title: "Real-time Chat UI", description: "Socket-powered messaging interface", status: "pending", priority: "medium" }
-        ]
-      },
-      {
-        id: "4", title: "Cloud Infrastructure", description: "Containerized deployment on AWS", status: "pending", priority: "medium", level: 0, dependencies: [],
-        subtasks: [
-          { id: "4.1", title: "Docker Containerization", description: "Multi-stage builds for Go and Node services", status: "pending", priority: "high" },
-          { id: "4.2", title: "Kubernetes Config", description: "Container orchestration with auto-scaling policies", status: "pending", priority: "medium" },
-          { id: "4.3", title: "AWS Deployment", description: "EKS cluster setup with load balancing", status: "pending", priority: "medium" }
-        ]
-      },
-      {
-        id: "5", title: "Testing & Launch", description: "Quality assurance and production release", status: "pending", priority: "medium", level: 1, dependencies: ["3", "4"],
-        subtasks: [
-          { id: "5.1", title: "Integration Testing", description: "End-to-end API and WebSocket test suites", status: "pending", priority: "high" },
-          { id: "5.2", title: "Performance Benchmarks", description: "Load testing for concurrent connection limits", status: "pending", priority: "medium" },
-          { id: "5.3", title: "Production Release", description: "Final deployment and monitoring setup", status: "pending", priority: "low" }
-        ]
-      }
+    icon: Package,
+    highlights: [
+      "Modular monolith architecture following Go clean architecture principles.",
+      "JWT refresh token rotation policies and robust Argon2id credential hashing."
     ]
-  },
+  }
 ];
+
+// Helper function to map tech stack names to icons
+const getTechIcon = (tech: string) => {
+  const t = tech.toLowerCase().trim();
+  if (t === "next.js" || t === "nextjs") return <SiNextdotjs className="w-2.5 h-2.5" />;
+  if (t === "react" || t === "react native" || t === "expo") return <SiReact className="w-2.5 h-2.5" />;
+  if (t === "node.js" || t === "nodejs") return <SiNodedotjs className="w-2.5 h-2.5" />;
+  if (t === "postgresql" || t === "postgis") return <SiPostgresql className="w-2.5 h-2.5" />;
+  if (t === "prisma") return <SiPrisma className="w-2.5 h-2.5" />;
+  if (t === "redis") return <SiRedis className="w-2.5 h-2.5" />;
+  if (t === "docker") return <SiDocker className="w-2.5 h-2.5" />;
+  if (t === "kubernetes" || t === "k8s") return <SiKubernetes className="w-2.5 h-2.5" />;
+  if (t === "tailwind css" || t === "tailwindcss") return <SiTailwindcss className="w-2.5 h-2.5" />;
+  if (t === "aws") return <SiAmazonwebservices className="w-2.5 h-2.5" />;
+  if (t === "gcp" || t === "google cloud") return <SiGooglecloud className="w-2.5 h-2.5" />;
+  if (t === "cloudflare" || t === "cloudflare r2") return <SiCloudflare className="w-2.5 h-2.5" />;
+  if (t === "bun") return <SiBun className="w-2.5 h-2.5" />;
+  if (t === "express") return <SiExpress className="w-2.5 h-2.5" />;
+  if (t === "typescript") return <SiTypescript className="w-2.5 h-2.5" />;
+  if (t === "go" || t === "golang") return <SiGo className="w-2.5 h-2.5" />;
+  if (t === "gin") return <SiGin className="w-2.5 h-2.5" />;
+  if (t === "rabbitmq") return <SiRabbitmq className="w-2.5 h-2.5" />;
+  if (t === "kafka" || t === "apache kafka") return <SiApachekafka className="w-2.5 h-2.5" />;
+  if (t === "groq" || t === "openai") return <SiOpenai className="w-2.5 h-2.5" />;
+  if (t === "mapbox") return <SiMapbox className="w-2.5 h-2.5" />;
+  if (t === "terraform") return <SiTerraform className="w-2.5 h-2.5" />;
+  if (t === "rust") return <SiRust className="w-2.5 h-2.5" />;
+  if (t === "sqlx") return <TbDatabase className="w-2.5 h-2.5" />;
+  if (t === "vercel") return <SiVercel className="w-2.5 h-2.5" />;
+  return null;
+};
 
 // Status badge component
 const StatusBadge = ({ status }: { status: "live" | "development" | "building" | "coming_soon" }) => {
   const statusConfig = {
     live: {
       label: "Live",
-      bgColor: "bg-green-500/15",
-      textColor: "text-green-500",
-      borderColor: "border-green-500/30",
+      bgColor: "bg-green-950/20",
+      textColor: "text-white",
+      borderColor: "border-2 border-green-500/80",
       dotColor: "bg-green-500",
+      pingColor: "bg-green-400",
       animate: true,
     },
     development: {
       label: "Working",
-      bgColor: "bg-[#05160c]",
-      textColor: "text-[#00ff88]",
-      borderColor: "border-[#00ff88]/30",
-      dotColor: "bg-[#00ff88]",
+      bgColor: "bg-emerald-950/20",
+      textColor: "text-white",
+      borderColor: "border-2 border-emerald-500",
+      dotColor: "bg-emerald-500",
+      pingColor: "bg-emerald-400",
       animate: true,
     },
     building: {
       label: "Building",
-      bgColor: "bg-accent/15",
-      textColor: "text-accent",
-      borderColor: "border-accent/30",
-      dotColor: "bg-accent",
+      bgColor: "bg-yellow-950/20",
+      textColor: "text-white",
+      borderColor: "border-2 border-yellow-500/80",
+      dotColor: "bg-yellow-500",
+      pingColor: "bg-yellow-400",
       animate: true,
     },
     coming_soon: {
       label: "Coming Soon",
-      bgColor: "bg-blue-500/15",
-      textColor: "text-blue-500",
-      borderColor: "border-blue-500/30",
+      bgColor: "bg-blue-950/20",
+      textColor: "text-white",
+      borderColor: "border-2 border-blue-500/80",
       dotColor: "bg-blue-500",
+      pingColor: "bg-blue-400",
       animate: true,
     },
   };
@@ -407,229 +229,296 @@ const StatusBadge = ({ status }: { status: "live" | "development" | "building" |
   const config = statusConfig[status];
 
   return (
-    <span className={`inline-flex items-center gap-1.5 px-2 py-0.5 text-[9px] uppercase tracking-[0.15em] rounded-md ${config.bgColor} ${config.textColor} border ${config.borderColor} font-bold shadow-sm backdrop-blur-sm`}>
-      <span className={`w-1 h-1 rounded-full ${config.dotColor} ${config.animate ? 'animate-pulse' : ''} shadow-sm`} />
+    <span className={`inline-flex items-center gap-2 px-3 py-1 text-[13px] rounded-xl ${config.bgColor} ${config.textColor} border-2 ${config.borderColor} font-semibold shadow-sm backdrop-blur-sm`}>
+      <span className="relative flex h-2.5 w-2.5">
+        {config.animate && (
+          <span className={`animate-ping absolute inline-flex h-full w-full rounded-full ${config.pingColor} opacity-75`} />
+        )}
+        <span className={`relative inline-flex rounded-full h-2.5 w-2.5 ${config.dotColor}`} />
+      </span>
       {config.label}
     </span>
   );
 };
 
-/**
- * ProjectsSection Component
- * Last updated: 2026-05-08T02:02:00
- */
 const ProjectsSection = () => {
-  const { ref, isVisible } = useScrollReveal();
+  const [activeIndex, setActiveIndex] = useState(0);
+  const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const sentinelRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  const setItemRef = (el: HTMLDivElement | null, i: number) => {
+    itemRefs.current[i] = el;
+  };
+  const setSentinelRef = (el: HTMLDivElement | null, i: number) => {
+    sentinelRefs.current[i] = el;
+  };
+
+  useEffect(() => {
+    if (!sentinelRefs.current.length) return;
+
+    let frame = 0;
+    const updateActiveByProximity = () => {
+      frame = requestAnimationFrame(updateActiveByProximity);
+      const centerY = window.innerHeight / 3;
+      let bestIndex = 0;
+      let bestDist = Infinity;
+      sentinelRefs.current.forEach((node, i) => {
+        if (!node) return;
+        const rect = node.getBoundingClientRect();
+        const mid = rect.top + rect.height / 2;
+        const dist = Math.abs(mid - centerY);
+        if (dist < bestDist) {
+          bestDist = dist;
+          bestIndex = i;
+        }
+      });
+      if (bestIndex !== activeIndex) {
+        setActiveIndex(bestIndex);
+      }
+    };
+
+    frame = requestAnimationFrame(updateActiveByProximity);
+    return () => cancelAnimationFrame(frame);
+  }, [activeIndex]);
+
+  useEffect(() => {
+    setActiveIndex(0);
+  }, []);
 
   return (
-    <section id="projects" className="py-16 md:py-24">
-      <div 
-        ref={ref}
-        className={`section-container scroll-reveal ${isVisible ? 'visible' : ''}`}
-      >
+    <section id="projects" className="py-24 relative overflow-hidden bg-background">
+      <div className="w-full max-w-4xl mx-auto px-4 sm:px-6">
+        
         {/* Section Header */}
-        <div className="flex items-center justify-between mb-6 md:mb-8">
-          <div>
-            <div className="flex items-center gap-3 mb-2">
-              <div className="h-px w-8 bg-accent" />
-              <span className="text-xs uppercase tracking-[0.2em] text-accent font-medium">Portfolio</span>
-            </div>
-            <h2 className="text-2xl md:text-3xl font-bold"><MarkerHighlight before="Featured " highlight="Projects" markerColor="#facc15" /></h2>
-            <p className="text-sm text-muted-foreground mt-2">A selection of things I've designed & built</p>
+        <div className="text-center max-w-3xl mx-auto mb-20 px-4">
+          <div className="flex items-center gap-3 justify-center mb-3">
+            <div className="h-px w-8 bg-accent" />
+            <span className="text-xs uppercase tracking-[0.2em] text-accent font-semibold">Portfolio</span>
+            <div className="h-px w-8 bg-accent" />
           </div>
-          <a
-            href="https://github.com/neutron420?tab=repositories"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group/link text-sm text-muted-foreground hover:text-accent transition-all flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border/50 hover:border-accent/30 hover:bg-accent/5"
-          >
-            View all
-            <ArrowUpRight className="w-3.5 h-3.5 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
-          </a>
+          <h2 className="text-3xl md:text-5xl font-black tracking-tight mb-4">
+            <MarkerHighlight before="Featured " highlight="Projects" markerColor="#facc15" />
+          </h2>
+          <p className="text-sm md:text-base text-muted-foreground max-w-lg mx-auto">
+            Stay up to date with the latest production systems I've architected, developed, and deployed to production.
+          </p>
         </div>
 
-        <div className="flex flex-col">
-          {projects.map((project, index) => (
-            <motion.div
-              key={project.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="py-12 border-b border-border/40 last:border-0 group"
-            >
-              <div className="flex flex-col md:flex-row justify-between gap-6">
-                {/* Left Side: Info */}
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-3 mb-2 flex-wrap">
-                    <h3 className="text-xl md:text-2xl font-bold tracking-tight group-hover:text-accent transition-colors duration-300">
-                      {project.name.replace(/-/g, ' ')}
-                    </h3>
-                    {project.status && <StatusBadge status={project.status} />}
-                  </div>
+        {/* Timeline List Container */}
+        <div className="mt-16 space-y-16 md:mt-24 md:space-y-24">
+          {projects.map((project, index) => {
+            const isActive = index === activeIndex;
+            const ProjectIcon = project.icon;
 
-                  {/* Actions & Links - Mobile: visible, Desktop: visible */}
-                  <div className="flex items-center gap-4 mb-6">
-                    {project.github && (
-                      <a
-                        href={project.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-1.5 text-xs font-medium uppercase tracking-wider text-muted-foreground hover:text-accent transition-colors group/link"
-                      >
-                        <SiGithub className="w-3.5 h-3.5" />
-                        <span>Code</span>
-                        <ArrowUpRight className="w-3 h-3 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
-                      </a>
-                    )}
-                    {project.live && (
-                      <a
-                        href={project.live}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-1.5 text-xs font-medium uppercase tracking-wider text-muted-foreground hover:text-accent transition-colors group/link"
-                      >
-                        <ArrowUpRight className="w-3.5 h-3.5" />
-                        <span>Live</span>
-                        <ArrowUpRight className="w-3 h-3 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
-                      </a>
-                    )}
-                    {(project as { apk?: string }).apk && (
-                      <a
-                        href={(project as { apk?: string }).apk}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-1.5 text-xs font-medium uppercase tracking-wider text-muted-foreground hover:text-accent transition-colors group/link"
-                      >
-                        <FaAndroid className="w-3.5 h-3.5" />
-                        <span>Download APK</span>
-                        <ArrowUpRight className="w-3 h-3 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
-                      </a>
-                    )}
-                    {(project as { api?: string }).api && (
-                      <a
-                        href={(project as { api?: string }).api}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-1.5 text-xs font-medium uppercase tracking-wider text-muted-foreground hover:text-accent transition-colors group/link"
-                      >
-                        <Globe className="w-3.5 h-3.5" />
-                        <span>Live Link</span>
-                        <ArrowUpRight className="w-3 h-3 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
-                      </a>
-                    )}
-                    {(project as { user?: string }).user && (
-                      <a
-                        href={(project as { user?: string }).user}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-1.5 text-xs font-medium uppercase tracking-wider text-muted-foreground hover:text-accent transition-colors group/link"
-                      >
-                        <Users className="w-3.5 h-3.5" />
-                        <span>{project.name === "Swaraj-Desk" ? "User" : "User"}</span>
-                        <ArrowUpRight className="w-3 h-3 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
-                      </a>
-                    )}
-                    {project.admin && (
-                      <a
-                        href={project.admin}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-1.5 text-xs font-medium uppercase tracking-wider text-muted-foreground hover:text-accent transition-colors group/link"
-                      >
-                        <Shield className="w-3.5 h-3.5" />
-                        <span>Admin</span>
-                        <ArrowUpRight className="w-3 h-3 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
-                      </a>
-                    )}
-                  </div>
-
-                  <div className="space-y-8">
-                    {/* Tech Stack - Inspired by ramx.in */}
-                    <div className="space-y-4">
-                      <h4 className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground/60 font-bold">
-                        Technologies & Tools
-                      </h4>
-                      <div className="flex flex-wrap gap-2">
-                        {project.techStack.map((tech) => {
-                          const techData = techIcons[tech];
-                          return (
-                            <motion.div
-                              key={tech}
-                              initial="initial"
-                              whileHover="hover"
-                              className="h-10 flex items-center rounded-xl bg-muted/20 border border-border/40 hover:border-accent/30 hover:bg-accent/5 group/tech overflow-hidden cursor-default transition-colors"
-                            >
-                              <div className="w-10 h-10 flex items-center justify-center shrink-0">
-                                {techData ? (
-                                  <span className={`${techData.color} transition-transform duration-300 group-hover/tech:scale-110`}>
-                                    {React.cloneElement(techData.icon as React.ReactElement, { className: "w-5 h-5" })}
-                                  </span>
-                                ) : (
-                                  <span className="text-[10px] font-bold text-muted-foreground">{tech[0]}</span>
-                                )}
-                              </div>
-                              <motion.span 
-                                variants={{
-                                  initial: { width: 0, opacity: 0 },
-                                  hover: { width: "auto", opacity: 1, paddingRight: "0.85rem" }
-                                }}
-                                transition={{ duration: 0.2, ease: "easeOut" }}
-                                className="text-[11px] font-bold whitespace-nowrap overflow-hidden text-foreground"
-                              >
-                                {tech}
-                              </motion.span>
-                            </motion.div>
-                          );
-                        })}
-                      </div>
+            return (
+              <div
+                key={project.name}
+                className="relative flex flex-col gap-4 md:flex-row md:gap-16"
+                ref={(el) => setItemRef(el, index)}
+                aria-current={isActive ? "true" : "false"}
+              >
+                {/* Sticky meta column */}
+                <div className="top-24 flex h-min w-64 shrink-0 items-center gap-4 md:sticky z-10">
+                  <div className="flex items-center gap-3">
+                    <div className={`p-2 rounded-lg transition-colors duration-300 ${
+                      isActive ? "bg-accent text-accent-foreground" : "bg-muted text-muted-foreground border border-border/30"
+                    }`}>
+                      <ProjectIcon className="h-4 w-4" />
                     </div>
-
-                    {/* Roadmap Section */}
-                    <div className="mt-8 space-y-4">
-                      <h4 className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground/60 font-bold">
-                        Development Roadmap
-                      </h4>
-                      <div className="rounded-xl overflow-hidden border border-border/40 bg-muted/5">
-                        <Plan key={project.name} initialTasks={project.roadmap as import("@/components/ui/agent-plan").Task[]} />
-                      </div>
+                    <div className="flex flex-col text-left">
+                      <span className="text-sm font-bold tracking-tight">
+                        {project.name.replace(/-/g, ' ')}
+                      </span>
+                      <span className="text-xs text-muted-foreground font-semibold uppercase tracking-wider mt-0.5">
+                        Project 0{index + 1}
+                      </span>
                     </div>
-
-                    {/* Contributors */}
-                    {project.contributors && (
-                      <div className="pt-2">
-                        <DropdownMenu>
-                          <DropdownMenuTrigger asChild>
-                            <button className="flex items-center gap-2 text-xs text-muted-foreground hover:text-accent transition-colors">
-                              <Users className="w-3.5 h-3.5" />
-                              <span>Collaborated with {project.contributors.length} people</span>
-                              <ChevronDown className="w-3 h-3" />
-                            </button>
-                          </DropdownMenuTrigger>
-                          <DropdownMenuContent align="start" className="w-56 bg-card border-border/50">
-                            {project.contributors.map((contributor) => (
-                              <DropdownMenuItem key={contributor.username} asChild>
-                                <a
-                                  href={contributor.url}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="flex items-center gap-2 cursor-pointer"
-                                >
-                                  <SiGithub className="w-4 h-4" />
-                                  <span>{contributor.name}</span>
-                                </a>
-                              </DropdownMenuItem>
-                            ))}
-                          </DropdownMenuContent>
-                        </DropdownMenu>
-                      </div>
-                    )}
                   </div>
                 </div>
+
+                {/* Invisible sentinel near the card title to measure proximity to viewport center */}
+                <div
+                  ref={(el) => setSentinelRef(el, index)}
+                  aria-hidden
+                  className="absolute -top-24 left-0 h-12 w-12 opacity-0 pointer-events-none"
+                />
+
+                {/* Content Card Column */}
+                <article
+                  className={
+                    "flex flex-col rounded-2xl border p-5 transition-all duration-500 w-full text-left overflow-hidden " +
+                    (isActive
+                      ? "border-border/80 bg-muted/10 backdrop-blur-md opacity-100 shadow-md"
+                      : "border-border/40 bg-muted/5 backdrop-blur-sm opacity-60 hover:opacity-85")
+                  }
+                >
+                  <div className="space-y-4">
+                    {/* Header with Title and Status */}
+                    <div className="flex items-center justify-between">
+                      <h2
+                        className={
+                          "text-md font-bold leading-tight tracking-tight md:text-lg transition-colors duration-200 " +
+                          (isActive ? "text-foreground" : "text-foreground/70")
+                        }
+                      >
+                        {project.name.replace(/-/g, ' ')}
+                      </h2>
+                      {project.status === "development" && <StatusBadge status={project.status} />}
+                    </div>
+                    
+                    {/* Description - Clamped when inactive, expands when active */}
+                    <p
+                      className={
+                        "text-xs leading-relaxed md:text-sm transition-all duration-300 " +
+                        (isActive 
+                          ? "text-muted-foreground line-clamp-none" 
+                          : "text-muted-foreground/80 line-clamp-2")
+                      }
+                    >
+                      {project.description}
+                    </p>
+
+                    {/* Expandable Technical Highlights and Badges Panel */}
+                    <div
+                      aria-hidden={!isActive}
+                      className={
+                        "grid transition-all duration-500 ease-out " +
+                        (isActive 
+                          ? "grid-rows-[1fr] opacity-100" 
+                          : "grid-rows-[0fr] opacity-0")
+                      }
+                    >
+                      <div className="overflow-hidden">
+                        <div className="space-y-4 pt-4 border-t border-border/10">
+                          
+                          {/* Tech Stack badges */}
+                          <div className="space-y-2">
+                            <h4 className="text-[9px] uppercase tracking-[0.15em] text-muted-foreground/60 font-bold">
+                              Tech Stack Used
+                            </h4>
+                            <div className="flex flex-wrap gap-1 md:gap-1.5">
+                              {project.techStack.map((tech) => {
+                                const icon = getTechIcon(tech);
+                                return (
+                                  <span 
+                                    key={tech} 
+                                    className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[9px] font-semibold bg-accent/5 text-accent border border-accent/15"
+                                  >
+                                    {icon}
+                                    {tech}
+                                  </span>
+                                );
+                              })}
+                            </div>
+                          </div>
+
+                          {/* Key Technical Highlights list */}
+                          {project.highlights && project.highlights.length > 0 && (
+                            <div className="rounded-xl border border-border/10 bg-muted/5 p-4 mt-2">
+                              <h5 className="text-[9px] uppercase tracking-[0.15em] text-accent font-bold mb-2">
+                                Key Technical Highlights
+                              </h5>
+                              <ul className="space-y-2">
+                                {project.highlights.map((item, itemIndex) => (
+                                  <li 
+                                    key={itemIndex} 
+                                    className="flex items-start gap-2 text-xs text-muted-foreground leading-relaxed"
+                                  >
+                                    <div className="mt-1.5 h-1.5 w-1.5 rounded-full bg-accent/60 flex-shrink-0" />
+                                    <span>{item}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+
+                          {/* Action Links Bar */}
+                          <div className="flex flex-wrap items-center gap-4 pt-3 border-t border-border/10 mt-2">
+                            {project.github && (
+                              <a
+                                href={project.github}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider text-muted-foreground hover:text-accent transition-colors group/link"
+                              >
+                                <SiGithub className="w-3.5 h-3.5" />
+                                <span>Code</span>
+                                <ArrowUpRight className="w-3 h-3 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
+                              </a>
+                            )}
+                            {project.live && (
+                              <a
+                                href={project.live}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider text-muted-foreground hover:text-accent transition-colors group/link"
+                              >
+                                <ArrowUpRight className="w-3.5 h-3.5" />
+                                <span>Live</span>
+                                <ArrowUpRight className="w-3 h-3 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
+                              </a>
+                            )}
+                            {project.apk && (
+                              <a
+                                href={project.apk}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider text-muted-foreground hover:text-accent transition-colors group/link"
+                              >
+                                <FaAndroid className="w-3.5 h-3.5" />
+                                <span>APK</span>
+                                <ArrowUpRight className="w-3 h-3 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
+                              </a>
+                            )}
+                            {project.api && (
+                              <a
+                                href={project.api}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider text-muted-foreground hover:text-accent transition-colors group/link"
+                              >
+                                <Globe className="w-3.5 h-3.5" />
+                                <span>API Link</span>
+                                <ArrowUpRight className="w-3 h-3 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
+                              </a>
+                            )}
+                            {project.user && (
+                              <a
+                                href={project.user}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider text-muted-foreground hover:text-accent transition-colors group/link"
+                              >
+                                <Users className="w-3.5 h-3.5" />
+                                <span>User Panel</span>
+                                <ArrowUpRight className="w-3 h-3 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
+                              </a>
+                            )}
+                            {project.admin && (
+                              <a
+                                href={project.admin}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider text-muted-foreground hover:text-accent transition-colors group/link"
+                              >
+                                <Shield className="w-3.5 h-3.5" />
+                                <span>Admin Panel</span>
+                                <ArrowUpRight className="w-3 h-3 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
+                              </a>
+                            )}
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </article>
               </div>
-            </motion.div>
-          ))}
+            );
+          })}
         </div>
+
       </div>
     </section>
   );

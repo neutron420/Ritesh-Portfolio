@@ -64,7 +64,7 @@ const CurrentlyWorkingOn = () => {
               className="group"
             >
               {/* Clean Card - ram.codes inspired */}
-              <div className="relative bg-card/50 rounded-xl border border-border/40 p-5 md:p-6 hover:border-accent/30 transition-all duration-300">
+              <div className="relative bg-card/50 rounded-xl border border-border/40 p-5 md:p-6 hover:border-border/80 transition-all duration-300">
                 {/* Status Badge - Top Right */}
                 <div className="absolute top-4 right-4">
                   <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-green-500/10 border border-green-500/20">
@@ -81,7 +81,7 @@ const CurrentlyWorkingOn = () => {
 
                 {/* Project Info */}
                 <div className="pr-24">
-                  <h3 className="text-lg md:text-xl font-semibold mb-2 group-hover:text-accent transition-colors">
+                  <h3 className="text-lg md:text-xl font-semibold mb-2 transition-colors">
                     {project.name}
                   </h3>
                   <p className="text-sm text-muted-foreground leading-relaxed mb-4">

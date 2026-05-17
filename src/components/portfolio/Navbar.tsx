@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
-import { Menu, X, Download, Terminal, Search } from "lucide-react";
+import { Menu, X, Download, Search } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { TerminalTransition } from "@/components/TerminalTransition";
 import ThemeToggle from "./ThemeToggle";
 import SearchModal from "./SearchModal";
 import { useKeyboardShortcuts } from "@/hooks/use-keyboard-shortcuts";
@@ -139,24 +138,11 @@ const Navbar = () => {
               <kbd className="hidden lg:inline kbd-shortcut">Ctrl+K</kbd>
             </button>
             <ThemeToggle />
-            <TerminalTransition to="/terminal">
-              <div className="ml-2 px-3 sm:px-4 py-2 sm:py-2.5 flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-mono font-medium rounded-lg bg-[#0d1117] text-[#39d353] hover:bg-[#161b22] transition-all hover:scale-105 shadow-lg hover:shadow-xl border border-[#39d353]/30 hover:border-[#39d353]/50 backdrop-blur-sm group relative overflow-hidden">
-                <span className="absolute inset-0 bg-[#39d353]/5 opacity-0 group-hover:opacity-100 transition-opacity" />
-                <Terminal className="w-3.5 h-3.5 sm:w-4 sm:h-4 relative z-10 flex-shrink-0" />
-                <span className="relative z-10 flex items-center gap-1 sm:gap-1.5">
-                  <span className="text-[#39d353] hidden lg:inline">ritesh@portfolio</span>
-                  <span className="text-[#39d353] lg:hidden">ritesh</span>
-                  <span className="text-[#8b949e]">:</span>
-                  <span className="text-[#58a6ff]">~</span>
-                  <span className="text-[#8b949e]">$</span>
-                </span>
-              </div>
-            </TerminalTransition>
             <a
-              href="/RiteshSinghResume.pdf"
+              href="/Ritesh_Kumar_Singh_Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="ml-2 px-4 py-2 flex items-center gap-2 text-sm font-medium rounded-full bg-accent text-accent-foreground hover:bg-accent/90 transition-all hover:scale-105"
+              className="ml-2 px-4 py-2 flex items-center gap-2 text-sm font-medium rounded-full bg-foreground text-background border border-foreground hover:bg-transparent hover:text-foreground transition-all duration-300 hover:scale-105"
             >
               <Download className="w-4 h-4" />
               Resume
@@ -225,26 +211,11 @@ const Navbar = () => {
                 <ThemeToggle />
               </div>
               
-              <TerminalTransition to="/terminal">
-                <div
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="mt-2 mx-4 px-3 sm:px-4 py-2.5 sm:py-3 flex items-center justify-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-mono font-medium rounded-lg bg-[#0d1117] text-[#39d353] hover:bg-[#161b22] transition-all shadow-lg border border-[#39d353]/30 hover:border-[#39d353]/50 group relative overflow-hidden"
-                >
-                  <span className="absolute inset-0 bg-[#39d353]/5 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  <Terminal className="w-3.5 h-3.5 sm:w-4 sm:h-4 relative z-10 flex-shrink-0" />
-                  <span className="relative z-10 flex items-center gap-1 sm:gap-1.5">
-                    <span className="text-[#39d353]">ritesh</span>
-                    <span className="text-[#8b949e]">:</span>
-                    <span className="text-[#58a6ff]">~</span>
-                    <span className="text-[#8b949e]">$</span>
-                  </span>
-                </div>
-              </TerminalTransition>
               <a
-                href="/RiteshSinghResume.pdf"
+                href="/Ritesh_Kumar_Singh_Resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-2 mx-4 px-4 py-3 flex items-center justify-center gap-2 text-sm font-medium rounded-full bg-accent text-accent-foreground hover:bg-accent/90 transition-all"
+                className="mt-4 mx-4 px-4 py-3 flex items-center justify-center gap-2 text-sm font-medium rounded-full bg-foreground text-background border border-foreground hover:bg-transparent hover:text-foreground transition-all duration-300"
               >
                 <Download className="w-4 h-4" />
                 View Resume
