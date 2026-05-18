@@ -11,7 +11,7 @@ const AchievementsSection = () => {
     {
       year: "2026",
       title: "HackTheStack 2026",
-      subtitle: "Winner — C. V. Raman Global University",
+      subtitle: "Winner C. V. Raman Global University",
       description: "Winner of the national-level HackTheStack (2026) hackathon at C. V. Raman Global University with team 'The Archers'.",
       icon: Trophy,
       iconColor: "text-amber-500 bg-amber-500/10 border-amber-500/20",
@@ -19,7 +19,7 @@ const AchievementsSection = () => {
     {
       year: "2026",
       title: "Code Relay 4.0",
-      subtitle: "Winner — IIT Bhubaneswar",
+      subtitle: "Winner IIT Bhubaneswar",
       description: "Secured 1st place in the prestigious national-level Code Relay 4.0 hackathon hosted by IIT Bhubaneswar.",
       icon: Trophy,
       iconColor: "text-yellow-500 bg-yellow-500/10 border-yellow-500/20",
@@ -27,7 +27,7 @@ const AchievementsSection = () => {
     {
       year: "2025",
       title: "Cardano Finalist",
-      subtitle: "Blockchain Innovation — Cardano",
+      subtitle: "Blockchain Innovation Cardano",
       description: "Represented team 'Team Brocode' in Bengaluru, showcasing core skills in blockchain innovation powered by Cardano blockchain company at Bengaluru.",
       icon: Award,
       iconColor: "text-blue-400 bg-blue-400/10 border-blue-400/20",

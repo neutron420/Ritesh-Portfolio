@@ -18,6 +18,8 @@ import ProjectsSection from "@/components/portfolio/ProjectsSection";
 import QuoteSection from "@/components/portfolio/QuoteSection";
 import VisitorCounter from "@/components/portfolio/VisitorCounter";
 import { Footer } from "@/components/hover-footer";
+import { TestimonialCarousel } from "@/components/profile-card-testimonial-carousel";
+import ContactSection from "@/components/portfolio/ContactSection";
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -108,6 +110,12 @@ const Index = () => {
           <HeroSection />
           
           <ScrollReveal delay={0.1}>
+            <section id="about" className="py-12 border-t border-border/40 relative overflow-hidden bg-muted/5">
+              <TestimonialCarousel />
+            </section>
+          </ScrollReveal>
+          
+          <ScrollReveal delay={0.1}>
             <AchievementsSection />
           </ScrollReveal>
 
@@ -121,6 +129,10 @@ const Index = () => {
           
           <ScrollReveal delay={0.1}>
             <QuoteSection />
+          </ScrollReveal>
+
+          <ScrollReveal delay={0.1}>
+            <ContactSection />
           </ScrollReveal>
 
           <VisitorCounter />

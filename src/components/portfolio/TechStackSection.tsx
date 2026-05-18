@@ -161,12 +161,12 @@ const TechStackSection = () => {
           {/* Row 1: Scrolling Left */}
           <div className="flex w-full overflow-hidden">
             <motion.div
-              className="flex gap-16 shrink-0 items-center justify-around min-w-full text-base md:text-lg font-bold tracking-tight text-white/80"
+              className="flex gap-16 shrink-0 items-center justify-around min-w-full text-base md:text-lg font-bold tracking-tight text-foreground/70"
               animate={{ x: [0, "-50%"] }}
               transition={{ ease: "linear", duration: 65, repeat: Infinity }}
             >
               {[...row1Skills, ...row1Skills].map((skill, index) => (
-                <span key={index} className="hover:text-white transition-colors cursor-default whitespace-nowrap">
+                <span key={index} className="hover:text-foreground transition-colors cursor-default whitespace-nowrap">
                   {skill}
                 </span>
               ))}
@@ -176,12 +176,12 @@ const TechStackSection = () => {
           {/* Row 2: Scrolling Right */}
           <div className="flex w-full overflow-hidden">
             <motion.div
-              className="flex gap-16 shrink-0 items-center justify-around min-w-full text-base md:text-lg font-bold tracking-tight text-white/80"
+              className="flex gap-16 shrink-0 items-center justify-around min-w-full text-base md:text-lg font-bold tracking-tight text-foreground/70"
               animate={{ x: ["-50%", 0] }}
               transition={{ ease: "linear", duration: 65, repeat: Infinity }}
             >
               {[...row2Skills, ...row2Skills].map((skill, index) => (
-                <span key={index} className="hover:text-white transition-colors cursor-default whitespace-nowrap">
+                <span key={index} className="hover:text-foreground transition-colors cursor-default whitespace-nowrap">
                   {skill}
                 </span>
               ))}

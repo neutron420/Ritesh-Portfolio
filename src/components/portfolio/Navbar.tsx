@@ -65,7 +65,7 @@ const Navbar = () => {
   ]);
 
   const navItems = [
-    { name: "About", href: "#" },
+    { name: "About", href: "#about" },
     { name: "Stack", href: "#tech" },
     { name: "Projects", href: "#projects" },
     { name: "Contact", href: "#contact" },
@@ -95,12 +95,13 @@ const Navbar = () => {
               setIsMobileMenuOpen(false);
             }}
           >
-            {/* Japanese-inspired logo mark */}
-            <div className="relative w-10 h-10 flex items-center justify-center">
-              <div className="absolute inset-0 rounded-full border-2 border-accent group-hover:border-accent/80 transition-colors shadow-[0_0_15px_hsl(var(--accent)/0.3)]" />
-              <span className="text-lg font-bold text-accent group-hover:scale-110 transition-transform">
-                理
-              </span>
+            {/* Profile Pic Logo */}
+            <div className="relative w-10 h-10 rounded-full overflow-hidden border-2 border-accent group-hover:border-accent/80 shadow-[0_0_15px_hsl(var(--accent)/0.3)] transition-all flex items-center justify-center">
+              <img 
+                src="/logo.jpg" 
+                alt="Ritesh" 
+                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+              />
             </div>
             
             {/* Name with Japanese translation */}

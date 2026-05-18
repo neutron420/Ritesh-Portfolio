@@ -10,7 +10,8 @@ import {
   Calendar, 
   Package,
   Terminal,
-  FileText
+  FileText,
+  Siren
 } from "lucide-react";
 import { 
   SiGithub, 
@@ -50,13 +51,15 @@ import {
   SiRabbitmq,
   SiGin,
   SiJavascript,
-  SiRust
+  SiRust,
+  SiJsonwebtokens,
+  SiNpm
 } from "react-icons/si";
 import { TbDatabase, TbMap2 } from "react-icons/tb";
 import { FaJava, FaAndroid } from "react-icons/fa";
 import { MarkerHighlight } from "@/components/ui/marker-highlight";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
-import React, { useState, useEffect, useRef } from "react";
+import React from "react";
 
 interface Project {
   name: string;
@@ -95,7 +98,7 @@ const projects: Project[] = [
     techStack: ["React Native", "Expo", "Bun", "Express", "PostgreSQL", "PostGIS", "Redis", "Apache Kafka", "TypeScript", "WebSockets", "Docker", "Kubernetes", "AWS"],
     github: "https://github.com/neutron420/RakshaSetu",
     status: "live" as const,
-    icon: Zap,
+    icon: Siren,
     highlights: [
       "Offline SOS mesh broadcasting via BLE mesh relay without active internet.",
       "Sub-second geospatial match queries using PostGIS volunteer routing."
@@ -141,9 +144,22 @@ const projects: Project[] = [
     ]
   },
   {
+    name: "StackAudit",
+    description: "A high-performance, local-first CLI tool for auditing backend project health, security, and infrastructure readiness. Features an interactive TUI for real-time monitoring, advanced secrets detection for hardcoded API keys and credentials, deep Docker and Kubernetes manifest analysis, extensible YAML-based plugin system for team-specific standards, and high-concurrency module execution. Runs entirely locally secrets never leave your machine.",
+    techStack: ["Go", "Docker", "Kubernetes", "PostgreSQL", "Redis", "NPM Package"],
+    github: "https://github.com/neutron420/StackAudit",
+    live: "https://audit-one-livid.vercel.app/",
+    status: "live" as const,
+    icon: Shield,
+    highlights: [
+      "Advanced secrets scanning engine detecting hardcoded API keys, tokens, and credentials.",
+      "Deep Docker and Kubernetes manifest security analysis with extensible YAML plugin rules."
+    ]
+  },
+  {
     name: "Devix",
     description: "Devix is a production-grade, modular monolith backend architected for a developer-centric knowledge sharing and collaboration platform. The system is built with Go, leveraging GORM for schema management and PostgreSQL for persistent storage, with a focus on modularity, security, and real-time performance.",
-    techStack: ["Go", "Gin", "PostgreSQL", "GORM", "WebSockets", "Cloudflare R2", "JWT", "Argon2id", "Docker", "Kubernetes", "AWS"],
+    techStack: ["Go", "Gin", "PostgreSQL", "GORM", "WebSockets", "Cloudflare R2", "JWT", "ArgoCD", "Docker", "Kubernetes", "AWS"],
     github: "https://github.com/neutron420/devix-backend",
     status: "development" as const,
     icon: Package,
@@ -154,34 +170,40 @@ const projects: Project[] = [
   }
 ];
 
-// Helper function to map tech stack names to icons
+// Helper function to map tech stack names to icons with brand colors
 const getTechIcon = (tech: string) => {
   const t = tech.toLowerCase().trim();
   if (t === "next.js" || t === "nextjs") return <SiNextdotjs className="w-2.5 h-2.5" />;
-  if (t === "react" || t === "react native" || t === "expo") return <SiReact className="w-2.5 h-2.5" />;
-  if (t === "node.js" || t === "nodejs") return <SiNodedotjs className="w-2.5 h-2.5" />;
-  if (t === "postgresql" || t === "postgis") return <SiPostgresql className="w-2.5 h-2.5" />;
-  if (t === "prisma") return <SiPrisma className="w-2.5 h-2.5" />;
-  if (t === "redis") return <SiRedis className="w-2.5 h-2.5" />;
-  if (t === "docker") return <SiDocker className="w-2.5 h-2.5" />;
-  if (t === "kubernetes" || t === "k8s") return <SiKubernetes className="w-2.5 h-2.5" />;
-  if (t === "tailwind css" || t === "tailwindcss") return <SiTailwindcss className="w-2.5 h-2.5" />;
-  if (t === "aws") return <SiAmazonwebservices className="w-2.5 h-2.5" />;
-  if (t === "gcp" || t === "google cloud") return <SiGooglecloud className="w-2.5 h-2.5" />;
-  if (t === "cloudflare" || t === "cloudflare r2") return <SiCloudflare className="w-2.5 h-2.5" />;
-  if (t === "bun") return <SiBun className="w-2.5 h-2.5" />;
+  if (t === "react" || t === "react native" || t === "expo") return <SiReact className="w-2.5 h-2.5 text-[#61DAFB]" />;
+  if (t === "node.js" || t === "nodejs") return <SiNodedotjs className="w-2.5 h-2.5 text-[#339933]" />;
+  if (t === "postgresql" || t === "postgis") return <SiPostgresql className="w-2.5 h-2.5 text-[#4169E1]" />;
+  if (t === "prisma") return <SiPrisma className="w-2.5 h-2.5 text-[#2D3748]" />;
+  if (t === "redis") return <SiRedis className="w-2.5 h-2.5 text-[#DC382D]" />;
+  if (t === "docker") return <SiDocker className="w-2.5 h-2.5 text-[#2496ED]" />;
+  if (t === "kubernetes" || t === "k8s") return <SiKubernetes className="w-2.5 h-2.5 text-[#326CE5]" />;
+  if (t === "tailwind css" || t === "tailwindcss") return <SiTailwindcss className="w-2.5 h-2.5 text-[#06B6D4]" />;
+  if (t === "aws") return <SiAmazonwebservices className="w-2.5 h-2.5 text-[#FF9900]" />;
+  if (t === "gcp" || t === "google cloud") return <SiGooglecloud className="w-2.5 h-2.5 text-[#4285F4]" />;
+  if (t === "cloudflare" || t === "cloudflare r2") return <SiCloudflare className="w-2.5 h-2.5 text-[#F38020]" />;
+  if (t === "bun") return <SiBun className="w-2.5 h-2.5 text-[#FBF0DF]" />;
   if (t === "express") return <SiExpress className="w-2.5 h-2.5" />;
-  if (t === "typescript") return <SiTypescript className="w-2.5 h-2.5" />;
-  if (t === "go" || t === "golang") return <SiGo className="w-2.5 h-2.5" />;
-  if (t === "gin") return <SiGin className="w-2.5 h-2.5" />;
-  if (t === "rabbitmq") return <SiRabbitmq className="w-2.5 h-2.5" />;
+  if (t === "typescript") return <SiTypescript className="w-2.5 h-2.5 text-[#3178C6]" />;
+  if (t === "go" || t === "golang") return <SiGo className="w-2.5 h-2.5 text-[#00ADD8]" />;
+  if (t === "gin") return <SiGin className="w-2.5 h-2.5 text-[#00ADD8]" />;
+  if (t === "rabbitmq") return <SiRabbitmq className="w-2.5 h-2.5 text-[#FF6600]" />;
   if (t === "kafka" || t === "apache kafka") return <SiApachekafka className="w-2.5 h-2.5" />;
-  if (t === "groq" || t === "openai") return <SiOpenai className="w-2.5 h-2.5" />;
-  if (t === "mapbox") return <SiMapbox className="w-2.5 h-2.5" />;
-  if (t === "terraform") return <SiTerraform className="w-2.5 h-2.5" />;
-  if (t === "rust") return <SiRust className="w-2.5 h-2.5" />;
-  if (t === "sqlx") return <TbDatabase className="w-2.5 h-2.5" />;
+  if (t === "groq" || t === "openai") return <SiOpenai className="w-2.5 h-2.5 text-[#412991]" />;
+  if (t === "mapbox") return <SiMapbox className="w-2.5 h-2.5 text-[#4264FB]" />;
+  if (t === "terraform") return <SiTerraform className="w-2.5 h-2.5 text-[#844FBA]" />;
+  if (t === "rust") return <SiRust className="w-2.5 h-2.5 text-[#DEA584]" />;
+  if (t === "sqlx") return <TbDatabase className="w-2.5 h-2.5 text-[#4169E1]" />;
+  if (t === "gorm") return <TbDatabase className="w-2.5 h-2.5 text-[#00ADD8]" />;
+  if (t === "websockets" || t === "websocket") return <SiSocketdotio className="w-2.5 h-2.5 text-[#010101] dark:text-[#FFFFFF]" />;
+  if (t === "jwt") return <SiJsonwebtokens className="w-2.5 h-2.5 text-[#D63AFF]" />;
+  if (t === "argon2id") return <Shield className="w-2.5 h-2.5 text-[#10B981]" />;
+  if (t === "argocd" || t === "argo") return <SiArgo className="w-2.5 h-2.5 text-[#EF7B4D]" />;
   if (t === "vercel") return <SiVercel className="w-2.5 h-2.5" />;
+  if (t === "npm" || t === "npm package") return <SiNpm className="w-2.5 h-2.5 text-[#CB3837]" />;
   return null;
 };
 
@@ -242,49 +264,6 @@ const StatusBadge = ({ status }: { status: "live" | "development" | "building" |
 };
 
 const ProjectsSection = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const sentinelRefs = useRef<(HTMLDivElement | null)[]>([]);
-
-  const setItemRef = (el: HTMLDivElement | null, i: number) => {
-    itemRefs.current[i] = el;
-  };
-  const setSentinelRef = (el: HTMLDivElement | null, i: number) => {
-    sentinelRefs.current[i] = el;
-  };
-
-  useEffect(() => {
-    if (!sentinelRefs.current.length) return;
-
-    let frame = 0;
-    const updateActiveByProximity = () => {
-      frame = requestAnimationFrame(updateActiveByProximity);
-      const centerY = window.innerHeight / 3;
-      let bestIndex = 0;
-      let bestDist = Infinity;
-      sentinelRefs.current.forEach((node, i) => {
-        if (!node) return;
-        const rect = node.getBoundingClientRect();
-        const mid = rect.top + rect.height / 2;
-        const dist = Math.abs(mid - centerY);
-        if (dist < bestDist) {
-          bestDist = dist;
-          bestIndex = i;
-        }
-      });
-      if (bestIndex !== activeIndex) {
-        setActiveIndex(bestIndex);
-      }
-    };
-
-    frame = requestAnimationFrame(updateActiveByProximity);
-    return () => cancelAnimationFrame(frame);
-  }, [activeIndex]);
-
-  useEffect(() => {
-    setActiveIndex(0);
-  }, []);
-
   return (
     <section id="projects" className="py-24 relative overflow-hidden bg-background">
       <div className="w-full max-w-4xl mx-auto px-4 sm:px-6">
@@ -304,217 +283,153 @@ const ProjectsSection = () => {
           </p>
         </div>
 
-        {/* Timeline List Container */}
-        <div className="mt-16 space-y-16 md:mt-24 md:space-y-24">
+        {/* Project Cards */}
+        <div className="mt-16 space-y-8 md:mt-24 md:space-y-10">
           {projects.map((project, index) => {
-            const isActive = index === activeIndex;
             const ProjectIcon = project.icon;
 
             return (
-              <div
+              <article
                 key={project.name}
-                className="relative flex flex-col gap-4 md:flex-row md:gap-16"
-                ref={(el) => setItemRef(el, index)}
-                aria-current={isActive ? "true" : "false"}
+                className="rounded-2xl border border-border/60 bg-muted/10 backdrop-blur-md p-5 w-full text-left overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300"
               >
-                {/* Sticky meta column */}
-                <div className="top-24 flex h-min w-64 shrink-0 items-center gap-4 md:sticky z-10">
-                  <div className="flex items-center gap-3">
-                    <div className={`p-2 rounded-lg transition-colors duration-300 ${
-                      isActive ? "bg-accent text-accent-foreground" : "bg-muted text-muted-foreground border border-border/30"
-                    }`}>
-                      <ProjectIcon className="h-4 w-4" />
-                    </div>
+                <div className="space-y-4">
+                  {/* Header with Title */}
+                  <div className="flex items-center justify-between">
                     <div className="flex flex-col text-left">
-                      <span className="text-sm font-bold tracking-tight">
+                      <h2 className="text-md font-bold leading-tight tracking-tight md:text-lg text-foreground">
                         {project.name.replace(/-/g, ' ')}
-                      </span>
+                      </h2>
                       <span className="text-xs text-muted-foreground font-semibold uppercase tracking-wider mt-0.5">
                         Project 0{index + 1}
                       </span>
                     </div>
                   </div>
-                </div>
+                  
+                  {/* Description */}
+                  <p className="text-xs leading-relaxed md:text-sm text-muted-foreground">
+                    {project.description}
+                  </p>
 
-                {/* Invisible sentinel near the card title to measure proximity to viewport center */}
-                <div
-                  ref={(el) => setSentinelRef(el, index)}
-                  aria-hidden
-                  className="absolute -top-24 left-0 h-12 w-12 opacity-0 pointer-events-none"
-                />
-
-                {/* Content Card Column */}
-                <article
-                  className={
-                    "flex flex-col rounded-2xl border p-5 transition-all duration-500 w-full text-left overflow-hidden " +
-                    (isActive
-                      ? "border-border/80 bg-muted/10 backdrop-blur-md opacity-100 shadow-md"
-                      : "border-border/40 bg-muted/5 backdrop-blur-sm opacity-60 hover:opacity-85")
-                  }
-                >
-                  <div className="space-y-4">
-                    {/* Header with Title and Status */}
-                    <div className="flex items-center justify-between">
-                      <h2
-                        className={
-                          "text-md font-bold leading-tight tracking-tight md:text-lg transition-colors duration-200 " +
-                          (isActive ? "text-foreground" : "text-foreground/70")
-                        }
-                      >
-                        {project.name.replace(/-/g, ' ')}
-                      </h2>
-                      {project.status === "development" && <StatusBadge status={project.status} />}
+                  {/* Tech Stack badges */}
+                  <div className="space-y-2 pt-4 border-t border-border/10">
+                    <h4 className="text-[9px] uppercase tracking-[0.15em] text-muted-foreground/60 font-bold">
+                      Tech Stack Used
+                    </h4>
+                    <div className="flex flex-wrap gap-1 md:gap-1.5">
+                      {project.techStack.map((tech) => {
+                        const icon = getTechIcon(tech);
+                        return (
+                          <span 
+                            key={tech} 
+                            className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[9px] font-semibold bg-muted/50 text-foreground/80 border border-border/30"
+                          >
+                            {icon}
+                            {tech}
+                          </span>
+                        );
+                      })}
                     </div>
-                    
-                    {/* Description - Clamped when inactive, expands when active */}
-                    <p
-                      className={
-                        "text-xs leading-relaxed md:text-sm transition-all duration-300 " +
-                        (isActive 
-                          ? "text-muted-foreground line-clamp-none" 
-                          : "text-muted-foreground/80 line-clamp-2")
-                      }
-                    >
-                      {project.description}
-                    </p>
-
-                    {/* Expandable Technical Highlights and Badges Panel */}
-                    <div
-                      aria-hidden={!isActive}
-                      className={
-                        "grid transition-all duration-500 ease-out " +
-                        (isActive 
-                          ? "grid-rows-[1fr] opacity-100" 
-                          : "grid-rows-[0fr] opacity-0")
-                      }
-                    >
-                      <div className="overflow-hidden">
-                        <div className="space-y-4 pt-4 border-t border-border/10">
-                          
-                          {/* Tech Stack badges */}
-                          <div className="space-y-2">
-                            <h4 className="text-[9px] uppercase tracking-[0.15em] text-muted-foreground/60 font-bold">
-                              Tech Stack Used
-                            </h4>
-                            <div className="flex flex-wrap gap-1 md:gap-1.5">
-                              {project.techStack.map((tech) => {
-                                const icon = getTechIcon(tech);
-                                return (
-                                  <span 
-                                    key={tech} 
-                                    className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[9px] font-semibold bg-accent/5 text-accent border border-accent/15"
-                                  >
-                                    {icon}
-                                    {tech}
-                                  </span>
-                                );
-                              })}
-                            </div>
-                          </div>
-
-                          {/* Key Technical Highlights list */}
-                          {project.highlights && project.highlights.length > 0 && (
-                            <div className="rounded-xl border border-border/10 bg-muted/5 p-4 mt-2">
-                              <h5 className="text-[9px] uppercase tracking-[0.15em] text-accent font-bold mb-2">
-                                Key Technical Highlights
-                              </h5>
-                              <ul className="space-y-2">
-                                {project.highlights.map((item, itemIndex) => (
-                                  <li 
-                                    key={itemIndex} 
-                                    className="flex items-start gap-2 text-xs text-muted-foreground leading-relaxed"
-                                  >
-                                    <div className="mt-1.5 h-1.5 w-1.5 rounded-full bg-accent/60 flex-shrink-0" />
-                                    <span>{item}</span>
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-                          )}
-
-                          {/* Action Links Bar */}
-                          <div className="flex flex-wrap items-center gap-4 pt-3 border-t border-border/10 mt-2">
-                            {project.github && (
-                              <a
-                                href={project.github}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider text-muted-foreground hover:text-accent transition-colors group/link"
-                              >
-                                <SiGithub className="w-3.5 h-3.5" />
-                                <span>Code</span>
-                                <ArrowUpRight className="w-3 h-3 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
-                              </a>
-                            )}
-                            {project.live && (
-                              <a
-                                href={project.live}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider text-muted-foreground hover:text-accent transition-colors group/link"
-                              >
-                                <ArrowUpRight className="w-3.5 h-3.5" />
-                                <span>Live</span>
-                                <ArrowUpRight className="w-3 h-3 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
-                              </a>
-                            )}
-                            {project.apk && (
-                              <a
-                                href={project.apk}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider text-muted-foreground hover:text-accent transition-colors group/link"
-                              >
-                                <FaAndroid className="w-3.5 h-3.5" />
-                                <span>APK</span>
-                                <ArrowUpRight className="w-3 h-3 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
-                              </a>
-                            )}
-                            {project.api && (
-                              <a
-                                href={project.api}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider text-muted-foreground hover:text-accent transition-colors group/link"
-                              >
-                                <Globe className="w-3.5 h-3.5" />
-                                <span>API Link</span>
-                                <ArrowUpRight className="w-3 h-3 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
-                              </a>
-                            )}
-                            {project.user && (
-                              <a
-                                href={project.user}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider text-muted-foreground hover:text-accent transition-colors group/link"
-                              >
-                                <Users className="w-3.5 h-3.5" />
-                                <span>User Panel</span>
-                                <ArrowUpRight className="w-3 h-3 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
-                              </a>
-                            )}
-                            {project.admin && (
-                              <a
-                                href={project.admin}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider text-muted-foreground hover:text-accent transition-colors group/link"
-                              >
-                                <Shield className="w-3.5 h-3.5" />
-                                <span>Admin Panel</span>
-                                <ArrowUpRight className="w-3 h-3 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
-                              </a>
-                            )}
-                          </div>
-
-                        </div>
-                      </div>
-                    </div>
-
                   </div>
-                </article>
-              </div>
+
+                  {/* Key Technical Highlights list */}
+                  {project.highlights && project.highlights.length > 0 && (
+                    <div className="rounded-xl border border-border/10 bg-muted/5 p-4 mt-2">
+                      <h5 className="text-[9px] uppercase tracking-[0.15em] text-accent font-bold mb-2">
+                        Key Technical Highlights
+                      </h5>
+                      <ul className="space-y-2">
+                        {project.highlights.map((item, itemIndex) => (
+                          <li 
+                            key={itemIndex} 
+                            className="flex items-start gap-2 text-xs text-muted-foreground leading-relaxed"
+                          >
+                            <div className="mt-1.5 h-1.5 w-1.5 rounded-full bg-accent/60 flex-shrink-0" />
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  {/* Action Links Bar */}
+                  <div className="flex flex-wrap items-center gap-4 pt-3 border-t border-border/10 mt-2">
+                    {project.github && (
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider text-muted-foreground hover:text-accent transition-colors group/link"
+                      >
+                        <SiGithub className="w-3.5 h-3.5" />
+                        <span>Code</span>
+                        <ArrowUpRight className="w-3 h-3 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
+                      </a>
+                    )}
+                    {project.live && (
+                      <a
+                        href={project.live}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider text-muted-foreground hover:text-accent transition-colors group/link"
+                      >
+                        <ArrowUpRight className="w-3.5 h-3.5" />
+                        <span>Live</span>
+                        <ArrowUpRight className="w-3 h-3 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
+                      </a>
+                    )}
+                    {project.apk && (
+                      <a
+                        href={project.apk}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider text-muted-foreground hover:text-accent transition-colors group/link"
+                      >
+                        <FaAndroid className="w-3.5 h-3.5" />
+                        <span>APK</span>
+                        <ArrowUpRight className="w-3 h-3 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
+                      </a>
+                    )}
+                    {project.api && (
+                      <a
+                        href={project.api}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider text-muted-foreground hover:text-accent transition-colors group/link"
+                      >
+                        <Globe className="w-3.5 h-3.5" />
+                        <span>API Link</span>
+                        <ArrowUpRight className="w-3 h-3 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
+                      </a>
+                    )}
+                    {project.user && (
+                      <a
+                        href={project.user}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider text-muted-foreground hover:text-accent transition-colors group/link"
+                      >
+                        <Users className="w-3.5 h-3.5" />
+                        <span>User Panel</span>
+                        <ArrowUpRight className="w-3 h-3 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
+                      </a>
+                    )}
+                    {project.admin && (
+                      <a
+                        href={project.admin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider text-muted-foreground hover:text-accent transition-colors group/link"
+                      >
+                        <Shield className="w-3.5 h-3.5" />
+                        <span>Admin Panel</span>
+                        <ArrowUpRight className="w-3 h-3 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
+                      </a>
+                    )}
+                  </div>
+
+                </div>
+              </article>
             );
           })}
         </div>

@@ -239,7 +239,7 @@ export const Footer = () => {
           </p>
           <div className="flex items-center gap-6">
             <p className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground/50 font-medium">
-              理 Build with Passion
+              Ritesh | Build with Passion
             </p>
           </div>
         </div>

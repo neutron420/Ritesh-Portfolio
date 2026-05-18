@@ -24,7 +24,7 @@ const SpotifySection = () => {
               <div className="flex-1">
                 <h3 className="text-lg font-semibold mb-1">Ritesh's Spotify</h3>
                 <p className="text-sm text-muted-foreground mb-4">
-                  Check out what I'm vibing to — from lo-fi beats while coding to high-energy tracks during hackathons.
+                  Check out what I'm vibing to from lo-fi beats while coding to high-energy tracks during hackathons.
                 </p>
                 
                 <a
@@ -63,7 +63,7 @@ const SpotifySection = () => {
                 <span className="w-1 h-5 bg-[#1DB954] rounded-full animate-pulse" style={{ animationDelay: '450ms' }} />
               </div>
               <p className="text-sm text-muted-foreground">
-                <span className="text-foreground font-medium">Currently vibing</span> — Music keeps me in the zone
+                <span className="text-foreground font-medium">Currently vibing</span>Music keeps me in the zone
               </p>
             </div>
           </div>
