@@ -5,6 +5,7 @@ import { MarkerHighlight } from "@/components/ui/marker-highlight";
 import bannerImage from "@/assets/banner.jpg";
 
 import { SiTypescript, SiReact, SiNodedotjs, SiGo, SiPostgresql, SiLeetcode, SiGithub, SiX, SiLinkedin } from "react-icons/si";
+import { CodeforcesIcon } from "@/components/ui/codeforces-icon";
 
 // Tech badges for hero bio
 const techBadges = [
@@ -18,11 +19,12 @@ const techBadges = [
 const HeroSection = () => {
 
   const socialLinks = [
-    { icon: SiGithub, href: "https://github.com/neutron420", label: "GitHub" },
-    { icon: SiX, href: "https://x.com/RiteshS18572143", label: "X" },
-    { icon: SiLinkedin, href: "https://www.linkedin.com/in/ritesh-singh1/", label: "LinkedIn" },
-    { icon: SiLeetcode, href: "https://leetcode.com/u/neutron420", label: "LeetCode" },
-    { icon: Mail, href: "mailto:fnaticritesh2004@gmail.com", label: "Email" },
+    { icon: SiGithub, href: "https://github.com/neutron420", label: "GitHub", color: "currentColor", borderColor: "hover:border-foreground" },
+    { icon: SiX, href: "https://x.com/RiteshS18572143", label: "X", color: "currentColor", borderColor: "hover:border-foreground" },
+    { icon: SiLinkedin, href: "https://www.linkedin.com/in/ritesh-singh1/", label: "LinkedIn", color: "#0A66C2", borderColor: "hover:border-[#0A66C2]" },
+    { icon: SiLeetcode, href: "https://leetcode.com/u/neutron420", label: "LeetCode", color: "#FFA116", borderColor: "hover:border-[#FFA116]" },
+    { icon: CodeforcesIcon, href: "https://codeforces.com/profile/Coder-04Rit", label: "Codeforces", color: undefined, borderColor: "hover:border-[#1890FF]" },
+    { icon: Mail, href: "mailto:fnaticritesh2004@gmail.com", label: "Email", color: "#EA4335", borderColor: "hover:border-[#EA4335]" },
   ];
 
   const roles = [
@@ -174,7 +176,7 @@ const HeroSection = () => {
 
             {/* Social Links + Resume Button */}
             <motion.div 
-              className="flex items-center gap-3 gap-y-4 mt-4 flex-wrap"
+              className="flex items-center gap-2 sm:gap-3 gap-y-3 mt-4 flex-wrap"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
@@ -187,15 +189,15 @@ const HeroSection = () => {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-9 h-9 flex items-center justify-center rounded-lg bg-card border border-border hover:border-accent hover:text-accent transition-all"
+                    className={`w-10 h-10 sm:w-9 sm:h-9 flex items-center justify-center rounded-lg bg-card border border-border ${social.borderColor} transition-all duration-300 group/icon`}
                     aria-label={social.label}
-                    whileHover={{ scale: 1.1, y: -2 }}
+                    whileHover={{ scale: 1.15, y: -3 }}
                     whileTap={{ scale: 0.95 }}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.6 + index * 0.05 }}
                   >
-                    <Icon className="w-4 h-4" />
+                    <Icon className="w-[18px] h-[18px] sm:w-4 sm:h-4 transition-colors duration-300" style={{ color: social.color }} />
                   </motion.a>
                 );
               })}

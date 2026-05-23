@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Mail, ExternalLink } from "lucide-react";
 import { SiLeetcode, SiGithub, SiX, SiLinkedin } from "react-icons/si";
+import { CodeforcesIcon } from "@/components/ui/codeforces-icon";
 
 export const TextHoverEffect = ({
   text,
@@ -144,11 +145,12 @@ export const FooterBackgroundGradient = () => {
 
 export const Footer = () => {
   const socialLinks = [
-    { icon: SiGithub, href: "https://github.com/neutron420", label: "GitHub" },
-    { icon: SiX, href: "https://x.com/RiteshS18572143", label: "X" },
-    { icon: SiLinkedin, href: "https://www.linkedin.com/in/ritesh-singh1/", label: "LinkedIn" },
-    { icon: SiLeetcode, href: "https://leetcode.com/u/neutron420", label: "LeetCode" },
-    { icon: Mail, href: "mailto:fnaticritesh2004@gmail.com", label: "Email" },
+    { icon: SiGithub, href: "https://github.com/neutron420", label: "GitHub", brandColor: "currentColor" },
+    { icon: SiX, href: "https://x.com/RiteshS18572143", label: "X", brandColor: "currentColor" },
+    { icon: SiLinkedin, href: "https://www.linkedin.com/in/ritesh-singh1/", label: "LinkedIn", brandColor: "#0A66C2" },
+    { icon: SiLeetcode, href: "https://leetcode.com/u/neutron420", label: "LeetCode", brandColor: "#FFA116" },
+    { icon: CodeforcesIcon, href: "https://codeforces.com/profile/Coder-04Rit", label: "Codeforces", brandColor: undefined },
+    { icon: Mail, href: "mailto:fnaticritesh2004@gmail.com", label: "Email", brandColor: "#EA4335" },
   ];
 
   const quickLinks = [
@@ -188,10 +190,10 @@ export const Footer = () => {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-accent transition-colors"
+                  className="transition-all duration-300 hover:scale-110 hover:-translate-y-0.5"
                   aria-label={social.label}
                 >
-                  <social.icon className="w-5 h-5" />
+                  <social.icon className="w-5 h-5" style={{ color: social.brandColor }} />
                 </a>
               ))}
             </div>

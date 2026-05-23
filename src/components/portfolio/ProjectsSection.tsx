@@ -284,14 +284,14 @@ const ProjectsSection = () => {
         </div>
 
         {/* Project Cards */}
-        <div className="mt-16 space-y-8 md:mt-24 md:space-y-10">
+        <div className="mt-12 sm:mt-16 divide-y divide-border/20 md:divide-y-0 md:space-y-10">
           {projects.map((project, index) => {
             const ProjectIcon = project.icon;
 
             return (
               <article
                 key={project.name}
-                className="rounded-2xl border border-border/60 bg-muted/10 backdrop-blur-md p-5 w-full text-left overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300"
+                className="rounded-2xl border-0 md:border md:border-border/60 bg-muted/10 backdrop-blur-md pt-6 pb-4 px-1 sm:p-5 md:p-5 w-full text-left overflow-hidden shadow-none md:shadow-sm md:hover:shadow-md transition-shadow duration-300 first:pt-0"
               >
                 <div className="space-y-4">
                   {/* Header with Title */}

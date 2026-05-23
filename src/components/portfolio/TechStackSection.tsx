@@ -196,7 +196,7 @@ const TechStackSection = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={isVisible ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="group relative bg-card/40 backdrop-blur-sm rounded-2xl border border-border/40 p-6 hover:border-border/80 transition-all duration-500 overflow-hidden flex flex-col justify-between"
+              className="group relative bg-card/40 backdrop-blur-sm rounded-2xl border-0 md:border md:border-border/40 p-5 sm:p-6 hover:border-border/80 transition-all duration-500 overflow-hidden flex flex-col justify-between"
             >
               
               <div className="relative z-10 w-full">
@@ -213,7 +213,7 @@ const TechStackSection = () => {
                         key={skill.name} 
                         className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl bg-muted/30 border border-border/50 hover:border-border hover:bg-muted/60 transition-all duration-300 group/skill w-full"
                       >
-                        <Icon className={`w-4.5 h-4.5 transition-transform duration-300 group-hover/skill:scale-105 shrink-0 ${skill.color}`} />
+                        <Icon className={`w-[18px] h-[18px] transition-transform duration-300 group-hover/skill:scale-105 shrink-0 ${skill.color}`} />
                         <span className="text-xs font-semibold text-muted-foreground group-hover/skill:text-foreground">
                           {skill.name}
                         </span>

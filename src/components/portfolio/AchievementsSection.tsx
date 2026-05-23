@@ -70,7 +70,7 @@ const AchievementsSection = () => {
               return (
                 <div
                   key={ach.title}
-                  className="flex flex-col justify-between rounded-2xl border border-border/40 bg-muted/5 backdrop-blur-sm p-6 transition-all duration-500 hover:border-border/80 hover:bg-muted/10 group relative overflow-hidden min-h-[220px] h-full"
+                  className="flex flex-col justify-between rounded-2xl border-0 md:border md:border-border/40 bg-muted/5 backdrop-blur-sm p-5 sm:p-6 transition-all duration-500 hover:border-border/80 hover:bg-muted/10 group relative overflow-hidden min-h-[200px] sm:min-h-[220px] h-full"
                 >
                   <div className="flex items-start justify-between">
                     <div className={`w-10 h-10 rounded-xl flex items-center justify-center border ${ach.iconColor}`}>
@@ -117,7 +117,7 @@ const AchievementsSection = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
             {/* Patent Card (Zero Shadow Glow, Clean Simple Neutral Border) */}
-            <div className="flex flex-col justify-between rounded-2xl border border-border/40 bg-muted/5 backdrop-blur-sm p-6 transition-all duration-500 hover:border-border/80 hover:bg-muted/10 group relative overflow-hidden min-h-[180px] md:min-h-[190px]">
+            <div className="flex flex-col justify-between rounded-2xl border-0 md:border md:border-border/40 bg-muted/5 backdrop-blur-sm p-5 sm:p-6 transition-all duration-500 hover:border-border/80 hover:bg-muted/10 group relative overflow-hidden min-h-[180px] md:min-h-[190px]">
               <div className="flex items-center justify-between">
                 <span className="px-2.5 py-0.5 rounded bg-muted text-[10px] font-bold tracking-wider text-muted-foreground border border-border/40 uppercase">
                   Patent
@@ -144,7 +144,7 @@ const AchievementsSection = () => {
             </div>
 
             {/* Research Paper Card (Zero Shadow Glow, Clean Simple Neutral Border) */}
-            <div className="flex flex-col justify-between rounded-2xl border border-border/40 bg-muted/5 backdrop-blur-sm p-6 transition-all duration-500 hover:border-border/80 hover:bg-muted/10 group relative overflow-hidden min-h-[180px] md:min-h-[190px]">
+            <div className="flex flex-col justify-between rounded-2xl border-0 md:border md:border-border/40 bg-muted/5 backdrop-blur-sm p-5 sm:p-6 transition-all duration-500 hover:border-border/80 hover:bg-muted/10 group relative overflow-hidden min-h-[180px] md:min-h-[190px]">
               <div className="flex items-center justify-between">
                 <span className="px-2.5 py-0.5 rounded bg-muted text-[10px] font-bold tracking-wider text-muted-foreground border border-border/40 uppercase">
                   Research Paper

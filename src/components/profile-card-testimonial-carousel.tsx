@@ -8,6 +8,7 @@ import {
   Trophy,
 } from "lucide-react";
 import { SiLeetcode, SiX, SiGithub, SiLinkedin } from "react-icons/si";
+import { CodeforcesIcon } from "@/components/ui/codeforces-icon";
 import { cn } from "@/lib/utils";
 
 export interface AboutMeCardProps {
@@ -28,15 +29,17 @@ export function TestimonialCarousel({ className }: AboutMeCardProps) {
     twitterUrl: "https://x.com/RiteshS18572143",
     linkedinUrl: "https://www.linkedin.com/in/ritesh-singh1/",
     leetcodeUrl: "https://leetcode.com/u/neutron420",
+    codeforcesUrl: "https://codeforces.com/profile/Coder-04Rit",
     emailUrl: "mailto:fnaticritesh2004@gmail.com",
   };
 
   const socialLinks = [
-    { icon: SiGithub, url: profile.githubUrl, label: "GitHub", color: "hover:text-[#2496ED]" },
-    { icon: SiX, url: profile.twitterUrl, label: "X", color: "hover:text-foreground" },
-    { icon: SiLinkedin, url: profile.linkedinUrl, label: "LinkedIn", color: "hover:text-[#0A66C2]" },
-    { icon: SiLeetcode, url: profile.leetcodeUrl, label: "LeetCode", color: "hover:text-[#FFA116]" },
-    { icon: Mail, url: profile.emailUrl, label: "Email", color: "hover:text-[#EA4335]" },
+    { icon: SiGithub, url: profile.githubUrl, label: "GitHub", brandColor: "currentColor", hoverBorder: "hover:border-foreground" },
+    { icon: SiX, url: profile.twitterUrl, label: "X", brandColor: "currentColor", hoverBorder: "hover:border-foreground" },
+    { icon: SiLinkedin, url: profile.linkedinUrl, label: "LinkedIn", brandColor: "#0A66C2", hoverBorder: "hover:border-[#0A66C2]" },
+    { icon: SiLeetcode, url: profile.leetcodeUrl, label: "LeetCode", brandColor: "#FFA116", hoverBorder: "hover:border-[#FFA116]" },
+    { icon: CodeforcesIcon, url: profile.codeforcesUrl, label: "Codeforces", brandColor: undefined, hoverBorder: "hover:border-[#1890FF]" },
+    { icon: Mail, url: profile.emailUrl, label: "Email", brandColor: "#EA4335", hoverBorder: "hover:border-[#EA4335]" },
   ];
 
   return (
@@ -87,19 +90,19 @@ export function TestimonialCarousel({ className }: AboutMeCardProps) {
           </div>
 
           <div className="flex space-x-3.5 pt-2">
-            {socialLinks.map(({ icon: IconComponent, url, label, color }) => (
+            {socialLinks.map(({ icon: IconComponent, url, label, brandColor, hoverBorder }) => (
               <a
                 key={label}
                 href={url || "#"}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={cn(
-                  "w-10 h-10 bg-background dark:bg-muted/30 border border-border/60 hover:border-accent rounded-xl flex items-center justify-center transition-all duration-300 hover:-translate-y-1 shadow-sm",
-                  color
+                  "w-10 h-10 bg-background dark:bg-muted/30 border border-border/60 rounded-xl flex items-center justify-center transition-all duration-300 hover:-translate-y-1 shadow-sm",
+                  hoverBorder
                 )}
                 aria-label={label}
               >
-                <IconComponent className="w-4.5 h-4.5" />
+                <IconComponent className="w-[18px] h-[18px]" style={{ color: brandColor }} />
               </a>
             ))}
           </div>
@@ -107,7 +110,7 @@ export function TestimonialCarousel({ className }: AboutMeCardProps) {
       </div>
 
       {/* Mobile layout */}
-      <div className="md:hidden max-w-md mx-auto text-center bg-card border border-border/60 rounded-3xl p-6 shadow-lg">
+      <div className="md:hidden max-w-md mx-auto text-center bg-card/50 rounded-3xl p-5 sm:p-6">
         {/* Avatar */}
         <div className="w-36 h-36 mx-auto rounded-2xl overflow-hidden border-2 border-accent/50 shadow-md mb-5 relative">
           <img
@@ -147,20 +150,20 @@ export function TestimonialCarousel({ className }: AboutMeCardProps) {
             </div>
           </div>
           
-          <div className="flex justify-center space-x-3 pt-2">
-            {socialLinks.map(({ icon: IconComponent, url, label, color }) => (
+          <div className="flex justify-center flex-wrap gap-3 pt-2">
+            {socialLinks.map(({ icon: IconComponent, url, label, brandColor, hoverBorder }) => (
               <a
                 key={label}
                 href={url || "#"}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={cn(
-                  "w-9 h-9 bg-background dark:bg-muted/40 border border-border/50 rounded-lg flex items-center justify-center transition-all duration-200 active:scale-95",
-                  color
+                  "w-10 h-10 bg-background dark:bg-muted/40 border border-border/50 rounded-lg flex items-center justify-center transition-all duration-200 active:scale-95",
+                  hoverBorder
                 )}
                 aria-label={label}
               >
-                <IconComponent className="w-4 h-4" />
+                <IconComponent className="w-[18px] h-[18px]" style={{ color: brandColor }} />
               </a>
             ))}
           </div>

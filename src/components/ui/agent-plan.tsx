@@ -474,15 +474,15 @@ export default function Plan({ initialTasks: propTasks }: { initialTasks?: Task[
                             }}
                           >
                             {task.status === "completed" ? (
-                              <CheckCircle2 className="h-4.5 w-4.5 text-green-500" />
+                              <CheckCircle2 className="h-[18px] w-[18px] text-green-500" />
                             ) : task.status === "in-progress" ? (
-                              <CircleDotDashed className="h-4.5 w-4.5 text-blue-500" />
+                              <CircleDotDashed className="h-[18px] w-[18px] text-blue-500" />
                             ) : task.status === "need-help" ? (
-                              <CircleAlert className="h-4.5 w-4.5 text-yellow-500" />
+                              <CircleAlert className="h-[18px] w-[18px] text-yellow-500" />
                             ) : task.status === "failed" ? (
-                              <CircleX className="h-4.5 w-4.5 text-red-500" />
+                              <CircleX className="h-[18px] w-[18px] text-red-500" />
                             ) : (
-                              <Circle className="text-muted-foreground h-4.5 w-4.5" />
+                              <Circle className="text-muted-foreground h-[18px] w-[18px]" />
                             )}
                           </motion.div>
                         </AnimatePresence>
